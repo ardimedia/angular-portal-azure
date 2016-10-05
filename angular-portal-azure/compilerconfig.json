@@ -1,0 +1,26 @@
+﻿[
+  {
+    "outputFile": "!Design/!design.css",
+    "inputFile": "!Design/!design.scss"
+  },
+  {
+    "outputFile": "!Design/!libmixin.css",
+    "inputFile": "!Design/!libmixin.scss"
+  },
+  {
+    "outputFile": "!Design/portallayout.css",
+    "inputFile": "!Design/portallayout.scss"
+  },
+  {
+    "outputFile": "!Design/themems.css",
+    "inputFile": "!Design/themems.scss"
+  },
+  {
+    "outputFile": "dist/azureportalng/css/azureportalstyleng.css",
+    "inputFile": "dist/azureportalng/css/azureportalstyleng.scss"
+  },
+  {
+    "outputFile": "dist/azureportalng/css/aap.css",
+    "inputFile": "dist/azureportalng/css/aap.scss"
+  }
+]
