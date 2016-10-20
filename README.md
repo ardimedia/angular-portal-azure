@@ -14,6 +14,4 @@ We are in the process of migrating to Angular 2. The following are our Github re
 
 **azureportalstyleng**: This is the first `angular portal azure`-style version, based on Angular 1.
 
-**angular-portal-azure**: We try to migrate from Angular 1 to Angular 2 and still be compatible with our first version.
-
-**angular-portal-azure.new**: If ``angular-portal-azure`` does not come out good, we will forget about compatibility and move to a brand new version.
+**angular-portal-azure**: This project will be based on Angular 2.

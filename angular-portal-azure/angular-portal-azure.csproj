@@ -162,7 +162,11 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
+    <Content Include="themes\azureblue\style.css" />
+    <Content Include="themes\azureblue\style.min.css" />
+    <Content Include="themes\index.html" />
     <Content Include="tsconfig.json" />
+    <Content Include="themes\azureblue\style.scss" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
