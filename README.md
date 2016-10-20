@@ -1,8 +1,8 @@
 # angular-portal-azure
 
-A HTML framework for building a Azure Portal style web site.
-
 Very early preview.
+
+A HTML framework for building a Azure Portal style web site.
 
 This is a Framework for building UI system, based on the behavior of Azure portal.
 You will get the same user experience as in the Azure portal.
