@@ -9,11 +9,7 @@ Change Version in:
 
 DOS commands:
 
-    CLS
-    GULP clean-dist
-    GULP build-apn
-
-    (by hand) COMPILE the solution
+    BUILD.BAT
 
     C:\APP\nuget\nuget.exe pack package.nuspec -OutputDirectory dist
     COPY dist\azureportalng.0.2.1-beta.nupkg \\SVRTFS01.ardimedia.com\d$\!Data\NuGet\Packages

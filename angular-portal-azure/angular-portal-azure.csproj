@@ -102,7 +102,6 @@
     <Content Include="design\portallayout.min.css">
       <DependentUpon>portallayout.css</DependentUpon>
     </Content>
-    <Content Include="gulpfile.js" />
     <Content Include="package.json" />
     <Content Include="build.bat" />
     <None Include="compilerconfig.json" />

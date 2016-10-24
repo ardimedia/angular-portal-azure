@@ -64,7 +64,6 @@
     <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="gulpfile.js" />
     <Content Include="app\blade11\blade11.html" />
     <Content Include="app\blade21\blade21.html" />
     <Content Include="app\blade2\blade2.html" />
