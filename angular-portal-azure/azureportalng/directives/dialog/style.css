@@ -2,32 +2,31 @@
 @-webkit-keyframes ngdialog-fadeout {
   0% {
     opacity: 1; }
-
   100% {
     opacity: 0; } }
 
 @keyframes ngdialog-fadeout {
   0% {
     opacity: 1; }
-
   100% {
     opacity: 0; } }
 
 @-webkit-keyframes ngdialog-fadein {
   0% {
     opacity: 0; }
-
   100% {
     opacity: 1; } }
 
 @keyframes ngdialog-fadein {
   0% {
     opacity: 0; }
-
   100% {
     opacity: 1; } }
 
-.ngdialog, .ngdialog *, .ngdialog *:before, .ngdialog *:after {
+.ngdialog,
+.ngdialog *,
+.ngdialog *:before,
+.ngdialog *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
@@ -84,7 +83,6 @@ body.ngdialog-open {
     opacity: 0;
     -webkit-transform: translateY(-40px);
     transform: translateY(-40px); }
-
   100% {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -96,7 +94,6 @@ body.ngdialog-open {
     -webkit-transform: translateY(-40px);
     -ms-transform: translateY(-40px);
     transform: translateY(-40px); }
-
   100% {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -108,7 +105,6 @@ body.ngdialog-open {
     opacity: 1;
     -webkit-transform: translateY(0);
     transform: translateY(0); }
-
   100% {
     opacity: 0;
     -webkit-transform: translateY(-40px);
@@ -120,7 +116,6 @@ body.ngdialog-open {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0); }
-
   100% {
     opacity: 0;
     -webkit-transform: translateY(-40px);
@@ -132,16 +127,16 @@ body.ngdialog-open {
   padding-top: 160px; }
 
 .ngdialog.ngdialog-theme-default.ngdialog-closing .ngdialog-content {
-  -webkit-animation: ngdialog-flyout 0.5s;
-  animation: ngdialog-flyout 0.5s; }
+  -webkit-animation: ngdialog-flyout .5s;
+  animation: ngdialog-flyout .5s; }
 
 .ngdialog.ngdialog-theme-default .ngdialog-content {
-  -webkit-animation: ngdialog-flyin 0.5s;
-  animation: ngdialog-flyin 0.5s;
+  -webkit-animation: ngdialog-flyin .5s;
+  animation: ngdialog-flyin .5s;
   background: #f0f0f0;
   border-radius: 5px;
   color: #444;
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'Helvetica',sans-serif;
   font-size: 1.1em;
   line-height: 1.5em;
   margin: 0 auto;
@@ -172,28 +167,37 @@ body.ngdialog-open {
   top: 3px;
   width: 30px; }
 
-.ngdialog.ngdialog-theme-default .ngdialog-close:hover:before, .ngdialog.ngdialog-theme-default .ngdialog-close:active:before {
+.ngdialog.ngdialog-theme-default .ngdialog-close:hover:before,
+.ngdialog.ngdialog-theme-default .ngdialog-close:active:before {
   color: #777; }
 
 .ngdialog.ngdialog-theme-default .ngdialog-message {
-  margin-bottom: 0.5em; }
+  margin-bottom: .5em; }
 
 .ngdialog.ngdialog-theme-default .ngdialog-input {
   margin-bottom: 1em; }
 
-.ngdialog.ngdialog-theme-default .ngdialog-input textarea, .ngdialog.ngdialog-theme-default .ngdialog-input input[type="text"], .ngdialog.ngdialog-theme-default .ngdialog-input input[type="password"], .ngdialog.ngdialog-theme-default .ngdialog-input input[type="email"], .ngdialog.ngdialog-theme-default .ngdialog-input input[type="url"] {
+.ngdialog.ngdialog-theme-default .ngdialog-input textarea,
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="text"],
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="password"],
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="email"],
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="url"] {
   background: #fff;
   border: 0;
   border-radius: 3px;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
-  margin: 0 0 0.25em;
+  margin: 0 0 .25em;
   min-height: 2.5em;
-  padding: 0.25em 0.67em;
+  padding: .25em .67em;
   width: 100%; }
 
-.ngdialog.ngdialog-theme-default .ngdialog-input textarea:focus, .ngdialog.ngdialog-theme-default .ngdialog-input input[type="text"]:focus, .ngdialog.ngdialog-theme-default .ngdialog-input input[type="password"]:focus, .ngdialog.ngdialog-theme-default .ngdialog-input input[type="email"]:focus, .ngdialog.ngdialog-theme-default .ngdialog-input input[type="url"]:focus {
+.ngdialog.ngdialog-theme-default .ngdialog-input textarea:focus,
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="text"]:focus,
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="password"]:focus,
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="email"]:focus,
+.ngdialog.ngdialog-theme-default .ngdialog-input input[type="url"]:focus {
   -webkit-box-shadow: inset 0 0 0 2px #8dbdf1;
   box-shadow: inset 0 0 0 2px #8dbdf1;
   outline: none; }
@@ -212,11 +216,11 @@ body.ngdialog-open {
   cursor: pointer;
   float: right;
   font-family: inherit;
-  font-size: 0.8em;
-  letter-spacing: 0.1em;
+  font-size: .8em;
+  letter-spacing: .1em;
   line-height: 1em;
-  margin: 0 0 0 0.5em;
-  padding: 0.75em 2em;
+  margin: 0 0 0 .5em;
+  padding: .75em 2em;
   text-transform: uppercase; }
 
 .ngdialog.ngdialog-theme-default .ngdialog-button:focus {
@@ -227,8 +231,7 @@ body.ngdialog-open {
 @media (max-width: 568px) {
   .ngdialog.ngdialog-theme-default .ngdialog-button:focus {
     -webkit-animation: none;
-    animation: none; }
- }
+    animation: none; } }
 
 .ngdialog.ngdialog-theme-default .ngdialog-button.ngdialog-button-primary {
   background: #3288e6;
@@ -247,7 +250,7 @@ body.ngdialog-open {
 .ngdialog.ngdialog-theme-plain .ngdialog-content {
   background: #fff;
   color: #444;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue',sans-serif;
   font-size: 1.1em;
   line-height: 1.5em;
   margin: 0 auto;
@@ -256,7 +259,15 @@ body.ngdialog-open {
   position: relative;
   width: 450px; }
 
-.ngdialog.ngdialog-theme-plain .ngdialog-content h1, .ngdialog.ngdialog-theme-plain .ngdialog-content h2, .ngdialog.ngdialog-theme-plain .ngdialog-content h3, .ngdialog.ngdialog-theme-plain .ngdialog-content h4, .ngdialog.ngdialog-theme-plain .ngdialog-content h5, .ngdialog.ngdialog-theme-plain .ngdialog-content h6, .ngdialog.ngdialog-theme-plain .ngdialog-content p, .ngdialog.ngdialog-theme-plain .ngdialog-content ul, .ngdialog.ngdialog-theme-plain .ngdialog-content li {
+.ngdialog.ngdialog-theme-plain .ngdialog-content h1,
+.ngdialog.ngdialog-theme-plain .ngdialog-content h2,
+.ngdialog.ngdialog-theme-plain .ngdialog-content h3,
+.ngdialog.ngdialog-theme-plain .ngdialog-content h4,
+.ngdialog.ngdialog-theme-plain .ngdialog-content h5,
+.ngdialog.ngdialog-theme-plain .ngdialog-content h6,
+.ngdialog.ngdialog-theme-plain .ngdialog-content p,
+.ngdialog.ngdialog-theme-plain .ngdialog-content ul,
+.ngdialog.ngdialog-theme-plain .ngdialog-content li {
   color: inherit; }
 
 .ngdialog.ngdialog-theme-plain .ngdialog-close {
@@ -279,27 +290,36 @@ body.ngdialog-open {
   top: 3px;
   width: 30px; }
 
-.ngdialog.ngdialog-theme-plain .ngdialog-close:hover:before, .ngdialog.ngdialog-theme-plain .ngdialog-close:active:before {
+.ngdialog.ngdialog-theme-plain .ngdialog-close:hover:before,
+.ngdialog.ngdialog-theme-plain .ngdialog-close:active:before {
   color: #777; }
 
 .ngdialog.ngdialog-theme-plain .ngdialog-message {
-  margin-bottom: 0.5em; }
+  margin-bottom: .5em; }
 
 .ngdialog.ngdialog-theme-plain .ngdialog-input {
   margin-bottom: 1em; }
 
-.ngdialog.ngdialog-theme-plain .ngdialog-input textarea, .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="text"], .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="password"], .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="email"], .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="url"] {
+.ngdialog.ngdialog-theme-plain .ngdialog-input textarea,
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="text"],
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="password"],
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="email"],
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="url"] {
   background: #f0f0f0;
   border: 0;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
-  margin: 0 0 0.25em;
+  margin: 0 0 .25em;
   min-height: 2.5em;
-  padding: 0.25em 0.67em;
+  padding: .25em .67em;
   width: 100%; }
 
-.ngdialog.ngdialog-theme-plain .ngdialog-input textarea:focus, .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="text"]:focus, .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="password"]:focus, .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="email"]:focus, .ngdialog.ngdialog-theme-plain .ngdialog-input input[type="url"]:focus {
+.ngdialog.ngdialog-theme-plain .ngdialog-input textarea:focus,
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="text"]:focus,
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="password"]:focus,
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="email"]:focus,
+.ngdialog.ngdialog-theme-plain .ngdialog-input input[type="url"]:focus {
   -webkit-box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
   outline: none; }
@@ -314,11 +334,11 @@ body.ngdialog-open {
   cursor: pointer;
   float: right;
   font-family: inherit;
-  font-size: 0.8em;
-  letter-spacing: 0.1em;
+  font-size: .8em;
+  letter-spacing: .1em;
   line-height: 1em;
-  margin: 0 0 0 0.5em;
-  padding: 0.75em 2em;
+  margin: 0 0 0 .5em;
+  padding: .75em 2em;
   text-transform: uppercase; }
 
 .ngdialog.ngdialog-theme-plain .ngdialog-button:focus {
@@ -329,8 +349,7 @@ body.ngdialog-open {
 @media (max-width: 568px) {
   .ngdialog.ngdialog-theme-plain .ngdialog-button:focus {
     -webkit-animation: none;
-    animation: none; }
- }
+    animation: none; } }
 
 .ngdialog.ngdialog-theme-plain .ngdialog-button.ngdialog-button-primary {
   background: #3288e6;
@@ -341,4 +360,4 @@ body.ngdialog-open {
   color: #777; }
 
 /*#endregion*/
-/*# sourceMappingURL=style.css.map */
+

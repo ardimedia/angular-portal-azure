@@ -1,13 +1,13 @@
-﻿describe('AzurePortal.BladeList', function () {
+﻿describe('AzurePortalNg.BladeList', function () {
 
-    var sut: AzurePortal.BladeList;
-    var portalService: AzurePortal.PortalService;
+    var sut: AzurePortalNg.BladeList;
+    var portalService: AzurePortalNg.PortalService;
 
     beforeEach(angular.mock.module('azureportalng'));
 
     beforeEach(angular.mock.inject(function ($injector) {
         portalService = $injector.get('azurePortalNg.portalService');
-        sut = new AzurePortal.BladeList(portalService, 'test-path', 'test-title');
+        sut = new AzurePortalNg.BladeList(portalService, 'test-path', 'test-title');
     }));
 
     //#region Specs for Constructor
@@ -25,7 +25,7 @@
     //it("activate - throw exception, since getDataList() is abstract", function () {
     //    var exception = function () { sut.activate(); };
 
-    //    expect(exception).toThrow(new Error('[AzurePortal.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
+    //    expect(exception).toThrow(new Error('[azureportalng.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
     //});
 
     //#endregion

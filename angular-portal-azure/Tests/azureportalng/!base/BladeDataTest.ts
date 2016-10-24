@@ -1,13 +1,13 @@
-﻿describe('AzurePortal.BladeData', function () {
+﻿describe('AzurePortalNg.BladeData', function () {
 
-    var sut: AzurePortal.BladeData;
-    var portalService: AzurePortal.PortalService;
+    var sut: AzurePortalNg.BladeData;
+    var portalService: AzurePortalNg.PortalService;
 
     beforeEach(angular.mock.module('azureportalng'));
 
     beforeEach(angular.mock.inject(function ($injector) {
         portalService = $injector.get('azurePortalNg.portalService');
-        sut = new AzurePortal.BladeData(portalService, 'test-path', 'test-title');
+        sut = new AzurePortalNg.BladeData(portalService, 'test-path', 'test-title');
     }));
 
     //#region Specs for Constructor
@@ -28,7 +28,7 @@
     //it("getDataList throws expection", function () {
     //    var exception = function () { sut.getDataList(); };
 
-    //    expect(exception).toThrow(new Error('[AzurePortal.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
+    //    expect(exception).toThrow(new Error('[azureportalng.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
     //    expect(sut.statusbar).toBe('Daten laden...');
     //    expect(sut.statusbarClass).toBe('');
     //});
@@ -40,7 +40,7 @@
     //it("getDataDetail throws expection", function () {
     //    var exception = function () { sut.getDataDetail(); };
 
-    //    expect(exception).toThrow(new Error('[AzurePortal.BladeData] \'onGetDataDetail\' is an abstract function. Define one in the derived class.'));
+    //    expect(exception).toThrow(new Error('[azureportalng.BladeData] \'onGetDataDetail\' is an abstract function. Define one in the derived class.'));
     //    expect(sut.statusbar).toBe('Daten laden...');
     //    expect(sut.statusbarClass).toBe('');
     //});

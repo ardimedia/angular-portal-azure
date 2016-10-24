@@ -1,15 +1,15 @@
-﻿describe('AzurePortal.Debug', function () {
+﻿describe('AzurePortalNg.Debug', function () {
 
     beforeEach(function () {
-        AzurePortal.Debug.isEnabled = false;
-        AzurePortal.Debug.isWithObjects = false;
-        AzurePortal.Debug.keys = new Array<string>();
+        Debug.isEnabled = false;
+        Debug.isWithObjects = false;
+        Debug.keys = new Array<string>();
     });
 
     //#region Specs for Constructor
 
     it("Constructor successful.", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
 
         expect(sut.isEnabled).toBe(false);
         expect(sut.isWithObjects).toBe(false);
@@ -24,35 +24,35 @@
     //#region Function: extractKey
 
     it("extractKey('[key1] abc') must return [key1]", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         var result = sut.extractKey('[key1] abc');
 
         expect(result).toBe('[key1]');
     });
 
     it("extractKey('') must return an empty string", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         var result = sut.extractKey('');
 
         expect(result).toBe('');
     });
 
     it("extractKey(' [key1] abc') must return an empty string", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         var result = sut.extractKey(' [key1] abc');
 
         expect(result).toBe('');
     });
 
     it("extractKey('[key1 abc') must return an empty string", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         var result = sut.extractKey('[key1 abc');
 
         expect(result).toBe('');
     });
 
     it("extractKey('key1] abc') must return an empty string", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         var result = sut.extractKey('key1] abc');
 
         expect(result).toBe('');
@@ -63,7 +63,7 @@
     //#region Function: enable
 
     it("enable('') must enable debugging with no keys", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('');
 
         expect(sut.isEnabled).toBe(true);
@@ -71,7 +71,7 @@
     });
 
     it("enable('[key1]') must enable debugging with key = '[key1]'", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('[key1]');
 
         expect(sut.isEnabled).toBe(true);
@@ -80,7 +80,7 @@
     });
 
     it("enable('[key1]') must enable debugging with key = '[key1]' and .enable('[key2]')", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('[key1]');
         sut.enable('[key2]');
 
@@ -95,7 +95,7 @@
     //#region Function: disable
 
     it("disable('') must disable debugging. No more keys are defined", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('');
         sut.disable('');
 
@@ -104,7 +104,7 @@
     });
 
     it("disable('') must not disable debugging. Some keys are still defined", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('');
         sut.enable('[key1]');
         sut.disable('');
@@ -114,7 +114,7 @@
     });
 
     it("disable('[key1]') must disable debugging and remove key = '[key1]'. No more keys are defined", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('[key1]');
         sut.disable('[key1]');
 
@@ -123,7 +123,7 @@
     });
 
     it("disable('[key1]') must not disable debugging but remove key = '[key1]'. Some keys are still defined", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('[key1]');
         sut.enable('[key2]');
         sut.disable('[key1]');
@@ -137,7 +137,7 @@
     //#region Function: isInKeys
 
     it("isInKeys('') will not be logged", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('');
         sut.disable('');
         var result = sut.isInKeys('');
@@ -146,7 +146,7 @@
     });
 
     it("isInKeys('[key1]') will not be logged. No keys defined", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('');
         sut.disable('');
         var result = sut.isInKeys('[key1]');
@@ -155,7 +155,7 @@
     });
 
     it("isInKeys('[key1]') will be logged. [key1] is defined", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('[key1]');
         sut.disable('');
         var result = sut.isInKeys('[key1]');
@@ -168,7 +168,7 @@
     //#region Function: write
 
     it("write('') will not be logged in the console", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('');
         sut.disable('');
         var result = sut.write('');
@@ -177,7 +177,7 @@
     });
 
     it("write('[key1] TestRunner test output') will be logged in the console", function () {
-        var sut = AzurePortal.Debug;
+        var sut = AzurePortalNg.Debug;
         sut.enable('[key1]');
         sut.disable('');
         var result = sut.write('[key1] TestRunner test output successfull');

@@ -1,6 +1,6 @@
-﻿describe('AzurePortal.PortalService', function () {
+﻿describe('AzurePortalNg.PortalService', function () {
 
-    var sut: AzurePortal.PortalService;
+    var sut: AzurePortalNg.PortalService;
 
     beforeEach(angular.mock.module('azureportalng'));
 
@@ -14,7 +14,7 @@
 
         expect(sut).not.toBe(null);
         expect(sut).not.toBe(undefined);
-        expect(sut instanceof AzurePortal.PortalService).toBe(true);
+        expect(sut instanceof AzurePortalNg.PortalService).toBe(true);
 
         // NOT TO BE NULL
         expect(sut).not.toBe(undefined);

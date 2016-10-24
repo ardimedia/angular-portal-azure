@@ -62,61 +62,61 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="!Design\!libmixin.css">
-      <DependentUpon>!libmixin.scss</DependentUpon>
+    <Content Include="azureportalng\css\apn.css">
+      <DependentUpon>apn.scss</DependentUpon>
     </Content>
-    <Content Include="!Design\!libmixin.min.css">
-      <DependentUpon>!libmixin.css</DependentUpon>
+    <Content Include="azureportalng\css\apn.min.css">
+      <DependentUpon>apn.css</DependentUpon>
     </Content>
-    <Content Include="!Design\!design.css">
-      <DependentUpon>!design.scss</DependentUpon>
+    <Content Include="design\design.css">
+      <DependentUpon>design.scss</DependentUpon>
     </Content>
-    <Content Include="!Design\!design.min.css">
-      <DependentUpon>!design.css</DependentUpon>
+    <Content Include="design\design.min.css">
+      <DependentUpon>design.css</DependentUpon>
     </Content>
-    <Content Include="!Design\!test\azure.html" />
-    <Content Include="!Design\!test\required\test1.html" />
-    <Content Include="!Design\!test\test.css">
+    <Content Include="design\libmixin.css">
+      <DependentUpon>libmixin.scss</DependentUpon>
+    </Content>
+    <Content Include="design\libmixin.min.css">
+      <DependentUpon>libmixin.css</DependentUpon>
+    </Content>
+    <Content Include="design\test\azure.html" />
+    <Content Include="design\test\required\test1.html" />
+    <Content Include="design\test\test.css">
       <DependentUpon>test.scss</DependentUpon>
     </Content>
-    <Content Include="!Design\!test\test.min.css">
+    <Content Include="design\test\test.min.css">
       <DependentUpon>test.css</DependentUpon>
     </Content>
-    <Content Include="!Design\fromMsPortal\style0.css" />
-    <Content Include="!Design\fromMsPortal\style1.css" />
-    <Content Include="!Design\themems.css">
+    <Content Include="design\fromMsPortal\style0.css" />
+    <Content Include="design\fromMsPortal\style1.css" />
+    <Content Include="design\themems.css">
       <DependentUpon>themems.scss</DependentUpon>
     </Content>
-    <Content Include="!Design\themems.min.css">
+    <Content Include="design\themems.min.css">
       <DependentUpon>themems.css</DependentUpon>
     </Content>
-    <Content Include="!Design\portallayout.css">
+    <Content Include="design\portallayout.css">
       <DependentUpon>portallayout.scss</DependentUpon>
     </Content>
-    <Content Include="!Design\portallayout.min.css">
+    <Content Include="design\portallayout.min.css">
       <DependentUpon>portallayout.css</DependentUpon>
     </Content>
-    <None Include="README.md" />
-    <Content Include="dist\azureportalng\css\aap.css">
-      <DependentUpon>aap.scss</DependentUpon>
-    </Content>
-    <Content Include="dist\azureportalng\css\aap.min.css">
-      <DependentUpon>aap.css</DependentUpon>
-    </Content>
-    <Content Include="dist\azureportalng\js\apn.js" />
     <Content Include="gulpfile.js" />
     <Content Include="package.json" />
+    <Content Include="build.bat" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Tests\azureportalng\tests.js" />
-    <Content Include="Tests\azureportalng\tests.min.js">
+    <Content Include="package.nuspec" />
+    <Content Include="README.md" />
+    <Content Include="tests\AzurePortalNg\tests.js" />
+    <Content Include="tests\AzurePortalNg\tests.min.js">
       <DependentUpon>tests.js</DependentUpon>
     </Content>
-    <Content Include="Tests\index.html" />
-    <Content Include="azureportalng\directives\dialog\!Readme.txt" />
-    <Content Include="azureportalng\directives\dialog\dialog.js" />
+    <Content Include="tests\index.html" />
+    <None Include="azureportalng\directives\dialog\README.md" />
     <Content Include="azureportalng\directives\dialog\style.css">
       <DependentUpon>style.scss</DependentUpon>
     </Content>
@@ -124,97 +124,75 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="azureportalng\directives\dialog\style.scss" />
-    <Content Include="azureportalng\directives\dialog\partial1.html" />
-    <Content Include="azureportalng\directives\dialog\test2.html" />
-    <Content Include="azureportalng\directives\dialog\test.html" />
-    <Content Include="azureportalng\portal\directives\blade\blade.html" />
-    <Content Include="azureportalng\portal\directives\home\home.html" />
-    <Content Include="azureportalng\portal\directives\nav\nav.html" />
-    <Content Include="azureportalng\portal\directives\navgrid\navgrid.html" />
-    <Content Include="dist\azureportalng\images\apn.png" />
-    <Content Include="dist\azureportalng\images\avatar.jpg" />
-    <Content Include="index.html" />
-    <Content Include="!Design\!design.scss" />
-    <Content Include="!Design\!design.css.map">
-      <DependentUpon>!design.css</DependentUpon>
-    </Content>
-    <Content Include="dist\azureportalng\css\aap.scss" />
-    <Content Include="!Design\portallayout.scss" />
-    <Content Include="!Design\portallayout.css.map">
+    <Content Include="azureportalng\directives\blade\blade.html" />
+    <Content Include="azureportalng\directives\home\home.html" />
+    <Content Include="azureportalng\directives\nav\nav.html" />
+    <Content Include="azureportalng\directives\navgrid\navgrid.html" />
+    <Content Include="azureportalng\images\apn.png" />
+    <Content Include="azureportalng\images\avatar.jpg" />
+    <Content Include="design\design.scss" />
+    <Content Include="azureportalng\css\apn.scss" />
+    <Content Include="design\portallayout.scss" />
+    <Content Include="design\portallayout.css.map">
       <DependentUpon>portallayout.css</DependentUpon>
     </Content>
-    <Content Include="!Design\!test\test.scss" />
-    <Content Include="!Design\!test\test.css.map">
+    <Content Include="design\test\test.scss" />
+    <Content Include="design\test\test.css.map">
       <DependentUpon>test.css</DependentUpon>
     </Content>
-    <Content Include="!Design\themems.scss" />
-    <Content Include="!Design\themems.css.map">
+    <Content Include="design\themems.scss" />
+    <Content Include="design\themems.css.map">
       <DependentUpon>themems.css</DependentUpon>
     </Content>
-    <Content Include="!Design\!libmixin.scss" />
-    <Content Include="!Design\!libmixin.css.map">
-      <DependentUpon>!libmixin.css</DependentUpon>
-    </Content>
+    <Content Include="design\libmixin.scss" />
     <Content Include="azureportalng\directives\dialog\style.css.map">
       <DependentUpon>style.css</DependentUpon>
     </Content>
-    <Content Include="nuspec-packager.nuspec">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
-    <Content Include="themes\azureblue\style.css" />
-    <Content Include="themes\azureblue\style.min.css" />
-    <Content Include="themes\index.html" />
     <Content Include="tsconfig.json" />
-    <Content Include="themes\azureblue\style.scss" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="azureportalng\base\AzurePortal.ts" />
-    <TypeScriptCompile Include="azureportalng\base\BladeNavItem.ts" />
-    <TypeScriptCompile Include="azureportalng\base\Exception.ts" />
-    <TypeScriptCompile Include="azureportalng\base\IAddBladeEventArgs.ts" />
-    <TypeScriptCompile Include="azureportalng\base\IBladeParameter.ts" />
-    <TypeScriptCompile Include="azureportalng\base\IException.ts" />
-    <TypeScriptCompile Include="azureportalng\base\Tiles.ts" />
-    <TypeScriptCompile Include="azureportalng\base\TileSize.ts" />
-    <TypeScriptCompile Include="azureportalng\base\TileSizes.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\BladeDataTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\AvatarMenuTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\BladeAreaTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\BladeListTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\PortalServiceTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\BladeTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\UserControlBaseTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\BladeDetailTest.ts" />
-    <TypeScriptCompile Include="Tests\azureportalng\!base\DebugTest.ts" />
-    <TypeScriptCompile Include="azureportalng\base\BladeNav.ts" />
-    <TypeScriptCompile Include="azureportalng\base\UserControlBase.ts" />
-    <TypeScriptCompile Include="azureportalng\base\BladeArea.ts" />
-    <TypeScriptCompile Include="azureportalng\base\Debug.ts" />
-    <TypeScriptCompile Include="azureportalng\portal\directives\nav\nav.ts" />
-    <TypeScriptCompile Include="azureportalng\baseservice\DataService.ts" />
-    <TypeScriptCompile Include="azureportalng\base\PortalService.ts" />
-    <TypeScriptCompile Include="azureportalng\base\Startboard.ts" />
-    <TypeScriptCompile Include="azureportalng\base\UserAccount.ts" />
-    <TypeScriptCompile Include="azureportalng\base\Blade.ts" />
-    <TypeScriptCompile Include="azureportalng\base\AvatarMenu.ts" />
-    <TypeScriptCompile Include="azureportalng\base\Panorama.ts" />
-    <TypeScriptCompile Include="azureportalng\base\PortalShell.ts" />
-    <TypeScriptCompile Include="azureportalng\base\Tile.ts" />
-    <TypeScriptCompile Include="azureportalng\base\BladeData.ts" />
-    <TypeScriptCompile Include="azureportalng\base\BladeDetail.ts" />
-    <TypeScriptCompile Include="azureportalng\base\BladeList.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\03Exception.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\00IAddBladeEventArgs.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDataTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\AvatarMenuTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeAreaTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeListTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\PortalServiceTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\UserControlBaseTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDetailTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\DebugTest.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\30BladeNav.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\10UserControlBase.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\20BladeArea.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\01Debug.ts" />
+    <TypeScriptCompile Include="azureportalng\directives\nav\nav.ts" />
+    <TypeScriptCompile Include="azureportalng\services\DataService.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\07PortalService.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\13Startboard.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\05UserAccount.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\17Blade.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\12AvatarMenu.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\15Panorama.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\35PortalShell.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\32Tile.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\23BladeData.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\25BladeDetail.ts" />
+    <TypeScriptCompile Include="azureportalng\domain\27BladeList.ts" />
     <TypeScriptCompile Include="azureportalng\directives\dirtyflag\dirtyflag.ts" />
     <TypeScriptCompile Include="azureportalng\azureportalng.ts" />
-    <TypeScriptCompile Include="azureportalng\portal\directives\blade\blade.ts" />
-    <TypeScriptCompile Include="azureportalng\portal\directives\home\home.ts" />
-    <TypeScriptCompile Include="azureportalng\portal\directives\navgrid\navgrid.ts" />
-    <TypeScriptCompile Include="azureportalng\portal\services\bladeService.ts" />
+    <TypeScriptCompile Include="azureportalng\directives\blade\blade.ts" />
+    <TypeScriptCompile Include="azureportalng\directives\home\home.ts" />
+    <TypeScriptCompile Include="azureportalng\directives\navgrid\navgrid.ts" />
+    <TypeScriptCompile Include="azureportalng\services\BladeService.ts" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="scripts\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

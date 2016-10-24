@@ -1,23 +1,23 @@
 ﻿/// <reference path="../node_modules/@types/angular/index.d.ts" />
 
-namespace AzurePortalNg {
-    var azurePortalNg: angular.IModule;
+var azurePortalNg: any; // any should be: angular.IModule
 
-    (function () {
-        /** Deinfe Angular module and its dependencies */
-        azurePortalNg = angular.module('azureportalng', [
-            // Angular modules
-            'ngResource',
-            'ngDialog'
-        ]);
+(function () {
+    'use strict';
 
-        azurePortalNg.config([function (): void {
-            //AzurePortal.Debug.enable('[azureportalng-debug]');
-            //AzurePortal.Debug.isWithObjects = false;
-        }]);
+    /** Define Angular module and its dependencies */
+    azurePortalNg = angular.module('azureportalng', [
+    // Angular modules
+        'ngResource',
+        'ngDialog'
+    ]);
 
-        azurePortalNg.run(function () {
-            //AzurePortal.Debug.write('[azureportalng-debug] \'azurePortalNg.run\' executing.', [this]);
-        });
-    })();
-}
+    azurePortalNg.config([function (): void {
+        //Debug.enable('[azureportalng-debug]');
+        //Debug.isWithObjects = false;
+    }]);
+
+    azurePortalNg.run(function () {
+        //Debug.write('[azureportalng-debug] \'azurePortalNg.run\' executing.', [this]);
+    });
+})();

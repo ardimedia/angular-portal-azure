@@ -2,22 +2,20 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
-    "module": "system", // 'amd' or 'system' required wehn outFile is used
-    "moduleResolution": "node", // module resolution either 'node' or 'classic'
-    //"typeRoots": [ "node_modules/@types" ],
-    "outFile": "dist/azureportalng/js/apn.js",
+    "module": "none",
+    "moduleResolution": "node",
+    "outFile": "dist/js/apn.js",
+    "declaration": true,
     "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    //"pretty": true, // Stylize errors and messages using color and context.
-    //"noImplicitAny": true, // raise error on expressions and declarations with an implied 'any' type
-    "declaration": true
+    "noImplicitAny": false
   },
   "exclude": [
     "dist",
     "node_modules",
-    "Scripts",
-    "Tests"
+    "scripts",
+    "tests"
   ]
 }

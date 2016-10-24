@@ -1,36 +1,20 @@
-﻿# COMPILE PROJECT
-
-- gulp clean & gulp
-
-# SETUP NUGET
-
-- nuget.exe should be in the solution folder under .nuget
-- Register NuGet API-KEY (get the API key from nuget.com - only once per machine)
-
-
-## LIST PACKAGE
-
-    CLS
-    D:
-    CD D:\!Data\Code\Git.Github\iwhp\AzurePortalStyleNg\AzurePortalStyleNg\AzurePortalStyleNg.Ui.Web
-    ..\.nuget\nuget list AzurePortalStyleNg -AllVersions -Prerelease -Source nuget.org
-    ..\.nuget\nuget list AzurePortalStyleNg -AllVersions -Prerelease -Source ardimedia.com
-
+﻿## LIST PACKAGE
+C:\APP\nuget\nuget list azureportalng -allversion -prerelease -Source https://nuget.ardimedia.com/nuget
 
 ## DEPLOY TO ARDIMEDIA
 
+Change Version in:
+* package.nuspec
+* command below
+
+DOS commands:
+
     CLS
-    D:
-    CD D:\!Data\Code\Git.Github\iwhp\AzurePortalStyleNg\AzurePortalStyleNg\AzurePortalStyleNg.Ui.Web
-    gulp clean & gulp
-    CD D:\!Data\Code\Git.Github\iwhp\AzurePortalStyleNg\AzurePortalStyleNg\.nuget
-    .\nuget.exe pack ..\AzurePortalStyleNg.Ui.Web\nuspec-packager.nuspec -OutputDirectory ..\AzurePortalStyleNg.Ui.Web\!NugetOut
-    COPY ..\AzurePortalStyleNg.Ui.Web\!NugetOut\AzurePortalStyleNg.0.2.1-beta.nupkg \\SVRTFS01.ardimedia.com\d$\!Data\NuGet\Packages
+    GULP clean-script
+    GULP clean-dist
+    GULP build-apn
 
-## DEPLOY TO NUGET.ORG
-    .\nuget.exe push ..\AzurePortalStyleNg.Ui.Web\!NugetOut\AzurePortalStyleNg.0.2.1-beta.nupkg
+    (by hand) COMPILE the solution
 
-## DEPLOY VIA NUGET.ORG WEB SITE
-
-    https://www.nuget.org/packages/AzurePortalStyleNg
-    D:\!Data\Code\Git.Github\iwhp\AzurePortalStyleNg\AzurePortalStyleNg\AzurePortalStyleNg.Ui.Web\!NugetOut
+    C:\APP\nuget\nuget.exe pack package.nuspec -OutputDirectory dist
+    COPY dist\azureportalng.0.2.1-beta.nupkg \\SVRTFS01.ardimedia.com\d$\!Data\NuGet\Packages

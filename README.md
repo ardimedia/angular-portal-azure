@@ -1,17 +1,25 @@
 # angular-portal-azure
 
-Very early preview.
+Very early preview (=alpha).
 
-A HTML framework for building a Azure Portal style web site.
+A HTML framework for building **portal web sites** for **angular**, using **Microsoft Azure** style.
 
-This is a Framework for building UI system, based on the behavior of Azure portal.
-You will get the same user experience as in the Azure portal.
+You will get the same user experience as in the Microsoft Azure portal.  
 You will be able to fill areas and panes with your content.
 
 ## Roadmap
 
-We are in the process of migrating to Angular 2. The following are our Github repositories:
+We are in the process of supporting and converting to **angular 2**.
 
-**azureportalstyleng**: This is the first `angular portal azure`-style version, based on Angular 1.
+The following is not yet available:
 
-**angular-portal-azure**: This project will be based on Angular 2.
+v1.0.0 - build on **angular 1**
+- **we plan not to support this version in the long run**
+- version v1.0.0 is build on angular1
+- sample1 shows how to use this framework with angular 1
+- sample2 shows how to use this framework with angular 2
+
+v2.0.0 - build on **angular 2**
+- version v2.0.0 is build on angular2
+- sample1 shows how to use this framework with angular 1
+- sample2 shows how to use this framework with angular 2

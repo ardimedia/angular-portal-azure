@@ -1,26 +1,30 @@
 ﻿[
   {
-    "outputFile": "!Design/!design.css",
-    "inputFile": "!Design/!design.scss"
+    "outputFile": "azureportalng/directives/dialog/style.css",
+    "inputFile": "azureportalng/directives/dialog/style.scss"
   },
   {
-    "outputFile": "!Design/!libmixin.css",
-    "inputFile": "!Design/!libmixin.scss"
+    "outputFile": "design/test/test.css",
+    "inputFile": "design/test/test.scss"
   },
   {
-    "outputFile": "!Design/portallayout.css",
-    "inputFile": "!Design/portallayout.scss"
+    "outputFile": "design/design.css",
+    "inputFile": "design/design.scss"
   },
   {
-    "outputFile": "!Design/themems.css",
-    "inputFile": "!Design/themems.scss"
+    "outputFile": "design/libmixin.css",
+    "inputFile": "design/libmixin.scss"
   },
   {
-    "outputFile": "dist/azureportalng/css/azureportalstyleng.css",
-    "inputFile": "dist/azureportalng/css/azureportalstyleng.scss"
+    "outputFile": "design/portallayout.css",
+    "inputFile": "design/portallayout.scss"
   },
   {
-    "outputFile": "dist/azureportalng/css/aap.css",
-    "inputFile": "dist/azureportalng/css/aap.scss"
+    "outputFile": "design/themems.css",
+    "inputFile": "design/themems.scss"
+  },
+  {
+    "outputFile": "azureportalng/css/apn.css",
+    "inputFile": "azureportalng/css/apn.scss"
   }
 ]

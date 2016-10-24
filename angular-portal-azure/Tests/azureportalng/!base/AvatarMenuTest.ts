@@ -1,23 +1,23 @@
-﻿describe('AzurePortal.AvatarMenu', function () {
+﻿describe('AzurePortalNg.AvatarMenu', function () {
 
-    var sut: AzurePortal.AvatarMenu;
-    var portalService: AzurePortal.PortalService;
+    var sut: AzurePortalNg.AvatarMenu;
+    var portalService: AzurePortalNg.PortalService;
 
     beforeEach(angular.mock.module('azureportalng'));
 
     beforeEach(angular.mock.inject(function ($injector) {
         portalService = $injector.get('azurePortalNg.portalService');
-        sut = new AzurePortal.AvatarMenu(portalService);
+        sut = new AzurePortalNg.AvatarMenu(portalService);
     }));
 
     //#region Specs for Constructor
 
     it("Constructor successful", function () {
-        //var portalService = <AzurePortal.PortalService>azurePortalNg.service('azurePortalNg.portalService');
-        //var sut = new AzurePortal.AvatarMenu(portalService);
+        //var portalService = <AzurePortalNg.PortalService>azurePortalNg.service('azurePortalNg.portalService');
+        //var sut = new AzurePortalNg.AvatarMenu(portalService);
 
         expect(sut).not.toBe(null);
-        expect(sut instanceof AzurePortal.AvatarMenu).toBe(true);
+        expect(sut instanceof AzurePortalNg.AvatarMenu).toBe(true);
     });
 
     //#endregion
