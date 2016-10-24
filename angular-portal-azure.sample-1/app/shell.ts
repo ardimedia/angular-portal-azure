@@ -65,7 +65,7 @@
 
     (function () {
         'use strict';
-        angular.module('sample1App').controller('sampleShell1', ['azurePortalNg.portalService', Sample1Shell]);
+        angular.module('sample1App').controller('sampleShell1', ['azureportalng.portalService', Sample1Shell]);
     })();
 
     //#endregion

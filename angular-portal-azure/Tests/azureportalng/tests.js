@@ -3,12 +3,12 @@ describe('AzurePortalNg.AvatarMenu', function () {
     var portalService;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.AvatarMenu(portalService);
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
-        //var portalService = <AzurePortalNg.PortalService>azurePortalNg.service('azurePortalNg.portalService');
+        //var portalService = <AzurePortalNg.PortalService>azureportalng.service('azureportalng.portalService');
         //var sut = new AzurePortalNg.AvatarMenu(portalService);
         expect(sut).not.toBe(null);
         expect(sut instanceof AzurePortalNg.AvatarMenu).toBe(true);
@@ -21,7 +21,7 @@ describe('AzurePortalNg.BladeArea', function () {
     var portalService;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.BladeArea(portalService);
     }));
     //#region Specs for Constructor
@@ -84,7 +84,7 @@ describe('AzurePortalNg.BladeData', function () {
     var portalService;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.BladeData(portalService, 'test-path', 'test-title');
     }));
     //#region Specs for Constructor
@@ -120,7 +120,7 @@ describe('AzurePortalNg.BladeDetail', function () {
     var portalService;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.BladeData(portalService, 'test-path', 'test-title');
     }));
     //#region Specs for Constructor
@@ -135,7 +135,7 @@ describe('AzurePortalNg.BladeList', function () {
     var portalService;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.BladeList(portalService, 'test-path', 'test-title');
     }));
     //#region Specs for Constructor
@@ -211,7 +211,7 @@ describe('AzurePortalNg.Blade', function () {
     var portalService;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.Blade(portalService, 'test-path', 'test-title');
     }));
     //#endregion
@@ -467,7 +467,7 @@ describe('AzurePortalNg.PortalService', function () {
     var sut;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        sut = $injector.get('azurePortalNg.portalService');
+        sut = $injector.get('azureportalng.portalService');
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
@@ -511,7 +511,7 @@ describe('AzurePortalNg.UserControlBase', function () {
     var portalService;
     beforeEach(angular.mock.module('azureportalng'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.UserControlBase(portalService);
     }));
     //#region Specs for Constructor

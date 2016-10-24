@@ -1,4 +1,3 @@
-/// <reference path="../azureportalng/js/apn.d.ts" />
 declare namespace Sample1 {
 }
 declare namespace Sample1 {

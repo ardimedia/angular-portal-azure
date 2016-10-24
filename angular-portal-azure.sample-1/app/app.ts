@@ -1,4 +1,4 @@
-﻿/// <reference path="../azureportalng/js/apn.d.ts" />
+﻿/// <reference types="angular-portal-azure" />
 
 (function () {
     /** create angular sample1 module */

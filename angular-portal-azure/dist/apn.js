@@ -1,30 +1,30 @@
-/// <reference path="../node_modules/@types/angular/index.d.ts" />
-var azurePortalNg; // any should be: angular.IModule
+/// <reference types="angular" />
+var azureportalng; // any should be: angular.IModule
 (function () {
     'use strict';
     /** Define Angular module and its dependencies */
-    azurePortalNg = angular.module('azureportalng', [
+    azureportalng = angular.module('azureportalng', [
         // Angular modules
         'ngResource',
         'ngDialog'
     ]);
-    azurePortalNg.config([function () {
+    azureportalng.config([function () {
             //Debug.enable('[azureportalng-debug]');
             //Debug.isWithObjects = false;
         }]);
-    azurePortalNg.run(function () {
-        //Debug.write('[azureportalng-debug] \'azurePortalNg.run\' executing.', [this]);
+    azureportalng.run(function () {
+        //Debug.write('[azureportalng-debug] \'azureportalng.run\' executing.', [this]);
     });
 })();
 (function () {
     'use strict';
-    angular.module('azureportalng').directive('azurePortalBlade', ['$window', 'azurePortalNg.portalService', azurePortalBlade]);
+    angular.module('azureportalng').directive('azurePortalBlade', ['$window', 'azureportalng.portalService', azurePortalBlade]);
     function azurePortalBlade($window, portalService) {
         return {
             transclude: true,
             scope: { vm: '=vm' },
             restrict: 'E',
-            templateUrl: '/azureportalng/directives/blade/blade.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
                 AzurePortalNg.Debug.write('[azureportalng-debug] \'directive:azurePortalBlade.link\' called.', [this, portalService]);
                 //#region the following code makes sure, that a function scope.vm.close is available
@@ -85,7 +85,7 @@ var azurePortalNg; // any should be: angular.IModule
     function azurePortalHome($window, $interpolate) {
         return {
             scope: { vm: '=options' },
-            templateUrl: '/azureportalng/directives/home/home.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/home/home.html',
             link: function (scope, element, attrs, controller) {
             }
         };
@@ -97,7 +97,7 @@ var azurePortalNg; // any should be: angular.IModule
     function nav($window) {
         return {
             scope: { vm: '=viewModel' },
-            templateUrl: '/azureportalng/directives/nav/nav.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/nav/nav.html',
             link: function (scope, element, attrs, controller) {
                 angular.forEach(scope.vm.navItems, function (item) {
                     // Set some default values, depending on existing values
@@ -121,7 +121,7 @@ var azurePortalNg; // any should be: angular.IModule
     function navGrid($window) {
         return {
             scope: { vm: '=viewModel' },
-            templateUrl: '/azureportalng/directives/navgrid/navgrid.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/navgrid/navgrid.html',
             link: function (scope, element, attrs, controller) {
                 angular.forEach(scope.vm.items, function (item) {
                     // Set some default values, depending on existing values
@@ -333,7 +333,7 @@ var AzurePortalNg;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('azureportalng').service('azurePortalNg.portalService', ['$injector', PortalService]);
+        angular.module('azureportalng').service('azureportalng.portalService', ['$injector', PortalService]);
     })();
 })(AzurePortalNg || (AzurePortalNg = {}));
 var AzurePortalNg;
@@ -844,7 +844,7 @@ var AzurePortalNg;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('azureportalng').service('azurePortalNg.bladeArea', ['$window', BladeArea]);
+        angular.module('azureportalng').service('azureportalng.bladeArea', ['$window', BladeArea]);
     })();
 })(AzurePortalNg || (AzurePortalNg = {}));
 var AzurePortalNg;

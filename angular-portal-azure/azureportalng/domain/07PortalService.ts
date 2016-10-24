@@ -105,7 +105,7 @@
 
     (function () {
         'use strict';
-        angular.module('azureportalng').service('azurePortalNg.portalService', ['$injector', PortalService]);
+        angular.module('azureportalng').service('azureportalng.portalService', ['$injector', PortalService]);
     })();
 
     //#endregion

@@ -4,7 +4,7 @@
     "target": "es5",
     "module": "none",
     "moduleResolution": "node",
-    "outFile": "dist/js/apn.js",
+    "outFile": "dist/apn.js",
     "declaration": true,
     "sourceMap": false,
     "emitDecoratorMetadata": true,

@@ -46,7 +46,7 @@
     //#region Angular Registration
 
     (function () {
-        angular.module('sample1App').controller('list1', ['azurePortalNg.portalService', List1]);
+        angular.module('sample1App').controller('list1', ['azureportalng.portalService', List1]);
     })();
 
     //#endregion

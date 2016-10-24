@@ -112,9 +112,6 @@
     <Content Include="package.nuspec" />
     <Content Include="README.md" />
     <Content Include="tests\AzurePortalNg\tests.js" />
-    <Content Include="tests\AzurePortalNg\tests.min.js">
-      <DependentUpon>tests.js</DependentUpon>
-    </Content>
     <Content Include="tests\index.html" />
     <None Include="azureportalng\directives\dialog\README.md" />
     <Content Include="azureportalng\directives\dialog\style.css">
@@ -157,6 +154,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="azureportalng\domain\03Exception.ts" />
     <TypeScriptCompile Include="azureportalng\domain\00IAddBladeEventArgs.ts" />
+    <Content Include="azureportalng\index.js" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDataTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\AvatarMenuTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeAreaTest.ts" />
@@ -190,9 +188,7 @@
     <TypeScriptCompile Include="azureportalng\directives\navgrid\navgrid.ts" />
     <TypeScriptCompile Include="azureportalng\services\BladeService.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

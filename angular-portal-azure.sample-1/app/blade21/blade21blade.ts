@@ -7,7 +7,7 @@
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/azureportalng/directives/blade/blade.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
             controller: 'blade21',
             controllerAs: 'vm',
         };

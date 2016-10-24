@@ -43,7 +43,7 @@
 
     (function () {
         'use strict';
-        angular.module('sample1App').controller('nav1', ['azurePortalNg.portalService', Nav1]);
+        angular.module('sample1App').controller('nav1', ['azureportalng.portalService', Nav1]);
     })();
 
     //#endregion

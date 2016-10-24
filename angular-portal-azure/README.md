@@ -10,7 +10,6 @@ Change Version in:
 DOS commands:
 
     CLS
-    GULP clean-script
     GULP clean-dist
     GULP build-apn
 

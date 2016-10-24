@@ -23,31 +23,10 @@ gulp.task('build-old', ['build-apn'], function () { });
 
 //#region clean
 
-gulp.task('clean-script', function () {
-    del([
-        './scripts'
-    ]);
-});
-
 gulp.task('clean-dist', function () {
     del([
         './dist'
     ]);
-});
-
-//#endregion
-
-//#region angular
-
-gulp.task('copy-angular', function () {
-    gulp.src('./node_modules/angular/angular.js')
-        .pipe(gulp.dest('./scripts/angular'));
-
-    gulp.src('./node_modules/angular-resource/angular-resource.min.js')
-        .pipe(gulp.dest('./scripts/angular-resource'));
-
-    gulp.src('./node_modules/angular-mocks/angular-mocks.js')
-        .pipe(gulp.dest('./scripts/angular-mocks'));
 });
 
 //#endregion
@@ -58,11 +37,17 @@ gulp.task('build-apn', function () {
     gulp.src(['./azureportalng/images/avatar.jpg'])
         .pipe(gulp.dest('./dist/images'));
 
+    gulp.src(['./azureportalng/directives/**/*.html'])
+        .pipe(gulp.dest('./dist/directives'));
+
     gulp.src('./azureportalng/css/apn.css')
         .pipe(gulp.dest('./dist/css'));
 
-    gulp.src(['./azureportalng/directives/**/*.html'])
-        .pipe(gulp.dest('./dist/directives'));
+    gulp.src('./azureportalng/index.js')
+        .pipe(gulp.dest('./dist'));
+
+    gulp.src('./package.json')
+        .pipe(gulp.dest('./dist'));
 });
 
 //#endregion

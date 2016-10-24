@@ -1,4 +1,4 @@
-/// <reference path="../azureportalng/js/apn.d.ts" />
+/// <reference types="angular-portal-azure" />
 (function () {
     /** create angular sample1 module */
     var app = angular.module('sample1App', [
@@ -67,7 +67,7 @@ var Sample1;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('sample1App').controller('blade11', ['azurePortalNg.portalService', Blade11]);
+        angular.module('sample1App').controller('blade11', ['azureportalng.portalService', Blade11]);
     })();
 })(Sample1 || (Sample1 = {}));
 (function () {
@@ -77,7 +77,7 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/azureportalng/directives/blade/blade.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
             controller: 'blade11',
             controllerAs: 'vm',
         };
@@ -119,7 +119,7 @@ var Sample1;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('sample1App').controller('blade2', ['azurePortalNg.portalService', Blade2]);
+        angular.module('sample1App').controller('blade2', ['azureportalng.portalService', Blade2]);
     })();
 })(Sample1 || (Sample1 = {}));
 (function () {
@@ -129,7 +129,7 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/azureportalng/directives/blade/blade.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
             controller: 'blade2',
             controllerAs: 'vm',
         };
@@ -164,7 +164,7 @@ var Sample1;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('sample1App').controller('blade21', ['azurePortalNg.portalService', Blade21]);
+        angular.module('sample1App').controller('blade21', ['azureportalng.portalService', Blade21]);
     })();
 })(Sample1 || (Sample1 = {}));
 (function () {
@@ -174,7 +174,7 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/azureportalng/directives/blade/blade.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
             controller: 'blade21',
             controllerAs: 'vm',
         };
@@ -223,7 +223,7 @@ var Sample1;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('sample1App').controller('detail1', ['azurePortalNg.portalService', Detail1]);
+        angular.module('sample1App').controller('detail1', ['azureportalng.portalService', Detail1]);
     })();
 })(Sample1 || (Sample1 = {}));
 (function () {
@@ -233,7 +233,7 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/azureportalng/directives/blade/blade.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
             controller: 'detail1',
             controllerAs: 'vm',
         };
@@ -272,7 +272,7 @@ var Sample1;
     //#endregion
     //#region Angular Registration
     (function () {
-        angular.module('sample1App').controller('list1', ['azurePortalNg.portalService', List1]);
+        angular.module('sample1App').controller('list1', ['azureportalng.portalService', List1]);
     })();
 })(Sample1 || (Sample1 = {}));
 (function () {
@@ -282,7 +282,7 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/azureportalng/directives/blade/blade.html',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
             controller: 'list1',
             controllerAs: 'vm',
         };
@@ -326,7 +326,7 @@ var Sample1;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('sample1App').controller('nav1', ['azurePortalNg.portalService', Nav1]);
+        angular.module('sample1App').controller('nav1', ['azureportalng.portalService', Nav1]);
     })();
 })(Sample1 || (Sample1 = {}));
 var Sample1;
@@ -380,6 +380,6 @@ var Sample1;
     //#region Angular Registration
     (function () {
         'use strict';
-        angular.module('sample1App').controller('sampleShell1', ['azurePortalNg.portalService', Sample1Shell]);
+        angular.module('sample1App').controller('sampleShell1', ['azureportalng.portalService', Sample1Shell]);
     })();
 })(Sample1 || (Sample1 = {}));

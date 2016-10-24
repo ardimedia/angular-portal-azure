@@ -39,7 +39,7 @@
 
     (function () {
         'use strict';
-        angular.module('sample1App').controller('blade11', ['azurePortalNg.portalService', Blade11]);
+        angular.module('sample1App').controller('blade11', ['azureportalng.portalService', Blade11]);
     })();
 
     //#endregion

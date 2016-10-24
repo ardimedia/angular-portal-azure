@@ -250,7 +250,7 @@
 
     (function () {
         'use strict';
-        angular.module('azureportalng').service('azurePortalNg.bladeArea', ['$window', BladeArea]);
+        angular.module('azureportalng').service('azureportalng.bladeArea', ['$window', BladeArea]);
     })();
 
     //#endregion

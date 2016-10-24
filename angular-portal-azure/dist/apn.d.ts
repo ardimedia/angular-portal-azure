@@ -1,7 +1,6 @@
-/// <reference path="../../node_modules/@types/angular/index.d.ts" />
 /// <reference types="angular-resource" />
 /// <reference types="angular" />
-declare var azurePortalNg: any;
+declare var azureportalng: any;
 declare namespace AzurePortalNg {
     interface IAddBladeEventArgs {
         path: string;

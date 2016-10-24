@@ -5,7 +5,7 @@
     beforeEach(angular.mock.module('azureportalng'));
 
     beforeEach(angular.mock.inject(function ($injector) {
-        sut = $injector.get('azurePortalNg.portalService');
+        sut = $injector.get('azureportalng.portalService');
     }));
 
     //#region Specs for Constructor

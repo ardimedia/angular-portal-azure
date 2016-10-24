@@ -8,7 +8,7 @@
     beforeEach(angular.mock.module('azureportalng'));
 
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azurePortalNg.portalService');
+        portalService = $injector.get('azureportalng.portalService');
         sut = new AzurePortalNg.Blade(portalService, 'test-path', 'test-title');
     }));
 
