@@ -1,3 +1,8 @@
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /// <reference types="angular" />
 var azureportalng; // any should be: angular.IModule
 (function () {
@@ -351,11 +356,6 @@ var AzurePortalNg;
     }());
     AzurePortalNg.UserControlBase = UserControlBase;
 })(AzurePortalNg || (AzurePortalNg = {}));
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var AzurePortalNg;
 (function (AzurePortalNg) {
     'use strict';

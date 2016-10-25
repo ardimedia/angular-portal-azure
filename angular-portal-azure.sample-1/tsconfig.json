@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
-    "module": "none",
+    "module": "amd",
     "moduleResolution": "node",
     "outFile": "build/app.js",
     "declaration": true,
