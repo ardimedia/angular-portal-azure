@@ -39,9 +39,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         angular.bootstrap(document.body, ['sample1App'], { strictDi: true });
     });
 })();
-var Sample1;
-(function (Sample1) {
-    //#region Class Definition
+define("blade11/blade11", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
+    "use strict";
     var Blade11 = (function (_super) {
         __extends(Blade11, _super);
         //#region Constructors
@@ -62,14 +61,14 @@ var Sample1;
             return this.portalService.$http({ method: 'GET', url: '/customers' });
         };
         return Blade11;
-    }(AzurePortalNg.BladeList));
-    //#endregion
+    }(azureportalng.BladeList));
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('sample1App').controller('blade11', ['azureportalng.portalService', Blade11]);
     })();
-})(Sample1 || (Sample1 = {}));
+});
+//#endregion
 (function () {
     'use strict';
     angular.module('sample1App').directive('blade11Blade', [blade11Blade]);
@@ -83,10 +82,8 @@ var Sample1;
         };
     }
 })();
-var Sample1;
-(function (Sample1) {
-    'use strict';
-    //#region Class Definition
+define("blade2/blade2", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
+    "use strict";
     var Blade2 = (function (_super) {
         __extends(Blade2, _super);
         //#region Properties
@@ -114,14 +111,14 @@ var Sample1;
             return this.portalService.$http({ method: 'GET', url: '/customers' });
         };
         return Blade2;
-    }(AzurePortalNg.BladeList));
-    //#endregion
+    }(azureportalng.BladeList));
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('sample1App').controller('blade2', ['azureportalng.portalService', Blade2]);
     })();
-})(Sample1 || (Sample1 = {}));
+});
+//#endregion
 (function () {
     'use strict';
     angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
@@ -135,10 +132,8 @@ var Sample1;
         };
     }
 })();
-var Sample1;
-(function (Sample1) {
-    'use strict';
-    //#region Class Definition
+define("blade21/blade21", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
+    "use strict";
     var Blade21 = (function (_super) {
         __extends(Blade21, _super);
         //#region Constructors
@@ -159,14 +154,14 @@ var Sample1;
             return this.portalService.$http({ method: 'GET', url: '/customers' });
         };
         return Blade21;
-    }(AzurePortalNg.BladeList));
-    //#endregion
+    }(azureportalng.BladeList));
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('sample1App').controller('blade21', ['azureportalng.portalService', Blade21]);
     })();
-})(Sample1 || (Sample1 = {}));
+});
+//#endregion
 (function () {
     'use strict';
     angular.module('sample1App').directive('blade21Blade', [blade21Blade]);
@@ -194,10 +189,8 @@ var Sample1;
     }());
     Sample1.Customer = Customer;
 })(Sample1 || (Sample1 = {}));
-var Sample1;
-(function (Sample1) {
-    'use strict';
-    //#region Class Definition
+define("detail1/Detail1", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
+    "use strict";
     var Detail1 = (function (_super) {
         __extends(Detail1, _super);
         //#region Constructors
@@ -218,14 +211,14 @@ var Sample1;
             }
         };
         return Detail1;
-    }(AzurePortalNg.BladeDetail));
-    //#endregion
+    }(azureportalng.BladeDetail));
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('sample1App').controller('detail1', ['azureportalng.portalService', Detail1]);
     })();
-})(Sample1 || (Sample1 = {}));
+});
+//#endregion 
 (function () {
     'use strict';
     angular.module('sample1App').directive('detail1Blade', [detail1Blade]);
@@ -239,9 +232,8 @@ var Sample1;
         };
     }
 })();
-var Sample1;
-(function (Sample1) {
-    //#region Class Definition
+define("list1/List1", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
+    "use strict";
     var List1 = (function (_super) {
         __extends(List1, _super);
         //#region Constructors
@@ -252,29 +244,29 @@ var Sample1;
         //#endregion
         //#region Methods
         List1.prototype.onActivate = function () {
-            AzurePortalNg.Debug.write('[sample1-debug] \'List1.onActivate\' called.', [this]);
+            azureportalng.Debug.write('[sample1-debug] \'List1.onActivate\' called.', [this]);
             //return this.portalService.$http({ method: 'GET', url: '/customers' });
         };
         List1.prototype.onCommandNew = function () {
-            AzurePortalNg.Debug.write('[sample1-debug] \'List1.onCommandNew\' called.', [this]);
+            azureportalng.Debug.write('[sample1-debug] \'List1.onCommandNew\' called.', [this]);
             this.portalService.parameter.action = 'new';
             this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
             this.portalService.bladeArea.raiseAddBladeEvent({ path: '/Sample1/detail1/detail1.html', pathSender: this.blade.path });
         };
         List1.prototype.onNavigateTo = function (customer) {
-            AzurePortalNg.Debug.write('[sample1-debug] \'List1.onNavigateTo\' called.', [this, customer]);
+            azureportalng.Debug.write('[sample1-debug] \'List1.onNavigateTo\' called.', [this, customer]);
             this.portalService.parameter.action = 'selected';
             this.portalService.parameter.item = customer;
             this.portalService.bladeArea.raiseAddBladeEvent({ path: '/Sample1/detail1/detail1.html', pathSender: this.blade.path });
         };
         return List1;
-    }(AzurePortalNg.BladeList));
-    //#endregion
+    }(azureportalng.BladeList));
     //#region Angular Registration
     (function () {
         angular.module('sample1App').controller('list1', ['azureportalng.portalService', List1]);
     })();
-})(Sample1 || (Sample1 = {}));
+});
+//#endregion
 (function () {
     'use strict';
     angular.module('sample1App').directive('list1Blade', [list1Blade]);
@@ -288,31 +280,31 @@ var Sample1;
         };
     }
 })();
-var Sample1;
-(function (Sample1) {
+define("nav1/nav1", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
+    "use strict";
     var Nav1 = (function (_super) {
         __extends(Nav1, _super);
         //#region Constructors
         function Nav1(portalService) {
             _super.call(this, portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315);
-            AzurePortalNg.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
+            azureportalng.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
             this.navItems = [
-                new AzurePortalNg.BladeNavItem('Navigation 1 (BladeNav)', '/app/nav1/nav1.html'),
-                new AzurePortalNg.BladeNavItem('Blade 1-1 (BladeList)', '/app/blade11/blade11.html', null, null, true, this.callback1, this),
-                new AzurePortalNg.BladeNavItem('Blade 2 (BladeList)', '/app/blade2/blade2.html'),
-                new AzurePortalNg.BladeNavItem('Blade 2-1 (BladeList)', '/app/blade21/blade21.html'),
-                new AzurePortalNg.BladeNavItem('List 1 (BladeList)', '/app/list1/list1.html'),
-                new AzurePortalNg.BladeNavItem('Detail 1 (BladeDetail)', '/app/detail1/detail1.html'),
-                new AzurePortalNg.BladeNavItem(),
-                new AzurePortalNg.BladeNavItem('no path'),
-                new AzurePortalNg.BladeNavItem('go to microsoft.com', null, 'http://www.microsoft.com'),
+                new azureportalng.BladeNavItem('Navigation 1 (BladeNav)', '/app/nav1/nav1.html'),
+                new azureportalng.BladeNavItem('Blade 1-1 (BladeList)', '/app/blade11/blade11.html', null, null, true, this.callback1, this),
+                new azureportalng.BladeNavItem('Blade 2 (BladeList)', '/app/blade2/blade2.html'),
+                new azureportalng.BladeNavItem('Blade 2-1 (BladeList)', '/app/blade21/blade21.html'),
+                new azureportalng.BladeNavItem('List 1 (BladeList)', '/app/list1/list1.html'),
+                new azureportalng.BladeNavItem('Detail 1 (BladeDetail)', '/app/detail1/detail1.html'),
+                new azureportalng.BladeNavItem(),
+                new azureportalng.BladeNavItem('no path'),
+                new azureportalng.BladeNavItem('go to microsoft.com', null, 'http://www.microsoft.com'),
             ];
             this.statusbar = 'Nav 1 loaded.';
         }
         //#endregion
         //#region Methods
         Nav1.prototype.onNavigateTo = function (path) {
-            AzurePortalNg.Debug.write('[sample1-debug] \'Nav1.onNavigateTo\' called.', [this, path]);
+            azureportalng.Debug.write('[sample1-debug] \'Nav1.onNavigateTo\' called.', [this, path]);
             if (path === '') {
                 return;
             }
@@ -322,33 +314,34 @@ var Sample1;
             console.log(this);
         };
         return Nav1;
-    }(AzurePortalNg.BladeNav));
+    }(azureportalng.BladeNav));
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('sample1App').controller('nav1', ['azureportalng.portalService', Nav1]);
     })();
-})(Sample1 || (Sample1 = {}));
-var Sample1;
-(function (Sample1) {
+});
+//#endregion
+define("shell", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
+    "use strict";
     var Sample1Shell = (function (_super) {
         __extends(Sample1Shell, _super);
         //#region Constructors
         function Sample1Shell(portalService) {
             _super.call(this, 'SAMPLE TypeScript', portalService);
             this.portalService.panorama.startboard.tiles.showTiles = true;
-            this.portalService.panorama.avatarMenu.userAccount = new AzurePortalNg.UserAccount('useraccount@mail.com', 'first', 'last');
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new AzurePortalNg.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
+            this.portalService.panorama.avatarMenu.userAccount = new azureportalng.UserAccount('useraccount@mail.com', 'first', 'last');
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new AzurePortalNg.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new AzurePortalNg.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new AzurePortalNg.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new AzurePortalNg.Tile('List 1', '/app/list1/list1.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('List 1', '/app/list1/list1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new AzurePortalNg.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
             tile.subTitle = 'TypeScript based';
             this.setObsoleteLayoutProperites();
             this.httpTestData();
@@ -376,10 +369,11 @@ var Sample1;
             //    .respond(customers[3]);
         };
         return Sample1Shell;
-    }(AzurePortalNg.PortalShell));
+    }(azureportalng.PortalShell));
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('sample1App').controller('sampleShell1', ['azureportalng.portalService', Sample1Shell]);
     })();
-})(Sample1 || (Sample1 = {}));
+});
+//#endregion

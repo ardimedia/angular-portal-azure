@@ -1,8 +1,8 @@
-declare namespace Sample1 {
+declare module "blade11/blade11" {
 }
-declare namespace Sample1 {
+declare module "blade2/blade2" {
 }
-declare namespace Sample1 {
+declare module "blade21/blade21" {
 }
 declare namespace Sample1 {
     class Customer {
@@ -12,11 +12,11 @@ declare namespace Sample1 {
         constructor(customerPkId: number, firstName: string, lastName: string);
     }
 }
-declare namespace Sample1 {
+declare module "detail1/Detail1" {
 }
-declare namespace Sample1 {
+declare module "list1/List1" {
 }
-declare namespace Sample1 {
+declare module "nav1/nav1" {
 }
-declare namespace Sample1 {
+declare module "shell" {
 }
