@@ -110,8 +110,8 @@
     </None>
     <Content Include="package.nuspec" />
     <Content Include="README.md" />
-    <Content Include="testsx\AzurePortalNg\tests.js" />
-    <Content Include="testsx\index.html" />
+    <Content Include="tests\AzurePortalNg\tests.js" />
+    <Content Include="tests\index.html" />
     <None Include="angularportalazure\directives\dialog\README.md" />
     <Content Include="angularportalazure\directives\dialog\style.css">
       <DependentUpon>style.scss</DependentUpon>
@@ -160,15 +160,15 @@
     <TypeScriptCompile Include="angularportalazure\domain\IAddBladeEventArgs.ts" />
     <Content Include="angularportalazure\index.js" />
     <TypeScriptCompile Include="angularportalazure\domain\IException.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\BladeDataTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\AvatarMenuTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\BladeAreaTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\BladeListTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\PortalServiceTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\BladeTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\UserControlBaseTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\BladeDetailTest.ts" />
-    <TypeScriptCompile Include="testsx\AzurePortalNg\!base\DebugTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDataTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\AvatarMenuTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeAreaTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeListTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\PortalServiceTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\UserControlBaseTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDetailTest.ts" />
+    <TypeScriptCompile Include="tests\AzurePortalNg\!base\DebugTest.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNav.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\UserControlBase.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeArea.ts" />
