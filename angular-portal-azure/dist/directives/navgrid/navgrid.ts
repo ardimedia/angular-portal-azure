@@ -1,8 +1,4 @@
-﻿(function () {
-    'use strict';
-
-    angular.module('azureportalng').directive('navGrid', ['$window', navGrid]);
-
+﻿namespace azureportalng {
     function navGrid($window) {
         return {
             scope: { vm: '=viewModel' },
@@ -17,4 +13,6 @@
             }
         };
     }
-})();
+
+    angular.module('azureportalng').directive('navGrid', ['$window', navGrid]);
+}

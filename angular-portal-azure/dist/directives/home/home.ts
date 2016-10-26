@@ -1,8 +1,4 @@
-﻿(function () {
-    'use strict';
-
-    angular.module('azureportalng').directive('azurePortalHome', ['$window', '$interpolate', azurePortalHome]);
-
+﻿namespace azureportalng {
     function azurePortalHome($window, $interpolate) {
         return {
             scope: { vm: '=options' },
@@ -11,4 +7,6 @@
             }
         };
     }
-})();
+
+    angular.module('azureportalng').directive('azurePortalHome', ['$window', '$interpolate', azurePortalHome]);
+}

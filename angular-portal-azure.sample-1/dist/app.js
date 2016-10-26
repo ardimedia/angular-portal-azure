@@ -1,17 +1,13 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 /// <reference types="angular-portal-azure" />
-(function () {
-    /** create angular sample1 module */
+/// <reference path="../node_modules/@types/angular/index.d.ts" />
+var Sample1;
+(function (Sample1) {
     var app = angular.module('sample1App', [
         'ngResource',
         'ngDialog',
         'azureportalng'
     ]);
-    //#region Speical Cases
+    //#region Configuration
     /** configure angular */
     //app.config([function (): void {
     //    AzurePortalNg.Debug.enable(); // '[sample1-debug]'
@@ -38,9 +34,18 @@ var __extends = (this && this.__extends) || function (d, b) {
     angular.element(document.body).ready(function () {
         angular.bootstrap(document.body, ['sample1App'], { strictDi: true });
     });
-})();
-define("blade11/blade11", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
-    "use strict";
+})(Sample1 || (Sample1 = {}));
+/// <reference types="angular-portal-azure" />
+/// <reference types="angular" />
+//import * as angular from 'angular';
+//import * as azureportalng from 'angular-portal-azure';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Sample1;
+(function (Sample1) {
     var Blade11 = (function (_super) {
         __extends(Blade11, _super);
         //#region Constructors
@@ -55,6 +60,9 @@ define("blade11/blade11", ["require", "exports", 'angular', 'angular-portal-azur
         Blade11.prototype.onCommandNew = function () {
             this.portalService.bladeArea.addBlade('/Sample1/blade2/blade2.html', this.path);
         };
+        Blade11.prototype.onActivate = function () {
+            console.log('Blade11.onActivate');
+        };
         //#endregion
         //#region Data Access
         Blade11.prototype.onGetDataList = function () {
@@ -62,16 +70,10 @@ define("blade11/blade11", ["require", "exports", 'angular', 'angular-portal-azur
         };
         return Blade11;
     }(azureportalng.BladeList));
-    //#region Angular Registration
-    (function () {
-        'use strict';
-        angular.module('sample1App').controller('blade11', ['azureportalng.portalService', Blade11]);
-    })();
-});
-//#endregion
-(function () {
-    'use strict';
-    angular.module('sample1App').directive('blade11Blade', [blade11Blade]);
+    angular.module('sample1App').controller('blade11', ['azureportalng.portalService', Blade11]);
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
     function blade11Blade() {
         return {
             replace: true,
@@ -81,9 +83,14 @@ define("blade11/blade11", ["require", "exports", 'angular', 'angular-portal-azur
             controllerAs: 'vm',
         };
     }
-})();
-define("blade2/blade2", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
-    "use strict";
+    angular.module('sample1App').directive('blade11Blade', [blade11Blade]);
+})(Sample1 || (Sample1 = {}));
+/// <reference types="angular-portal-azure" />
+/// <reference types="angular" />
+//import * as angular from 'angular';
+//import * as azureportalng from 'angular-portal-azure';
+var Sample1;
+(function (Sample1) {
     var Blade2 = (function (_super) {
         __extends(Blade2, _super);
         //#region Properties
@@ -105,6 +112,9 @@ define("blade2/blade2", ["require", "exports", 'angular', 'angular-portal-azure'
         Blade2.prototype.onCommandSave = function () {
             this.portalService.bladeArea.addBlade('/Sample1/blade1/blade1.html', this.path);
         };
+        Blade2.prototype.onActivate = function () {
+            console.log('Blade2.onActivate');
+        };
         //#endregion
         //#region Data Access
         Blade2.prototype.onGetDataList = function () {
@@ -112,16 +122,10 @@ define("blade2/blade2", ["require", "exports", 'angular', 'angular-portal-azure'
         };
         return Blade2;
     }(azureportalng.BladeList));
-    //#region Angular Registration
-    (function () {
-        'use strict';
-        angular.module('sample1App').controller('blade2', ['azureportalng.portalService', Blade2]);
-    })();
-});
-//#endregion
-(function () {
-    'use strict';
-    angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
+    angular.module('sample1App').controller('blade2', ['azureportalng.portalService', Blade2]);
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
     function blade2Blade() {
         return {
             replace: true,
@@ -131,9 +135,14 @@ define("blade2/blade2", ["require", "exports", 'angular', 'angular-portal-azure'
             controllerAs: 'vm',
         };
     }
-})();
-define("blade21/blade21", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
-    "use strict";
+    angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
+})(Sample1 || (Sample1 = {}));
+/// <reference types="angular-portal-azure" />
+/// <reference types="angular" />
+//import * as angular from 'angular';
+//import * as azureportalng from 'angular-portal-azure';
+var Sample1;
+(function (Sample1) {
     var Blade21 = (function (_super) {
         __extends(Blade21, _super);
         //#region Constructors
@@ -148,6 +157,9 @@ define("blade21/blade21", ["require", "exports", 'angular', 'angular-portal-azur
         Blade21.prototype.onCommandNew = function () {
             this.portalService.bladeArea.addBlade('/Sample1/blade2/blade2.html', this.path);
         };
+        Blade21.prototype.onActivate = function () {
+            console.log('Blade21.onActivate');
+        };
         //#endregion
         //#region Data Access
         Blade21.prototype.onGetDataList = function () {
@@ -155,16 +167,10 @@ define("blade21/blade21", ["require", "exports", 'angular', 'angular-portal-azur
         };
         return Blade21;
     }(azureportalng.BladeList));
-    //#region Angular Registration
-    (function () {
-        'use strict';
-        angular.module('sample1App').controller('blade21', ['azureportalng.portalService', Blade21]);
-    })();
-});
-//#endregion
-(function () {
-    'use strict';
-    angular.module('sample1App').directive('blade21Blade', [blade21Blade]);
+    angular.module('sample1App').controller('blade21', ['azureportalng.portalService', Blade21]);
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
     function blade21Blade() {
         return {
             replace: true,
@@ -174,11 +180,10 @@ define("blade21/blade21", ["require", "exports", 'angular', 'angular-portal-azur
             controllerAs: 'vm',
         };
     }
-})();
+    angular.module('sample1App').directive('blade21Blade', [blade21Blade]);
+})(Sample1 || (Sample1 = {}));
 var Sample1;
 (function (Sample1) {
-    'use strict';
-    //#region Class Definition
     var Customer = (function () {
         function Customer(customerPkId, firstName, lastName) {
             this.customerPkId = customerPkId;
@@ -189,8 +194,12 @@ var Sample1;
     }());
     Sample1.Customer = Customer;
 })(Sample1 || (Sample1 = {}));
-define("detail1/Detail1", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
-    "use strict";
+/// <reference types="angular-portal-azure" />
+/// <reference types="angular" />
+//import * as angular from 'angular';
+//import * as azureportalng from 'angular-portal-azure';
+var Sample1;
+(function (Sample1) {
     var Detail1 = (function (_super) {
         __extends(Detail1, _super);
         //#region Constructors
@@ -212,16 +221,10 @@ define("detail1/Detail1", ["require", "exports", 'angular', 'angular-portal-azur
         };
         return Detail1;
     }(azureportalng.BladeDetail));
-    //#region Angular Registration
-    (function () {
-        'use strict';
-        angular.module('sample1App').controller('detail1', ['azureportalng.portalService', Detail1]);
-    })();
-});
-//#endregion 
-(function () {
-    'use strict';
-    angular.module('sample1App').directive('detail1Blade', [detail1Blade]);
+    angular.module('sample1App').controller('detail1', ['azureportalng.portalService', Detail1]);
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
     function detail1Blade() {
         return {
             replace: true,
@@ -231,9 +234,14 @@ define("detail1/Detail1", ["require", "exports", 'angular', 'angular-portal-azur
             controllerAs: 'vm',
         };
     }
-})();
-define("list1/List1", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
-    "use strict";
+    angular.module('sample1App').directive('detail1Blade', [detail1Blade]);
+})(Sample1 || (Sample1 = {}));
+/// <reference types="angular-portal-azure" />
+/// <reference types="angular" />
+//import * as angular from 'angular';
+//import * as azureportalng from 'angular-portal-azure';
+var Sample1;
+(function (Sample1) {
     var List1 = (function (_super) {
         __extends(List1, _super);
         //#region Constructors
@@ -261,15 +269,10 @@ define("list1/List1", ["require", "exports", 'angular', 'angular-portal-azure'],
         };
         return List1;
     }(azureportalng.BladeList));
-    //#region Angular Registration
-    (function () {
-        angular.module('sample1App').controller('list1', ['azureportalng.portalService', List1]);
-    })();
-});
-//#endregion
-(function () {
-    'use strict';
-    angular.module('sample1App').directive('list1Blade', [list1Blade]);
+    angular.module('sample1App').controller('list1', ['azureportalng.portalService', List1]);
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
     function list1Blade() {
         return {
             replace: true,
@@ -279,9 +282,14 @@ define("list1/List1", ["require", "exports", 'angular', 'angular-portal-azure'],
             controllerAs: 'vm',
         };
     }
-})();
-define("nav1/nav1", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
-    "use strict";
+    angular.module('sample1App').directive('list1Blade', [list1Blade]);
+})(Sample1 || (Sample1 = {}));
+/// <reference types="angular-portal-azure" />
+/// <reference types="angular" />
+//import * as angular from 'angular';
+//import * as azureportalng from 'angular-portal-azure';
+var Sample1;
+(function (Sample1) {
     var Nav1 = (function (_super) {
         __extends(Nav1, _super);
         //#region Constructors
@@ -311,19 +319,17 @@ define("nav1/nav1", ["require", "exports", 'angular', 'angular-portal-azure'], f
             this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
         };
         Nav1.prototype.callback1 = function () {
-            console.log(this);
+            console.log('Nav1.callback1');
         };
         return Nav1;
     }(azureportalng.BladeNav));
-    //#region Angular Registration
-    (function () {
-        'use strict';
-        angular.module('sample1App').controller('nav1', ['azureportalng.portalService', Nav1]);
-    })();
-});
-//#endregion
-define("shell", ["require", "exports", 'angular', 'angular-portal-azure'], function (require, exports, angular, azureportalng) {
-    "use strict";
+    angular.module('sample1App').controller('nav1', ['azureportalng.portalService', Nav1]);
+})(Sample1 || (Sample1 = {}));
+/// <reference path="../node_modules/angular-portal-azure/apn.d.ts" />
+//import * as angular from 'angular';
+//import * as azureportalng from 'angular-portal-azure';
+var Sample1;
+(function (Sample1) {
     var Sample1Shell = (function (_super) {
         __extends(Sample1Shell, _super);
         //#region Constructors
@@ -375,5 +381,4 @@ define("shell", ["require", "exports", 'angular', 'angular-portal-azure'], funct
         'use strict';
         angular.module('sample1App').controller('sampleShell1', ['azureportalng.portalService', Sample1Shell]);
     })();
-});
-//#endregion
+})(Sample1 || (Sample1 = {}));

@@ -191,7 +191,6 @@
     <TypeScriptCompile Include="azureportalng\directives\blade\blade.ts" />
     <TypeScriptCompile Include="azureportalng\directives\home\home.ts" />
     <TypeScriptCompile Include="azureportalng\directives\navgrid\navgrid.ts" />
-    <TypeScriptCompile Include="azureportalng\services\BladeService.ts" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

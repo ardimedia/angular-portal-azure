@@ -1,21 +1,23 @@
-﻿import { Debug } from './Debug';
-import { PortalService } from './PortalService';
-import { UserAccount } from './UserAccount';
-import { UserControlBase } from './UserControlBase';
+﻿/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="useraccount.ts" />
+/// <reference path="usercontrolbase.ts" />
 
-export class AvatarMenu extends UserControlBase {
-    //#region Constructors
+namespace azureportalng {
+    export class AvatarMenu extends azureportalng.UserControlBase {
+        //#region Constructors
 
-    constructor(portalService: PortalService) {
-        super(portalService);
-        Debug.write('[azureportalng-debug] \'AvatarMenu\' constructor called.', [this]);
+        constructor(portalService: azureportalng.PortalService) {
+            super(portalService);
+            azureportalng.Debug.write('[azureportalng-debug] \'AvatarMenu\' constructor called.', [this]);
+        }
+
+        //#endregion
+
+        //#region Properties
+
+        userAccount: azureportalng.UserAccount;
+
+        //#endregion
     }
-
-    //#endregion
-
-    //#region Properties
-
-    userAccount: UserAccount;
-
-    //#endregion
 }

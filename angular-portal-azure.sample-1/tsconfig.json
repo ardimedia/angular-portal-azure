@@ -2,9 +2,9 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
-    "module": "amd",
+    "module": "none",
     "moduleResolution": "node",
-    "outFile": "build/app.js",
+    "outFile": "dist/app.js",
     "declaration": true,
     "sourceMap": false,
     "emitDecoratorMetadata": true,
@@ -14,7 +14,7 @@
   },
   "exclude": [
     "azureportalng",
-    "build",
+    "dist",
     "node_modules"
   ]
 }

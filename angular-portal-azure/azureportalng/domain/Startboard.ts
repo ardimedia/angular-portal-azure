@@ -1,24 +1,26 @@
-﻿import { Debug } from './Debug';
-import { PortalService } from './PortalService';
-import { Tiles } from './Tiles';
-import { UserControlBase } from './UserControlBase';
+﻿/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="tiles.ts" />
+/// <reference path="usercontrolbase.ts" />
 
-export class Startboard extends UserControlBase {
+namespace azureportalng {
+    export class Startboard extends azureportalng.UserControlBase {
 
-    //#region Properties
+        //#region Properties
 
-    tiles: Tiles;
+        tiles: azureportalng.Tiles;
 
-    //#endregion
+        //#endregion
 
-    //#region Constructors
+        //#region Constructors
 
-    constructor(portalService: PortalService) {
-        super(portalService);
-        Debug.write('[azureportalng-debug] \'Startboard\' constructor called.', [this]);
+        constructor(portalService: azureportalng.PortalService) {
+            super(portalService);
+            azureportalng.Debug.write('[azureportalng-debug] \'Startboard\' constructor called.', [this]);
 
-        this.tiles = new Tiles();
+            this.tiles = new azureportalng.Tiles();
+        }
+
+        //#endregion
     }
-
-    //#endregion
 }

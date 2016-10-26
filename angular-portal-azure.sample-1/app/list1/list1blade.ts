@@ -1,8 +1,4 @@
-﻿(function () {
-    'use strict';
-
-    angular.module('sample1App').directive('list1Blade', [list1Blade]);
-
+﻿namespace Sample1 {
     function list1Blade() {
         return {
             replace: true,
@@ -12,4 +8,6 @@
             controllerAs: 'vm',
         };
     }
-})();
+
+    angular.module('sample1App').directive('list1Blade', [list1Blade]);
+}

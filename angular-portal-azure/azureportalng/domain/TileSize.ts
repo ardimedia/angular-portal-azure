@@ -1,29 +1,31 @@
-﻿import { Debug } from './Debug';
-import { TileSizes } from './TileSizes';
+﻿/// <reference path="debug.ts" />
+/// <reference path="tilesizes.ts" />
 
-export class TileSize {
+namespace azureportalng {
+    export class TileSize {
 
-    //#region Constructors
+        //#region Constructors
 
-    constructor(public tileSizes: TileSizes, public width: number, public height: number) {
-        Debug.write('[azureportalng-debug] \'TileSize\' constructor called.', [this, tileSizes, width, height]);
+        constructor(public tileSizes: azureportalng.TileSizes, public width: number, public height: number) {
+            azureportalng.Debug.write('[azureportalng-debug] \'TileSize\' constructor called.', [this, tileSizes, width, height]);
+        }
+
+        //#endregion
+
+        //#region Methods
+
+        static getTileSizes(): Array<TileSize> {
+            azureportalng.Debug.write('[azureportalng-debug] \'TileSize.getTileSizes\' called.', [this]);
+            var tileSizes = Array<TileSize>();
+
+            tileSizes.push(new TileSize(azureportalng.TileSizes.small, 90, 90));
+            tileSizes.push(new TileSize(azureportalng.TileSizes.mini, 180, 90));
+            tileSizes.push(new TileSize(azureportalng.TileSizes.normal, 180, 180));
+            tileSizes.push(new TileSize(azureportalng.TileSizes.herowide, 540, 360));
+
+            return tileSizes;
+        }
+
+        //#endregion
     }
-
-    //#endregion
-
-    //#region Methods
-
-    static getTileSizes(): Array<TileSize> {
-        Debug.write('[azureportalng-debug] \'TileSize.getTileSizes\' called.', [this]);
-        var tileSizes = Array<TileSize>();
-
-        tileSizes.push(new TileSize(TileSizes.small, 90, 90));
-        tileSizes.push(new TileSize(TileSizes.mini, 180, 90));
-        tileSizes.push(new TileSize(TileSizes.normal, 180, 180));
-        tileSizes.push(new TileSize(TileSizes.herowide, 540, 360));
-
-        return tileSizes;
-    }
-
-    //#endregion
 }

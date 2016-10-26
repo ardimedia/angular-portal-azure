@@ -1,76 +1,78 @@
-﻿import { BladeData } from './BladeData';
-import { Debug } from './Debug';
-import { PortalService } from './PortalService';
+﻿/// <reference path="bladedata.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
 
-export class BladeDetail extends BladeData {
+namespace azureportalng {
+    export class BladeDetail extends azureportalng.BladeData {
 
-    //#region Properties
+        //#region Properties
 
-    item: any = null;
+        item: any = null;
 
-    //#endregion
+        //#endregion
 
-    //#region Constructor
+        //#region Constructor
 
-    constructor(portalService: PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
-        super(portalService, path, title, subtitle, width);
-        Debug.write('[azureportalng-debug] \'BladeDetail\' constructor called.', [this, portalService, path, title, subtitle, width]);
+        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
+            super(portalService, path, title, subtitle, width);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeDetail\' constructor called.', [this, portalService, path, title, subtitle, width]);
 
-        this.isCommandNew = true;
-        this.commandNewText = 'neu';
+            this.isCommandNew = true;
+            this.commandNewText = 'neu';
 
-        this.isCommandSave = true;
-        this.commandSaveText = 'speichern';
+            this.isCommandSave = true;
+            this.commandSaveText = 'speichern';
 
-        this.isCommandDelete = true;
-        this.commandDeleteText = 'löschen';
+            this.isCommandDelete = true;
+            this.commandDeleteText = 'löschen';
 
-        this.isCommandCancel = true;
-        this.commandCancelText = 'abbrechen';
-    }
+            this.isCommandCancel = true;
+            this.commandCancelText = 'abbrechen';
+        }
 
-    //#endregion
+        //#endregion
 
-    //#region Methods
+        //#region Methods
 
-    activate() {
-        Debug.write('[azureportalng-debug] \'BladeDetail.activate\' called.', [this]);
-        var that = this;
+        activate() {
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeDetail.activate\' called.', [this]);
+            var that = this;
 
-        that.statusbar = 'Daten laden...';
-        that.statusbarClass = '';
-
-        var onActivate = that.onActivate();
-
-        if (onActivate === null || onActivate === undefined) {
-            that.statusbar = '';
+            that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
-        } else {
-            onActivate.success(function (data: any) {
-                that.item = data;
+
+            var onActivate = that.onActivate();
+
+            if (onActivate === null || onActivate === undefined) {
                 that.statusbar = '';
                 that.statusbarClass = '';
-                that.onActivated();
-            }).error(function (data: any, status: any, headers: any, config: any) {
-                that.item = null;
-                that.statusbar = 'FEHLER: ' + data;
-                that.statusbarClass = 'message-info message-off';
-                that.onActivated();
-            });
+            } else {
+                onActivate.success(function (data: any) {
+                    that.item = data;
+                    that.statusbar = '';
+                    that.statusbarClass = '';
+                    that.onActivated();
+                }).error(function (data: any, status: any, headers: any, config: any) {
+                    that.item = null;
+                    that.statusbar = 'FEHLER: ' + data;
+                    that.statusbarClass = 'message-info message-off';
+                    that.onActivated();
+                });
+            }
         }
-    }
 
-    onActivate(): any { // any should be: angular.IHttpPromise<any>
-        throw new Error('[azureportalng.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
-    }
+        onActivate(): any { // any should be: angular.IHttpPromise<any>
+            throw new Error('[azureportalng.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
+        }
 
-    onActivated(): void {
-        Debug.write('[azureportalng-debug] \'onActivated\' called. You could override this.');
-    }
+        onActivated(): void {
+            azureportalng.Debug.write('[azureportalng-debug] \'onActivated\' called. You could override this.');
+        }
 
-    onCommandCancel(): void {
-        this.close();
-    }
+        onCommandCancel(): void {
+            this.close();
+        }
 
-    //#endregion
+        //#endregion
+    }
 }

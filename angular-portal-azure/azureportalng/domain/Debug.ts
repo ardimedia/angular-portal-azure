@@ -7,86 +7,88 @@
 
 //#endregion
 
-export class Debug {
-    //#region Constructors
+namespace azureportalng {
+    export class Debug {
+        //#region Constructors
 
-    constructor() {
-    }
-
-    //#endregion
-
-    //#region Properties
-
-    static isEnabled: boolean = false;
-    static isWithObjects: boolean = false;
-
-    static keys: Array<string> = new Array<string>();
-
-    //#endregion
-
-    //#region Methods
-
-    static enable(key?: string) {
-        Debug.isEnabled = true;
-
-        if (key) {
-            Debug.keys.push(key);
-        }
-    }
-
-    static disable(key?: string) {
-        if (key) {
-            var indexToDelete = Debug.keys.indexOf(key);
-            Debug.keys.splice(indexToDelete, 1);
+        constructor() {
         }
 
-        if (Debug.keys.length === 0) {
-            Debug.isEnabled = false;
-        }
-    }
+        //#endregion
 
-    static write(debugLine: string, objects?: Array<any>): boolean {
-        if ((Debug.isEnabled && Debug.keys.length === 0)
-            || (Debug.isEnabled && Debug.isInKeys(debugLine))) {
-            console.log(debugLine);
+        //#region Properties
 
-            if (objects !== undefined && Debug.isWithObjects) {
-                objects.forEach(function (item) {
-                    console.log(item);
-                });
-            }
-            return true;
-        }
-        return false;
-    }
+        static isEnabled: boolean = false;
+        static isWithObjects: boolean = false;
 
-    /** Extract the key (e.g. [azureportal] from a string */
-    static extractKey(text: string): string {
-        var extractKey: string = '';
+        static keys: Array<string> = new Array<string>();
 
-        var firstCharacter: string = text.substring(0, 1);
-        if (firstCharacter === '[') {
-            // Find closing bracket
-            var closingPos: number = text.indexOf(']');
+        //#endregion
 
-            if (closingPos > 0) {
-                extractKey = text.substring(0, closingPos + 1);
+        //#region Methods
+
+        static enable(key?: string) {
+            Debug.isEnabled = true;
+
+            if (key) {
+                Debug.keys.push(key);
             }
         }
 
-        return extractKey;
-    }
+        static disable(key?: string) {
+            if (key) {
+                var indexToDelete = Debug.keys.indexOf(key);
+                Debug.keys.splice(indexToDelete, 1);
+            }
 
-    /** Extract the key (e.g. [azureportal] from a string */
-    static isInKeys(debugLine: string): boolean {
-        var key: string = Debug.extractKey(debugLine);
-
-        if (Debug.keys.indexOf(key) != -1) {
-            return true;
+            if (Debug.keys.length === 0) {
+                Debug.isEnabled = false;
+            }
         }
 
-        return false;
-    }
+        static write(debugLine: string, objects?: Array<any>): boolean {
+            if ((Debug.isEnabled && Debug.keys.length === 0)
+                || (Debug.isEnabled && Debug.isInKeys(debugLine))) {
+                console.log(debugLine);
 
-    //#endregion
+                if (objects !== undefined && Debug.isWithObjects) {
+                    objects.forEach(function (item) {
+                        console.log(item);
+                    });
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /** Extract the key (e.g. [azureportal] from a string */
+        static extractKey(text: string): string {
+            var extractKey: string = '';
+
+            var firstCharacter: string = text.substring(0, 1);
+            if (firstCharacter === '[') {
+                // Find closing bracket
+                var closingPos: number = text.indexOf(']');
+
+                if (closingPos > 0) {
+                    extractKey = text.substring(0, closingPos + 1);
+                }
+            }
+
+            return extractKey;
+        }
+
+        /** Extract the key (e.g. [azureportal] from a string */
+        static isInKeys(debugLine: string): boolean {
+            var key: string = Debug.extractKey(debugLine);
+
+            if (Debug.keys.indexOf(key) != -1) {
+                return true;
+            }
+
+            return false;
+        }
+
+        //#endregion
+    }
 }

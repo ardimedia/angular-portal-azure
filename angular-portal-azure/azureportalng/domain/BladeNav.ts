@@ -1,25 +1,27 @@
-﻿import { BladeData } from './BladeData';
-import { Debug } from './Debug';
-import { BladeNavItem } from './BladeNavItem';
-import { PortalService } from './PortalService';
+﻿/// <reference path="bladedata.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="bladenavitem.ts" />
+/// <reference path="portalservice.ts" />
 
-export class BladeNav extends BladeData {
+namespace azureportalng {
+    export class BladeNav extends azureportalng.BladeData {
 
-    //#region Properties
+        //#region Properties
 
-    navItems: Array<BladeNavItem> = new Array<BladeNavItem>();
-    isNav: boolean = true;
+        navItems: Array<azureportalng.BladeNavItem> = new Array<azureportalng.BladeNavItem>();
+        isNav: boolean = true;
 
-    //#endregion
+        //#endregion
 
-    //#region Constructor
+        //#region Constructor
 
-    constructor(portalService: PortalService, path: string, title: string = '', subtitle: string = '', width: number = 200) {
-        super(portalService, path, title, subtitle, width);
-        Debug.write('[azureportalng-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
+        constructor(portalService: azureportalng.PortalService, path: string, title: string = '', subtitle: string = '', width: number = 200) {
+            super(portalService, path, title, subtitle, width);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
 
-        super.onNavigateTo = this.navigateTo;
+            super.onNavigateTo = this.navigateTo;
+        }
+
+        //#endregion
     }
-
-    //#endregion
 }

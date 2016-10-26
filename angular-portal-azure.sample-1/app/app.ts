@@ -1,14 +1,14 @@
 ﻿/// <reference types="angular-portal-azure" />
+/// <reference path="../node_modules/@types/angular/index.d.ts" />
 
-(function () {
-    /** create angular sample1 module */
+namespace Sample1 {
     var app: ng.IModule = angular.module('sample1App', [
         'ngResource',
         'ngDialog',
         'azureportalng'
     ]);
 
-    //#region Speical Cases
+    //#region Configuration
 
     /** configure angular */
     //app.config([function (): void {
@@ -40,4 +40,4 @@
     angular.element(document.body).ready(function () {
         angular.bootstrap(document.body, ['sample1App'], { strictDi: true });
     });
-})();
+}

@@ -1,8 +1,9 @@
 /// <reference types="angular-resource" />
 /// <reference types="angular" />
-declare var azureportalng: any;
-declare module "domain/Debug" {
-    export class Debug {
+declare namespace azureportalng {
+}
+declare namespace azureportalng {
+    class Debug {
         constructor();
         static isEnabled: boolean;
         static isWithObjects: boolean;
@@ -16,24 +17,34 @@ declare module "domain/Debug" {
         static isInKeys(debugLine: string): boolean;
     }
 }
-declare module "domain/UserControlBase" {
-    import { PortalService } from "domain/PortalService";
-    export class UserControlBase {
-        portalService: PortalService;
-        constructor(portalService: PortalService);
+declare namespace azureportalng {
+    class UserAccount {
+        constructor(username: string, firstName?: string, lastName?: string);
+        private _firstName;
+        firstName: string;
+        private _lastName;
+        lastName: string;
+        private _name;
+        name: string;
+        userName: string;
+        emailAddress: string;
     }
 }
-declare module "domain/IAddBladeEventArgs" {
-    export interface IAddBladeEventArgs {
+declare namespace azureportalng {
+    class UserControlBase {
+        constructor(portalService: azureportalng.PortalService);
+        portalService: azureportalng.PortalService;
+    }
+}
+declare namespace azureportalng {
+    interface IAddBladeEventArgs {
         path: string;
         pathSender: string;
     }
 }
-declare module "domain/Blade" {
-    import { UserControlBase } from "domain/UserControlBase";
-    import { PortalService } from "domain/PortalService";
-    export class Blade extends UserControlBase {
-        constructor(portalService: PortalService, path: string, title: string, subtitle?: string, width?: number);
+declare namespace azureportalng {
+    class Blade extends azureportalng.UserControlBase {
+        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
         listener1: Function;
         path: string;
         title: string;
@@ -137,19 +148,15 @@ declare module "domain/Blade" {
         bladeClose(): void;
     }
 }
-declare module "domain/BladeArea" {
-    import { Blade } from "domain/Blade";
-    import { UserControlBase } from "domain/UserControlBase";
-    import { PortalService } from "domain/PortalService";
-    import { IAddBladeEventArgs } from "domain/IAddBladeEventArgs";
-    export class BladeArea extends UserControlBase {
+declare namespace azureportalng {
+    class BladeArea extends azureportalng.UserControlBase {
+        constructor(portalService: azureportalng.PortalService);
         private listener1;
-        blades: Array<Blade>;
-        constructor(portalService: PortalService);
-        raiseAddBladeEvent(args: IAddBladeEventArgs): void;
-        setFirstBlade(path: string): Blade;
+        blades: Array<azureportalng.Blade>;
+        raiseAddBladeEvent(args: azureportalng.IAddBladeEventArgs): void;
+        setFirstBlade(path: string): azureportalng.Blade;
         /** obsolete */
-        addBlade(path: string, senderPath?: string): Blade;
+        addBlade(path: string, senderPath?: string): azureportalng.Blade;
         clearAll(): void;
         clearPath(path: string): void;
         clearLevel(level: number): void;
@@ -163,75 +170,55 @@ declare module "domain/BladeArea" {
         addBladeOld(path: string): void;
     }
 }
-declare module "domain/IBladeParameter" {
-    export interface IBladeParameter {
+declare namespace azureportalng {
+    interface IBladeParameter {
         action: string;
         item?: any;
         itemId: number;
     }
 }
-declare module "domain/UserAccount" {
-    export class UserAccount {
-        private _firstName;
-        firstName: string;
-        private _lastName;
-        lastName: string;
-        private _name;
-        name: string;
-        userName: string;
-        emailAddress: string;
-        constructor(username: string, firstName?: string, lastName?: string);
+declare namespace azureportalng {
+    class AvatarMenu extends azureportalng.UserControlBase {
+        constructor(portalService: azureportalng.PortalService);
+        userAccount: azureportalng.UserAccount;
     }
 }
-declare module "domain/AvatarMenu" {
-    import { PortalService } from "domain/PortalService";
-    import { UserAccount } from "domain/UserAccount";
-    import { UserControlBase } from "domain/UserControlBase";
-    export class AvatarMenu extends UserControlBase {
-        constructor(portalService: PortalService);
-        userAccount: UserAccount;
-    }
-}
-declare module "domain/TileSizes" {
+declare namespace azureportalng {
     /** The names are used in CSS for layouting, e.g. style='mini' */
-    export enum TileSizes {
+    enum TileSizes {
         small = 0,
         mini = 1,
         normal = 2,
         herowide = 3,
     }
 }
-declare module "domain/Tile" {
-    import { PortalService } from "domain/PortalService";
-    import { TileSizes } from "domain/TileSizes";
-    export class Tile {
-        portalService: PortalService;
+declare namespace azureportalng {
+    class TileSize {
+        tileSizes: azureportalng.TileSizes;
+        width: number;
+        height: number;
+        constructor(tileSizes: azureportalng.TileSizes, width: number, height: number);
+        static getTileSizes(): Array<TileSize>;
+    }
+}
+declare namespace azureportalng {
+    class Tile {
+        portalService: azureportalng.PortalService;
         title: string;
         subTitle: string;
         bladePath: string;
-        tileSize: TileSizes;
+        tileSize: azureportalng.TileSizes;
         size: string;
         left: string;
         top: string;
         leftN: string;
         topN: string;
-        constructor(title: string, bladePath: string, portalService: PortalService);
+        constructor(title: string, bladePath: string, portalService: azureportalng.PortalService);
         clicked(): void;
     }
 }
-declare module "domain/TileSize" {
-    import { TileSizes } from "domain/TileSizes";
-    export class TileSize {
-        tileSizes: TileSizes;
-        width: number;
-        height: number;
-        constructor(tileSizes: TileSizes, width: number, height: number);
-        static getTileSizes(): Array<TileSize>;
-    }
-}
-declare module "domain/Tiles" {
-    import { Tile } from "domain/Tile";
-    export class Tiles {
+declare namespace azureportalng {
+    class Tiles {
         showTiles: boolean;
         tiles: Array<any>;
         hideTileIfOnlyOne: boolean;
@@ -242,33 +229,23 @@ declare module "domain/Tiles" {
         addTile(tile: Tile): Tile;
     }
 }
-declare module "domain/Startboard" {
-    import { PortalService } from "domain/PortalService";
-    import { Tiles } from "domain/Tiles";
-    import { UserControlBase } from "domain/UserControlBase";
-    export class Startboard extends UserControlBase {
-        tiles: Tiles;
-        constructor(portalService: PortalService);
+declare namespace azureportalng {
+    class Startboard extends azureportalng.UserControlBase {
+        tiles: azureportalng.Tiles;
+        constructor(portalService: azureportalng.PortalService);
     }
 }
-declare module "domain/Panorama" {
-    import { AvatarMenu } from "domain/AvatarMenu";
-    import { Startboard } from "domain/Startboard";
-    import { PortalService } from "domain/PortalService";
-    import { UserControlBase } from "domain/UserControlBase";
-    export class Panorama extends UserControlBase {
+declare namespace azureportalng {
+    class Panorama extends azureportalng.UserControlBase {
         title: string;
         isVisible: boolean;
-        avatarMenu: AvatarMenu;
-        startboard: Startboard;
-        constructor(title: string, portalService: PortalService);
+        avatarMenu: azureportalng.AvatarMenu;
+        startboard: azureportalng.Startboard;
+        constructor(title: string, portalService: azureportalng.PortalService);
     }
 }
-declare module "domain/PortalShell" {
-    import { UserControlBase } from "domain/UserControlBase";
-    import { PortalService } from "domain/PortalService";
-    import { Tiles } from "domain/Tiles";
-    export class PortalShell extends UserControlBase {
+declare namespace azureportalng {
+    class PortalShell extends azureportalng.UserControlBase {
         /** Obsolete
          * start using this.panorama.title */
         title: string;
@@ -277,22 +254,19 @@ declare module "domain/PortalShell" {
         user: {};
         /** Obsolete
          * start using this.panorama.startboard.tiles */
-        tiles: Tiles[];
+        tiles: azureportalng.Tiles[];
         /** Obsolete
          * start using this.bladesNew.blades. */
         blades: any[];
-        constructor(title: string, portalService: PortalService);
+        constructor(title: string, portalService: azureportalng.PortalService);
         initialize(): void;
         setObsoleteLayoutProperites(): void;
     }
 }
-declare module "domain/PortalService" {
-    import { BladeArea } from "domain/BladeArea";
-    import { IBladeParameter } from "domain/IBladeParameter";
-    import { Panorama } from "domain/Panorama";
-    import { PortalShell } from "domain/PortalShell";
-    export class PortalService {
-        parameter: IBladeParameter;
+declare namespace azureportalng {
+    class PortalService {
+        constructor($injector: any);
+        parameter: azureportalng.IBladeParameter;
         animate: any;
         animation: any;
         component: any;
@@ -309,9 +283,9 @@ declare module "domain/PortalService" {
         decorator: any;
         name: any;
         requires: any;
-        portalShell: PortalShell;
-        panorama: Panorama;
-        bladeArea: BladeArea;
+        portalShell: azureportalng.PortalShell;
+        panorama: azureportalng.Panorama;
+        bladeArea: azureportalng.BladeArea;
         ngDialog: any;
         $http: any;
         $httpBackend: any;
@@ -320,14 +294,19 @@ declare module "domain/PortalService" {
         $rootScope: any;
         $window: any;
         $scope: any;
-        constructor($injector: any);
     }
 }
-declare module "directives/blade/blade" {
+declare namespace azureportalng {
 }
-declare module "domain/IException" {
+declare namespace azureportalng {
+}
+declare namespace azureportalng {
+}
+declare namespace azureportalng {
+}
+declare namespace azureportalng {
     /** If a Web API through an exception, the following interface should be available. */
-    export interface IException {
+    interface IException {
         ExceptionType: string;
         ClassName: string;
         Message: string;
@@ -336,33 +315,26 @@ declare module "domain/IException" {
         Messages?: string[];
     }
 }
-declare module "domain/BladeData" {
-    import { Blade } from "domain/Blade";
-    import { IException } from "domain/IException";
-    import { PortalService } from "domain/PortalService";
-    export class BladeData extends Blade {
-        constructor(portalService: PortalService, path: string, title: string, subtitle?: string, width?: number);
-        processException(data: IException): void;
+declare namespace azureportalng {
+    class BladeData extends azureportalng.Blade {
+        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        processException(data: azureportalng.IException): void;
     }
 }
-declare module "domain/BladeDetail" {
-    import { BladeData } from "domain/BladeData";
-    import { PortalService } from "domain/PortalService";
-    export class BladeDetail extends BladeData {
+declare namespace azureportalng {
+    class BladeDetail extends azureportalng.BladeData {
         item: any;
-        constructor(portalService: PortalService, path: string, title: string, subtitle?: string, width?: number);
+        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
         activate(): void;
         onActivate(): any;
         onActivated(): void;
         onCommandCancel(): void;
     }
 }
-declare module "domain/BladeList" {
-    import { BladeData } from "domain/BladeData";
-    import { PortalService } from "domain/PortalService";
-    export class BladeList extends BladeData {
+declare namespace azureportalng {
+    class BladeList extends azureportalng.BladeData {
         items: any[];
-        constructor(portalService: PortalService, path: string, title: string, subtitle?: string, width?: number);
+        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
         activate(): void;
         onActivate(): any;
         loadItems(f: any): void;
@@ -371,36 +343,37 @@ declare module "domain/BladeList" {
         setObsoleteLayoutProperites(): void;
     }
 }
-declare module "domain/BladeNavItem" {
-    import { BladeNav } from "domain/BladeNav";
-    export class BladeNavItem {
+declare namespace azureportalng {
+    class BladeNavItem {
         title: string;
         bladePath: string;
         hrefPath: string;
         roles: string;
         isVisible: boolean;
         callback: () => any;
-        bladeNav: BladeNav;
-        constructor(title?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: BladeNav);
+        bladeNav: azureportalng.BladeNav;
+        constructor(title?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: azureportalng.BladeNav);
         onNavItemClick(): void;
     }
 }
-declare module "domain/BladeNav" {
-    import { BladeData } from "domain/BladeData";
-    import { BladeNavItem } from "domain/BladeNavItem";
-    import { PortalService } from "domain/PortalService";
-    export class BladeNav extends BladeData {
-        navItems: Array<BladeNavItem>;
+declare namespace azureportalng {
+    class BladeNav extends azureportalng.BladeData {
+        navItems: Array<azureportalng.BladeNavItem>;
         isNav: boolean;
-        constructor(portalService: PortalService, path: string, title?: string, subtitle?: string, width?: number);
+        constructor(portalService: azureportalng.PortalService, path: string, title?: string, subtitle?: string, width?: number);
     }
 }
-declare module "domain/Exception" {
-    import { IException } from "domain/IException";
-    export class Exception {
-        static convertFromWebApiException(ex: IException): void;
-        static onConvertFromWebApiException(ex: IException): void;
+declare namespace azureportalng {
+    class Exception {
+        static convertFromWebApiException(ex: azureportalng.IException): void;
+        static onConvertFromWebApiException(ex: azureportalng.IException): void;
     }
 }
-declare module "services/DataService" {
+declare namespace azureportalng {
+    class DataService {
+        $http: any;
+        $q: any;
+        constructor($http: any, $q: any);
+        getData(url: string): any;
+    }
 }

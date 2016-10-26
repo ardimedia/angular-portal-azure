@@ -1,8 +1,4 @@
-﻿(function () {
-    'use strict';
-
-    angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
-
+﻿namespace Sample1 {
     function blade2Blade() {
         return {
             replace: true,
@@ -12,4 +8,6 @@
             controllerAs: 'vm',
         };
     }
-})();
+
+    angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
+}

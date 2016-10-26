@@ -1,23 +1,19 @@
 ﻿/// <reference types="angular" />
 
-var azureportalng: any; // any should be: angular.IModule
-
-(function () {
-    'use strict';
-
+namespace azureportalng {
     /** Define Angular module and its dependencies */
-    azureportalng = angular.module('azureportalng', [
-    // Angular modules
+    var angularModule = angular.module('azureportalng', [
+        // Angular modules
         'ngResource',
         'ngDialog'
     ]);
 
-    azureportalng.config([function (): void {
+    angularModule .config([function (): void {
         //Debug.enable('[azureportalng-debug]');
         //Debug.isWithObjects = false;
     }]);
 
-    azureportalng.run(function () {
+    angularModule .run(function () {
         //Debug.write('[azureportalng-debug] \'azureportalng.run\' executing.', [this]);
     });
-})();
+}

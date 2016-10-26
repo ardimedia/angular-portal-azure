@@ -1,34 +1,28 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 /// <reference types="angular" />
-var azureportalng; // any should be: angular.IModule
-(function () {
-    'use strict';
+var azureportalng;
+(function (azureportalng) {
     /** Define Angular module and its dependencies */
-    azureportalng = angular.module('azureportalng', [
+    var angularModule = angular.module('azureportalng', [
         // Angular modules
         'ngResource',
         'ngDialog'
     ]);
-    azureportalng.config([function () {
+    angularModule.config([function () {
             //Debug.enable('[azureportalng-debug]');
             //Debug.isWithObjects = false;
         }]);
-    azureportalng.run(function () {
+    angularModule.run(function () {
         //Debug.write('[azureportalng-debug] \'azureportalng.run\' executing.', [this]);
     });
-})();
+})(azureportalng || (azureportalng = {}));
 //#region Make sure console.log is working in any case, even IE9
-define("domain/Debug", ["require", "exports"], function (require, exports) {
-    "use strict";
-    //if ($('html').hasClass('k-ie9')) {
-    //    if (typeof console !== 'object') window.console = <any>{};
-    //    if (typeof console.log !== 'object') window.console.log = function () { };
-    //}
-    //#endregion
+//if ($('html').hasClass('k-ie9')) {
+//    if (typeof console !== 'object') window.console = <any>{};
+//    if (typeof console.log !== 'object') window.console.log = function () { };
+//}
+//#endregion
+var azureportalng;
+(function (azureportalng) {
     var Debug = (function () {
         //#region Constructors
         function Debug() {
@@ -91,26 +85,84 @@ define("domain/Debug", ["require", "exports"], function (require, exports) {
         Debug.keys = new Array();
         return Debug;
     }());
-    exports.Debug = Debug;
-});
-define("domain/UserControlBase", ["require", "exports", "domain/Debug"], function (require, exports, Debug_1) {
-    "use strict";
+    azureportalng.Debug = Debug;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+var azureportalng;
+(function (azureportalng) {
+    var UserAccount = (function () {
+        //#region Constructors
+        function UserAccount(username, firstName, lastName) {
+            if (firstName === void 0) { firstName = ''; }
+            if (lastName === void 0) { lastName = ''; }
+            azureportalng.Debug.write('[azureportalng-debug] \'UserAccount\' constructor called.', [this, username, firstName, lastName]);
+            this.userName = username;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+        Object.defineProperty(UserAccount.prototype, "firstName", {
+            get: function () {
+                return this._firstName;
+            },
+            set: function (value) {
+                this._firstName = value;
+                this._name = (this._firstName || '') + ' ' + (this._lastName || '');
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UserAccount.prototype, "lastName", {
+            get: function () {
+                return this._lastName;
+            },
+            set: function (value) {
+                this._lastName = value;
+                this._name = (this._firstName || '') + ' ' + (this._lastName || '');
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(UserAccount.prototype, "name", {
+            get: function () {
+                return this._name;
+            },
+            set: function (value) {
+                throw new Error('[azureportalng.UserAccount] \'name\' is a calculated value from \'firsName\' and \'lastName\'. Assignment not allowed.');
+                //this._name = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return UserAccount;
+    }());
+    azureportalng.UserAccount = UserAccount;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+var azureportalng;
+(function (azureportalng) {
     var UserControlBase = (function () {
-        //#endregion
         //#region Constructors
         function UserControlBase(portalService) {
-            Debug_1.Debug.write('[azureportalng-debug] \'UserControlBase\' constructor called.', [this, portalService]);
+            azureportalng.Debug.write('[azureportalng-debug] \'UserControlBase\' constructor called.', [this, portalService]);
             this.portalService = portalService;
         }
         return UserControlBase;
     }());
-    exports.UserControlBase = UserControlBase;
-});
-define("domain/IAddBladeEventArgs", ["require", "exports"], function (require, exports) {
-    "use strict";
-});
-define("domain/Blade", ["require", "exports", "domain/Debug", "domain/UserControlBase", "domain/PortalService"], function (require, exports, Debug_2, UserControlBase_1, PortalService_1) {
-    "use strict";
+    azureportalng.UserControlBase = UserControlBase;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="useraccount.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="usercontrolbase.ts" />
+/// <reference path="iaddbladeeventargs.ts" />
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var azureportalng;
+(function (azureportalng) {
     var Blade = (function (_super) {
         __extends(Blade, _super);
         //#region Constructor
@@ -184,7 +236,7 @@ define("domain/Blade", ["require", "exports", "domain/Debug", "domain/UserContro
                 items: [],
                 navigateTo: function (path) { }
             };
-            Debug_2.Debug.write('[azureportalng-debug] \'Blade\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Blade\' constructor called.', [this, portalService, path, title, subtitle, width]);
             var that = this;
             this.blade = this;
             this.path = path;
@@ -213,13 +265,13 @@ define("domain/Blade", ["require", "exports", "domain/Debug", "domain/UserContro
             }
             //#region Add BladeArea.AddBlade event listener
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
-            if (portalService instanceof PortalService_1.PortalService == false) {
+            if (portalService instanceof azureportalng.PortalService == false) {
                 return;
             }
             /** OBSOLETE: end */
             // Register listener1
             this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
-                Debug_2.Debug.write('[azureportalng-debug] \'Blade\' BladeArea.AddBlade event processing.', [this, event, args]);
+                azureportalng.Debug.write('[azureportalng-debug] \'Blade\' BladeArea.AddBlade event processing.', [this, event, args]);
                 if (args.path === that.blade.path) {
                     that.activate();
                 }
@@ -231,14 +283,14 @@ define("domain/Blade", ["require", "exports", "domain/Debug", "domain/UserContro
         //#region Methods
         //#region Methods
         Blade.prototype.activate = function () {
-            Debug_2.Debug.write('[azureportalng-debug] \'Blade.activate\' called. You could override this, but proably you should call super.activate().', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Blade.activate\' called. You could override this, but proably you should call super.activate().', [this]);
             this.onActivate();
         };
         Blade.prototype.onActivate = function () {
-            Debug_2.Debug.write('[azureportalng-debug] \'Blade.onActivate\' not overriden. You could override this.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Blade.onActivate\' not overriden. You could override this.', [this]);
         };
         Blade.prototype.navigateTo = function (arg) {
-            Debug_2.Debug.write('[azureportalng-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, arg]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, arg]);
             this.onNavigateTo(arg);
         };
         Blade.prototype.onNavigateTo = function (arg) {
@@ -246,7 +298,7 @@ define("domain/Blade", ["require", "exports", "domain/Debug", "domain/UserContro
         };
         /** close blade. */
         Blade.prototype.close = function () {
-            Debug_2.Debug.write('[azureportalng-debug] \'Blade.close\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Blade.close\' called.', [this]);
             this.listener1(); // Unregister listener1
             if (this.portalService.bladeArea !== undefined) {
                 this.portalService.bladeArea.clearPath(this.path);
@@ -312,7 +364,7 @@ define("domain/Blade", ["require", "exports", "domain/Debug", "domain/UserContro
         //#region OBSOLETE
         /** Obsolete */
         Blade.prototype.setObsoleteLayoutProperites = function () {
-            Debug_2.Debug.write('[azureportalng-debug] \'Blade.setObsoleteLayoutProperites\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Blade.setObsoleteLayoutProperites\' called.', [this]);
             this.blade.title = this.title;
             this.blade.statusbar = this.statusbar;
             this.blade.statusbarClass = this.statusbarClass;
@@ -339,32 +391,37 @@ define("domain/Blade", ["require", "exports", "domain/Debug", "domain/UserContro
             this.close();
         };
         return Blade;
-    }(UserControlBase_1.UserControlBase));
-    exports.Blade = Blade;
-});
-define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "domain/Blade", "domain/UserControlBase", "domain/PortalService"], function (require, exports, angular, Debug_3, Blade_1, UserControlBase_2, PortalService_2) {
-    "use strict";
+    }(azureportalng.UserControlBase));
+    azureportalng.Blade = Blade;
+})(azureportalng || (azureportalng = {}));
+/// <reference types="angular" />
+/// <reference path="debug.ts" />
+/// <reference path="blade.ts" />
+/// <reference path="usercontrolbase.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="iaddbladeeventargs.ts" />
+var azureportalng;
+(function (azureportalng) {
     var BladeArea = (function (_super) {
         __extends(BladeArea, _super);
-        //#endregion
         //#region Constructors
         function BladeArea(portalService) {
             _super.call(this, portalService);
             this.blades = new Array();
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea\' constructor called.', [this, portalService]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea\' constructor called.', [this, portalService]);
             var that = this;
             // Set dependencies
             this.portalService = portalService;
             this.portalService.bladeArea = this;
             //#region Add BladeArea.AddBlade event listener
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
-            if (portalService instanceof PortalService_2.PortalService == false) {
+            if (portalService instanceof azureportalng.PortalService == false) {
                 return;
             }
             /** OBSOLETE: end */
             // Register listener1
             this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
-                Debug_3.Debug.write('[azureportalng-debug] \'BladeArea\' BladeArea.AddBlade event processing.', [this, event, args]);
+                azureportalng.Debug.write('[azureportalng-debug] \'BladeArea\' BladeArea.AddBlade event processing.', [this, event, args]);
                 that.addBlade(args.path, args.pathSender);
             });
             //#endregion
@@ -375,7 +432,7 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
             this.portalService.$rootScope.$broadcast('BladeArea.AddBlade', args);
         };
         BladeArea.prototype.setFirstBlade = function (path) {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.setFirstBlade\' called.', [this, path]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.setFirstBlade\' called.', [this, path]);
             this.clearAll();
             this.hidePanorama();
             return this.addBlade(path);
@@ -383,7 +440,7 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
         /** obsolete */
         BladeArea.prototype.addBlade = function (path, senderPath) {
             if (senderPath === void 0) { senderPath = ''; }
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.addBlade\' called.', [this, senderPath, path]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.addBlade\' called.', [this, senderPath, path]);
             var that = this;
             //#region Verify
             if (path === undefined || path === '') {
@@ -411,7 +468,7 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
             });
             //#endregion
             //#region Show the blade
-            var blade = new Blade_1.Blade(that.portalService, path, '');
+            var blade = new azureportalng.Blade(that.portalService, path, '');
             that.blades.push(blade);
             //#endregion
             //#region Position the blade
@@ -431,28 +488,28 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
             return blade;
         };
         BladeArea.prototype.clearAll = function () {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearAll\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearAll\' called.', [this]);
             this.blades.length = 0;
             this.showPanoramaIfNoBlades();
         };
         BladeArea.prototype.clearPath = function (path) {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearPath\' called.', [this, path]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearPath\' called.', [this, path]);
             var that = this;
             var isremoved = that.blades.some(function (blade, index) {
                 if (blade.path === path) {
-                    Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearPath\' set bladeUrls.length to: ' + index);
+                    azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearPath\' set bladeUrls.length to: ' + index);
                     that.blades.length = index;
                     return true;
                 }
             });
             if (!isremoved) {
-                Debug_3.Debug.write('>>> bladeUrls:', [that.blades]);
+                azureportalng.Debug.write('>>> bladeUrls:', [that.blades]);
                 throw new Error('[azureportalng.BladeArea.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
             this.showPanoramaIfNoBlades();
         };
         BladeArea.prototype.clearLevel = function (level) {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearLevel\' called.', [this, level]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearLevel\' called.', [this, level]);
             if (this.blades.length < level) {
             }
             if (level == 0) {
@@ -462,26 +519,26 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
             this.showPanoramaIfNoBlades();
         };
         BladeArea.prototype.clearLastLevel = function () {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearLastLevel\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearLastLevel\' called.', [this]);
             this.clearLevel(this.blades.length);
             this.showPanoramaIfNoBlades();
         };
         BladeArea.prototype.clearChild = function (path) {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearChild\' called.', [this, path]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearChild\' called.', [this, path]);
             var that = this;
             if (path === '') {
-                Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearChild\' path is empty, nothing to clear.');
+                azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearChild\' path is empty, nothing to clear.');
                 return;
             }
             var isremoved = that.blades.some(function (blade, index) {
                 if (blade.path === path) {
-                    Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.clearChild\' set bladeUrls.length to: ' + (index + 1));
+                    azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.clearChild\' set bladeUrls.length to: ' + (index + 1));
                     that.blades.length = index + 1;
                     return true;
                 }
             });
             if (!isremoved) {
-                Debug_3.Debug.write('>>> bladeUrls:', [that.blades]);
+                azureportalng.Debug.write('>>> bladeUrls:', [that.blades]);
                 throw new Error('[azureportalng.BladeArea.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
         };
@@ -506,7 +563,7 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
         //#endregion
         //#region OBSOLETE
         BladeArea.prototype.addBladePath = function (path) {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.addBladePath\' called.', [this, path]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.addBladePath\' called.', [this, path]);
             // Fix issue with old code
             if (this.portalService.$window === undefined) {
                 this.portalService.$window = this.portalService;
@@ -515,12 +572,12 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
             //this.addBladeOld(path);
         };
         BladeArea.prototype.addBladeOld = function (path) {
-            Debug_3.Debug.write('[azureportalng-debug] \'BladeArea.addBladeOld\' called.', [this, path]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeArea.addBladeOld\' called.', [this, path]);
             var that = this;
             if (path === undefined || path == '') {
                 return;
             }
-            var blade = new Blade_1.Blade(that.portalService, path, '');
+            var blade = new azureportalng.Blade(that.portalService, path, '');
             that.blades.push(blade);
             var portalcontent = that.portalService.$window.document.getElementById('azureportalscroll');
             that.portalService.$window.setTimeout(function () {
@@ -535,149 +592,109 @@ define("domain/BladeArea", ["require", "exports", 'angular', "domain/Debug", "do
             }, 250);
         };
         return BladeArea;
-    }(UserControlBase_2.UserControlBase));
-    exports.BladeArea = BladeArea;
-    //#endregion
+    }(azureportalng.UserControlBase));
+    azureportalng.BladeArea = BladeArea;
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('azureportalng').service('azureportalng.bladeArea', ['$window', BladeArea]);
     })();
-});
-define("domain/IBladeParameter", ["require", "exports"], function (require, exports) {
-    "use strict";
-});
-define("domain/UserAccount", ["require", "exports", "domain/Debug"], function (require, exports, Debug_4) {
-    "use strict";
-    var UserAccount = (function () {
-        //#endregion
-        //#region Constructors
-        function UserAccount(username, firstName, lastName) {
-            if (firstName === void 0) { firstName = ''; }
-            if (lastName === void 0) { lastName = ''; }
-            Debug_4.Debug.write('[azureportalng-debug] \'UserAccount\' constructor called.', [this, username, firstName, lastName]);
-            this.userName = username;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-        Object.defineProperty(UserAccount.prototype, "firstName", {
-            get: function () {
-                return this._firstName;
-            },
-            set: function (value) {
-                this._firstName = value;
-                this._name = (this._firstName || '') + ' ' + (this._lastName || '');
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(UserAccount.prototype, "lastName", {
-            get: function () {
-                return this._lastName;
-            },
-            set: function (value) {
-                this._lastName = value;
-                this._name = (this._firstName || '') + ' ' + (this._lastName || '');
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(UserAccount.prototype, "name", {
-            get: function () {
-                return this._name;
-            },
-            set: function (value) {
-                throw new Error('[azureportalng.UserAccount] \'name\' is a calculated value from \'firsName\' and \'lastName\'. Assignment not allowed.');
-                //this._name = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return UserAccount;
-    }());
-    exports.UserAccount = UserAccount;
-});
-define("domain/AvatarMenu", ["require", "exports", "domain/Debug", "domain/UserControlBase"], function (require, exports, Debug_5, UserControlBase_3) {
-    "use strict";
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="useraccount.ts" />
+/// <reference path="usercontrolbase.ts" />
+var azureportalng;
+(function (azureportalng) {
     var AvatarMenu = (function (_super) {
         __extends(AvatarMenu, _super);
         //#region Constructors
         function AvatarMenu(portalService) {
             _super.call(this, portalService);
-            Debug_5.Debug.write('[azureportalng-debug] \'AvatarMenu\' constructor called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'AvatarMenu\' constructor called.', [this]);
         }
         return AvatarMenu;
-    }(UserControlBase_3.UserControlBase));
-    exports.AvatarMenu = AvatarMenu;
-});
-define("domain/TileSizes", ["require", "exports"], function (require, exports) {
-    "use strict";
+    }(azureportalng.UserControlBase));
+    azureportalng.AvatarMenu = AvatarMenu;
+})(azureportalng || (azureportalng = {}));
+var azureportalng;
+(function (azureportalng) {
     /** The names are used in CSS for layouting, e.g. style='mini' */
     (function (TileSizes) {
         TileSizes[TileSizes["small"] = 0] = "small";
         TileSizes[TileSizes["mini"] = 1] = "mini";
         TileSizes[TileSizes["normal"] = 2] = "normal";
         TileSizes[TileSizes["herowide"] = 3] = "herowide";
-    })(exports.TileSizes || (exports.TileSizes = {}));
-    var TileSizes = exports.TileSizes;
-});
-define("domain/Tile", ["require", "exports", "domain/Debug", "domain/TileSizes"], function (require, exports, Debug_6, TileSizes_1) {
-    "use strict";
-    var Tile = (function () {
-        //#endregion
-        //#region Constructors
-        function Tile(title, bladePath, portalService) {
-            Debug_6.Debug.write('[azureportalng-debug] \'Tile\' constructor called.', [this, title, bladePath, portalService]);
-            this.portalService = portalService;
-            this.title = title;
-            this.bladePath = bladePath;
-            this.tileSize = TileSizes_1.TileSizes.normal;
-        }
-        //#endregion
-        //#region Methods
-        Tile.prototype.clicked = function () {
-            Debug_6.Debug.write('[azureportalng-debug] \'Tile.clicked\' called.', [this]);
-            var blade = this.portalService.bladeArea.setFirstBlade(this.bladePath);
-            blade.activate();
-        };
-        return Tile;
-    }());
-    exports.Tile = Tile;
-});
-define("domain/TileSize", ["require", "exports", "domain/Debug", "domain/TileSizes"], function (require, exports, Debug_7, TileSizes_2) {
-    "use strict";
+    })(azureportalng.TileSizes || (azureportalng.TileSizes = {}));
+    var TileSizes = azureportalng.TileSizes;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="tilesizes.ts" />
+var azureportalng;
+(function (azureportalng) {
     var TileSize = (function () {
         //#region Constructors
         function TileSize(tileSizes, width, height) {
             this.tileSizes = tileSizes;
             this.width = width;
             this.height = height;
-            Debug_7.Debug.write('[azureportalng-debug] \'TileSize\' constructor called.', [this, tileSizes, width, height]);
+            azureportalng.Debug.write('[azureportalng-debug] \'TileSize\' constructor called.', [this, tileSizes, width, height]);
         }
         //#endregion
         //#region Methods
         TileSize.getTileSizes = function () {
-            Debug_7.Debug.write('[azureportalng-debug] \'TileSize.getTileSizes\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'TileSize.getTileSizes\' called.', [this]);
             var tileSizes = Array();
-            tileSizes.push(new TileSize(TileSizes_2.TileSizes.small, 90, 90));
-            tileSizes.push(new TileSize(TileSizes_2.TileSizes.mini, 180, 90));
-            tileSizes.push(new TileSize(TileSizes_2.TileSizes.normal, 180, 180));
-            tileSizes.push(new TileSize(TileSizes_2.TileSizes.herowide, 540, 360));
+            tileSizes.push(new TileSize(azureportalng.TileSizes.small, 90, 90));
+            tileSizes.push(new TileSize(azureportalng.TileSizes.mini, 180, 90));
+            tileSizes.push(new TileSize(azureportalng.TileSizes.normal, 180, 180));
+            tileSizes.push(new TileSize(azureportalng.TileSizes.herowide, 540, 360));
             return tileSizes;
         };
         return TileSize;
     }());
-    exports.TileSize = TileSize;
-});
-define("domain/Tiles", ["require", "exports", "domain/Debug", "domain/TileSize", "domain/TileSizes"], function (require, exports, Debug_8, TileSize_1, TileSizes_3) {
-    "use strict";
+    azureportalng.TileSize = TileSize;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="blade.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="tilesize.ts" />
+var azureportalng;
+(function (azureportalng) {
+    var Tile = (function () {
+        //#endregion
+        //#region Constructors
+        function Tile(title, bladePath, portalService) {
+            azureportalng.Debug.write('[azureportalng-debug] \'Tile\' constructor called.', [this, title, bladePath, portalService]);
+            this.portalService = portalService;
+            this.title = title;
+            this.bladePath = bladePath;
+            this.tileSize = azureportalng.TileSizes.normal;
+        }
+        //#endregion
+        //#region Methods
+        Tile.prototype.clicked = function () {
+            azureportalng.Debug.write('[azureportalng-debug] \'Tile.clicked\' called.', [this]);
+            var blade = this.portalService.bladeArea.setFirstBlade(this.bladePath);
+            blade.activate();
+        };
+        return Tile;
+    }());
+    azureportalng.Tile = Tile;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="tile.ts" />
+/// <reference path="tilesize.ts" />
+/// <reference path="tilesizes.ts" />
+var azureportalng;
+(function (azureportalng) {
     var Tiles = (function () {
         function Tiles() {
             //#region Properties
             this.showTiles = true;
             this.tiles = new Array();
             this.hideTileIfOnlyOne = true; // not yet evaluated in HTML, but this is the standard behavior
-            this.tileSizes = TileSize_1.TileSize.getTileSizes();
+            this.tileSizes = azureportalng.TileSize.getTileSizes();
             this.nextLeft = 0;
             this.nextTop = 0;
             this.columnHeightMax = 0;
@@ -685,9 +702,9 @@ define("domain/Tiles", ["require", "exports", "domain/Debug", "domain/TileSize",
         //#endregion
         //#region Methods
         Tiles.prototype.addTile = function (tile) {
-            Debug_8.Debug.write('[azureportalng-debug] \'Tiles.addTile\' called.', [this, tile]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Tiles.addTile\' called.', [this, tile]);
             var tileSize = this.tileSizes[tile.tileSize];
-            tile.size = TileSizes_3.TileSizes[tile.tileSize]; // Get CSS Name
+            tile.size = azureportalng.TileSizes[tile.tileSize]; // Get CSS Name
             tile.top = this.nextTop + 'px';
             tile.left = this.nextLeft + 'px';
             this.nextLeft += tileSize.width;
@@ -704,25 +721,34 @@ define("domain/Tiles", ["require", "exports", "domain/Debug", "domain/TileSize",
         };
         return Tiles;
     }());
-    exports.Tiles = Tiles;
-});
-define("domain/Startboard", ["require", "exports", "domain/Debug", "domain/Tiles", "domain/UserControlBase"], function (require, exports, Debug_9, Tiles_1, UserControlBase_4) {
-    "use strict";
+    azureportalng.Tiles = Tiles;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="tiles.ts" />
+/// <reference path="usercontrolbase.ts" />
+var azureportalng;
+(function (azureportalng) {
     var Startboard = (function (_super) {
         __extends(Startboard, _super);
         //#endregion
         //#region Constructors
         function Startboard(portalService) {
             _super.call(this, portalService);
-            Debug_9.Debug.write('[azureportalng-debug] \'Startboard\' constructor called.', [this]);
-            this.tiles = new Tiles_1.Tiles();
+            azureportalng.Debug.write('[azureportalng-debug] \'Startboard\' constructor called.', [this]);
+            this.tiles = new azureportalng.Tiles();
         }
         return Startboard;
-    }(UserControlBase_4.UserControlBase));
-    exports.Startboard = Startboard;
-});
-define("domain/Panorama", ["require", "exports", "domain/AvatarMenu", "domain/Debug", "domain/Startboard", "domain/UserControlBase"], function (require, exports, AvatarMenu_1, Debug_10, Startboard_1, UserControlBase_5) {
-    "use strict";
+    }(azureportalng.UserControlBase));
+    azureportalng.Startboard = Startboard;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="avatarmenu.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="startboard.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="usercontrolbase.ts" />
+var azureportalng;
+(function (azureportalng) {
     var Panorama = (function (_super) {
         __extends(Panorama, _super);
         //#endregion
@@ -730,18 +756,24 @@ define("domain/Panorama", ["require", "exports", "domain/AvatarMenu", "domain/De
         function Panorama(title, portalService) {
             _super.call(this, portalService);
             this.isVisible = true;
-            Debug_10.Debug.write('[azureportalng-debug] \'Panorama\' constructor called.', [this, title]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Panorama\' constructor called.', [this, title]);
             this.title = title;
             this.portalService.panorama = this;
-            this.avatarMenu = new AvatarMenu_1.AvatarMenu(this.portalService);
-            this.startboard = new Startboard_1.Startboard(this.portalService);
+            this.avatarMenu = new azureportalng.AvatarMenu(this.portalService);
+            this.startboard = new azureportalng.Startboard(this.portalService);
         }
         return Panorama;
-    }(UserControlBase_5.UserControlBase));
-    exports.Panorama = Panorama;
-});
-define("domain/PortalShell", ["require", "exports", "domain/BladeArea", "domain/UserControlBase", "domain/Debug", "domain/Panorama"], function (require, exports, BladeArea_1, UserControlBase_6, Debug_11, Panorama_1) {
-    "use strict";
+    }(azureportalng.UserControlBase));
+    azureportalng.Panorama = Panorama;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="bladearea.ts" />
+/// <reference path="usercontrolbase.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="panorama.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="tiles.ts" />
+var azureportalng;
+(function (azureportalng) {
     var PortalShell = (function (_super) {
         __extends(PortalShell, _super);
         //#endregion
@@ -749,21 +781,21 @@ define("domain/PortalShell", ["require", "exports", "domain/BladeArea", "domain/
         //#region Constructors
         function PortalShell(title, portalService) {
             _super.call(this, portalService);
-            Debug_11.Debug.write('[azureportalng-debug] \'PortalShell\' constructor called.', [this, title, portalService]);
+            azureportalng.Debug.write('[azureportalng-debug] \'PortalShell\' constructor called.', [this, title, portalService]);
             this.portalService = portalService;
             this.portalService.portalShell = this;
-            this.portalService.panorama = new Panorama_1.Panorama(title, this.portalService);
-            this.portalService.bladeArea = new BladeArea_1.BladeArea(portalService);
+            this.portalService.panorama = new azureportalng.Panorama(title, this.portalService);
+            this.portalService.bladeArea = new azureportalng.BladeArea(portalService);
             this.initialize();
         }
         //#endregion
         //#region Methods
         PortalShell.prototype.initialize = function () {
-            Debug_11.Debug.write('[azureportalng-debug] \'PortalShell.initialize\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'PortalShell.initialize\' called.', [this]);
             this.setObsoleteLayoutProperites();
         };
         PortalShell.prototype.setObsoleteLayoutProperites = function () {
-            Debug_11.Debug.write('[azureportalng-debug] \'PortalShell.setObsoleteLayoutProperites\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'PortalShell.setObsoleteLayoutProperites\' called.', [this]);
             this.title = this.portalService.panorama.title;
             this.tiles = this.portalService.panorama.startboard.tiles.tiles;
             this.blades = this.portalService.bladeArea.blades;
@@ -782,19 +814,24 @@ define("domain/PortalShell", ["require", "exports", "domain/BladeArea", "domain/
             }
         };
         return PortalShell;
-    }(UserControlBase_6.UserControlBase));
-    exports.PortalShell = PortalShell;
-});
-define("domain/PortalService", ["require", "exports", 'angular', "domain/Debug"], function (require, exports, angular, Debug_12) {
-    "use strict";
+    }(azureportalng.UserControlBase));
+    azureportalng.PortalShell = PortalShell;
+})(azureportalng || (azureportalng = {}));
+/// <reference types="angular" />
+/// <reference path="bladearea.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="ibladeparameter.ts" />
+/// <reference path="panorama.ts" />
+/// <reference path="portalshell.ts" />
+var azureportalng;
+(function (azureportalng) {
     var PortalService = (function () {
-        //#endregion
-        //#endregion
         //#region Constructors
         function PortalService($injector) {
+            //#endregion
             //#region Properties
             this.parameter = { action: 'none', itemId: 0 };
-            Debug_12.Debug.write('[azureportalng-debug] \'PortalService\' constructor called.', [this, $injector]);
+            azureportalng.Debug.write('[azureportalng-debug] \'PortalService\' constructor called.', [this, $injector]);
             this.$injector = $injector;
             //this.$scope = $scope;
             this.$http = $injector.get('$http');
@@ -807,43 +844,42 @@ define("domain/PortalService", ["require", "exports", 'angular', "domain/Debug"]
         }
         return PortalService;
     }());
-    exports.PortalService = PortalService;
+    azureportalng.PortalService = PortalService;
     //#region Angular Registration
     (function () {
         'use strict';
         angular.module('azureportalng').service('azureportalng.portalService', ['$injector', PortalService]);
     })();
-});
-//#endregion
-define("directives/blade/blade", ["require", "exports", 'angular', "domain/Debug"], function (require, exports, angular, Debug_13) {
-    "use strict";
-    (function () {
-        'use strict';
-        angular.module('azureportalng').directive('azurePortalBlade', ['$window', 'azureportalng.portalService', azurePortalBlade]);
-        function azurePortalBlade($window, portalService) {
-            return {
-                transclude: true,
-                scope: { vm: '=vm' },
-                restrict: 'E',
-                templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
-                link: function (scope, element, attrs, controller) {
-                    Debug_13.Debug.write('[azureportalng-debug] \'directive:azurePortalBlade.link\' called.', [this, portalService]);
-                    //#region the following code makes sure, that a function scope.vm.close is available
-                    if (scope.vm === undefined) {
-                        scope.vm = {};
-                    }
-                    if (scope.vm.close === undefined) {
-                        scope.vm.close = function () {
-                            Debug_13.Debug.write('[azureportalng-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                            portalService.bladeArea.clearLastLevel();
-                        };
-                    }
-                    //#endregion
+})(azureportalng || (azureportalng = {}));
+/// <reference types="angular" />
+/// <reference path="../../domain/debug.ts" />
+/// <reference path="../../domain/portalservice.ts" />
+var azureportalng;
+(function (azureportalng) {
+    function azurePortalBlade($window, portalService) {
+        return {
+            transclude: true,
+            scope: { vm: '=vm' },
+            restrict: 'E',
+            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            link: function (scope, element, attrs, controller) {
+                azureportalng.Debug.write('[azureportalng-debug] \'directive:azurePortalBlade.link\' called.', [this, portalService]);
+                //#region the following code makes sure, that a function scope.vm.close is available
+                if (scope.vm === undefined) {
+                    scope.vm = {};
                 }
-            };
-        }
-    })();
-});
+                if (scope.vm.close === undefined) {
+                    scope.vm.close = function () {
+                        azureportalng.Debug.write('[azureportalng-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                        portalService.bladeArea.clearLastLevel();
+                    };
+                }
+                //#endregion
+            }
+        };
+    }
+    angular.module('azureportalng').directive('azurePortalBlade', ['$window', 'azureportalng.portalService', azurePortalBlade]);
+})(azureportalng || (azureportalng = {}));
 // http://blogs.msdn.com/b/laurieatkinson/archive/2014/08/23/implementing-a-save-warning-in-an-angular-spa.aspx
 //'use strict';
 //module App.Directives {
@@ -881,9 +917,8 @@ define("directives/blade/blade", ["require", "exports", 'angular', "domain/Debug
 //    }
 //    app.directive(DirtyFlag.directiveId, ['personmanager', (pm) => new DirtyFlag(pm)]);
 //} 
-(function () {
-    'use strict';
-    angular.module('azureportalng').directive('azurePortalHome', ['$window', '$interpolate', azurePortalHome]);
+var azureportalng;
+(function (azureportalng) {
     function azurePortalHome($window, $interpolate) {
         return {
             scope: { vm: '=options' },
@@ -892,10 +927,10 @@ define("directives/blade/blade", ["require", "exports", 'angular', "domain/Debug
             }
         };
     }
-})();
-(function () {
-    'use strict';
-    angular.module('azureportalng').directive('nav', ['$window', nav]);
+    angular.module('azureportalng').directive('azurePortalHome', ['$window', '$interpolate', azurePortalHome]);
+})(azureportalng || (azureportalng = {}));
+var azureportalng;
+(function (azureportalng) {
     function nav($window) {
         return {
             scope: { vm: '=viewModel' },
@@ -916,10 +951,10 @@ define("directives/blade/blade", ["require", "exports", 'angular', "domain/Debug
             }
         };
     }
-})();
-(function () {
-    'use strict';
-    angular.module('azureportalng').directive('navGrid', ['$window', navGrid]);
+    angular.module('azureportalng').directive('nav', ['$window', nav]);
+})(azureportalng || (azureportalng = {}));
+var azureportalng;
+(function (azureportalng) {
     function navGrid($window) {
         return {
             scope: { vm: '=viewModel' },
@@ -940,12 +975,14 @@ define("directives/blade/blade", ["require", "exports", 'angular', "domain/Debug
             }
         };
     }
-})();
-define("domain/IException", ["require", "exports"], function (require, exports) {
-    "use strict";
-});
-define("domain/BladeData", ["require", "exports", "domain/Blade", "domain/Debug"], function (require, exports, Blade_2, Debug_14) {
-    "use strict";
+    angular.module('azureportalng').directive('navGrid', ['$window', navGrid]);
+})(azureportalng || (azureportalng = {}));
+/// <reference path="bladearea.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="iexception.ts" />
+/// <reference path="portalservice.ts" />
+var azureportalng;
+(function (azureportalng) {
     var BladeData = (function (_super) {
         __extends(BladeData, _super);
         //#region Constructor
@@ -953,7 +990,7 @@ define("domain/BladeData", ["require", "exports", "domain/Blade", "domain/Debug"
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 300; }
             _super.call(this, portalService, path, title, subtitle, width);
-            Debug_14.Debug.write('[azureportalng-debug] \'BladeData\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeData\' constructor called.', [this, portalService, path, title, subtitle, width]);
         }
         //#endregion
         //#region Methods
@@ -966,11 +1003,14 @@ define("domain/BladeData", ["require", "exports", "domain/Blade", "domain/Debug"
             });
         };
         return BladeData;
-    }(Blade_2.Blade));
-    exports.BladeData = BladeData;
-});
-define("domain/BladeDetail", ["require", "exports", "domain/BladeData", "domain/Debug"], function (require, exports, BladeData_1, Debug_15) {
-    "use strict";
+    }(azureportalng.Blade));
+    azureportalng.BladeData = BladeData;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="bladedata.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+var azureportalng;
+(function (azureportalng) {
     var BladeDetail = (function (_super) {
         __extends(BladeDetail, _super);
         //#endregion
@@ -981,7 +1021,7 @@ define("domain/BladeDetail", ["require", "exports", "domain/BladeData", "domain/
             _super.call(this, portalService, path, title, subtitle, width);
             //#region Properties
             this.item = null;
-            Debug_15.Debug.write('[azureportalng-debug] \'BladeDetail\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeDetail\' constructor called.', [this, portalService, path, title, subtitle, width]);
             this.isCommandNew = true;
             this.commandNewText = 'neu';
             this.isCommandSave = true;
@@ -994,7 +1034,7 @@ define("domain/BladeDetail", ["require", "exports", "domain/BladeData", "domain/
         //#endregion
         //#region Methods
         BladeDetail.prototype.activate = function () {
-            Debug_15.Debug.write('[azureportalng-debug] \'BladeDetail.activate\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeDetail.activate\' called.', [this]);
             var that = this;
             that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
@@ -1021,17 +1061,20 @@ define("domain/BladeDetail", ["require", "exports", "domain/BladeData", "domain/
             throw new Error('[azureportalng.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
         };
         BladeDetail.prototype.onActivated = function () {
-            Debug_15.Debug.write('[azureportalng-debug] \'onActivated\' called. You could override this.');
+            azureportalng.Debug.write('[azureportalng-debug] \'onActivated\' called. You could override this.');
         };
         BladeDetail.prototype.onCommandCancel = function () {
             this.close();
         };
         return BladeDetail;
-    }(BladeData_1.BladeData));
-    exports.BladeDetail = BladeDetail;
-});
-define("domain/BladeList", ["require", "exports", "domain/BladeData", "domain/Debug"], function (require, exports, BladeData_2, Debug_16) {
-    "use strict";
+    }(azureportalng.BladeData));
+    azureportalng.BladeDetail = BladeDetail;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="bladedata.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
+var azureportalng;
+(function (azureportalng) {
     var BladeList = (function (_super) {
         __extends(BladeList, _super);
         //#endregion
@@ -1042,14 +1085,14 @@ define("domain/BladeList", ["require", "exports", "domain/BladeData", "domain/De
             _super.call(this, portalService, path, title, subtitle, width);
             //#region Properties
             this.items = [];
-            Debug_16.Debug.write('[azureportalng-debug] \'BladeList\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeList\' constructor called.', [this, portalService, path, title, subtitle, width]);
             this.isCommandNew = true;
             this.commandNewText = 'neu';
         }
         //#endregion
         //#region Methods
         BladeList.prototype.activate = function () {
-            Debug_16.Debug.write('[azureportalng-debug] \'BladeList.activate\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeList.activate\' called.', [this]);
             var that = this;
             that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
@@ -1076,7 +1119,7 @@ define("domain/BladeList", ["require", "exports", "domain/BladeData", "domain/De
         };
         //#region Filter
         BladeList.prototype.onFilter = function (actual, expected) {
-            Debug_16.Debug.write('[azureportalng-debug] \'BladeList.filter\' called.', [this, actual, expected]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeList.filter\' called.', [this, actual, expected]);
             //#region Documentation
             // > onFilter will be called for each item in an array
             // > If the item is an native type (string, number), the filter will be called with the native type in the parameter 'actual'
@@ -1162,7 +1205,7 @@ define("domain/BladeList", ["require", "exports", "domain/BladeData", "domain/De
         //#region OBSOLETE
         /** Obsolete */
         BladeList.prototype.setObsoleteLayoutProperites = function () {
-            Debug_16.Debug.write('[azureportalng-debug] \'BladeList.setObsoleteLayoutProperites\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeList.setObsoleteLayoutProperites\' called.', [this]);
             if (this.items.length !== 0) {
                 this.blade.navGrid.items = this.items; //--> needed, otherwise nav html pages will no longer work.
             }
@@ -1170,11 +1213,13 @@ define("domain/BladeList", ["require", "exports", "domain/BladeData", "domain/De
             _super.prototype.setObsoleteLayoutProperites.call(this);
         };
         return BladeList;
-    }(BladeData_2.BladeData));
-    exports.BladeList = BladeList;
-});
-define("domain/BladeNavItem", ["require", "exports", "domain/Debug"], function (require, exports, Debug_17) {
-    "use strict";
+    }(azureportalng.BladeData));
+    azureportalng.BladeList = BladeList;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="bladenav.ts" />
+var azureportalng;
+(function (azureportalng) {
     var BladeNavItem = (function () {
         //#region Constructor
         function BladeNavItem(title, bladePath, hrefPath, roles, isVisible, callback, bladeNav) {
@@ -1192,22 +1237,26 @@ define("domain/BladeNavItem", ["require", "exports", "domain/Debug"], function (
             this.isVisible = isVisible;
             this.callback = callback;
             this.bladeNav = bladeNav;
-            Debug_17.Debug.write('[azureportalng-debug] \'BladeNavItem\' constructor called.', [this, title, bladePath, hrefPath, roles, isVisible]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeNavItem\' constructor called.', [this, title, bladePath, hrefPath, roles, isVisible]);
         }
         //#endregion
         //#region
         BladeNavItem.prototype.onNavItemClick = function () {
-            Debug_17.Debug.write('[azureportalng-debug] \'BladeNavItem.onNavItemClick\' called.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeNavItem.onNavItemClick\' called.', [this]);
             if (this.callback != null) {
                 this.callback();
             }
         };
         return BladeNavItem;
     }());
-    exports.BladeNavItem = BladeNavItem;
-});
-define("domain/BladeNav", ["require", "exports", "domain/BladeData", "domain/Debug"], function (require, exports, BladeData_3, Debug_18) {
-    "use strict";
+    azureportalng.BladeNavItem = BladeNavItem;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="bladedata.ts" />
+/// <reference path="debug.ts" />
+/// <reference path="bladenavitem.ts" />
+/// <reference path="portalservice.ts" />
+var azureportalng;
+(function (azureportalng) {
     var BladeNav = (function (_super) {
         __extends(BladeNav, _super);
         //#endregion
@@ -1220,15 +1269,17 @@ define("domain/BladeNav", ["require", "exports", "domain/BladeData", "domain/Deb
             //#region Properties
             this.navItems = new Array();
             this.isNav = true;
-            Debug_18.Debug.write('[azureportalng-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            azureportalng.Debug.write('[azureportalng-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
             _super.prototype.onNavigateTo = this.navigateTo;
         }
         return BladeNav;
-    }(BladeData_3.BladeData));
-    exports.BladeNav = BladeNav;
-});
-define("domain/Exception", ["require", "exports", "domain/Debug"], function (require, exports, Debug_19) {
-    "use strict";
+    }(azureportalng.BladeData));
+    azureportalng.BladeNav = BladeNav;
+})(azureportalng || (azureportalng = {}));
+/// <reference path="debug.ts" />
+/// <reference path="iexception.ts" />
+var azureportalng;
+(function (azureportalng) {
     var Exception = (function () {
         function Exception() {
         }
@@ -1260,65 +1311,21 @@ define("domain/Exception", ["require", "exports", "domain/Debug"], function (req
             Exception.onConvertFromWebApiException(ex);
         };
         Exception.onConvertFromWebApiException = function (ex) {
-            Debug_19.Debug.write('[azureportalng-debug] \'Exception.convertFromWebApiException\' not overriden. You could override this.', [this]);
+            azureportalng.Debug.write('[azureportalng-debug] \'Exception.convertFromWebApiException\' not overriden. You could override this.', [this]);
         };
         return Exception;
     }());
-    exports.Exception = Exception;
-});
-//(function () {
-//    'use strict';
-//    angular.module('azureportalng').factory('bladeService', ['$http', '$rootScope', '$window', bladeService]);
-//    function bladeService($http, $rootScope, $window) {
-//        var service = {
-//            blades: [],
-//            clear: clear,
-//            clearLevel: clearLevel,
-//            clearLastLevel: clearLastLevel,
-//            addBladePath: addBladePath
-//        };
-//        return service;
-//        function addBladePath(path: string) {
-//            if (path === undefined || path == '') { return; }
-//            service.blades.push({ 'path': path });
-//            var portalcontent = $window.document.getElementById('azureportalscroll');
-//            $window.setTimeout(function () {
-//                var azureportalblades = $window.document.getElementsByClassName('azureportalblade');
-//                var i = service.blades.length - 1;
-//                // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
-//                //       So now if it is, the user has to scroll on its own.
-//                if (azureportalblades[i] !== undefined && azureportalblades[i].offsetLeft !== undefined) {
-//                    var sl = azureportalblades[i].offsetLeft - 30;
-//                    portalcontent.scrollLeft = sl;
-//                }
-//            }, 250);
-//        }
-//        function clear() {
-//            service.blades.length = 0;
-//        }
-//        function clearLevel(level) {
-//            if (level == 0) { level = 1; }
-//            service.blades.length = level - 1;
-//        }
-//        function clearLastLevel() {
-//            clearLevel(service.blades.length);
-//        }
-//    }
-//})(); 
-define("services/DataService", ["require", "exports"], function (require, exports) {
-    "use strict";
+    azureportalng.Exception = Exception;
+})(azureportalng || (azureportalng = {}));
+/// <reference types="angular" />
+var azureportalng;
+(function (azureportalng) {
     var DataService = (function () {
         //#region Constructor
         function DataService($http, $q) {
             this.$http = $http;
             this.$q = $q;
         }
-        //#endregion
-        //#region Properties
-        //#endregion
-        //#region Events
-        //#endregion
-        //#region Listener
         //#endregion
         //#region Methods
         DataService.prototype.getData = function (url) {
@@ -1331,4 +1338,5 @@ define("services/DataService", ["require", "exports"], function (require, export
         };
         return DataService;
     }());
-});
+    azureportalng.DataService = DataService;
+})(azureportalng || (azureportalng = {}));

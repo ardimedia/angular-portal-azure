@@ -1,41 +1,26 @@
-﻿import * as angular from 'angular';
+﻿/// <reference types="angular" />
 
-class DataService {
+namespace azureportalng {
+    export class DataService {
+        //#region Constructor
 
-    //#region Constructor
+        constructor(public $http: any, public $q: any) { // parameter list should be [public $http: angular.IHttpService, public $q: angular.IQService]
+        }
 
-    constructor(public $http: angular.IHttpService, public $q: angular.IQService) {
+        //#endregion
+
+        //#region Methods
+
+        getData(url: string): any { // any should be: angular.IHttpPromise<any[]>
+            var that = this;
+
+            return that.$http({ method: 'GET', url: url })
+                .success(function (data: any, status: any, headers: any, config: any) {
+                })
+                .error(function (data: any, status: any, headers: any, config: any) {
+                });
+        }
+
+        //#endregion
     }
-
-    //#endregion
-
-    //#region Properties
-
-    //#endregion
-
-    //#region Events
-
-    //#endregion
-
-    //#region Listener
-
-    //#endregion
-
-    //#region Methods
-
-    getData(url: string): angular.IHttpPromise<any[]> {
-        var that = this;
-
-        return that.$http({ method: 'GET', url: url })
-            .success(function (data: any, status: any, headers: any, config: any) {
-            })
-            .error(function (data: any, status: any, headers: any, config: any) {
-            });
-    }
-
-    //#endregion
-
-    //#region Helper
-
-    //#endregion
 }

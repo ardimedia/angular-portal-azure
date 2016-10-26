@@ -1,20 +1,21 @@
-﻿import { Debug } from './Debug';
-import { PortalService } from './PortalService';
+﻿/// <reference path="debug.ts" />
+/// <reference path="portalservice.ts" />
 
-export class UserControlBase {
+namespace azureportalng {
+    export class UserControlBase {
+        //#region Constructors
 
-    //#region Properties
+        constructor(portalService: azureportalng.PortalService) {
+            azureportalng.Debug.write('[azureportalng-debug] \'UserControlBase\' constructor called.', [this, portalService]);
+            this.portalService = portalService;
+        }
 
-    portalService: PortalService;
+        //#endregion
 
-    //#endregion
+        //#region Properties
 
-    //#region Constructors
+        portalService: azureportalng.PortalService;
 
-    constructor(portalService: PortalService) {
-        Debug.write('[azureportalng-debug] \'UserControlBase\' constructor called.', [this, portalService]);
-        this.portalService = portalService;
+        //#endregion
     }
-
-    //#endregion
 }

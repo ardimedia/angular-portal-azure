@@ -1,8 +1,4 @@
-﻿(function () {
-    'use strict';
-
-    angular.module('azureportalng').directive('nav', ['$window', nav]);
-
+﻿namespace azureportalng {
     function nav($window) {
         return {
             scope: { vm: '=viewModel' },
@@ -17,4 +13,6 @@
             }
         };
     }
-})();
+
+    angular.module('azureportalng').directive('nav', ['$window', nav]);
+}
