@@ -14,7 +14,6 @@ We are in the process of supporting and converting to **angular 2**.
 The following is not yet available:
 
 v1.0.0 - build on **angular 1**
-- **we plan not to support this version in the long run**
 - version v1.0.0 is build on angular1
 - sample1 shows how to use this framework with angular 1
 - sample2 shows how to use this framework with angular 2
