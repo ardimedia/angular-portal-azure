@@ -1,8 +1,8 @@
 /// <reference types="angular-resource" />
 /// <reference types="angular" />
-declare namespace azureportalng {
+declare namespace angularportalazure {
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class Debug {
         constructor();
         static isEnabled: boolean;
@@ -17,7 +17,7 @@ declare namespace azureportalng {
         static isInKeys(debugLine: string): boolean;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class UserAccount {
         constructor(username: string, firstName?: string, lastName?: string);
         private _firstName;
@@ -30,21 +30,21 @@ declare namespace azureportalng {
         emailAddress: string;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class UserControlBase {
-        constructor(portalService: azureportalng.PortalService);
-        portalService: azureportalng.PortalService;
+        constructor(portalService: angularportalazure.PortalService);
+        portalService: angularportalazure.PortalService;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     interface IAddBladeEventArgs {
         path: string;
         pathSender: string;
     }
 }
-declare namespace azureportalng {
-    class Blade extends azureportalng.UserControlBase {
-        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
+declare namespace angularportalazure {
+    class Blade extends angularportalazure.UserControlBase {
+        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         listener1: Function;
         path: string;
         title: string;
@@ -148,15 +148,15 @@ declare namespace azureportalng {
         bladeClose(): void;
     }
 }
-declare namespace azureportalng {
-    class BladeArea extends azureportalng.UserControlBase {
-        constructor(portalService: azureportalng.PortalService);
+declare namespace angularportalazure {
+    class BladeArea extends angularportalazure.UserControlBase {
+        constructor(portalService: angularportalazure.PortalService);
         private listener1;
-        blades: Array<azureportalng.Blade>;
-        raiseAddBladeEvent(args: azureportalng.IAddBladeEventArgs): void;
-        setFirstBlade(path: string): azureportalng.Blade;
+        blades: Array<angularportalazure.Blade>;
+        raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
+        setFirstBlade(path: string): angularportalazure.Blade;
         /** obsolete */
-        addBlade(path: string, senderPath?: string): azureportalng.Blade;
+        addBlade(path: string, senderPath?: string): angularportalazure.Blade;
         clearAll(): void;
         clearPath(path: string): void;
         clearLevel(level: number): void;
@@ -170,20 +170,20 @@ declare namespace azureportalng {
         addBladeOld(path: string): void;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     interface IBladeParameter {
         action: string;
         item?: any;
         itemId: number;
     }
 }
-declare namespace azureportalng {
-    class AvatarMenu extends azureportalng.UserControlBase {
-        constructor(portalService: azureportalng.PortalService);
-        userAccount: azureportalng.UserAccount;
+declare namespace angularportalazure {
+    class AvatarMenu extends angularportalazure.UserControlBase {
+        constructor(portalService: angularportalazure.PortalService);
+        userAccount: angularportalazure.UserAccount;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     /** The names are used in CSS for layouting, e.g. style='mini' */
     enum TileSizes {
         small = 0,
@@ -192,32 +192,32 @@ declare namespace azureportalng {
         herowide = 3,
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class TileSize {
-        tileSizes: azureportalng.TileSizes;
+        tileSizes: angularportalazure.TileSizes;
         width: number;
         height: number;
-        constructor(tileSizes: azureportalng.TileSizes, width: number, height: number);
+        constructor(tileSizes: angularportalazure.TileSizes, width: number, height: number);
         static getTileSizes(): Array<TileSize>;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class Tile {
-        portalService: azureportalng.PortalService;
+        portalService: angularportalazure.PortalService;
         title: string;
         subTitle: string;
         bladePath: string;
-        tileSize: azureportalng.TileSizes;
+        tileSize: angularportalazure.TileSizes;
         size: string;
         left: string;
         top: string;
         leftN: string;
         topN: string;
-        constructor(title: string, bladePath: string, portalService: azureportalng.PortalService);
+        constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService);
         clicked(): void;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class Tiles {
         showTiles: boolean;
         tiles: Array<any>;
@@ -229,23 +229,23 @@ declare namespace azureportalng {
         addTile(tile: Tile): Tile;
     }
 }
-declare namespace azureportalng {
-    class Startboard extends azureportalng.UserControlBase {
-        tiles: azureportalng.Tiles;
-        constructor(portalService: azureportalng.PortalService);
+declare namespace angularportalazure {
+    class Startboard extends angularportalazure.UserControlBase {
+        tiles: angularportalazure.Tiles;
+        constructor(portalService: angularportalazure.PortalService);
     }
 }
-declare namespace azureportalng {
-    class Panorama extends azureportalng.UserControlBase {
+declare namespace angularportalazure {
+    class Panorama extends angularportalazure.UserControlBase {
         title: string;
         isVisible: boolean;
-        avatarMenu: azureportalng.AvatarMenu;
-        startboard: azureportalng.Startboard;
-        constructor(title: string, portalService: azureportalng.PortalService);
+        avatarMenu: angularportalazure.AvatarMenu;
+        startboard: angularportalazure.Startboard;
+        constructor(title: string, portalService: angularportalazure.PortalService);
     }
 }
-declare namespace azureportalng {
-    class PortalShell extends azureportalng.UserControlBase {
+declare namespace angularportalazure {
+    class PortalShell extends angularportalazure.UserControlBase {
         /** Obsolete
          * start using this.panorama.title */
         title: string;
@@ -254,19 +254,19 @@ declare namespace azureportalng {
         user: {};
         /** Obsolete
          * start using this.panorama.startboard.tiles */
-        tiles: azureportalng.Tiles[];
+        tiles: angularportalazure.Tiles[];
         /** Obsolete
          * start using this.bladesNew.blades. */
         blades: any[];
-        constructor(title: string, portalService: azureportalng.PortalService);
+        constructor(title: string, portalService: angularportalazure.PortalService);
         initialize(): void;
         setObsoleteLayoutProperites(): void;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class PortalService {
         constructor($injector: any);
-        parameter: azureportalng.IBladeParameter;
+        parameter: angularportalazure.IBladeParameter;
         animate: any;
         animation: any;
         component: any;
@@ -283,9 +283,9 @@ declare namespace azureportalng {
         decorator: any;
         name: any;
         requires: any;
-        portalShell: azureportalng.PortalShell;
-        panorama: azureportalng.Panorama;
-        bladeArea: azureportalng.BladeArea;
+        portalShell: angularportalazure.PortalShell;
+        panorama: angularportalazure.Panorama;
+        bladeArea: angularportalazure.BladeArea;
         ngDialog: any;
         $http: any;
         $httpBackend: any;
@@ -296,15 +296,15 @@ declare namespace azureportalng {
         $scope: any;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     /** If a Web API through an exception, the following interface should be available. */
     interface IException {
         ExceptionType: string;
@@ -315,26 +315,26 @@ declare namespace azureportalng {
         Messages?: string[];
     }
 }
-declare namespace azureportalng {
-    class BladeData extends azureportalng.Blade {
-        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        processException(data: azureportalng.IException): void;
+declare namespace angularportalazure {
+    class BladeData extends angularportalazure.Blade {
+        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        processException(data: angularportalazure.IException): void;
     }
 }
-declare namespace azureportalng {
-    class BladeDetail extends azureportalng.BladeData {
+declare namespace angularportalazure {
+    class BladeDetail extends angularportalazure.BladeData {
         item: any;
-        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         activate(): void;
         onActivate(): any;
         onActivated(): void;
         onCommandCancel(): void;
     }
 }
-declare namespace azureportalng {
-    class BladeList extends azureportalng.BladeData {
+declare namespace angularportalazure {
+    class BladeList extends angularportalazure.BladeData {
         items: any[];
-        constructor(portalService: azureportalng.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         activate(): void;
         onActivate(): any;
         loadItems(f: any): void;
@@ -343,7 +343,7 @@ declare namespace azureportalng {
         setObsoleteLayoutProperites(): void;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class BladeNavItem {
         title: string;
         bladePath: string;
@@ -351,25 +351,25 @@ declare namespace azureportalng {
         roles: string;
         isVisible: boolean;
         callback: () => any;
-        bladeNav: azureportalng.BladeNav;
-        constructor(title?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: azureportalng.BladeNav);
+        bladeNav: angularportalazure.BladeNav;
+        constructor(title?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav);
         onNavItemClick(): void;
     }
 }
-declare namespace azureportalng {
-    class BladeNav extends azureportalng.BladeData {
-        navItems: Array<azureportalng.BladeNavItem>;
+declare namespace angularportalazure {
+    class BladeNav extends angularportalazure.BladeData {
+        navItems: Array<angularportalazure.BladeNavItem>;
         isNav: boolean;
-        constructor(portalService: azureportalng.PortalService, path: string, title?: string, subtitle?: string, width?: number);
+        constructor(portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class Exception {
-        static convertFromWebApiException(ex: azureportalng.IException): void;
-        static onConvertFromWebApiException(ex: azureportalng.IException): void;
+        static convertFromWebApiException(ex: angularportalazure.IException): void;
+        static onConvertFromWebApiException(ex: angularportalazure.IException): void;
     }
 }
-declare namespace azureportalng {
+declare namespace angularportalazure {
     class DataService {
         $http: any;
         $q: any;

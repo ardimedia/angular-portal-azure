@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
-    <id>azureportalng</id>
+    <id>angularportalazure</id>
     <version>0.2.1-beta</version>
     <authors>Ardimedai</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,14 +12,14 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="dist\azureportalng\js\apn.js" target="content\azureportalng\js\apn.js" />
-    <file src="dist\azureportalng\js\apn.d.ts" target="content\azureportalng\js\apn.d.ts" />
+    <file src="dist\angularportalazure\js\apn.js" target="content\angularportalazure\js\apn.js" />
+    <file src="dist\angularportalazure\js\apn.d.ts" target="content\angularportalazure\js\apn.d.ts" />
 
-    <file src="azureportalng\directives\blade\blade.html" target="content\azureportalng\directives\blade\blade.html" />
-    <file src="azureportalng\directives\home\home.html" target="content\azureportalng\directives\home\home.html" />
-    <file src="azureportalng\directives\nav\nav.html" target="content\azureportalng\directives\nav\nav.html" />
-    <file src="azureportalng\directives\navgrid\navgrid.html" target="content\azureportalng\directives\navgrid\navgrid.html" />
-    <file src="azureportalng\css\apn.css" target="content\azureportalng\css\apn.css" />
-    <file src="azureportalng\images\avatar.jpg" target="content\azureportalng\images\avatar.jpg" />
+    <file src="angularportalazure\directives\blade\blade.html" target="content\angularportalazure\directives\blade\blade.html" />
+    <file src="angularportalazure\directives\home\home.html" target="content\angularportalazure\directives\home\home.html" />
+    <file src="angularportalazure\directives\nav\nav.html" target="content\angularportalazure\directives\nav\nav.html" />
+    <file src="angularportalazure\directives\navgrid\navgrid.html" target="content\angularportalazure\directives\navgrid\navgrid.html" />
+    <file src="angularportalazure\css\apn.css" target="content\angularportalazure\css\apn.css" />
+    <file src="angularportalazure\images\avatar.jpg" target="content\angularportalazure\images\avatar.jpg" />
   </files>
 </package>

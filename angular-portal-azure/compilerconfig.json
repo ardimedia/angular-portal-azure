@@ -1,7 +1,7 @@
 ﻿[
   {
-    "outputFile": "azureportalng/directives/dialog/style.css",
-    "inputFile": "azureportalng/directives/dialog/style.scss"
+    "outputFile": "angularportalazure/directives/dialog/style.css",
+    "inputFile": "angularportalazure/directives/dialog/style.scss"
   },
   {
     "outputFile": "design/test/test.css",
@@ -24,7 +24,7 @@
     "inputFile": "design/themems.scss"
   },
   {
-    "outputFile": "azureportalng/css/apn.css",
-    "inputFile": "azureportalng/css/apn.scss"
+    "outputFile": "angularportalazure/css/apn.css",
+    "inputFile": "angularportalazure/css/apn.scss"
   }
 ]

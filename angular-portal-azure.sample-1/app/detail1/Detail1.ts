@@ -1,13 +1,13 @@
 ﻿/// <reference types="angular-portal-azure" />
 /// <reference types="angular" />
 //import * as angular from 'angular';
-//import * as azureportalng from 'angular-portal-azure';
+//import * as angularportalazure from 'angular-portal-azure';
 
 namespace Sample1 {
-    class Detail1 extends azureportalng.BladeDetail {
+    class Detail1 extends angularportalazure.BladeDetail {
         //#region Constructors
 
-        constructor(portalService: azureportalng.PortalService) {
+        constructor(portalService: angularportalazure.PortalService) {
             super(portalService, '/app/detail1/detail1.html', 'Detail-1', 'TypeScript based', 415);
 
             this.activate();
@@ -31,5 +31,5 @@ namespace Sample1 {
         //#endregion
     }
 
-    angular.module('sample1App').controller('detail1', ['azureportalng.portalService', Detail1]);
+    angular.module('sample1App').controller('detail1', ['angularportalazure.portalService', Detail1]);
 }

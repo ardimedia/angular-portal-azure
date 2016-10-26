@@ -1,14 +1,14 @@
 ﻿/// <reference types="angular-portal-azure" />
 /// <reference types="angular" />
 //import * as angular from 'angular';
-//import * as azureportalng from 'angular-portal-azure';
+//import * as angularportalazure from 'angular-portal-azure';
 
 namespace Sample1 {
-    class List1 extends azureportalng.BladeList {
+    class List1 extends angularportalazure.BladeList {
 
         //#region Constructors
 
-        constructor(portalService: azureportalng.PortalService) {
+        constructor(portalService: angularportalazure.PortalService) {
             super(portalService, '/app/list1/list1.html', 'List-1', 'TypeScript based', 315);
 
             this.activate();
@@ -19,13 +19,13 @@ namespace Sample1 {
         //#region Methods
 
         onActivate() {
-            azureportalng.Debug.write('[sample1-debug] \'List1.onActivate\' called.', [this]);
+            angularportalazure.Debug.write('[sample1-debug] \'List1.onActivate\' called.', [this]);
 
             //return this.portalService.$http({ method: 'GET', url: '/customers' });
         }
 
         onCommandNew(): void {
-            azureportalng.Debug.write('[sample1-debug] \'List1.onCommandNew\' called.', [this]);
+            angularportalazure.Debug.write('[sample1-debug] \'List1.onCommandNew\' called.', [this]);
 
             this.portalService.parameter.action = 'new';
             this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
@@ -33,7 +33,7 @@ namespace Sample1 {
         }
 
         onNavigateTo(customer: Sample1.Customer) {
-            azureportalng.Debug.write('[sample1-debug] \'List1.onNavigateTo\' called.', [this, customer]);
+            angularportalazure.Debug.write('[sample1-debug] \'List1.onNavigateTo\' called.', [this, customer]);
 
             this.portalService.parameter.action = 'selected';
             this.portalService.parameter.item = customer;
@@ -43,5 +43,5 @@ namespace Sample1 {
         //#endregion
     }
 
-    angular.module('sample1App').controller('list1', ['azureportalng.portalService', List1]);
+    angular.module('sample1App').controller('list1', ['angularportalazure.portalService', List1]);
 }

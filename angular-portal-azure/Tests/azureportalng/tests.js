@@ -1,28 +1,28 @@
-describe('AzurePortalNg.AvatarMenu', function () {
+describe('angularportalazure.AvatarMenu', function () {
     var sut;
     var portalService;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.AvatarMenu(portalService);
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.AvatarMenu(portalService);
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
-        //var portalService = <AzurePortalNg.PortalService>azureportalng.service('azureportalng.portalService');
-        //var sut = new AzurePortalNg.AvatarMenu(portalService);
+        //var portalService = <angularportalazure.PortalService>angularportalazure.service('angularportalazure.portalService');
+        //var sut = new angularportalazure.AvatarMenu(portalService);
         expect(sut).not.toBe(null);
-        expect(sut instanceof AzurePortalNg.AvatarMenu).toBe(true);
+        expect(sut instanceof angularportalazure.AvatarMenu).toBe(true);
     });
     //#endregion
 });
 
-describe('AzurePortalNg.BladeArea', function () {
+describe('angularportalazure.BladeArea', function () {
     var sut;
     var portalService;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.BladeArea(portalService);
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.BladeArea(portalService);
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
@@ -44,7 +44,7 @@ describe('AzurePortalNg.BladeArea', function () {
     it("addBlade - add a blade", function () {
         var result = sut.addBlade('test-path');
         expect(result).not.toBe(null);
-        expect(result instanceof AzurePortalNg.Blade).toBe(true);
+        expect(result instanceof angularportalazure.Blade).toBe(true);
         expect(sut.blades.length).toBe(1);
     });
     //#endregion
@@ -57,7 +57,7 @@ describe('AzurePortalNg.BladeArea', function () {
     //#region clearPath
     it("clearPath - path not found - throw exception", function () {
         var exception = function () { sut.clearPath('test-path'); };
-        expect(exception).toThrow(new Error('[azureportalng.BladeArea.clearPath] path: \'test-path\' could not be removed, since path not found in bladeUrls.'));
+        expect(exception).toThrow(new Error('[angularportalazure.BladeArea.clearPath] path: \'test-path\' could not be removed, since path not found in bladeUrls.'));
     });
     //#endregion
     //#region clearLevel
@@ -79,13 +79,13 @@ describe('AzurePortalNg.BladeArea', function () {
     //#endregion
 });
 
-describe('AzurePortalNg.BladeData', function () {
+describe('angularportalazure.BladeData', function () {
     var sut;
     var portalService;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.BladeData(portalService, 'test-path', 'test-title');
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.BladeData(portalService, 'test-path', 'test-title');
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
@@ -99,7 +99,7 @@ describe('AzurePortalNg.BladeData', function () {
     //#region getDataList
     //it("getDataList throws expection", function () {
     //    var exception = function () { sut.getDataList(); };
-    //    expect(exception).toThrow(new Error('[azureportalng.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
+    //    expect(exception).toThrow(new Error('[angularportalazure.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
     //    expect(sut.statusbar).toBe('Daten laden...');
     //    expect(sut.statusbarClass).toBe('');
     //});
@@ -107,7 +107,7 @@ describe('AzurePortalNg.BladeData', function () {
     //#region getDataList
     //it("getDataDetail throws expection", function () {
     //    var exception = function () { sut.getDataDetail(); };
-    //    expect(exception).toThrow(new Error('[azureportalng.BladeData] \'onGetDataDetail\' is an abstract function. Define one in the derived class.'));
+    //    expect(exception).toThrow(new Error('[angularportalazure.BladeData] \'onGetDataDetail\' is an abstract function. Define one in the derived class.'));
     //    expect(sut.statusbar).toBe('Daten laden...');
     //    expect(sut.statusbarClass).toBe('');
     //});
@@ -115,13 +115,13 @@ describe('AzurePortalNg.BladeData', function () {
     //#endregion
 });
 
-describe('AzurePortalNg.BladeDetail', function () {
+describe('angularportalazure.BladeDetail', function () {
     var sut;
     var portalService;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.BladeData(portalService, 'test-path', 'test-title');
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.BladeData(portalService, 'test-path', 'test-title');
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
@@ -130,13 +130,13 @@ describe('AzurePortalNg.BladeDetail', function () {
     //#endregion
 });
 
-describe('AzurePortalNg.BladeList', function () {
+describe('angularportalazure.BladeList', function () {
     var sut;
     var portalService;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.BladeList(portalService, 'test-path', 'test-title');
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.BladeList(portalService, 'test-path', 'test-title');
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
@@ -147,7 +147,7 @@ describe('AzurePortalNg.BladeList', function () {
     //#region activate
     //it("activate - throw exception, since getDataList() is abstract", function () {
     //    var exception = function () { sut.activate(); };
-    //    expect(exception).toThrow(new Error('[azureportalng.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
+    //    expect(exception).toThrow(new Error('[angularportalazure.BladeData] \'onGetDataList\' is an abstract function. Define one in the derived class.'));
     //});
     //#endregion
     //#region onFilter
@@ -205,14 +205,14 @@ describe('AzurePortalNg.BladeList', function () {
     //#endregion
 });
 
-describe('AzurePortalNg.Blade', function () {
+describe('angularportalazure.Blade', function () {
     //#region Tests initialize
     var sut;
     var portalService;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.Blade(portalService, 'test-path', 'test-title');
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.Blade(portalService, 'test-path', 'test-title');
     }));
     //#endregion
     //#region Specs for Constructor
@@ -287,16 +287,16 @@ describe('AzurePortalNg.Blade', function () {
         expect(sut.commandSwapText).toBe('');
     });
     it("Constructor with parameter [width = 300] successful", function () {
-        var sut = new AzurePortalNg.Blade(portalService, 'test-path', '', '', 300);
+        var sut = new angularportalazure.Blade(portalService, 'test-path', '', '', 300);
         // widthStackLayout must be 50 less then provided [width]
         expect(sut.widthStackLayout.width).toBe('250px');
     });
     it("Constructor with parameter [width => 50] throws no expection", function () {
-        var sut = new AzurePortalNg.Blade(portalService, 'test-path', '', '', 50);
+        var sut = new angularportalazure.Blade(portalService, 'test-path', '', '', 50);
         expect(sut).not.toBe(null);
     });
     it("Constructor with parameter [width < 50] throws expection", function () {
-        var sut = function () { new AzurePortalNg.Blade(portalService, 'test-path', '', '', 49); };
+        var sut = function () { new angularportalazure.Blade(portalService, 'test-path', '', '', 49); };
         expect(sut).toThrow();
     });
     //#endregion
@@ -310,19 +310,19 @@ describe('AzurePortalNg.Blade', function () {
     //#region navigateTo
     it("navigateTo throws expection - abstract function", function () {
         var exception = function () { sut.navigateTo('test-path'); };
-        expect(exception).toThrow(new Error('[azureportalng.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.'));
+        expect(exception).toThrow(new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.'));
     });
     //#endregion
     //#region close
     it("close throws exception - path could not be removed", function () {
         var exception = function () { sut.close(); };
-        expect(exception).toThrow(new Error('[azureportalng.Blade] path: \'test-path\' could not be removed, since no \'this.portalService.bladeArea\' available.'));
+        expect(exception).toThrow(new Error('[angularportalazure.Blade] path: \'test-path\' could not be removed, since no \'this.portalService.bladeArea\' available.'));
     });
     //#endregion
     //#endregion
 });
 
-describe('AzurePortalNg.Debug', function () {
+describe('angularportalazure.Debug', function () {
     beforeEach(function () {
         Debug.isEnabled = false;
         Debug.isWithObjects = false;
@@ -330,7 +330,7 @@ describe('AzurePortalNg.Debug', function () {
     });
     //#region Specs for Constructor
     it("Constructor successful.", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         expect(sut.isEnabled).toBe(false);
         expect(sut.isWithObjects).toBe(false);
         expect(typeof sut.keys).toBe(typeof []);
@@ -340,47 +340,47 @@ describe('AzurePortalNg.Debug', function () {
     //#region Spes for Functions
     //#region Function: extractKey
     it("extractKey('[key1] abc') must return [key1]", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         var result = sut.extractKey('[key1] abc');
         expect(result).toBe('[key1]');
     });
     it("extractKey('') must return an empty string", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         var result = sut.extractKey('');
         expect(result).toBe('');
     });
     it("extractKey(' [key1] abc') must return an empty string", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         var result = sut.extractKey(' [key1] abc');
         expect(result).toBe('');
     });
     it("extractKey('[key1 abc') must return an empty string", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         var result = sut.extractKey('[key1 abc');
         expect(result).toBe('');
     });
     it("extractKey('key1] abc') must return an empty string", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         var result = sut.extractKey('key1] abc');
         expect(result).toBe('');
     });
     //#endregion
     //#region Function: enable
     it("enable('') must enable debugging with no keys", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('');
         expect(sut.isEnabled).toBe(true);
         expect(sut.keys.length).toBe(0);
     });
     it("enable('[key1]') must enable debugging with key = '[key1]'", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('[key1]');
         expect(sut.isEnabled).toBe(true);
         expect(sut.keys.length).toBe(1);
         expect(sut.keys[0]).toBe('[key1]');
     });
     it("enable('[key1]') must enable debugging with key = '[key1]' and .enable('[key2]')", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('[key1]');
         sut.enable('[key2]');
         expect(sut.isEnabled).toBe(true);
@@ -391,14 +391,14 @@ describe('AzurePortalNg.Debug', function () {
     //#endregion
     //#region Function: disable
     it("disable('') must disable debugging. No more keys are defined", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('');
         sut.disable('');
         expect(sut.isEnabled).toBe(false);
         expect(sut.keys.length).toBe(0);
     });
     it("disable('') must not disable debugging. Some keys are still defined", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('');
         sut.enable('[key1]');
         sut.disable('');
@@ -406,14 +406,14 @@ describe('AzurePortalNg.Debug', function () {
         expect(sut.keys.length).toBe(1);
     });
     it("disable('[key1]') must disable debugging and remove key = '[key1]'. No more keys are defined", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('[key1]');
         sut.disable('[key1]');
         expect(sut.isEnabled).toBe(false);
         expect(sut.keys.length).toBe(0);
     });
     it("disable('[key1]') must not disable debugging but remove key = '[key1]'. Some keys are still defined", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('[key1]');
         sut.enable('[key2]');
         sut.disable('[key1]');
@@ -423,21 +423,21 @@ describe('AzurePortalNg.Debug', function () {
     //#endregion
     //#region Function: isInKeys
     it("isInKeys('') will not be logged", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('');
         sut.disable('');
         var result = sut.isInKeys('');
         expect(result).toBe(false);
     });
     it("isInKeys('[key1]') will not be logged. No keys defined", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('');
         sut.disable('');
         var result = sut.isInKeys('[key1]');
         expect(result).toBe(false);
     });
     it("isInKeys('[key1]') will be logged. [key1] is defined", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('[key1]');
         sut.disable('');
         var result = sut.isInKeys('[key1]');
@@ -446,14 +446,14 @@ describe('AzurePortalNg.Debug', function () {
     //#endregion
     //#region Function: write
     it("write('') will not be logged in the console", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('');
         sut.disable('');
         var result = sut.write('');
         expect(result).toBe(false);
     });
     it("write('[key1] TestRunner test output') will be logged in the console", function () {
-        var sut = AzurePortalNg.Debug;
+        var sut = angularportalazure.Debug;
         sut.enable('[key1]');
         sut.disable('');
         var result = sut.write('[key1] TestRunner test output successfull');
@@ -463,17 +463,17 @@ describe('AzurePortalNg.Debug', function () {
     //#endregion
 });
 
-describe('AzurePortalNg.PortalService', function () {
+describe('angularportalazure.PortalService', function () {
     var sut;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        sut = $injector.get('azureportalng.portalService');
+        sut = $injector.get('angularportalazure.portalService');
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {
         expect(sut).not.toBe(null);
         expect(sut).not.toBe(undefined);
-        expect(sut instanceof AzurePortalNg.PortalService).toBe(true);
+        expect(sut instanceof angularportalazure.PortalService).toBe(true);
         // NOT TO BE NULL
         expect(sut).not.toBe(undefined);
         expect(sut.$httpBackend).not.toBe(undefined);
@@ -506,13 +506,13 @@ describe('AzurePortalNg.PortalService', function () {
     //#endregion
 });
 
-describe('AzurePortalNg.UserControlBase', function () {
+describe('angularportalazure.UserControlBase', function () {
     var sut;
     var portalService;
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.UserControlBase(portalService);
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.UserControlBase(portalService);
     }));
     //#region Specs for Constructor
     it("constructed successfully", function () {

@@ -1,28 +1,28 @@
 ﻿/// <reference path="../node_modules/angular-portal-azure/apn.d.ts" />
 //import * as angular from 'angular';
-//import * as azureportalng from 'angular-portal-azure';
+//import * as angularportalazure from 'angular-portal-azure';
 
 namespace Sample1 {
-    class Sample1Shell extends azureportalng.PortalShell {
+    class Sample1Shell extends angularportalazure.PortalShell {
         //#region Constructors
 
-        constructor(portalService: azureportalng.PortalService) {
+        constructor(portalService: angularportalazure.PortalService) {
             super('SAMPLE TypeScript', portalService);
             this.portalService.panorama.startboard.tiles.showTiles = true;
 
-            this.portalService.panorama.avatarMenu.userAccount = new azureportalng.UserAccount('useraccount@mail.com', 'first', 'last');
+            this.portalService.panorama.avatarMenu.userAccount = new angularportalazure.UserAccount('useraccount@mail.com', 'first', 'last');
 
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('List 1', '/app/list1/list1.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('List 1', '/app/list1/list1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new azureportalng.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
             tile.subTitle = 'TypeScript based';
 
             this.setObsoleteLayoutProperites();
@@ -41,7 +41,7 @@ namespace Sample1 {
             customers.push(new Sample1.Customer(1003, 'Niklas', 'Soccer'));
             customers.push(new Sample1.Customer(1004, 'Julia', 'Singer'));
 
-            //this.portalService.$httpBackend.whenGET(/\/AzurePortalNg\/.*/).passThrough();
+            //this.portalService.$httpBackend.whenGET(/\/angularportalazure\/.*/).passThrough();
             //this.portalService.$httpBackend.whenGET(/\/sample1\/.*/).passThrough();
             //this.portalService.$httpBackend.whenGET(/\/Sample1\/.*/).passThrough();
 
@@ -68,7 +68,7 @@ namespace Sample1 {
 
     (function () {
         'use strict';
-        angular.module('sample1App').controller('sampleShell1', ['azureportalng.portalService', Sample1Shell]);
+        angular.module('sample1App').controller('sampleShell1', ['angularportalazure.portalService', Sample1Shell]);
     })();
 
     //#endregion

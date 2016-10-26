@@ -6,10 +6,10 @@ REM GULP build-apn
 
 ECHO "DELETE DIRECTORY DIST"           & RMDIR /S /Q dist
 
-ECHO "COPY azureportalng IMAGES"       & XCOPY azureportalng\images     dist\images      /E/I/Q/R/Y
-ECHO "COPY azureportalng HTML"         & XCOPY azureportalng\directives dist\directives  /E/I/Q/R/Y
-ECHO "COPY azureportalng CSS"          & XCOPY azureportalng\css\*.css  dist\css         /E/I/Q/R/Y
-ECHO "COPY azureportalng INDEX.JS"     & XCOPY azureportalng\index.js   dist\            /I/Q/R/Y
-ECHO "COPY azureportalng PACKAGE.JSON" & XCOPY package.json             dist\            /I/Q/R/Y
+ECHO "COPY angularportalazure IMAGES"       & XCOPY angularportalazure\images     dist\images      /E/I/Q/R/Y
+ECHO "COPY angularportalazure HTML"         & XCOPY angularportalazure\directives dist\directives  /E/I/Q/R/Y
+ECHO "COPY angularportalazure CSS"          & XCOPY angularportalazure\css\*.css  dist\css         /E/I/Q/R/Y
+ECHO "COPY angularportalazure INDEX.JS"     & XCOPY angularportalazure\index.js   dist\            /I/Q/R/Y
+ECHO "COPY angularportalazure PACKAGE.JSON" & XCOPY package.json             dist\            /I/Q/R/Y
 
 ECHO "COMPILE TSC"                     & CALL TSC

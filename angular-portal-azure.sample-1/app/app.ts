@@ -5,16 +5,16 @@ namespace Sample1 {
     var app: ng.IModule = angular.module('sample1App', [
         'ngResource',
         'ngDialog',
-        'azureportalng'
+        'angularportalazure'
     ]);
 
     //#region Configuration
 
     /** configure angular */
     //app.config([function (): void {
-    //    AzurePortalNg.Debug.enable(); // '[sample1-debug]'
-    //    AzurePortalNg.Debug.isEnabled = true;
-    //    AzurePortalNg.Debug.isWithObjects = false;
+    //    angularportalazure.Debug.enable(); // '[sample1-debug]'
+    //    angularportalazure.Debug.isEnabled = true;
+    //    angularportalazure.Debug.isWithObjects = false;
     //}]);
 
     /** configure angular dialog */

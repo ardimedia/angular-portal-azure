@@ -13,7 +13,7 @@
     "noImplicitAny": false
   },
   "exclude": [
-    "azureportalng",
+    "angularportalazure",
     "dist",
     "node_modules"
   ]

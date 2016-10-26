@@ -1,11 +1,11 @@
-﻿describe('AzurePortalNg.PortalService', function () {
+﻿describe('angularportalazure.PortalService', function () {
 
-    var sut: AzurePortalNg.PortalService;
+    var sut: angularportalazure.PortalService;
 
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
 
     beforeEach(angular.mock.inject(function ($injector) {
-        sut = $injector.get('azureportalng.portalService');
+        sut = $injector.get('angularportalazure.portalService');
     }));
 
     //#region Specs for Constructor
@@ -14,7 +14,7 @@
 
         expect(sut).not.toBe(null);
         expect(sut).not.toBe(undefined);
-        expect(sut instanceof AzurePortalNg.PortalService).toBe(true);
+        expect(sut instanceof angularportalazure.PortalService).toBe(true);
 
         // NOT TO BE NULL
         expect(sut).not.toBe(undefined);

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("azureportalng")]
+[assembly: AssemblyTitle("angular-portal-azure")]
 [assembly: AssemblyDescription("Release Date: 2016-10-24")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ardimedia, Schaan - Liechtenstein")]
-[assembly: AssemblyProduct("azureportalng")]
+[assembly: AssemblyProduct("angular-portal-azure")]
 [assembly: AssemblyCopyright("Copyright © 2016 Ardimedia")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

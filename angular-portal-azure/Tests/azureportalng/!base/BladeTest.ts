@@ -1,15 +1,15 @@
-﻿describe('AzurePortalNg.Blade', function () {
+﻿describe('angularportalazure.Blade', function () {
 
     //#region Tests initialize
 
-    var sut: AzurePortalNg.Blade;
-    var portalService: AzurePortalNg.PortalService;
+    var sut: angularportalazure.Blade;
+    var portalService: angularportalazure.PortalService;
 
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
 
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.Blade(portalService, 'test-path', 'test-title');
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.Blade(portalService, 'test-path', 'test-title');
     }));
 
     //#endregion
@@ -93,20 +93,20 @@
     });
 
     it("Constructor with parameter [width = 300] successful", function () {
-        var sut = new AzurePortalNg.Blade(portalService, 'test-path', '', '', 300);
+        var sut = new angularportalazure.Blade(portalService, 'test-path', '', '', 300);
 
         // widthStackLayout must be 50 less then provided [width]
         expect(sut.widthStackLayout.width).toBe('250px');
     });
 
     it("Constructor with parameter [width => 50] throws no expection", function () {
-        var sut = new AzurePortalNg.Blade(portalService, 'test-path', '', '', 50);
+        var sut = new angularportalazure.Blade(portalService, 'test-path', '', '', 50);
 
         expect(sut).not.toBe(null);
     });
 
     it("Constructor with parameter [width < 50] throws expection", function () {
-        var sut = function () { new AzurePortalNg.Blade(portalService, 'test-path', '', '', 49) };
+        var sut = function () { new angularportalazure.Blade(portalService, 'test-path', '', '', 49) };
 
         expect(sut).toThrow();
     });
@@ -130,7 +130,7 @@
     it("navigateTo throws expection - abstract function", function () {
         var exception = function () { sut.navigateTo('test-path'); };
 
-        expect(exception).toThrow(new Error('[azureportalng.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.'));
+        expect(exception).toThrow(new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.'));
     });
 
     //#endregion
@@ -140,7 +140,7 @@
     it("close throws exception - path could not be removed", function () {
         var exception = function () { sut.close(); };
 
-        expect(exception).toThrow(new Error('[azureportalng.Blade] path: \'test-path\' could not be removed, since no \'this.portalService.bladeArea\' available.'));
+        expect(exception).toThrow(new Error('[angularportalazure.Blade] path: \'test-path\' could not be removed, since no \'this.portalService.bladeArea\' available.'));
     });
 
     //#endregion

@@ -1,13 +1,13 @@
-﻿describe('AzurePortalNg.BladeArea', function () {
+﻿describe('angularportalazure.BladeArea', function () {
 
-    var sut: AzurePortalNg.BladeArea;
-    var portalService: AzurePortalNg.PortalService;
+    var sut: angularportalazure.BladeArea;
+    var portalService: angularportalazure.PortalService;
 
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
 
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.BladeArea(portalService);
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.BladeArea(portalService);
     }));
 
     //#region Specs for Constructor
@@ -40,7 +40,7 @@
         var result = sut.addBlade('test-path');
 
         expect(result).not.toBe(null);
-        expect(result instanceof AzurePortalNg.Blade).toBe(true);
+        expect(result instanceof angularportalazure.Blade).toBe(true);
         expect(sut.blades.length).toBe(1);
     });
 
@@ -61,7 +61,7 @@
     it("clearPath - path not found - throw exception", function () {
         var exception = function () { sut.clearPath('test-path'); };
 
-        expect(exception).toThrow(new Error('[azureportalng.BladeArea.clearPath] path: \'test-path\' could not be removed, since path not found in bladeUrls.'));
+        expect(exception).toThrow(new Error('[angularportalazure.BladeArea.clearPath] path: \'test-path\' could not be removed, since path not found in bladeUrls.'));
     });
 
     //#endregion

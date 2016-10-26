@@ -1,13 +1,13 @@
-﻿describe('AzurePortalNg.BladeDetail', function () {
+﻿describe('angularportalazure.BladeDetail', function () {
 
-    var sut: AzurePortalNg.BladeData;
-    var portalService: AzurePortalNg.PortalService;
+    var sut: angularportalazure.BladeData;
+    var portalService: angularportalazure.PortalService;
 
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
 
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.BladeData(portalService, 'test-path', 'test-title');
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.BladeData(portalService, 'test-path', 'test-title');
     }));
 
     //#region Specs for Constructor

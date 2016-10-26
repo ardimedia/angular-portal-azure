@@ -62,10 +62,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="azureportalng\css\apn.css">
+    <Content Include="angularportalazure\css\apn.css">
       <DependentUpon>apn.scss</DependentUpon>
     </Content>
-    <Content Include="azureportalng\css\apn.min.css">
+    <Content Include="angularportalazure\css\apn.min.css">
       <DependentUpon>apn.css</DependentUpon>
     </Content>
     <Content Include="design\design.css">
@@ -112,22 +112,22 @@
     <Content Include="README.md" />
     <Content Include="tests\AzurePortalNg\tests.js" />
     <Content Include="tests\index.html" />
-    <None Include="azureportalng\directives\dialog\README.md" />
-    <Content Include="azureportalng\directives\dialog\style.css">
+    <None Include="angularportalazure\directives\dialog\README.md" />
+    <Content Include="angularportalazure\directives\dialog\style.css">
       <DependentUpon>style.scss</DependentUpon>
     </Content>
-    <Content Include="azureportalng\directives\dialog\style.min.css">
+    <Content Include="angularportalazure\directives\dialog\style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
-    <Content Include="azureportalng\directives\dialog\style.scss" />
-    <Content Include="azureportalng\directives\blade\blade.html" />
-    <Content Include="azureportalng\directives\home\home.html" />
-    <Content Include="azureportalng\directives\nav\nav.html" />
-    <Content Include="azureportalng\directives\navgrid\navgrid.html" />
-    <Content Include="azureportalng\images\apn.png" />
-    <Content Include="azureportalng\images\avatar.jpg" />
+    <Content Include="angularportalazure\directives\dialog\style.scss" />
+    <Content Include="angularportalazure\directives\blade\blade.html" />
+    <Content Include="angularportalazure\directives\home\home.html" />
+    <Content Include="angularportalazure\directives\nav\nav.html" />
+    <Content Include="angularportalazure\directives\navgrid\navgrid.html" />
+    <Content Include="angularportalazure\images\apn.png" />
+    <Content Include="angularportalazure\images\avatar.jpg" />
     <Content Include="design\design.scss" />
-    <Content Include="azureportalng\css\apn.scss" />
+    <Content Include="angularportalazure\css\apn.scss" />
     <Content Include="design\portallayout.scss" />
     <Content Include="design\portallayout.css.map">
       <DependentUpon>portallayout.css</DependentUpon>
@@ -141,7 +141,7 @@
       <DependentUpon>themems.css</DependentUpon>
     </Content>
     <Content Include="design\libmixin.scss" />
-    <Content Include="azureportalng\directives\dialog\style.css.map">
+    <Content Include="angularportalazure\directives\dialog\style.css.map">
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
@@ -151,15 +151,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="azureportalng\domain\BladeNavItem.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\Exception.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\IBladeParameter.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\Tiles.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\TileSize.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\TileSizes.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\IAddBladeEventArgs.ts" />
-    <Content Include="azureportalng\index.js" />
-    <TypeScriptCompile Include="azureportalng\domain\IException.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeNavItem.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\Exception.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\IBladeParameter.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\Tiles.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\TileSize.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\TileSizes.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\IAddBladeEventArgs.ts" />
+    <Content Include="angularportalazure\index.js" />
+    <TypeScriptCompile Include="angularportalazure\domain\IException.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDataTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\AvatarMenuTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeAreaTest.ts" />
@@ -169,28 +169,28 @@
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\UserControlBaseTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDetailTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\DebugTest.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\BladeNav.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\UserControlBase.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\BladeArea.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\Debug.ts" />
-    <TypeScriptCompile Include="azureportalng\directives\nav\nav.ts" />
-    <TypeScriptCompile Include="azureportalng\services\DataService.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\PortalService.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\Startboard.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\UserAccount.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\Blade.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\AvatarMenu.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\Panorama.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\PortalShell.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\Tile.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\BladeData.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\BladeDetail.ts" />
-    <TypeScriptCompile Include="azureportalng\domain\BladeList.ts" />
-    <TypeScriptCompile Include="azureportalng\directives\dirtyflag\dirtyflag.ts" />
-    <TypeScriptCompile Include="azureportalng\azureportalng.ts" />
-    <TypeScriptCompile Include="azureportalng\directives\blade\blade.ts" />
-    <TypeScriptCompile Include="azureportalng\directives\home\home.ts" />
-    <TypeScriptCompile Include="azureportalng\directives\navgrid\navgrid.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeNav.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\UserControlBase.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeArea.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\Debug.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\nav\nav.ts" />
+    <TypeScriptCompile Include="angularportalazure\services\DataService.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\PortalService.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\Startboard.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\UserAccount.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\Blade.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\AvatarMenu.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\Panorama.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\PortalShell.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\Tile.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeData.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeDetail.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeList.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\dirtyflag\dirtyflag.ts" />
+    <TypeScriptCompile Include="angularportalazure\azureportalng.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\blade\blade.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\home\home.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\navgrid\navgrid.ts" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

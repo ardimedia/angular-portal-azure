@@ -1,13 +1,13 @@
-﻿describe('AzurePortalNg.UserControlBase', function () {
+﻿describe('angularportalazure.UserControlBase', function () {
 
-    var sut: AzurePortalNg.UserControlBase;
-    var portalService: AzurePortalNg.PortalService;
+    var sut: angularportalazure.UserControlBase;
+    var portalService: angularportalazure.PortalService;
 
-    beforeEach(angular.mock.module('azureportalng'));
+    beforeEach(angular.mock.module('angularportalazure'));
 
     beforeEach(angular.mock.inject(function ($injector) {
-        portalService = $injector.get('azureportalng.portalService');
-        sut = new AzurePortalNg.UserControlBase(portalService);
+        portalService = $injector.get('angularportalazure.portalService');
+        sut = new angularportalazure.UserControlBase(portalService);
     }));
 
     //#region Specs for Constructor
