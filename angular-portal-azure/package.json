@@ -1,6 +1,6 @@
 {
   "name": "angularportalazure",
-  "description": "Azure Portal Style (for angular)",
+  "description": "Angular Portal Azure GUI Framework.",
   "private": true,
   "version": "0.2.1",
   "main": "index.js",

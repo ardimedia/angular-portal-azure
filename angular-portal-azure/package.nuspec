@@ -3,9 +3,9 @@
   <metadata>
     <id>angularportalazure</id>
     <version>0.2.1-beta</version>
-    <authors>Ardimedai</authors>
+    <authors>Ardimedia</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Framework for building web sites based on the Azure Portal Layout.</description>
+    <description>Angular Portal Azure GUI Framework.</description>
     <releaseNotes>Early preview.</releaseNotes>
     <dependencies>
       <dependency id="angularjs" version="1.5.8" />

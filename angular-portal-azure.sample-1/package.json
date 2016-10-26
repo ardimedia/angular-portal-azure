@@ -1,6 +1,6 @@
 {
   "name": "angular-portal-azure.sample-1",
-  "description": "Azure Portal Style (for angular)",
+  "description": "Angular Portal Azure - Sample 1 (angular 1)",
   "private": true,
   "version": "1.0.0",
   "dependencies": {
