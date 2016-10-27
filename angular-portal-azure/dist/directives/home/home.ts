@@ -2,7 +2,7 @@
     function azurePortalHome($window, $interpolate) {
         return {
             scope: { vm: '=options' },
-            templateUrl: '/node_modules/angular-portal-azure/directives/home/home.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
             link: function (scope, element, attrs, controller) {
             }
         };

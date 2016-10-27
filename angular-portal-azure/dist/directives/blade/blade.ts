@@ -8,7 +8,7 @@ namespace angularportalazure {
             transclude: true,
             scope: { vm: '=vm' },
             restrict: 'E',
-            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
                 angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.link\' called.', [this, portalService]);
 

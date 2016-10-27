@@ -1,4 +1,4 @@
-﻿/// <reference types="angular-portal-azure" />
+﻿/// <reference types="@ardimedia/angular-portal-azure" />
 /// <reference path="../node_modules/@types/angular/index.d.ts" />
 
 namespace Sample1 {

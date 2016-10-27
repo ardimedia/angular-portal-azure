@@ -2,7 +2,7 @@
     function navGrid($window) {
         return {
             scope: { vm: '=viewModel' },
-            templateUrl: '/node_modules/angular-portal-azure/directives/navgrid/navgrid.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/navgrid/navgrid.html',
             link: function (scope, element, attrs, controller) {
                 angular.forEach(scope.vm.items, function (item) {
                     // Set some default values, depending on existing values

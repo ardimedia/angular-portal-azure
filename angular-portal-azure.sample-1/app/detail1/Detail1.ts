@@ -1,7 +1,4 @@
-﻿/// <reference types="angular-portal-azure" />
-/// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
+﻿/// <reference types="angular" />
 
 namespace Sample1 {
     class Detail1 extends angularportalazure.BladeDetail {

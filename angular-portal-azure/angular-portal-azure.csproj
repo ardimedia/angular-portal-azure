@@ -108,7 +108,6 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="package.nuspec" />
     <Content Include="README.md" />
     <Content Include="tests\AzurePortalNg\tests.js" />
     <Content Include="tests\index.html" />
@@ -146,6 +145,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
     <Content Include="tsconfig.json" />
+    <Content Include="publish.bat" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

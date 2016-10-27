@@ -1,7 +1,5 @@
-﻿/// <reference types="angular-portal-azure" />
+﻿/// <reference types="@ardimedia/angular-portal-azure" />
 /// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 
 namespace Sample1 {
     class Blade11 extends angularportalazure.BladeList {

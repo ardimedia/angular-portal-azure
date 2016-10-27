@@ -861,7 +861,7 @@ var angularportalazure;
             transclude: true,
             scope: { vm: '=vm' },
             restrict: 'E',
-            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
                 angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.link\' called.', [this, portalService]);
                 //#region the following code makes sure, that a function scope.vm.close is available
@@ -922,7 +922,7 @@ var angularportalazure;
     function azurePortalHome($window, $interpolate) {
         return {
             scope: { vm: '=options' },
-            templateUrl: '/node_modules/angular-portal-azure/directives/home/home.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
             link: function (scope, element, attrs, controller) {
             }
         };
@@ -934,7 +934,7 @@ var angularportalazure;
     function nav($window) {
         return {
             scope: { vm: '=viewModel' },
-            templateUrl: '/node_modules/angular-portal-azure/directives/nav/nav.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
             link: function (scope, element, attrs, controller) {
                 angular.forEach(scope.vm.navItems, function (item) {
                     // Set some default values, depending on existing values
@@ -958,7 +958,7 @@ var angularportalazure;
     function navGrid($window) {
         return {
             scope: { vm: '=viewModel' },
-            templateUrl: '/node_modules/angular-portal-azure/directives/navgrid/navgrid.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/navgrid/navgrid.html',
             link: function (scope, element, attrs, controller) {
                 angular.forEach(scope.vm.items, function (item) {
                     // Set some default values, depending on existing values

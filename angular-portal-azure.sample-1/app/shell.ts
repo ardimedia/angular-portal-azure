@@ -1,8 +1,4 @@
-﻿/// <reference path="../node_modules/angular-portal-azure/apn.d.ts" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
-
-namespace Sample1 {
+﻿namespace Sample1 {
     class Sample1Shell extends angularportalazure.PortalShell {
         //#region Constructors
 

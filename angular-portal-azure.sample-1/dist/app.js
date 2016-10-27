@@ -1,4 +1,4 @@
-/// <reference types="angular-portal-azure" />
+/// <reference types="@ardimedia/angular-portal-azure" />
 /// <reference path="../node_modules/@types/angular/index.d.ts" />
 var Sample1;
 (function (Sample1) {
@@ -35,10 +35,8 @@ var Sample1;
         angular.bootstrap(document.body, ['sample1App'], { strictDi: true });
     });
 })(Sample1 || (Sample1 = {}));
-/// <reference types="angular-portal-azure" />
+/// <reference types="@ardimedia/angular-portal-azure" />
 /// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -78,17 +76,15 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             controller: 'blade11',
             controllerAs: 'vm',
         };
     }
     angular.module('sample1App').directive('blade11Blade', [blade11Blade]);
 })(Sample1 || (Sample1 = {}));
-/// <reference types="angular-portal-azure" />
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 var Sample1;
 (function (Sample1) {
     var Blade2 = (function (_super) {
@@ -130,17 +126,15 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             controller: 'blade2',
             controllerAs: 'vm',
         };
     }
     angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
 })(Sample1 || (Sample1 = {}));
-/// <reference types="angular-portal-azure" />
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 var Sample1;
 (function (Sample1) {
     var Blade21 = (function (_super) {
@@ -175,7 +169,7 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             controller: 'blade21',
             controllerAs: 'vm',
         };
@@ -194,10 +188,7 @@ var Sample1;
     }());
     Sample1.Customer = Customer;
 })(Sample1 || (Sample1 = {}));
-/// <reference types="angular-portal-azure" />
 /// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 var Sample1;
 (function (Sample1) {
     var Detail1 = (function (_super) {
@@ -229,17 +220,15 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             controller: 'detail1',
             controllerAs: 'vm',
         };
     }
     angular.module('sample1App').directive('detail1Blade', [detail1Blade]);
 })(Sample1 || (Sample1 = {}));
-/// <reference types="angular-portal-azure" />
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 var Sample1;
 (function (Sample1) {
     var List1 = (function (_super) {
@@ -277,17 +266,15 @@ var Sample1;
         return {
             replace: true,
             transclude: true,
-            templateUrl: '/node_modules/angular-portal-azure/directives/blade/blade.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             controller: 'list1',
             controllerAs: 'vm',
         };
     }
     angular.module('sample1App').directive('list1Blade', [list1Blade]);
 })(Sample1 || (Sample1 = {}));
-/// <reference types="angular-portal-azure" />
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 var Sample1;
 (function (Sample1) {
     var Nav1 = (function (_super) {
@@ -325,9 +312,6 @@ var Sample1;
     }(angularportalazure.BladeNav));
     angular.module('sample1App').controller('nav1', ['angularportalazure.portalService', Nav1]);
 })(Sample1 || (Sample1 = {}));
-/// <reference path="../node_modules/angular-portal-azure/apn.d.ts" />
-//import * as angular from 'angular';
-//import * as angularportalazure from 'angular-portal-azure';
 var Sample1;
 (function (Sample1) {
     var Sample1Shell = (function (_super) {

@@ -4,13 +4,14 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
+    "@ardimedia/angular-portal-azure": "^0.2.5",
     "angular": "^1.5.8",
     "angular-resource": "^1.5.8",
     "ng-dialog": "^0.6.4"
   },
   "devDependencies": {
-    "@types/angular": "^1.5.16",
+    "@types/angular": "^1.5.17",
     "@types/angular-resource": "^1.5.6",
-    "typescript": "^2.0.3"
+    "typescript": "^2.0.6"
   }
 }

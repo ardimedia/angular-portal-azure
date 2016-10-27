@@ -1,8 +1,8 @@
 {
-  "name": "angularportalazure",
-  "description": "Azure Portal Style (for angular)",
-  "private": true,
-  "version": "0.2.1",
+  "name": "@ardimedia/angular-portal-azure",
+  "description": "Angular Portal Azure - GUI Framework.",
+  "author": "Ardimedia Anstalt <info@ardimedia.com> (http://www.ardimedia.com)",
+  "version": "0.2.5",
   "main": "index.js",
   "typings": "apn.d.ts",
   "dependencies": {

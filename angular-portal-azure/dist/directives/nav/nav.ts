@@ -2,7 +2,7 @@
     function nav($window) {
         return {
             scope: { vm: '=viewModel' },
-            templateUrl: '/node_modules/angular-portal-azure/directives/nav/nav.html',
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
             link: function (scope, element, attrs, controller) {
                 angular.forEach(scope.vm.navItems, function (item) {
                     // Set some default values, depending on existing values
