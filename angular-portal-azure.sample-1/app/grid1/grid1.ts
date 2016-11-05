@@ -2,7 +2,7 @@
 /// <reference types="angular" />
 
 namespace Sample1 {
-    class Nav1 extends angularportalazure.BladeNav {
+    class Grid1 extends angularportalazure.BladeNav {
         //#region Constructors
 
         static $inject = ['angularportalazure.portalService'];
@@ -41,5 +41,5 @@ namespace Sample1 {
         //#endregion
     }
 
-    angular.module('sample1App').controller('nav1', Nav1);
+    angular.module('sample1App').controller('grid1', Grid1);
 }

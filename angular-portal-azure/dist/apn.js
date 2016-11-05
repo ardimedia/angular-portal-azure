@@ -1053,7 +1053,7 @@ var angularportalazure;
             link: function (scope, element, attrs, controller) {
                 //console.log('grid.link()');
                 //console.log(this);
-                angular.forEach(scope.vm.items, function (item) {
+                angular.forEach(controller.vm.items, function (item) {
                     // Set some default values, depending on existing values
                     if (item.isVisible == undefined) {
                         item.isVisible = true;

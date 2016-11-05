@@ -60,6 +60,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\grid1\grid1.html" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
   </ItemGroup>
@@ -86,6 +87,7 @@
     <TypeScriptCompile Include="app\blade2\blade2blade.ts" />
     <TypeScriptCompile Include="app\detail1\Detail1.ts" />
     <TypeScriptCompile Include="app\detail1\detail1blade.ts" />
+    <TypeScriptCompile Include="app\grid1\grid1.ts" />
     <TypeScriptCompile Include="app\list1\List1.ts" />
     <TypeScriptCompile Include="app\list1\list1blade.ts" />
     <TypeScriptCompile Include="app\nav1\nav1.ts" />

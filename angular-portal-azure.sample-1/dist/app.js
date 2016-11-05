@@ -280,7 +280,7 @@ var Sample1;
             _super.call(this, portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315);
             angularportalazure.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
             this.navItems = [
-                new angularportalazure.BladeNavItem('Navigation 1 (BladeNav)', '/app/nav1/nav1.html'),
+                new angularportalazure.BladeNavItem('Grid 1 (BladeNav)', '/app/grid1/grid.html'),
                 new angularportalazure.BladeNavItem('Blade 1-1 (BladeList)', '/app/blade11/blade11.html', null, null, true, this.callback1, this),
                 new angularportalazure.BladeNavItem('Blade 2 (BladeList)', '/app/blade2/blade2.html'),
                 new angularportalazure.BladeNavItem('Blade 2-1 (BladeList)', '/app/blade21/blade21.html'),
