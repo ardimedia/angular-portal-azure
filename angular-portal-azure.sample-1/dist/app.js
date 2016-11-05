@@ -52,6 +52,7 @@ var Sample1;
             this.isCommandNew = true;
             this.commandNewText = 'Blade 2';
             this.statusbar = 'Blade 1-1...';
+            this.vm = this;
         }
         //#endregion
         //#region Methods - Overrides for Blade
@@ -59,7 +60,6 @@ var Sample1;
             this.portalService.bladeArea.addBlade('/Sample1/blade2/blade2.html', this.path);
         };
         Blade11.prototype.onActivate = function () {
-            console.log('Blade11.onActivate');
         };
         //#endregion
         //#region Data Access
@@ -70,27 +70,26 @@ var Sample1;
     }(angularportalazure.BladeList));
     angular.module('sample1App').controller('blade11', ['angularportalazure.portalService', Blade11]);
 })(Sample1 || (Sample1 = {}));
-var Sample1;
-(function (Sample1) {
-    function blade11Blade() {
-        return {
-            replace: true,
-            transclude: true,
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            controller: 'blade11',
-            controllerAs: 'vm',
-        };
-    }
-    angular.module('sample1App').directive('blade11Blade', [blade11Blade]);
-})(Sample1 || (Sample1 = {}));
+//namespace Sample1 {
+//    function blade11Blade() {
+//        return {
+//            restrict: 'E',
+//            replace: true,
+//            transclude: true,
+//            scope: {},
+//            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+//            controller: 'blade11',
+//            controllerAs: 'ctrl',
+//        };
+//    }
+//    angular.module('sample1App').directive('blade11Blade', [blade11Blade]);
+//}
 /// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
 var Sample1;
 (function (Sample1) {
     var Blade2 = (function (_super) {
         __extends(Blade2, _super);
-        //#region Properties
-        //#endregion
         //#region Constructors
         function Blade2(portalService) {
             _super.call(this, portalService, '/app/blade2/blade2.html', 'Blade 2', 'TypeScript based', 315);
@@ -120,19 +119,18 @@ var Sample1;
     }(angularportalazure.BladeList));
     angular.module('sample1App').controller('blade2', ['angularportalazure.portalService', Blade2]);
 })(Sample1 || (Sample1 = {}));
-var Sample1;
-(function (Sample1) {
-    function blade2Blade() {
-        return {
-            replace: true,
-            transclude: true,
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            controller: 'blade2',
-            controllerAs: 'vm',
-        };
-    }
-    angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
-})(Sample1 || (Sample1 = {}));
+//namespace Sample1 {
+//    function blade2Blade() {
+//        return {
+//            replace: true,
+//            transclude: true,
+//            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+//            controller: 'blade2',
+//            controllerAs: 'vm',
+//        };
+//    }
+//    angular.module('sample1App').directive('blade2Blade', [blade2Blade]);
+//}
 /// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
 var Sample1;
@@ -214,19 +212,18 @@ var Sample1;
     }(angularportalazure.BladeDetail));
     angular.module('sample1App').controller('detail1', ['angularportalazure.portalService', Detail1]);
 })(Sample1 || (Sample1 = {}));
-var Sample1;
-(function (Sample1) {
-    function detail1Blade() {
-        return {
-            replace: true,
-            transclude: true,
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            controller: 'detail1',
-            controllerAs: 'vm',
-        };
-    }
-    angular.module('sample1App').directive('detail1Blade', [detail1Blade]);
-})(Sample1 || (Sample1 = {}));
+//namespace Sample1 {
+//    function detail1Blade() {
+//        return {
+//            replace: true,
+//            transclude: true,
+//            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+//            controller: 'detail1',
+//            controllerAs: 'vm',
+//        };
+//    }
+//    angular.module('sample1App').directive('detail1Blade', [detail1Blade]);
+//}
 /// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
 var Sample1;
@@ -279,7 +276,6 @@ var Sample1;
 (function (Sample1) {
     var Nav1 = (function (_super) {
         __extends(Nav1, _super);
-        //#region Constructors
         function Nav1(portalService) {
             _super.call(this, portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315);
             angularportalazure.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
@@ -306,11 +302,12 @@ var Sample1;
             this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
         };
         Nav1.prototype.callback1 = function () {
-            console.log('Nav1.callback1');
         };
+        //#region Constructors
+        Nav1.$inject = ['angularportalazure.portalService'];
         return Nav1;
     }(angularportalazure.BladeNav));
-    angular.module('sample1App').controller('nav1', ['angularportalazure.portalService', Nav1]);
+    angular.module('sample1App').controller('nav1', Nav1);
 })(Sample1 || (Sample1 = {}));
 var Sample1;
 (function (Sample1) {

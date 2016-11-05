@@ -41,7 +41,7 @@ namespace angularportalazure {
             // Register listener1
             this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
                 angularportalazure.Debug.write('[angularportalazure-debug] \'Blade\' BladeArea.AddBlade event processing.', [this, event, args]);
-                if (args.path === that.blade.path) {
+                if (that.blade.comparePaths(args.path, that.blade.path)) {
                     that.activate();
                 }
             });
@@ -57,7 +57,18 @@ namespace angularportalazure {
 
         listener1: Function;
 
-        path: string;
+        //#region path
+
+        get path(): string {
+            return this._path;
+        }
+        // For the moment we do not distinguish between lower and upper case path name
+        set path(newPath: string) {
+            this._path = newPath.toLowerCase();
+        }
+        private _path: string;
+
+        //#endregion
 
         title: string = '';
         subTitle: string = '';
@@ -180,6 +191,15 @@ namespace angularportalazure {
 
         onNavigateTo(arg: any): void {
             throw new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.');
+        }
+
+        // At the moment we do not distinguish between lower and upper case path name
+        comparePaths(path1: string, path2: string): boolean {
+            if (path1.toLowerCase() === path2.toLowerCase()) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         /** close blade. */

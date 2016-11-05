@@ -7,12 +7,18 @@ namespace Sample1 {
 
         constructor(portalService: angularportalazure.PortalService) {
             super(portalService, '/app/blade11/blade11.html', 'Blade 1-1', 'TypeScript based', 315);
-
             this.isCommandNew = true;
             this.commandNewText = 'Blade 2';
 
             this.statusbar = 'Blade 1-1...';
+            this.vm = this;
         }
+
+        //#endregion
+
+        //#region Properties
+
+        vm;
 
         //#endregion
 
@@ -23,7 +29,6 @@ namespace Sample1 {
         }
 
         onActivate() {
-            console.log('Blade11.onActivate');
         }
 
         //#endregion

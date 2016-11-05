@@ -3,11 +3,6 @@
 
 namespace Sample1 {
     class Blade2 extends angularportalazure.BladeList {
-
-        //#region Properties
-
-        //#endregion
-
         //#region Constructors
 
         constructor(portalService: angularportalazure.PortalService) {

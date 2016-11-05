@@ -63,6 +63,9 @@ namespace angularportalazure {
             angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.addBlade\' called.', [this, senderPath, path]);
             var that = this;
 
+            path = path.toLowerCase();
+            senderPath = senderPath.toLowerCase();
+
             //#region Verify
 
             if (path === undefined || path === '') { return; }
@@ -89,7 +92,8 @@ namespace angularportalazure {
             //#region Make sure the blade is not yet show
 
             this.blades.forEach(function (blade) {
-                if (blade.path === path) {
+                // we do not distinguish between lower and upper case path name
+                if (blade.comparePaths(blade.path, path)) {
                     throw new Error('[angularportalazure.BladeArea] path: \'' + path + '\' will not be added. It is already added.');
                 };
             });
@@ -134,8 +138,11 @@ namespace angularportalazure {
         clearPath(path: string): void {
             angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearPath\' called.', [this, path]);
             var that = this;
+            // we do not distinguish between lower and upper case path name
+            path = path.toLowerCase()
+
             var isremoved = that.blades.some(function (blade, index) {
-                if (blade.path === path) {
+                if (blade.comparePaths(blade.path, path)) {
                     angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearPath\' set bladeUrls.length to: ' + index);
                     that.blades.length = index;
                     return true;
@@ -169,12 +176,15 @@ namespace angularportalazure {
             angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearChild\' called.', [this, path]);
             var that = this;
 
+            path = path.toLowerCase();
+
             if (path === '') {
                 angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearChild\' path is empty, nothing to clear.');
                 return;
             }
             var isremoved = that.blades.some(function (blade, index) {
-                if (blade.path === path) {
+                // we do not distinguish between lower and upper case path name
+                if (blade.comparePaths(blade.path, path)) {
                     angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearChild\' set bladeUrls.length to: ' + (index + 1));
                     that.blades.length = index + 1;
                     return true;

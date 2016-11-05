@@ -122,7 +122,7 @@
     <Content Include="angularportalazure\directives\blade\blade.html" />
     <Content Include="angularportalazure\directives\home\home.html" />
     <Content Include="angularportalazure\directives\nav\nav.html" />
-    <Content Include="angularportalazure\directives\navgrid\navgrid.html" />
+    <Content Include="angularportalazure\directives\grid\grid.html" />
     <Content Include="angularportalazure\images\apn.png" />
     <Content Include="angularportalazure\images\avatar.jpg" />
     <Content Include="design\design.scss" />
@@ -151,6 +151,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-grid.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-nav.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNavItem.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\Exception.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\IBladeParameter.ts" />
@@ -188,9 +190,9 @@
     <TypeScriptCompile Include="angularportalazure\domain\BladeList.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\dirtyflag\dirtyflag.ts" />
     <TypeScriptCompile Include="angularportalazure\azureportalng.ts" />
-    <TypeScriptCompile Include="angularportalazure\directives\blade\blade.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\home\home.ts" />
-    <TypeScriptCompile Include="angularportalazure\directives\navgrid\navgrid.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\grid\grid.ts" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

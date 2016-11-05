@@ -5,6 +5,7 @@ namespace Sample1 {
     class Nav1 extends angularportalazure.BladeNav {
         //#region Constructors
 
+        static $inject = ['angularportalazure.portalService'];
         constructor(portalService: angularportalazure.PortalService) {
             super(portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315);
             angularportalazure.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
@@ -35,11 +36,10 @@ namespace Sample1 {
         }
 
         callback1() {
-            console.log('Nav1.callback1');
         }
 
         //#endregion
     }
 
-    angular.module('sample1App').controller('nav1', ['angularportalazure.portalService', Nav1]);
+    angular.module('sample1App').controller('nav1', Nav1);
 }

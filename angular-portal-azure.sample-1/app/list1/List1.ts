@@ -3,7 +3,6 @@
 
 namespace Sample1 {
     class List1 extends angularportalazure.BladeList {
-
         //#region Constructors
 
         constructor(portalService: angularportalazure.PortalService) {

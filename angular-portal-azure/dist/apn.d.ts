@@ -47,6 +47,7 @@ declare namespace angularportalazure {
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         listener1: Function;
         path: string;
+        private _path;
         title: string;
         subTitle: string;
         width: {
@@ -123,6 +124,7 @@ declare namespace angularportalazure {
         onActivate(): void;
         navigateTo(arg: any): void;
         onNavigateTo(arg: any): void;
+        comparePaths(path1: string, path2: string): boolean;
         /** close blade. */
         close(): void;
         onCommandBrowse(): void;
@@ -203,17 +205,18 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class Tile {
+        constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService);
         portalService: angularportalazure.PortalService;
         title: string;
         subTitle: string;
         bladePath: string;
+        private _bladePath;
         tileSize: angularportalazure.TileSizes;
         size: string;
         left: string;
         top: string;
         leftN: string;
         topN: string;
-        constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService);
         clicked(): void;
     }
 }
@@ -295,6 +298,10 @@ declare namespace angularportalazure {
         $window: any;
         $scope: any;
     }
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
 }
