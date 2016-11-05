@@ -1,6 +1,6 @@
 ﻿namespace Sample1 {
     class Sample1Shell extends angularportalazure.PortalShell {
-        //#region Constructors
+        //#region Constructor
 
         constructor(portalService: angularportalazure.PortalService) {
             super('SAMPLE TypeScript', portalService);
@@ -10,13 +10,13 @@
 
             var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
             tile.subTitle = 'TypeScript based';
+            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Grid 1', '/app/grid1/grid1.html', portalService));
+            tile.subTitle = 'TypeScript based';
             var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
             tile.subTitle = 'TypeScript based';
             var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
             tile.subTitle = 'TypeScript based';
             var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
-            tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('List 1', '/app/list1/list1.html', portalService));
             tile.subTitle = 'TypeScript based';
             var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
             tile.subTitle = 'TypeScript based';

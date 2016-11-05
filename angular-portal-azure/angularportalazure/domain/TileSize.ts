@@ -4,7 +4,7 @@
 namespace angularportalazure {
     export class TileSize {
 
-        //#region Constructors
+        //#region Constructor
 
         constructor(public tileSizes: angularportalazure.TileSizes, public width: number, public height: number) {
             angularportalazure.Debug.write('[angularportalazure-debug] \'TileSize\' constructor called.', [this, tileSizes, width, height]);

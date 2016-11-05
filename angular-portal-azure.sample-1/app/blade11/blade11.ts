@@ -2,11 +2,11 @@
 /// <reference types="angular" />
 
 namespace Sample1 {
-    class Blade11 extends angularportalazure.BladeList {
-        //#region Constructors
+    class Blade11 extends angularportalazure.BladeDetail {
+        //#region Constructor
 
         constructor(portalService: angularportalazure.PortalService) {
-            super(portalService, '/app/blade11/blade11.html', 'Blade 1-1', 'TypeScript based', 315);
+            super(portalService, '/app/blade11/blade11.html', 'Blade 1-1', 'TypeScript based', 500);
             this.isCommandNew = true;
             this.commandNewText = 'Blade 2';
 

@@ -12,7 +12,7 @@ namespace angularportalazure {
 
         //#endregion
 
-        //#region Constructors
+        //#region Constructor
 
         constructor(portalService: angularportalazure.PortalService) {
             super(portalService);

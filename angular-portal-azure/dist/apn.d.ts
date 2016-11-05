@@ -339,7 +339,7 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-    class BladeList extends angularportalazure.BladeData {
+    class BladeGrid extends angularportalazure.BladeData {
         items: any[];
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         activate(): void;
@@ -365,7 +365,7 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class BladeNav extends angularportalazure.BladeData {
-        navItems: Array<angularportalazure.BladeNavItem>;
+        items: Array<angularportalazure.BladeNavItem>;
         isNav: boolean;
         constructor(portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
     }

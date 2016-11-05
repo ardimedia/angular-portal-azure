@@ -7,7 +7,7 @@
 
 namespace angularportalazure {
     export class PortalService {
-        //#region Constructors
+        //#region Constructor
 
         constructor($injector: any) { // any; // any should be: angular.auto.IInjectorService
             angularportalazure.Debug.write('[angularportalazure-debug] \'PortalService\' constructor called.', [this, $injector]);

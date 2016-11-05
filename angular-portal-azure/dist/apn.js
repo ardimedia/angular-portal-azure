@@ -24,7 +24,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var Debug = (function () {
-        //#region Constructors
+        //#region Constructor
         function Debug() {
         }
         //#endregion
@@ -91,7 +91,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var UserAccount = (function () {
-        //#region Constructors
+        //#region Constructor
         function UserAccount(username, firstName, lastName) {
             if (firstName === void 0) { firstName = ''; }
             if (lastName === void 0) { lastName = ''; }
@@ -142,7 +142,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var UserControlBase = (function () {
-        //#region Constructors
+        //#region Constructor
         function UserControlBase(portalService) {
             angularportalazure.Debug.write('[angularportalazure-debug] \'UserControlBase\' constructor called.', [this, portalService]);
             this.portalService = portalService;
@@ -426,7 +426,7 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeArea = (function (_super) {
         __extends(BladeArea, _super);
-        //#region Constructors
+        //#region Constructor
         function BladeArea(portalService) {
             _super.call(this, portalService);
             this.blades = new Array();
@@ -637,7 +637,7 @@ var angularportalazure;
 (function (angularportalazure) {
     var AvatarMenu = (function (_super) {
         __extends(AvatarMenu, _super);
-        //#region Constructors
+        //#region Constructor
         function AvatarMenu(portalService) {
             _super.call(this, portalService);
             angularportalazure.Debug.write('[angularportalazure-debug] \'AvatarMenu\' constructor called.', [this]);
@@ -662,7 +662,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var TileSize = (function () {
-        //#region Constructors
+        //#region Constructor
         function TileSize(tileSizes, width, height) {
             this.tileSizes = tileSizes;
             this.width = width;
@@ -691,7 +691,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var Tile = (function () {
-        //#region Constructors
+        //#region Constructor
         function Tile(title, bladePath, portalService) {
             angularportalazure.Debug.write('[angularportalazure-debug] \'Tile\' constructor called.', [this, title, bladePath, portalService]);
             this.portalService = portalService;
@@ -772,7 +772,7 @@ var angularportalazure;
     var Startboard = (function (_super) {
         __extends(Startboard, _super);
         //#endregion
-        //#region Constructors
+        //#region Constructor
         function Startboard(portalService) {
             _super.call(this, portalService);
             angularportalazure.Debug.write('[angularportalazure-debug] \'Startboard\' constructor called.', [this]);
@@ -792,7 +792,7 @@ var angularportalazure;
     var Panorama = (function (_super) {
         __extends(Panorama, _super);
         //#endregion
-        //#region Constructors
+        //#region Constructor
         function Panorama(title, portalService) {
             _super.call(this, portalService);
             this.isVisible = true;
@@ -818,7 +818,7 @@ var angularportalazure;
         __extends(PortalShell, _super);
         //#endregion
         //#endregion
-        //#region Constructors
+        //#region Constructor
         function PortalShell(title, portalService) {
             _super.call(this, portalService);
             angularportalazure.Debug.write('[angularportalazure-debug] \'PortalShell\' constructor called.', [this, title, portalService]);
@@ -866,7 +866,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var PortalService = (function () {
-        //#region Constructors
+        //#region Constructor
         function PortalService($injector) {
             //#endregion
             //#region Properties
@@ -1015,24 +1015,14 @@ var angularportalazure;
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
             link: function (scope, element, attrs, controller) {
-                //console.log('grid.link()');
-                //console.log(this);
-                angular.forEach(controller.vm.items, function (item) {
-                    // Set some default values, depending on existing values
-                    if (item.isVisible == undefined) {
-                        item.isVisible = true;
-                    }
-                    if (item.title == undefined || item.title == '') {
-                        item.style = { cursor: 'default' };
-                    }
-                    if (item.bladePath == undefined || item.bladePath == '') {
-                        item.style = { cursor: 'default' };
-                    }
-                });
+                //angular.forEach(controller.vm.items, function (item) {
+                //    // Set some default values, depending on existing values
+                //    if (item.isVisible == undefined) { item.isVisible = true; }
+                //    if (item.title == undefined || item.title == '') { item.style = { cursor: 'default' }; }
+                //    if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
+                //});
             },
             controller: function () {
-                //console.log('grid.controller()');
-                //console.log(this);
             },
             controllerAs: '$ctrl'
         };
@@ -1071,7 +1061,7 @@ var angularportalazure;
             link: function (scope, element, attrs, controller) {
                 //console.log('nav.link()');
                 //console.log(this);
-                angular.forEach(controller.vm.navItems, function (item) {
+                angular.forEach(controller.vm.items, function (item) {
                     // Set some default values, depending on existing values
                     if (item.isVisible == undefined) {
                         item.isVisible = true;
@@ -1191,24 +1181,24 @@ var angularportalazure;
 /// <reference path="portalservice.ts" />
 var angularportalazure;
 (function (angularportalazure) {
-    var BladeList = (function (_super) {
-        __extends(BladeList, _super);
+    var BladeGrid = (function (_super) {
+        __extends(BladeGrid, _super);
         //#endregion
         //#region Constructor
-        function BladeList(portalService, path, title, subtitle, width) {
+        function BladeGrid(portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
             _super.call(this, portalService, path, title, subtitle, width);
             //#region Properties
             this.items = [];
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid\' constructor called.', [this, portalService, path, title, subtitle, width]);
             this.isCommandNew = true;
             this.commandNewText = 'neu';
         }
         //#endregion
         //#region Methods
-        BladeList.prototype.activate = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList.activate\' called.', [this]);
+        BladeGrid.prototype.activate = function () {
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.activate\' called.', [this]);
             var that = this;
             that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
@@ -1219,10 +1209,10 @@ var angularportalazure;
                 that.loadItems(onActivate);
             }
         };
-        BladeList.prototype.onActivate = function () {
-            throw new Error('[angularportalazure.BladeList] \'onActivate\' is an abstract function. Define one in the derived class.');
+        BladeGrid.prototype.onActivate = function () {
+            throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
         };
-        BladeList.prototype.loadItems = function (f) {
+        BladeGrid.prototype.loadItems = function (f) {
             var that = this;
             f.success(function (data) {
                 that.items = data;
@@ -1234,8 +1224,8 @@ var angularportalazure;
             });
         };
         //#region Filter
-        BladeList.prototype.onFilter = function (actual, expected) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList.filter\' called.', [this, actual, expected]);
+        BladeGrid.prototype.onFilter = function (actual, expected) {
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.filter\' called.', [this, actual, expected]);
             //#region Documentation
             // > onFilter will be called for each item in an array
             // > If the item is an native type (string, number), the filter will be called with the native type in the parameter 'actual'
@@ -1320,17 +1310,17 @@ var angularportalazure;
         //#endregion
         //#region OBSOLETE
         /** Obsolete */
-        BladeList.prototype.setObsoleteLayoutProperites = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList.setObsoleteLayoutProperites\' called.', [this]);
+        BladeGrid.prototype.setObsoleteLayoutProperites = function () {
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.setObsoleteLayoutProperites\' called.', [this]);
             if (this.items.length !== 0) {
                 this.blade.navGrid.items = this.items; //--> needed, otherwise nav html pages will no longer work.
             }
             this.blade.isNavGrid = this.isNavGrid;
             _super.prototype.setObsoleteLayoutProperites.call(this);
         };
-        return BladeList;
+        return BladeGrid;
     }(angularportalazure.BladeData));
-    angularportalazure.BladeList = BladeList;
+    angularportalazure.BladeGrid = BladeGrid;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
 /// <reference path="bladenav.ts" />
@@ -1383,7 +1373,7 @@ var angularportalazure;
             if (width === void 0) { width = 200; }
             _super.call(this, portalService, path, title, subtitle, width);
             //#region Properties
-            this.navItems = new Array();
+            this.items = new Array();
             this.isNav = true;
             angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
             _super.prototype.onNavigateTo = this.navigateTo;

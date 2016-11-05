@@ -5,7 +5,7 @@
 
 namespace angularportalazure {
     export class Tile {
-        //#region Constructors
+        //#region Constructor
 
         constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService) {
             angularportalazure.Debug.write('[angularportalazure-debug] \'Tile\' constructor called.', [this, title, bladePath, portalService]);

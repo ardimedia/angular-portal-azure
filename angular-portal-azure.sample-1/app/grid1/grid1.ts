@@ -2,44 +2,45 @@
 /// <reference types="angular" />
 
 namespace Sample1 {
-    class Grid1 extends angularportalazure.BladeNav {
-        //#region Constructors
+    class Grid1 extends angularportalazure.BladeGrid {
+        //#region Constructor
 
-        static $inject = ['angularportalazure.portalService'];
         constructor(portalService: angularportalazure.PortalService) {
-            super(portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315);
-            angularportalazure.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
+            super(portalService, '/app/grid1/grid1.html', 'Grid-1', 'TypeScript based', 500);
 
-            this.navItems = [
-                new angularportalazure.BladeNavItem('Grid 1 (BladeNav)', '/app/grid1/grid.html'),
-                new angularportalazure.BladeNavItem('Blade 1-1 (BladeList)', '/app/blade11/blade11.html', null, null, true, this.callback1, this),
-                new angularportalazure.BladeNavItem('Blade 2 (BladeList)', '/app/blade2/blade2.html'),
-                new angularportalazure.BladeNavItem('Blade 2-1 (BladeList)', '/app/blade21/blade21.html'),
-                new angularportalazure.BladeNavItem('List 1 (BladeList)', '/app/list1/list1.html'),
-                new angularportalazure.BladeNavItem('Detail 1 (BladeDetail)', '/app/detail1/detail1.html'),
-                new angularportalazure.BladeNavItem(),
-                new angularportalazure.BladeNavItem('no path'),
-                new angularportalazure.BladeNavItem('go to microsoft.com', null, 'http://www.microsoft.com'),
-            ];
-
-            this.statusbar = 'Nav 1 loaded.';
+            this.activate();
         }
 
         //#endregion
 
         //#region Methods
 
-        onNavigateTo(path: string) {
-            angularportalazure.Debug.write('[sample1-debug] \'Nav1.onNavigateTo\' called.', [this, path]);
-            if (path === '') { return; }
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
+        onActivate() {
+            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onActivate\' called.', [this]);
+
+            this.items = new CustomerService().getAll();
+            this.statusbar = '';
         }
 
-        callback1() {
+        onCommandNew(): void {
+            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onCommandNew\' called.', [this]);
+
+            this.portalService.parameter.action = 'new';
+            this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.blade.path });
+        }
+
+        onNavigateTo(customer: Sample1.Customer) {
+            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onNavigateTo\' called.', [this, customer]);
+
+            this.portalService.parameter.action = 'selected';
+            this.portalService.parameter.item = customer;
+            this.portalService.parameter.itemId= customer.customerPkId;
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.blade.path });
         }
 
         //#endregion
     }
 
-    angular.module('sample1App').controller('grid1', Grid1);
+    angular.module('sample1App').controller('grid1', ['angularportalazure.portalService', Grid1]);
 }

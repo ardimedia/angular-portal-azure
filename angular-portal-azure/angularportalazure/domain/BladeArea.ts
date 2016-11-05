@@ -7,7 +7,7 @@
 
 namespace angularportalazure {
     export class BladeArea extends angularportalazure.UserControlBase {
-        //#region Constructors
+        //#region Constructor
 
         constructor(portalService: angularportalazure.PortalService) {
             super(portalService);

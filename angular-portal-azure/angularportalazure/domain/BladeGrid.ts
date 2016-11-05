@@ -3,7 +3,7 @@
 /// <reference path="portalservice.ts" />
 
 namespace angularportalazure {
-    export class BladeList extends angularportalazure.BladeData {
+    export class BladeGrid extends angularportalazure.BladeData {
 
         //#region Properties
 
@@ -15,7 +15,7 @@ namespace angularportalazure {
 
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super(portalService, path, title, subtitle, width);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid\' constructor called.', [this, portalService, path, title, subtitle, width]);
 
             this.isCommandNew = true;
             this.commandNewText = 'neu';
@@ -26,7 +26,7 @@ namespace angularportalazure {
         //#region Methods
 
         activate(): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList.activate\' called.', [this]);
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.activate\' called.', [this]);
             var that = this;
 
             that.statusbar = 'Daten laden...';
@@ -49,7 +49,7 @@ namespace angularportalazure {
         }
 
         onActivate(): any { // any should be: angular.IHttpPromise<any>
-            throw new Error('[angularportalazure.BladeList] \'onActivate\' is an abstract function. Define one in the derived class.');
+            throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
         }
 
         loadItems(f: any): void { // any should be: angular.IHttpPromise<any>
@@ -67,7 +67,7 @@ namespace angularportalazure {
         //#region Filter
 
         onFilter(actual: Object, expected: string): boolean {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList.filter\' called.', [this, actual, expected]);
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.filter\' called.', [this, actual, expected]);
 
             //#region Documentation
 
@@ -179,7 +179,7 @@ namespace angularportalazure {
 
         /** Obsolete */
         setObsoleteLayoutProperites() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeList.setObsoleteLayoutProperites\' called.', [this]);
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.setObsoleteLayoutProperites\' called.', [this]);
 
             if (this.items.length !== 0) {
                 this.blade.navGrid.items = this.items; //--> needed, otherwise nav html pages will no longer work.

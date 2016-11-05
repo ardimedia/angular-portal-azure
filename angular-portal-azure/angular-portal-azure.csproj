@@ -187,7 +187,7 @@
     <TypeScriptCompile Include="angularportalazure\domain\Tile.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeData.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeDetail.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeList.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeGrid.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\dirtyflag\dirtyflag.ts" />
     <TypeScriptCompile Include="angularportalazure\azureportalng.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade.ts" />

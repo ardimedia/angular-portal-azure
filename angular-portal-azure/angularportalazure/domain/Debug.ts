@@ -9,7 +9,7 @@
 
 namespace angularportalazure {
     export class Debug {
-        //#region Constructors
+        //#region Constructor
 
         constructor() {
         }

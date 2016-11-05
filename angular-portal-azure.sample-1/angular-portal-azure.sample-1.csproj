@@ -60,7 +60,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\grid1\grid1.html" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
   </ItemGroup>
@@ -70,28 +69,23 @@
     <Content Include="app\blade2\blade2.html" />
     <Content Include="app\detail1\detail1.html" />
     <Content Include="index.html" />
-    <Content Include="app\list1\list1.html" />
+    <Content Include="app\grid1\grid1.html" />
     <Content Include="app\nav1\nav1.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\data\Customer.ts" />
+    <TypeScriptCompile Include="app\_model\customer.ts" />
     <TypeScriptCompile Include="app\app.ts" />
     <TypeScriptCompile Include="app\blade11\blade11.ts" />
-    <TypeScriptCompile Include="app\blade11\blade11blade.ts" />
     <TypeScriptCompile Include="app\blade21\blade21.ts" />
-    <TypeScriptCompile Include="app\blade21\blade21blade.ts" />
     <TypeScriptCompile Include="app\blade2\blade2.ts" />
-    <TypeScriptCompile Include="app\blade2\blade2blade.ts" />
-    <TypeScriptCompile Include="app\detail1\Detail1.ts" />
-    <TypeScriptCompile Include="app\detail1\detail1blade.ts" />
+    <TypeScriptCompile Include="app\detail1\detail1.ts" />
     <TypeScriptCompile Include="app\grid1\grid1.ts" />
-    <TypeScriptCompile Include="app\list1\List1.ts" />
-    <TypeScriptCompile Include="app\list1\list1blade.ts" />
     <TypeScriptCompile Include="app\nav1\nav1.ts" />
     <TypeScriptCompile Include="app\shell.ts" />
+    <TypeScriptCompile Include="app\_service\customer-service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

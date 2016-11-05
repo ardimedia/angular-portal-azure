@@ -130,13 +130,13 @@ describe('angularportalazure.BladeDetail', function () {
     //#endregion
 });
 
-describe('angularportalazure.BladeList', function () {
+describe('angularportalazure.BladeGrid', function () {
     var sut;
     var portalService;
     beforeEach(angular.mock.module('angularportalazure'));
     beforeEach(angular.mock.inject(function ($injector) {
         portalService = $injector.get('angularportalazure.portalService');
-        sut = new angularportalazure.BladeList(portalService, 'test-path', 'test-title');
+        sut = new angularportalazure.BladeGrid(portalService, 'test-path', 'test-title');
     }));
     //#region Specs for Constructor
     it("Constructor successful", function () {

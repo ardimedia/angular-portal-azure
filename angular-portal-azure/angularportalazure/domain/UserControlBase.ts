@@ -3,7 +3,7 @@
 
 namespace angularportalazure {
     export class UserControlBase {
-        //#region Constructors
+        //#region Constructor
 
         constructor(portalService: angularportalazure.PortalService) {
             angularportalazure.Debug.write('[angularportalazure-debug] \'UserControlBase\' constructor called.', [this, portalService]);

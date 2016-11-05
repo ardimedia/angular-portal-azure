@@ -8,7 +8,7 @@ namespace angularportalazure {
 
         //#region Properties
 
-        navItems: Array<angularportalazure.BladeNavItem> = new Array<angularportalazure.BladeNavItem>();
+        items: Array<angularportalazure.BladeNavItem> = new Array<angularportalazure.BladeNavItem>();
         isNav: boolean = true;
 
         //#endregion
