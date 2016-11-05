@@ -79,7 +79,7 @@ var Sample1;
 //            scope: {},
 //            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
 //            controller: 'blade11',
-//            controllerAs: 'ctrl',
+//            controllerAs: '$ctrl',
 //        };
 //    }
 //    angular.module('sample1App').directive('blade11Blade', [blade11Blade]);
@@ -224,6 +224,45 @@ var Sample1;
 //    }
 //    angular.module('sample1App').directive('detail1Blade', [detail1Blade]);
 //}
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
+/// <reference types="angular" />
+var Sample1;
+(function (Sample1) {
+    var Grid1 = (function (_super) {
+        __extends(Grid1, _super);
+        function Grid1(portalService) {
+            _super.call(this, portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315);
+            angularportalazure.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
+            this.navItems = [
+                new angularportalazure.BladeNavItem('Grid 1 (BladeNav)', '/app/grid1/grid.html'),
+                new angularportalazure.BladeNavItem('Blade 1-1 (BladeList)', '/app/blade11/blade11.html', null, null, true, this.callback1, this),
+                new angularportalazure.BladeNavItem('Blade 2 (BladeList)', '/app/blade2/blade2.html'),
+                new angularportalazure.BladeNavItem('Blade 2-1 (BladeList)', '/app/blade21/blade21.html'),
+                new angularportalazure.BladeNavItem('List 1 (BladeList)', '/app/list1/list1.html'),
+                new angularportalazure.BladeNavItem('Detail 1 (BladeDetail)', '/app/detail1/detail1.html'),
+                new angularportalazure.BladeNavItem(),
+                new angularportalazure.BladeNavItem('no path'),
+                new angularportalazure.BladeNavItem('go to microsoft.com', null, 'http://www.microsoft.com'),
+            ];
+            this.statusbar = 'Nav 1 loaded.';
+        }
+        //#endregion
+        //#region Methods
+        Grid1.prototype.onNavigateTo = function (path) {
+            angularportalazure.Debug.write('[sample1-debug] \'Nav1.onNavigateTo\' called.', [this, path]);
+            if (path === '') {
+                return;
+            }
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
+        };
+        Grid1.prototype.callback1 = function () {
+        };
+        //#region Constructors
+        Grid1.$inject = ['angularportalazure.portalService'];
+        return Grid1;
+    }(angularportalazure.BladeNav));
+    angular.module('sample1App').controller('grid1', Grid1);
+})(Sample1 || (Sample1 = {}));
 /// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
 var Sample1;

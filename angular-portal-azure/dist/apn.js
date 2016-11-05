@@ -896,6 +896,7 @@ var angularportalazure;
 /// <reference path="../../domain/portalservice.ts" />
 var angularportalazure;
 (function (angularportalazure) {
+    angularPortalBladeGrid.$inject = ['angularportalazure.portalService'];
     function angularPortalBladeGrid(portalService) {
         return {
             restrict: 'E',
@@ -904,36 +905,24 @@ var angularportalazure;
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
-                //console.log('angularPortalBladeGrid.link()');
-                //console.log(this);
-                //#region the following code makes sure, that a function scope.vm.close is available
-                //if (scope.vm === undefined) { scope.vm = {}; }
-                //if (scope.vm.close === undefined) {
-                //    scope.vm.close = function () {
-                //        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                //        portalService.bladeArea.clearLastLevel();
-                //    }
-                //}
-                //#endregion
             },
             controller: function () {
-                //console.log('angularPortalBladeGrid.controller()');
-                //console.log(this);
                 this.vm.close = function () {
                     angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
                     portalService.bladeArea.clearLastLevel();
                 };
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
-    angular.module('angularportalazure').directive('angularPortalBladeGrid', ['angularportalazure.portalService', angularPortalBladeGrid]);
+    angular.module('angularportalazure').directive('angularPortalBladeGrid', angularPortalBladeGrid);
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
 /// <reference path="../../domain/debug.ts" />
 /// <reference path="../../domain/portalservice.ts" />
 var angularportalazure;
 (function (angularportalazure) {
+    angularPortalBladeNav.$inject = ['angularportalazure.portalService'];
     function angularPortalBladeNav(portalService) {
         return {
             restrict: 'E',
@@ -942,36 +931,24 @@ var angularportalazure;
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
-                //console.log('angularPortalBladeNav.link()');
-                //console.log(this);
-                //#region the following code makes sure, that a function scope.vm.close is available
-                //if (scope.vm === undefined) { scope.vm = {}; }
-                //if (scope.vm.close === undefined) {
-                //    scope.vm.close = function () {
-                //        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                //        portalService.bladeArea.clearLastLevel();
-                //    }
-                //}
-                //#endregion
             },
             controller: function () {
-                //console.log('angularPortalBladeNav.controller()');
-                //console.log(this);
                 this.vm.close = function () {
                     angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
                     portalService.bladeArea.clearLastLevel();
                 };
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
-    angular.module('angularportalazure').directive('angularPortalBladeNav', ['angularportalazure.portalService', angularPortalBladeNav]);
+    angular.module('angularportalazure').directive('angularPortalBladeNav', angularPortalBladeNav);
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
 /// <reference path="../../domain/debug.ts" />
 /// <reference path="../../domain/portalservice.ts" />
 var angularportalazure;
 (function (angularportalazure) {
+    angularPortalBlade.$inject = ['angularportalazure.portalService'];
     function angularPortalBlade(portalService) {
         return {
             restrict: 'E',
@@ -980,30 +957,17 @@ var angularportalazure;
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
-                //console.log('angularPortalBlade.link()');
-                //console.log(this);
-                //#region the following code makes sure, that a function scope.vm.close is available
-                //if (scope.vm === undefined) { scope.vm = {}; }
-                //if (scope.vm.close === undefined) {
-                //    scope.vm.close = function () {
-                //        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                //        portalService.bladeArea.clearLastLevel();
-                //    }
-                //}
-                //#endregion
             },
             controller: function () {
-                //console.log('angularPortalBlade.controller()');
-                //console.log(this);
                 this.vm.close = function () {
                     angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
                     portalService.bladeArea.clearLastLevel();
                 };
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
-    angular.module('angularportalazure').directive('angularPortalBlade', ['angularportalazure.portalService', angularPortalBlade]);
+    angular.module('angularportalazure').directive('angularPortalBlade', angularPortalBlade);
 })(angularportalazure || (angularportalazure = {}));
 // http://blogs.msdn.com/b/laurieatkinson/archive/2014/08/23/implementing-a-save-warning-in-an-angular-spa.aspx
 //'use strict';
@@ -1070,7 +1034,7 @@ var angularportalazure;
                 //console.log('grid.controller()');
                 //console.log(this);
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
     angular.module('angularportalazure').directive('grid', ['$window', grid]);
@@ -1091,7 +1055,7 @@ var angularportalazure;
                 //console.log('angularPortalHome.controller()');
                 //console.log(this);
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
     angular.module('angularportalazure').directive('angularPortalHome', angularPortalHome);
@@ -1124,7 +1088,7 @@ var angularportalazure;
                 //console.log('nav.controller()');
                 //console.log(this);
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
     angular.module('angularportalazure').directive('nav', ['$window', nav]);

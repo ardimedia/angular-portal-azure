@@ -19,7 +19,7 @@
                 //console.log('nav.controller()');
                 //console.log(this);
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
 

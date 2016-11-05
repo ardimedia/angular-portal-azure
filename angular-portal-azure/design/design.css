@@ -665,9 +665,9 @@ a {
 
 /*#endregion*/
 /*#region PORTAL CHILD */
-.fxs-journey > .fxs-journey-layout > :first-child.fxs-stacklayout-child {
-  padding-left: 5px; }
-
+/*.fxs-journey > .fxs-journey-layout > :first-child.fxs-stacklayout-child {
+    padding-left: 5px;
+}*/
 .fxs-journey > .fxs-journey-layout > .fxs-stacklayout-child {
   -webkit-transition: padding-top .2s ease, opacity .2s ease;
   transition: padding-top .2s ease, opacity .2s ease; }

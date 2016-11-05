@@ -7,7 +7,7 @@
 //            scope: {},
 //            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
 //            controller: 'blade11',
-//            controllerAs: 'ctrl',
+//            controllerAs: '$ctrl',
 //        };
 //    }
 

@@ -13,7 +13,7 @@
                 //console.log('angularPortalHome.controller()');
                 //console.log(this);
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
 

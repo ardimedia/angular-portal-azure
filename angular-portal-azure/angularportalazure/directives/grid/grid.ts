@@ -19,7 +19,7 @@
                 //console.log('grid.controller()');
                 //console.log(this);
             },
-            controllerAs: 'ctrl'
+            controllerAs: '$ctrl'
         };
     }
 
