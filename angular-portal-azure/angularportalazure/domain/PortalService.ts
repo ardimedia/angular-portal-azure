@@ -9,6 +9,7 @@ namespace angularportalazure {
     export class PortalService {
         //#region Constructor
 
+        static $inject = ['$injector'];
         constructor($injector: any) { // any; // any should be: angular.auto.IInjectorService
             angularportalazure.Debug.write('[angularportalazure-debug] \'PortalService\' constructor called.', [this, $injector]);
 
@@ -91,12 +92,5 @@ namespace angularportalazure {
         //#endregion
     }
 
-    //#region Angular Registration
-
-    (function () {
-        'use strict';
-        angular.module('angularportalazure').service('angularportalazure.portalService', ['$injector', PortalService]);
-    })();
-
-    //#endregion
+    angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);
 }

@@ -12,12 +12,16 @@ namespace angularportalazure {
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
-            },
-            controller: function () {
-                this.vm.close = function () {
-                    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                controller.vm.close = function () {
+                    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [controller, portalService]);
                     portalService.bladeArea.clearLastLevel();
                 };
+            },
+            controller: function () {
+                //this.vm.close = function () {
+                //    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                //    portalService.bladeArea.clearLastLevel();
+                //};
             },
             controllerAs: '$ctrl'
         };

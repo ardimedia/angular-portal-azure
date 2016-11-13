@@ -1,4 +1,5 @@
-﻿/// <reference path="debug.ts" />
+﻿/// <reference types="angular" />
+/// <reference path="debug.ts" />
 /// <reference path="useraccount.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
@@ -80,6 +81,8 @@ namespace angularportalazure {
         statusbar: string = '';
         statusbarClass: string = '';
 
+        formblade: any; // angular.IFormController; // name of the ng-form directive
+
         //#endregion
 
         //#region Commands
@@ -158,8 +161,10 @@ namespace angularportalazure {
 
         /** Obsolete */
         blade: Blade;
+
         /** Obsolete */
         isNavGrid: boolean;
+
         /** Obsolete */
         navGrid = {
             portalService: null,

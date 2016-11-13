@@ -59,6 +59,7 @@ declare namespace angularportalazure {
         isInnerHtml: boolean;
         statusbar: string;
         statusbarClass: string;
+        formblade: any;
         isCommandBrowse: boolean;
         commandBrowse: () => void;
         commandBrowseText: string;
@@ -268,6 +269,7 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class PortalService {
+        static $inject: string[];
         constructor($injector: any);
         parameter: angularportalazure.IBladeParameter;
         animate: any;

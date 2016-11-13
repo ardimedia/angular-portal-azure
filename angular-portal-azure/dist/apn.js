@@ -151,6 +151,7 @@ var angularportalazure;
     }());
     angularportalazure.UserControlBase = UserControlBase;
 })(angularportalazure || (angularportalazure = {}));
+/// <reference types="angular" />
 /// <reference path="debug.ts" />
 /// <reference path="useraccount.ts" />
 /// <reference path="portalservice.ts" />
@@ -866,7 +867,6 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var PortalService = (function () {
-        //#region Constructor
         function PortalService($injector) {
             //#endregion
             //#region Properties
@@ -882,14 +882,12 @@ var angularportalazure;
             this.ngDialog = $injector.get('ngDialog');
             this.ngDialog.openConfirm;
         }
+        //#region Constructor
+        PortalService.$inject = ['$injector'];
         return PortalService;
     }());
     angularportalazure.PortalService = PortalService;
-    //#region Angular Registration
-    (function () {
-        'use strict';
-        angular.module('angularportalazure').service('angularportalazure.portalService', ['$injector', PortalService]);
-    })();
+    angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
 /// <reference path="../../domain/debug.ts" />
@@ -957,12 +955,16 @@ var angularportalazure;
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
             link: function (scope, element, attrs, controller) {
-            },
-            controller: function () {
-                this.vm.close = function () {
-                    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                controller.vm.close = function () {
+                    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [controller, portalService]);
                     portalService.bladeArea.clearLastLevel();
                 };
+            },
+            controller: function () {
+                //this.vm.close = function () {
+                //    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                //    portalService.bladeArea.clearLastLevel();
+                //};
             },
             controllerAs: '$ctrl'
         };

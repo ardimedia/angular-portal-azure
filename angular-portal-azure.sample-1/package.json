@@ -4,7 +4,7 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "@ardimedia/angular-portal-azure": "^0.2.29",
+    "@ardimedia/angular-portal-azure": "^0.2.47",
     "angular": "^1.5.8",
     "angular-resource": "^1.5.8",
     "ng-dialog": "^0.6.4"
