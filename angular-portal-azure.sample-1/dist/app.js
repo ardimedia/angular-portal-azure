@@ -80,11 +80,12 @@ var Sample1;
         __extends(Blade11, _super);
         //#region Constructor
         function Blade11(portalService) {
-            _super.call(this, portalService, '/app/blade11/blade11.html', 'Blade 1-1', 'TypeScript based', 500);
-            this.isCommandNew = true;
-            this.commandNewText = 'Blade 2';
-            this.statusbar = 'Blade 1-1...';
-            this.vm = this;
+            var _this = _super.call(this, portalService, '/app/blade11/blade11.html', 'Blade 1-1', 'TypeScript based', 500) || this;
+            _this.isCommandNew = true;
+            _this.commandNewText = 'Blade 2';
+            _this.statusbar = 'Blade 1-1...';
+            _this.vm = _this;
+            return _this;
         }
         //#endregion
         //#region Methods - Overrides for Blade
@@ -110,12 +111,13 @@ var Sample1;
         __extends(Blade2, _super);
         //#region Constructor
         function Blade2(portalService) {
-            _super.call(this, portalService, '/app/blade2/blade2.html', 'Blade 2', 'TypeScript based', 500);
-            this.isCommandNew = true;
-            this.commandNewText = 'Blade 2-1';
-            this.isCommandSave = true;
-            this.commandSaveText = 'Blade 1';
-            this.statusbar = 'Blade 2...';
+            var _this = _super.call(this, portalService, '/app/blade2/blade2.html', 'Blade 2', 'TypeScript based', 500) || this;
+            _this.isCommandNew = true;
+            _this.commandNewText = 'Blade 2-1';
+            _this.isCommandSave = true;
+            _this.commandSaveText = 'Blade 1';
+            _this.statusbar = 'Blade 2...';
+            return _this;
         }
         //#endregion
         //#region Methods - Overrides for Blade
@@ -145,10 +147,11 @@ var Sample1;
         __extends(Blade21, _super);
         //#region Constructor
         function Blade21(portalService) {
-            _super.call(this, portalService, '/app/blade21/blade21.html', 'Blade 2-1', 'TypeScript based', 500);
-            this.isCommandNew = true;
-            this.commandNewText = 'Blade 2';
-            this.statusbar = 'Blade 2-1...';
+            var _this = _super.call(this, portalService, '/app/blade21/blade21.html', 'Blade 2-1', 'TypeScript based', 500) || this;
+            _this.isCommandNew = true;
+            _this.commandNewText = 'Blade 2';
+            _this.statusbar = 'Blade 2-1...';
+            return _this;
         }
         //#endregion
         //#region Methods - Overrides for Blade
@@ -173,8 +176,9 @@ var Sample1;
     var Detail1 = (function (_super) {
         __extends(Detail1, _super);
         function Detail1(portalService) {
-            _super.call(this, portalService, '/app/detail1/detail1.html', 'Detail-1', 'TypeScript based', 500);
-            this.activate();
+            var _this = _super.call(this, portalService, '/app/detail1/detail1.html', 'Detail-1', 'TypeScript based', 500) || this;
+            _this.activate();
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -194,10 +198,10 @@ var Sample1;
                 return null;
             }
         };
-        //#region Constructor
-        Detail1.$inject = ['angularportalazure.portalService'];
         return Detail1;
     }(angularportalazure.BladeDetail));
+    //#region Constructor
+    Detail1.$inject = ['angularportalazure.portalService'];
     angular.module('sample1App').controller('detail1', Detail1);
 })(Sample1 || (Sample1 = {}));
 /// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
@@ -208,8 +212,9 @@ var Sample1;
         __extends(Grid1, _super);
         //#region Constructor
         function Grid1(portalService) {
-            _super.call(this, portalService, '/app/grid1/grid1.html', 'Grid-1', 'TypeScript based', 500);
-            this.activate();
+            var _this = _super.call(this, portalService, '/app/grid1/grid1.html', 'Grid-1', 'TypeScript based', 500) || this;
+            _this.activate();
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -242,10 +247,10 @@ var Sample1;
     var Nav1 = (function (_super) {
         __extends(Nav1, _super);
         function Nav1(portalService) {
-            _super.call(this, portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315);
-            angularportalazure.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [this]);
-            this.items = [
-                new angularportalazure.BladeNavItem('Blade 1-1 (BladeDetail)', '/app/blade11/blade11.html', null, null, true, this.callback1, this),
+            var _this = _super.call(this, portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315) || this;
+            angularportalazure.Debug.write('[sample1-debug] \'Nav1\' constructor called.', [_this]);
+            _this.items = [
+                new angularportalazure.BladeNavItem('Blade 1-1 (BladeDetail)', '/app/blade11/blade11.html', null, null, true, _this.callback1, _this),
                 new angularportalazure.BladeNavItem('Blade 2 (BladeDetail)', '/app/blade2/blade2.html'),
                 new angularportalazure.BladeNavItem('Blade 2-1 (BladeDetail)', '/app/blade21/blade21.html'),
                 new angularportalazure.BladeNavItem('Detail 1 (BladeDetail)', '/app/detail1/detail1.html'),
@@ -254,7 +259,8 @@ var Sample1;
                 new angularportalazure.BladeNavItem('no path'),
                 new angularportalazure.BladeNavItem('go to microsoft.com', null, 'http://www.microsoft.com'),
             ];
-            this.statusbar = 'Nav 1 loaded.';
+            _this.statusbar = 'Nav 1 loaded.';
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -267,10 +273,10 @@ var Sample1;
         };
         Nav1.prototype.callback1 = function () {
         };
-        //#region Constructor
-        Nav1.$inject = ['angularportalazure.portalService'];
         return Nav1;
     }(angularportalazure.BladeNav));
+    //#region Constructor
+    Nav1.$inject = ['angularportalazure.portalService'];
     angular.module('sample1App').controller('nav1', Nav1);
 })(Sample1 || (Sample1 = {}));
 var Sample1;
@@ -279,23 +285,24 @@ var Sample1;
         __extends(Sample1Shell, _super);
         //#region Constructor
         function Sample1Shell(portalService) {
-            _super.call(this, 'SAMPLE TypeScript', portalService);
-            this.portalService.panorama.startboard.tiles.showTiles = true;
-            this.portalService.panorama.avatarMenu.userAccount = new angularportalazure.UserAccount('useraccount@mail.com', 'first', 'last');
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
+            var _this = _super.call(this, 'SAMPLE TypeScript', portalService) || this;
+            _this.portalService.panorama.startboard.tiles.showTiles = true;
+            _this.portalService.panorama.avatarMenu.userAccount = new angularportalazure.UserAccount('useraccount@mail.com', 'first', 'last');
+            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Grid 1', '/app/grid1/grid1.html', portalService));
+            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Grid 1', '/app/grid1/grid1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
+            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
+            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
+            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
             tile.subTitle = 'TypeScript based';
-            var tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
+            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            this.setObsoleteLayoutProperites();
-            this.httpTestData();
+            _this.setObsoleteLayoutProperites();
+            _this.httpTestData();
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -326,4 +333,5 @@ var Sample1;
         'use strict';
         angular.module('sample1App').controller('sampleShell1', ['angularportalazure.portalService', Sample1Shell]);
     })();
+    //#endregion
 })(Sample1 || (Sample1 = {}));

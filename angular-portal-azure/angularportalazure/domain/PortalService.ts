@@ -21,6 +21,7 @@ namespace angularportalazure {
             this.$q = <angular.IQService>$injector.get('$q');
             this.$rootScope = <angular.IRootScopeService>$injector.get('$rootScope');
             this.$window = <angular.IWindowService>$injector.get('$window');
+            this.$analytics = $injector.get('$analytics');
 
             this.ngDialog = <any>$injector.get('ngDialog');
             this.ngDialog.openConfirm
@@ -31,6 +32,7 @@ namespace angularportalazure {
         //#region Properties
 
         parameter: angularportalazure.IBladeParameter = { action: 'none', itemId: 0 };
+        $analytics: any;
 
         //#region ng.IModule properties
 

@@ -65,6 +65,7 @@ namespace angularportalazure {
         }
         // For the moment we do not distinguish between lower and upper case path name
         set path(newPath: string) {
+            if (newPath == null) { return; }
             this._path = newPath.toLowerCase();
         }
         private _path: string;
@@ -189,17 +190,19 @@ namespace angularportalazure {
             angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.onActivate\' not overriden. You could override this.', [this]);
         }
 
-        navigateTo(arg: any) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, arg]);
-            this.onNavigateTo(arg);
+        navigateTo(path: any) {
+            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, path]);
+            this.onNavigateTo(path);
         }
 
-        onNavigateTo(arg: any): void {
+        onNavigateTo(path: any): void {
             throw new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.');
         }
 
         // At the moment we do not distinguish between lower and upper case path name
         comparePaths(path1: string, path2: string): boolean {
+            if (path1 == null) { return false; }
+            if (path2 == null) { return false; }
             if (path1.toLowerCase() === path2.toLowerCase()) {
                 return true;
             } else {

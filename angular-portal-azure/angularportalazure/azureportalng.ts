@@ -5,7 +5,9 @@ namespace angularportalazure {
     var angularModule = angular.module('angularportalazure', [
         // Angular modules
         'ngResource',
-        'ngDialog'
+        'ngDialog',
+        'angulartics',
+        'angulartics.google.analytics'
     ]);
 
     angularModule .config([function (): void {

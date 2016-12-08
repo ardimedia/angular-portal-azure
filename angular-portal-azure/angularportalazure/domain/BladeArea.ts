@@ -61,7 +61,11 @@ namespace angularportalazure {
         /** obsolete */
         addBlade(path: string, senderPath: string = ''): angularportalazure.Blade {
             angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.addBlade\' called.', [this, senderPath, path]);
+            if (path == null) { return; }
+            if (senderPath == null) { return; }
             var that = this;
+
+            this.portalService.$analytics.pageTrack(path);
 
             path = path.toLowerCase();
             senderPath = senderPath.toLowerCase();

@@ -5,7 +5,9 @@ var angularportalazure;
     var angularModule = angular.module('angularportalazure', [
         // Angular modules
         'ngResource',
-        'ngDialog'
+        'ngDialog',
+        'angulartics',
+        'angulartics.google.analytics'
     ]);
     angularModule.config([function () {
             //Debug.enable('[angularportalazure-debug]');
@@ -78,13 +80,13 @@ var angularportalazure;
             }
             return false;
         };
-        //#endregion
-        //#region Properties
-        Debug.isEnabled = false;
-        Debug.isWithObjects = false;
-        Debug.keys = new Array();
         return Debug;
     }());
+    //#endregion
+    //#region Properties
+    Debug.isEnabled = false;
+    Debug.isWithObjects = false;
+    Debug.keys = new Array();
     angularportalazure.Debug = Debug;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
@@ -170,83 +172,83 @@ var angularportalazure;
         function Blade(portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            _super.call(this, portalService);
+            var _this = _super.call(this, portalService) || this;
             //#endregion
-            this.title = '';
-            this.subTitle = '';
-            this.width = { 'width': '0' };
-            this.widthStackLayout = { 'width': '50px' };
-            this.isInnerHtml = true;
-            this.statusbar = '';
-            this.statusbarClass = '';
+            _this.title = '';
+            _this.subTitle = '';
+            _this.width = { 'width': '0' };
+            _this.widthStackLayout = { 'width': '50px' };
+            _this.isInnerHtml = true;
+            _this.statusbar = '';
+            _this.statusbarClass = '';
             //#endregion
             //#region Commands
-            this.isCommandBrowse = false;
-            this.commandBrowse = function () { this.onCommandBrowse(); };
-            this.commandBrowseText = '';
-            this.isCommandCancel = false;
-            this.commandCancel = function () { this.onCommandCancel(); };
-            this.commandCancelText = '';
-            this.isCommandCopy = false;
-            this.commandCopy = function () { this.onCommandCopy(); };
-            this.commandCopyText = '';
-            this.isCommandDelete = false;
-            this.commandDelete = function () { this.onCommandDelete(); };
-            this.commandDeleteText = '';
-            this.isCommandDocument = false;
-            this.commandDocument = function () { this.onCommandDocument(); };
-            this.commandDocumentText = '';
-            this.isCommandDocument2 = false;
-            this.commandDocument2 = function () { this.onCommandDocument2(); };
-            this.commandDocument2Text = '';
-            this.isCommandDocument3 = false;
-            this.commandDocument3 = function () { this.onCommandDocument3(); };
-            this.commandDocument3Text = '';
-            this.isCommandDocument4 = false;
-            this.commandDocument4 = function () { this.onCommandDocument4(); };
-            this.commandDocument4Text = '';
-            this.isCommandDocument5 = false;
-            this.commandDocument5 = function () { this.onCommandDocument5(); };
-            this.commandDocument5Text = '';
-            this.isCommandNew = false;
-            this.commandNew = function () { this.onCommandNew(); };
-            this.commandNewText = '';
-            this.isCommandOrder = false;
-            this.commandOrder = function () { this.onCommandOrder(); };
-            this.commandOrderText = '';
-            this.isCommandRestart = false;
-            this.commandRestart = function () { this.onCommandRestart(); };
-            this.commandRestartText = '';
-            this.isCommandSave = false;
-            this.commandSave = function () { this.onCommandSave(); };
-            this.commandSaveText = '';
-            this.isCommandSearch = false;
-            this.commandSearch = function () { this.onCommandSearch(); };
-            this.commandSearchText = '';
-            this.isCommandStart = false;
-            this.commandStart = function () { this.onCommandStart(); };
-            this.commandStartText = '';
-            this.isCommandStop = false;
-            this.commandStop = function () { this.onCommandStop(); };
-            this.commandStopText = '';
-            this.isCommandSwap = false;
-            this.commandSwap = function () { this.onCommandSwap(); };
-            this.commandSwapText = '';
+            _this.isCommandBrowse = false;
+            _this.commandBrowse = function () { this.onCommandBrowse(); };
+            _this.commandBrowseText = '';
+            _this.isCommandCancel = false;
+            _this.commandCancel = function () { this.onCommandCancel(); };
+            _this.commandCancelText = '';
+            _this.isCommandCopy = false;
+            _this.commandCopy = function () { this.onCommandCopy(); };
+            _this.commandCopyText = '';
+            _this.isCommandDelete = false;
+            _this.commandDelete = function () { this.onCommandDelete(); };
+            _this.commandDeleteText = '';
+            _this.isCommandDocument = false;
+            _this.commandDocument = function () { this.onCommandDocument(); };
+            _this.commandDocumentText = '';
+            _this.isCommandDocument2 = false;
+            _this.commandDocument2 = function () { this.onCommandDocument2(); };
+            _this.commandDocument2Text = '';
+            _this.isCommandDocument3 = false;
+            _this.commandDocument3 = function () { this.onCommandDocument3(); };
+            _this.commandDocument3Text = '';
+            _this.isCommandDocument4 = false;
+            _this.commandDocument4 = function () { this.onCommandDocument4(); };
+            _this.commandDocument4Text = '';
+            _this.isCommandDocument5 = false;
+            _this.commandDocument5 = function () { this.onCommandDocument5(); };
+            _this.commandDocument5Text = '';
+            _this.isCommandNew = false;
+            _this.commandNew = function () { this.onCommandNew(); };
+            _this.commandNewText = '';
+            _this.isCommandOrder = false;
+            _this.commandOrder = function () { this.onCommandOrder(); };
+            _this.commandOrderText = '';
+            _this.isCommandRestart = false;
+            _this.commandRestart = function () { this.onCommandRestart(); };
+            _this.commandRestartText = '';
+            _this.isCommandSave = false;
+            _this.commandSave = function () { this.onCommandSave(); };
+            _this.commandSaveText = '';
+            _this.isCommandSearch = false;
+            _this.commandSearch = function () { this.onCommandSearch(); };
+            _this.commandSearchText = '';
+            _this.isCommandStart = false;
+            _this.commandStart = function () { this.onCommandStart(); };
+            _this.commandStartText = '';
+            _this.isCommandStop = false;
+            _this.commandStop = function () { this.onCommandStop(); };
+            _this.commandStopText = '';
+            _this.isCommandSwap = false;
+            _this.commandSwap = function () { this.onCommandSwap(); };
+            _this.commandSwapText = '';
             /** Obsolete */
-            this.navGrid = {
+            _this.navGrid = {
                 portalService: null,
                 items: [],
                 navigateTo: function (path) { }
             };
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade\' constructor called.', [this, portalService, path, title, subtitle, width]);
-            var that = this;
-            this.blade = this;
-            this.path = path;
-            this.title = title;
-            this.subTitle = subtitle;
-            this.width.width = width + 'px';
-            this.widthStackLayout.width = width - 50 + 'px';
-            this.navGrid.portalService = portalService;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade\' constructor called.', [_this, portalService, path, title, subtitle, width]);
+            var that = _this;
+            _this.blade = _this;
+            _this.path = path;
+            _this.title = title;
+            _this.subTitle = subtitle;
+            _this.width.width = width + 'px';
+            _this.widthStackLayout.width = width - 50 + 'px';
+            _this.navGrid.portalService = portalService;
             if (!portalService) {
                 throw new Error('[angularportalazure.Blade] constructor parameter \'portalService\' must be provided.');
             }
@@ -268,16 +270,17 @@ var angularportalazure;
             //#region Add BladeArea.AddBlade event listener
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
             if (portalService instanceof angularportalazure.PortalService == false) {
-                return;
+                return _this;
             }
             /** OBSOLETE: end */
             // Register listener1
-            this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
+            _this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
                 angularportalazure.Debug.write('[angularportalazure-debug] \'Blade\' BladeArea.AddBlade event processing.', [this, event, args]);
                 if (that.blade.comparePaths(args.path, that.blade.path)) {
                     that.activate();
                 }
             });
+            return _this;
             //#endregion
         }
         Object.defineProperty(Blade.prototype, "path", {
@@ -287,6 +290,9 @@ var angularportalazure;
             },
             // For the moment we do not distinguish between lower and upper case path name
             set: function (newPath) {
+                if (newPath == null) {
+                    return;
+                }
                 this._path = newPath.toLowerCase();
             },
             enumerable: true,
@@ -303,15 +309,21 @@ var angularportalazure;
         Blade.prototype.onActivate = function () {
             angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.onActivate\' not overriden. You could override this.', [this]);
         };
-        Blade.prototype.navigateTo = function (arg) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, arg]);
-            this.onNavigateTo(arg);
+        Blade.prototype.navigateTo = function (path) {
+            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, path]);
+            this.onNavigateTo(path);
         };
-        Blade.prototype.onNavigateTo = function (arg) {
+        Blade.prototype.onNavigateTo = function (path) {
             throw new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.');
         };
         // At the moment we do not distinguish between lower and upper case path name
         Blade.prototype.comparePaths = function (path1, path2) {
+            if (path1 == null) {
+                return false;
+            }
+            if (path2 == null) {
+                return false;
+            }
             if (path1.toLowerCase() === path2.toLowerCase()) {
                 return true;
             }
@@ -429,24 +441,25 @@ var angularportalazure;
         __extends(BladeArea, _super);
         //#region Constructor
         function BladeArea(portalService) {
-            _super.call(this, portalService);
-            this.blades = new Array();
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea\' constructor called.', [this, portalService]);
-            var that = this;
+            var _this = _super.call(this, portalService) || this;
+            _this.blades = new Array();
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea\' constructor called.', [_this, portalService]);
+            var that = _this;
             // Set dependencies
-            this.portalService = portalService;
-            this.portalService.bladeArea = this;
+            _this.portalService = portalService;
+            _this.portalService.bladeArea = _this;
             //#region Add BladeArea.AddBlade event listener
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
             if (portalService instanceof angularportalazure.PortalService == false) {
-                return;
+                return _this;
             }
             /** OBSOLETE: end */
             // Register listener1
-            this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
+            _this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
                 angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea\' BladeArea.AddBlade event processing.', [this, event, args]);
                 that.addBlade(args.path, args.pathSender);
             });
+            return _this;
             //#endregion
         }
         //#endregion
@@ -464,7 +477,14 @@ var angularportalazure;
         BladeArea.prototype.addBlade = function (path, senderPath) {
             if (senderPath === void 0) { senderPath = ''; }
             angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.addBlade\' called.', [this, senderPath, path]);
+            if (path == null) {
+                return;
+            }
+            if (senderPath == null) {
+                return;
+            }
             var that = this;
+            this.portalService.$analytics.pageTrack(path);
             path = path.toLowerCase();
             senderPath = senderPath.toLowerCase();
             //#region Verify
@@ -629,6 +649,7 @@ var angularportalazure;
         'use strict';
         angular.module('angularportalazure').service('angularportalazure.bladeArea', ['$window', BladeArea]);
     })();
+    //#endregion
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
@@ -640,8 +661,9 @@ var angularportalazure;
         __extends(AvatarMenu, _super);
         //#region Constructor
         function AvatarMenu(portalService) {
-            _super.call(this, portalService);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'AvatarMenu\' constructor called.', [this]);
+            var _this = _super.call(this, portalService) || this;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'AvatarMenu\' constructor called.', [_this]);
+            return _this;
         }
         return AvatarMenu;
     }(angularportalazure.UserControlBase));
@@ -650,13 +672,13 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     /** The names are used in CSS for layouting, e.g. style='mini' */
+    var TileSizes;
     (function (TileSizes) {
         TileSizes[TileSizes["small"] = 0] = "small";
         TileSizes[TileSizes["mini"] = 1] = "mini";
         TileSizes[TileSizes["normal"] = 2] = "normal";
         TileSizes[TileSizes["herowide"] = 3] = "herowide";
-    })(angularportalazure.TileSizes || (angularportalazure.TileSizes = {}));
-    var TileSizes = angularportalazure.TileSizes;
+    })(TileSizes = angularportalazure.TileSizes || (angularportalazure.TileSizes = {}));
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
 /// <reference path="tilesizes.ts" />
@@ -739,6 +761,7 @@ var angularportalazure;
             this.nextLeft = 0;
             this.nextTop = 0;
             this.columnHeightMax = 0;
+            //#endregion
         }
         //#endregion
         //#region Methods
@@ -775,9 +798,10 @@ var angularportalazure;
         //#endregion
         //#region Constructor
         function Startboard(portalService) {
-            _super.call(this, portalService);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Startboard\' constructor called.', [this]);
-            this.tiles = new angularportalazure.Tiles();
+            var _this = _super.call(this, portalService) || this;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'Startboard\' constructor called.', [_this]);
+            _this.tiles = new angularportalazure.Tiles();
+            return _this;
         }
         return Startboard;
     }(angularportalazure.UserControlBase));
@@ -795,13 +819,14 @@ var angularportalazure;
         //#endregion
         //#region Constructor
         function Panorama(title, portalService) {
-            _super.call(this, portalService);
-            this.isVisible = true;
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Panorama\' constructor called.', [this, title]);
-            this.title = title;
-            this.portalService.panorama = this;
-            this.avatarMenu = new angularportalazure.AvatarMenu(this.portalService);
-            this.startboard = new angularportalazure.Startboard(this.portalService);
+            var _this = _super.call(this, portalService) || this;
+            _this.isVisible = true;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'Panorama\' constructor called.', [_this, title]);
+            _this.title = title;
+            _this.portalService.panorama = _this;
+            _this.avatarMenu = new angularportalazure.AvatarMenu(_this.portalService);
+            _this.startboard = new angularportalazure.Startboard(_this.portalService);
+            return _this;
         }
         return Panorama;
     }(angularportalazure.UserControlBase));
@@ -821,13 +846,14 @@ var angularportalazure;
         //#endregion
         //#region Constructor
         function PortalShell(title, portalService) {
-            _super.call(this, portalService);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'PortalShell\' constructor called.', [this, title, portalService]);
-            this.portalService = portalService;
-            this.portalService.portalShell = this;
-            this.portalService.panorama = new angularportalazure.Panorama(title, this.portalService);
-            this.portalService.bladeArea = new angularportalazure.BladeArea(portalService);
-            this.initialize();
+            var _this = _super.call(this, portalService) || this;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'PortalShell\' constructor called.', [_this, title, portalService]);
+            _this.portalService = portalService;
+            _this.portalService.portalShell = _this;
+            _this.portalService.panorama = new angularportalazure.Panorama(title, _this.portalService);
+            _this.portalService.bladeArea = new angularportalazure.BladeArea(portalService);
+            _this.initialize();
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -879,13 +905,14 @@ var angularportalazure;
             this.$q = $injector.get('$q');
             this.$rootScope = $injector.get('$rootScope');
             this.$window = $injector.get('$window');
+            this.$analytics = $injector.get('$analytics');
             this.ngDialog = $injector.get('ngDialog');
             this.ngDialog.openConfirm;
         }
-        //#region Constructor
-        PortalService.$inject = ['$injector'];
         return PortalService;
     }());
+    //#region Constructor
+    PortalService.$inject = ['$injector'];
     angularportalazure.PortalService = PortalService;
     angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);
 })(angularportalazure || (angularportalazure = {}));
@@ -1097,8 +1124,9 @@ var angularportalazure;
         function BladeData(portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 300; }
-            _super.call(this, portalService, path, title, subtitle, width);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeData\' constructor called.', [this, portalService, path, title, subtitle, width]);
+            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeData\' constructor called.', [_this, portalService, path, title, subtitle, width]);
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -1126,18 +1154,19 @@ var angularportalazure;
         function BladeDetail(portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            _super.call(this, portalService, path, title, subtitle, width);
+            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
             //#region Properties
-            this.item = null;
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail\' constructor called.', [this, portalService, path, title, subtitle, width]);
-            this.isCommandNew = true;
-            this.commandNewText = 'neu';
-            this.isCommandSave = true;
-            this.commandSaveText = 'speichern';
-            this.isCommandDelete = true;
-            this.commandDeleteText = 'löschen';
-            this.isCommandCancel = true;
-            this.commandCancelText = 'abbrechen';
+            _this.item = null;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail\' constructor called.', [_this, portalService, path, title, subtitle, width]);
+            _this.isCommandNew = true;
+            _this.commandNewText = 'neu';
+            _this.isCommandSave = true;
+            _this.commandSaveText = 'speichern';
+            _this.isCommandDelete = true;
+            _this.commandDeleteText = 'löschen';
+            _this.isCommandCancel = true;
+            _this.commandCancelText = 'abbrechen';
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -1190,12 +1219,13 @@ var angularportalazure;
         function BladeGrid(portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            _super.call(this, portalService, path, title, subtitle, width);
+            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
             //#region Properties
-            this.items = [];
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid\' constructor called.', [this, portalService, path, title, subtitle, width]);
-            this.isCommandNew = true;
-            this.commandNewText = 'neu';
+            _this.items = [];
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid\' constructor called.', [_this, portalService, path, title, subtitle, width]);
+            _this.isCommandNew = true;
+            _this.commandNewText = 'neu';
+            return _this;
         }
         //#endregion
         //#region Methods
@@ -1373,12 +1403,13 @@ var angularportalazure;
             if (title === void 0) { title = ''; }
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            _super.call(this, portalService, path, title, subtitle, width);
+            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
             //#region Properties
-            this.items = new Array();
-            this.isNav = true;
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
-            _super.prototype.onNavigateTo = this.navigateTo;
+            _this.items = new Array();
+            _this.isNav = true;
+            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNav\' constructor called.', [_this, portalService, path, title, subtitle, width]);
+            _super.prototype.navigateTo = _this.navigateTo;
+            return _this;
         }
         return BladeNav;
     }(angularportalazure.BladeData));

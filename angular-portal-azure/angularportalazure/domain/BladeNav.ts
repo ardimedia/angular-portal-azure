@@ -19,7 +19,7 @@ namespace angularportalazure {
             super(portalService, path, title, subtitle, width);
             angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
 
-            super.onNavigateTo = this.navigateTo;
+            super.navigateTo = this.navigateTo;
         }
 
         //#endregion

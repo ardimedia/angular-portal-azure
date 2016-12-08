@@ -1,5 +1,3 @@
-/// <reference types="angular-resource" />
-/// <reference types="angular" />
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
@@ -123,8 +121,8 @@ declare namespace angularportalazure {
         };
         activate(): void;
         onActivate(): void;
-        navigateTo(arg: any): void;
-        onNavigateTo(arg: any): void;
+        navigateTo(path: any): void;
+        onNavigateTo(path: any): void;
         comparePaths(path1: string, path2: string): boolean;
         /** close blade. */
         close(): void;
@@ -272,6 +270,7 @@ declare namespace angularportalazure {
         static $inject: string[];
         constructor($injector: any);
         parameter: angularportalazure.IBladeParameter;
+        $analytics: any;
         animate: any;
         animation: any;
         component: any;
