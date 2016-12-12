@@ -1,4 +1,5 @@
 ﻿/// <reference types="angular" />
+/// <reference types="angulartics" />
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="ibladeparameter.ts" />
@@ -32,7 +33,7 @@ namespace angularportalazure {
         //#region Properties
 
         parameter: angularportalazure.IBladeParameter = { action: 'none', itemId: 0 };
-        $analytics: any;
+        $analytics: angulartics.IAnalyticsService;
 
         //#region ng.IModule properties
 
@@ -71,13 +72,13 @@ namespace angularportalazure {
 
         //#region Angular Services
 
-        $http: any; // any should be: angular.IHttpService;
-        $httpBackend: any; // any should be: angular.IHttpBackendService;
-        $injector: any; // any should be: angular.auto.IInjectorService
-        $q: any; // any should be: angular.IQService;
-        $rootScope: any; // any should be: angular.IRootScopeService;
-        $window: any; // any should be: angular.IWindowService;
-        $scope: any; // any should be: angular.IScope;
+        $http: angular.IHttpService;
+        $httpBackend: angular.IHttpBackendService;
+        $injector: angular.auto.IInjectorService;
+        $q: angular.IQService;
+        $rootScope: angular.IRootScopeService;
+        $window: angular.IWindowService;
+        $scope: angular.IScope;
 
         //#endregion
 

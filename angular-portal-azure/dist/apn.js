@@ -885,6 +885,7 @@ var angularportalazure;
     angularportalazure.PortalShell = PortalShell;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
+/// <reference types="angulartics" />
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="ibladeparameter.ts" />
@@ -929,12 +930,13 @@ var angularportalazure;
             scope: {},
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) {
-            },
+            link: function (scope, element, attrs, controller) { },
             controller: function () {
-                this.vm.close = function () {
-                    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                    portalService.bladeArea.clearLastLevel();
+                this.$onInit = function () {
+                    this.vm.close = function () {
+                        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                        portalService.bladeArea.clearLastLevel();
+                    };
                 };
             },
             controllerAs: '$ctrl'
@@ -955,12 +957,13 @@ var angularportalazure;
             scope: {},
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) {
-            },
+            link: function (scope, element, attrs, controller) { },
             controller: function () {
-                this.vm.close = function () {
-                    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                    portalService.bladeArea.clearLastLevel();
+                this.$onInit = function () {
+                    this.vm.close = function () {
+                        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                        portalService.bladeArea.clearLastLevel();
+                    };
                 };
             },
             controllerAs: '$ctrl'
@@ -988,10 +991,12 @@ var angularportalazure;
                 };
             },
             controller: function () {
-                //this.vm.close = function () {
-                //    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                //    portalService.bladeArea.clearLastLevel();
-                //};
+                this.$onInit = function () {
+                    //this.vm.close = function () {
+                    //    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                    //    portalService.bladeArea.clearLastLevel();
+                    //};
+                };
             },
             controllerAs: '$ctrl'
         };
@@ -1051,8 +1056,7 @@ var angularportalazure;
                 //    if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
                 //});
             },
-            controller: function () {
-            },
+            controller: function () { },
             controllerAs: '$ctrl'
         };
     }
@@ -1066,14 +1070,8 @@ var angularportalazure;
             scope: {},
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-            link: function (scope, element, attrs, controller) {
-                //console.log('angularPortalHome.link()');
-                //console.log(this);
-            },
-            controller: function () {
-                //console.log('angularPortalHome.controller()');
-                //console.log(this);
-            },
+            link: function (scope, element, attrs, controller) { },
+            controller: function () { },
             controllerAs: '$ctrl'
         };
     }
@@ -1088,8 +1086,6 @@ var angularportalazure;
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
             link: function (scope, element, attrs, controller) {
-                //console.log('nav.link()');
-                //console.log(this);
                 angular.forEach(controller.vm.items, function (item) {
                     // Set some default values, depending on existing values
                     if (item.isVisible == undefined) {
@@ -1103,10 +1099,7 @@ var angularportalazure;
                     }
                 });
             },
-            controller: function () {
-                //console.log('nav.controller()');
-                //console.log(this);
-            },
+            controller: function () { },
             controllerAs: '$ctrl'
         };
     }
@@ -1470,9 +1463,9 @@ var angularportalazure;
         DataService.prototype.getData = function (url) {
             var that = this;
             return that.$http({ method: 'GET', url: url })
-                .success(function (data, status, headers, config) {
+                .then(function (response) {
             })
-                .error(function (data, status, headers, config) {
+                .catch(function (response) {
             });
         };
         return DataService;

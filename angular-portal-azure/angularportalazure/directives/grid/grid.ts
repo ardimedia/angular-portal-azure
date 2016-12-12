@@ -13,8 +13,7 @@
                 //    if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
                 //});
             },
-            controller: function () {
-            },
+            controller: function () { },
             controllerAs: '$ctrl'
         };
     }

@@ -1,3 +1,6 @@
+/// <reference types="angulartics" />
+/// <reference types="angular" />
+/// <reference types="angular-resource" />
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
@@ -270,7 +273,7 @@ declare namespace angularportalazure {
         static $inject: string[];
         constructor($injector: any);
         parameter: angularportalazure.IBladeParameter;
-        $analytics: any;
+        $analytics: angulartics.IAnalyticsService;
         animate: any;
         animation: any;
         component: any;
@@ -291,13 +294,13 @@ declare namespace angularportalazure {
         panorama: angularportalazure.Panorama;
         bladeArea: angularportalazure.BladeArea;
         ngDialog: any;
-        $http: any;
-        $httpBackend: any;
-        $injector: any;
-        $q: any;
-        $rootScope: any;
-        $window: any;
-        $scope: any;
+        $http: angular.IHttpService;
+        $httpBackend: angular.IHttpBackendService;
+        $injector: angular.auto.IInjectorService;
+        $q: angular.IQService;
+        $rootScope: angular.IRootScopeService;
+        $window: angular.IWindowService;
+        $scope: angular.IScope;
     }
 }
 declare namespace angularportalazure {
@@ -379,9 +382,9 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class DataService {
-        $http: any;
-        $q: any;
-        constructor($http: any, $q: any);
+        $http: angular.IHttpService;
+        $q: angular.IQService;
+        constructor($http: angular.IHttpService, $q: angular.IQService);
         getData(url: string): any;
     }
 }

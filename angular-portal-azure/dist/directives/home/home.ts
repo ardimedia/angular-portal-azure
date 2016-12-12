@@ -5,14 +5,8 @@
             scope: {},
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-            link: function (scope, element, attrs, controller) {
-                //console.log('angularPortalHome.link()');
-                //console.log(this);
-            },
-            controller: function () {
-                //console.log('angularPortalHome.controller()');
-                //console.log(this);
-            },
+            link: function (scope, element, attrs, controller) { },
+            controller: function () { },
             controllerAs: '$ctrl'
         };
     }

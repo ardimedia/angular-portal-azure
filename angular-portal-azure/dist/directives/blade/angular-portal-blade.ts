@@ -18,10 +18,12 @@ namespace angularportalazure {
                 };
             },
             controller: function () {
-                //this.vm.close = function () {
-                //    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                //    portalService.bladeArea.clearLastLevel();
-                //};
+                this.$onInit = function () {
+                    //this.vm.close = function () {
+                    //    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                    //    portalService.bladeArea.clearLastLevel();
+                    //};
+                };
             },
             controllerAs: '$ctrl'
         };
