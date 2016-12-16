@@ -316,14 +316,17 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
-    /** If a Web API through an exception, the following interface should be available. */
+    /** If a Web API throws an exception, the following interface should be used to communicate the execption. */
     interface IException {
         ExceptionType: string;
         ClassName: string;
-        Message: string;
         Data: Object;
         Type: string;
         Messages?: string[];
+        Message: string;
+        MessageDetail: string;
+        Status: string;
+        StatusText: string;
     }
 }
 declare namespace angularportalazure {

@@ -1125,6 +1125,9 @@ var angularportalazure;
         //#region Methods
         BladeData.prototype.processException = function (data) {
             var that = this;
+            // Find a better way to log information, maybe to the database or to Google Analytics.
+            console.log('Exception:');
+            console.log(data);
             that.statusbar = data.Message;
             that.statusbar += ' - ';
             data.Messages.forEach(function (item) {
@@ -1239,12 +1242,12 @@ var angularportalazure;
         };
         BladeGrid.prototype.loadItems = function (f) {
             var that = this;
-            f.success(function (data) {
+            f.then(function (data) {
                 that.items = data;
                 that.statusbar = '';
                 that.statusbarClass = '';
-            }).error(function (data, status, headers, config) {
-                that.statusbar = 'FEHLER: ' + data;
+            }).catch(function (exception) {
+                that.statusbar = 'FEHLER: ' + exception;
                 that.statusbarClass = 'message-info message-off';
             });
         };

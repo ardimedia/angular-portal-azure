@@ -19,6 +19,11 @@ namespace angularportalazure {
 
         processException(data: angularportalazure.IException) {
             var that = this;
+
+            // Find a better way to log information, maybe to the database or to Google Analytics.
+            console.log('Exception:');
+            console.log(data);
+
             that.statusbar = data.Message;
             that.statusbar += ' - ';
             data.Messages.forEach(function (item) {

@@ -52,14 +52,14 @@ namespace angularportalazure {
             throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
         }
 
-        loadItems(f: any): void { // any should be: angular.IHttpPromise<any>
+        loadItems(f: any) {
             var that = this;
-            f.success(function (data: any) {
+            f.then(function (data) {
                 that.items = data;
                 that.statusbar = '';
                 that.statusbarClass = '';
-            }).error(function (data: any, status: any, headers: any, config: any) {
-                that.statusbar = 'FEHLER: ' + data;
+            }).catch(function (exception) {
+                that.statusbar = 'FEHLER: ' + exception;
                 that.statusbarClass = 'message-info message-off';
             });
         }
