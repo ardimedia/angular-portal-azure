@@ -25,42 +25,56 @@ namespace angularportalazure {
 
         //#region Methods
 
-        activate(): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.activate\' called.', [this]);
-            var that = this;
+        //activate(): void {
+        //    let that = this;
+        //    //this.loadItems(() => this.getItemsFunction);
+        //    //angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.activate\' called.', [this]);
+        //    //console.log('BladeGrid.activate()');
+        //    //var that = this;
+
+        //    //that.statusbar = 'Daten laden...';
+        //    //that.statusbarClass = '';
+
+        //    this.onActivate();
+        //    ////var onActivate = that.onActivate();
+
+        //    ////if (that.onActivate === null || that.onActivate === undefined) {
+        //    ////} else {
+        //    //    //that.loadItems(onActivate);
+        //    //    console.log('call onActivate()');
+        //    //    that.onActivate()
+        //    //        .then(function (data: any) {
+        //    //            console.log('OK');
+        //    //            that.items = data;
+        //    //            that.statusbar = '';
+        //    //            that.statusbarClass = '';
+        //    //        }).catch(function (exception: angularportalazure.Exception) {
+        //    //            console.log('exception');
+        //    //            console.log(exception);
+        //    //            that.statusbar = 'FEHLER: ' + exception.Message;
+        //    //            that.statusbarClass = 'message-info message-off';
+        //    //        });
+        //    ////}
+        //}
+
+        //onActivate(): angular.IHttpPromise<any> { // any should be: angular.IHttpPromise<any>
+        //    throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
+        //}
+
+        loadItems(func: () => any) {
+            let that = this;
 
             that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
 
-            var onActivate = that.onActivate();
-
-            if (onActivate === null || onActivate === undefined) {
-            } else {
-                that.loadItems(onActivate);
-                //onActivate.success(function (data: any) {
-                //    that.items = data;
-                //    that.statusbar = '';
-                //    that.statusbarClass = '';
-                //}).error(function (data: any, status: any, headers: any, config: any) {
-                //    that.statusbar = 'FEHLER: ' + data;
-                //    that.statusbarClass = 'message-info message-off';
-                //});
-            }
-        }
-
-        onActivate(): any { // any should be: angular.IHttpPromise<any>
-            throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
-        }
-
-        loadItems(f: any) {
-            var that = this;
-            f.then(function (data) {
+            func().then(function (data) {
                 that.items = data;
                 that.statusbar = '';
                 that.statusbarClass = '';
-            }).catch(function (exception) {
-                that.statusbar = 'FEHLER: ' + exception;
-                that.statusbarClass = 'message-info message-off';
+                that.onActivated();
+            }).catch(function (exception: angularportalazure.Exception) {
+                that.statusbar = 'FEHLER: ' + exception.Message;
+                that.statusbarClass = 'message-error message-off';
             });
         }
 

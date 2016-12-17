@@ -51,9 +51,7 @@ namespace angularportalazure {
         //#region Methods
 
         clicked() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Tile.clicked\' called.', [this]);
-            var blade = <angularportalazure.Blade>this.portalService.bladeArea.setFirstBlade(this.bladePath);
-            blade.activate();
+            this.portalService.bladeArea.setFirstBlade(this.bladePath);
         }
 
         //#endregion

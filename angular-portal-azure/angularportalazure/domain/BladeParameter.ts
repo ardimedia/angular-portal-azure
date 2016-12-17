@@ -1,5 +1,5 @@
 ﻿namespace angularportalazure {
-    export interface IBladeParameter {
+    export interface BladeParameter {
         action: string;
         item?: any;
         itemId: number;

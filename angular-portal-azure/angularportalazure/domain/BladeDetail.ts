@@ -34,39 +34,57 @@ namespace angularportalazure {
 
         //#region Methods
 
-        activate() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail.activate\' called.', [this]);
-            var that = this;
+        //activate() {
+        //    angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail.activate\' called.', [this]);
+        //    var that = this;
+
+        //    that.statusbar = 'Daten laden...';
+        //    that.statusbarClass = '';
+
+        //    var onActivate = that.onActivate();
+
+        //    if (onActivate === null || onActivate === undefined) {
+        //        that.statusbar = '';
+        //        that.statusbarClass = '';
+        //    } else {
+        //        onActivate.success(function (data: any) {
+        //            that.item = data;
+        //            that.statusbar = '';
+        //            that.statusbarClass = '';
+        //            that.onActivated();
+        //        }).error(function (data: any, status: any, headers: any, config: any) {
+        //            that.item = null;
+        //            that.statusbar = 'FEHLER: ' + data;
+        //            that.statusbarClass = 'message-info message-off';
+        //            that.onActivated();
+        //        });
+        //    }
+        //}
+
+        //onActivate(): any { // any should be: angular.IHttpPromise<any>
+        //    throw new Error('[angularportalazure.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
+        //}
+
+        //onActivated(): void {
+        //    angularportalazure.Debug.write('[angularportalazure-debug] \'onActivated\' called. You could override this.');
+        //}
+
+
+        loadItems(func: () => any) {
+            let that = this;
 
             that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
 
-            var onActivate = that.onActivate();
-
-            if (onActivate === null || onActivate === undefined) {
+            func().then(function (data) {
+                that.item = data;
                 that.statusbar = '';
                 that.statusbarClass = '';
-            } else {
-                onActivate.success(function (data: any) {
-                    that.item = data;
-                    that.statusbar = '';
-                    that.statusbarClass = '';
-                    that.onActivated();
-                }).error(function (data: any, status: any, headers: any, config: any) {
-                    that.item = null;
-                    that.statusbar = 'FEHLER: ' + data;
-                    that.statusbarClass = 'message-info message-off';
-                    that.onActivated();
-                });
-            }
-        }
-
-        onActivate(): any { // any should be: angular.IHttpPromise<any>
-            throw new Error('[angularportalazure.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
-        }
-
-        onActivated(): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'onActivated\' called. You could override this.');
+                that.onActivated();
+            }).catch(function (exception: angularportalazure.Exception) {
+                that.statusbar = 'FEHLER: ' + exception.Message;
+                that.statusbarClass = 'message-error message-off';
+            });
         }
 
         onCommandCancel(): void {

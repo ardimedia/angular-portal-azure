@@ -5,6 +5,14 @@
 
 namespace angularportalazure {
     export class BladeNav extends angularportalazure.BladeData {
+        //#region Constructor
+
+        constructor(portalService: angularportalazure.PortalService, path: string, title: string = '', subtitle: string = '', width: number = 315) {
+            super(portalService, path, title, subtitle, width);
+            this.isInnerHtml = false;
+        }
+
+        //#endregion
 
         //#region Properties
 
@@ -13,13 +21,11 @@ namespace angularportalazure {
 
         //#endregion
 
-        //#region Constructor
+        //#region Methods
 
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string = '', subtitle: string = '', width: number = 200) {
-            super(portalService, path, title, subtitle, width);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNav\' constructor called.', [this, portalService, path, title, subtitle, width]);
-
-            super.navigateTo = this.navigateTo;
+        onNavigateTo(path: string) {
+            if (path === '') { return; }
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
         }
 
         //#endregion

@@ -2,8 +2,46 @@
 /// <reference path="iexception.ts" />
 
 namespace angularportalazure {
-    export class Exception {
-        static convertFromWebApiException(ex: angularportalazure.IException): void {
+    export class Exception implements angularportalazure.IExceptionDotNet {
+        //#region Properites
+
+        ExceptionType: string;  // provided by the server
+        ClassName: string;      // provided by the server - .NET exception class name
+        Data: Object;           // provided by the server - object having trouble
+        Type: string;           // provided by the server
+        Messages?: string[];    // provided by the server
+
+        Message: string;        // provided by the server or filled by the client if empty - .NET exception messages or user defined
+
+        MessageDetail: string;  // Filled by the client - .NET exception detail message
+        Status: number;         // Filled by the client - http error code
+        StatusText: string;     // Filled by the client - http message
+        Url: string;            // Filled by the client - http URL
+
+        //#endregion
+
+        processException(response: angular.IHttpPromiseCallbackArg<any>) {
+            var that = this;
+
+            this.convertFromWebApiException(response.data);
+
+            that.ExceptionType = response.data.ExceptionType;
+            that.Type = response.data.Type;
+            that.Message = response.data.Message;
+            that.MessageDetail = response.data.MessageDetail;
+            that.Messages = response.data.Messages;
+
+            that.Url = response.config.url;
+            that.Status = response.status;
+            that.StatusText = response.statusText;
+
+            // Find a better way to log information, maybe to the database or to Google Analytics.
+            console.log('processException:');
+            console.log(response);
+            console.log(that);
+        }
+
+        convertFromWebApiException(ex: angularportalazure.IExceptionDotNet): void {
             //#region Process data to Messages
 
             ex.Messages = [];
@@ -39,12 +77,6 @@ namespace angularportalazure {
             }
 
             //#endregion
-
-            Exception.onConvertFromWebApiException(ex);
-        }
-
-        static onConvertFromWebApiException(ex: angularportalazure.IException): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Exception.convertFromWebApiException\' not overriden. You could override this.', [this]);
         }
     }
 }

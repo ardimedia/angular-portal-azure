@@ -41,8 +41,8 @@ namespace angularportalazure {
 
             // Register listener1
             this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
-                angularportalazure.Debug.write('[angularportalazure-debug] \'Blade\' BladeArea.AddBlade event processing.', [this, event, args]);
                 if (that.blade.comparePaths(args.path, that.blade.path)) {
+                    console.log('function call: that.activate() will probably not work since this/that is not pointing to the right object.');
                     that.activate();
                 }
             });
@@ -63,6 +63,7 @@ namespace angularportalazure {
         get path(): string {
             return this._path;
         }
+
         // For the moment we do not distinguish between lower and upper case path name
         set path(newPath: string) {
             if (newPath == null) { return; }
@@ -182,12 +183,15 @@ namespace angularportalazure {
         //#region Methods
 
         activate(): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.activate\' called. You could override this, but proably you should call super.activate().', [this]);
             this.onActivate();
+            this.onActivated();
         }
 
         onActivate(): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.onActivate\' not overriden. You could override this.', [this]);
+            //throw new Error('[angularportalazure.Blade] \'onActivate\' is an abstract function. Define one in the derived class.');
+        }
+
+        onActivated(): void {
         }
 
         navigateTo(path: any) {
@@ -222,6 +226,21 @@ namespace angularportalazure {
                 throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.bladeArea\' available.');
             }
         }
+
+
+        //#region Show Exceptions
+
+        showExceptionOnStatusbar(data: angularportalazure.Exception) {
+            var that = this;
+
+            that.statusbar = data.Message;
+            that.statusbar += ' - ';
+            data.Messages.forEach(function (item) {
+                that.statusbar += item + ' - ';
+            })
+        }
+
+        //#endregion
 
         //#endregion
 

@@ -2,6 +2,7 @@
     function nav($window) {
         return {
             restrict: 'E',
+            transclude: true,
             scope: {},
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',

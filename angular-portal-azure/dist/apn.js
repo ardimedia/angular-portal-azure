@@ -275,8 +275,8 @@ var angularportalazure;
             /** OBSOLETE: end */
             // Register listener1
             _this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
-                angularportalazure.Debug.write('[angularportalazure-debug] \'Blade\' BladeArea.AddBlade event processing.', [this, event, args]);
                 if (that.blade.comparePaths(args.path, that.blade.path)) {
+                    console.log('function call: that.activate() will probably not work since this/that is not pointing to the right object.');
                     that.activate();
                 }
             });
@@ -303,11 +303,13 @@ var angularportalazure;
         //#region Methods
         //#region Methods
         Blade.prototype.activate = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.activate\' called. You could override this, but proably you should call super.activate().', [this]);
             this.onActivate();
+            this.onActivated();
         };
         Blade.prototype.onActivate = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.onActivate\' not overriden. You could override this.', [this]);
+            //throw new Error('[angularportalazure.Blade] \'onActivate\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onActivated = function () {
         };
         Blade.prototype.navigateTo = function (path) {
             angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, path]);
@@ -342,6 +344,16 @@ var angularportalazure;
                 throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.bladeArea\' available.');
             }
         };
+        //#region Show Exceptions
+        Blade.prototype.showExceptionOnStatusbar = function (data) {
+            var that = this;
+            that.statusbar = data.Message;
+            that.statusbar += ' - ';
+            data.Messages.forEach(function (item) {
+                that.statusbar += item + ' - ';
+            });
+        };
+        //#endregion
         //#endregion
         //#region Commands
         Blade.prototype.onCommandBrowse = function () {
@@ -737,9 +749,7 @@ var angularportalazure;
         //#endregion
         //#region Methods
         Tile.prototype.clicked = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Tile.clicked\' called.', [this]);
-            var blade = this.portalService.bladeArea.setFirstBlade(this.bladePath);
-            blade.activate();
+            this.portalService.bladeArea.setFirstBlade(this.bladePath);
         };
         return Tile;
     }());
@@ -888,7 +898,7 @@ var angularportalazure;
 /// <reference types="angulartics" />
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
-/// <reference path="ibladeparameter.ts" />
+/// <reference path="bladeparameter.ts" />
 /// <reference path="panorama.ts" />
 /// <reference path="portalshell.ts" />
 var angularportalazure;
@@ -1082,6 +1092,7 @@ var angularportalazure;
     function nav($window) {
         return {
             restrict: 'E',
+            transclude: true,
             scope: {},
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
@@ -1105,6 +1116,21 @@ var angularportalazure;
     }
     angular.module('angularportalazure').directive('nav', ['$window', nav]);
 })(angularportalazure || (angularportalazure = {}));
+//namespace angularportalazure {
+//    /** If a Web API throws an exception, the following interface should be used to communicate the execption. */
+//    export interface IException {
+//        ExceptionType: string;  // provided by the server
+//        ClassName: string;      // provided by the server - .NET exception class name
+//        Data: Object;           // provided by the server - object having trouble
+//        Type: string;           // provided by the server
+//        Messages?: string[];    // provided by the server
+//        Message: string;        // provided by Web API or filled by the client if empty - .NET exception messages or user defined
+//        MessageDetail: string;  // Filled by the client - .NET exception detail message
+//        Status: number;         // Filled by the client - http error code
+//        StatusText: string;     // Filled by the client - http message
+//        Url: string;            // Filled by the client - http URL
+//    }
+//}
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="iexception.ts" />
@@ -1117,23 +1143,8 @@ var angularportalazure;
         function BladeData(portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 300; }
-            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeData\' constructor called.', [_this, portalService, path, title, subtitle, width]);
-            return _this;
+            return _super.call(this, portalService, path, title, subtitle, width) || this;
         }
-        //#endregion
-        //#region Methods
-        BladeData.prototype.processException = function (data) {
-            var that = this;
-            // Find a better way to log information, maybe to the database or to Google Analytics.
-            console.log('Exception:');
-            console.log(data);
-            that.statusbar = data.Message;
-            that.statusbar += ' - ';
-            data.Messages.forEach(function (item) {
-                that.statusbar += item + ' - ';
-            });
-        };
         return BladeData;
     }(angularportalazure.Blade));
     angularportalazure.BladeData = BladeData;
@@ -1166,35 +1177,48 @@ var angularportalazure;
         }
         //#endregion
         //#region Methods
-        BladeDetail.prototype.activate = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail.activate\' called.', [this]);
+        //activate() {
+        //    angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail.activate\' called.', [this]);
+        //    var that = this;
+        //    that.statusbar = 'Daten laden...';
+        //    that.statusbarClass = '';
+        //    var onActivate = that.onActivate();
+        //    if (onActivate === null || onActivate === undefined) {
+        //        that.statusbar = '';
+        //        that.statusbarClass = '';
+        //    } else {
+        //        onActivate.success(function (data: any) {
+        //            that.item = data;
+        //            that.statusbar = '';
+        //            that.statusbarClass = '';
+        //            that.onActivated();
+        //        }).error(function (data: any, status: any, headers: any, config: any) {
+        //            that.item = null;
+        //            that.statusbar = 'FEHLER: ' + data;
+        //            that.statusbarClass = 'message-info message-off';
+        //            that.onActivated();
+        //        });
+        //    }
+        //}
+        //onActivate(): any { // any should be: angular.IHttpPromise<any>
+        //    throw new Error('[angularportalazure.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
+        //}
+        //onActivated(): void {
+        //    angularportalazure.Debug.write('[angularportalazure-debug] \'onActivated\' called. You could override this.');
+        //}
+        BladeDetail.prototype.loadItems = function (func) {
             var that = this;
             that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
-            var onActivate = that.onActivate();
-            if (onActivate === null || onActivate === undefined) {
+            func().then(function (data) {
+                that.item = data;
                 that.statusbar = '';
                 that.statusbarClass = '';
-            }
-            else {
-                onActivate.success(function (data) {
-                    that.item = data;
-                    that.statusbar = '';
-                    that.statusbarClass = '';
-                    that.onActivated();
-                }).error(function (data, status, headers, config) {
-                    that.item = null;
-                    that.statusbar = 'FEHLER: ' + data;
-                    that.statusbarClass = 'message-info message-off';
-                    that.onActivated();
-                });
-            }
-        };
-        BladeDetail.prototype.onActivate = function () {
-            throw new Error('[angularportalazure.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
-        };
-        BladeDetail.prototype.onActivated = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'onActivated\' called. You could override this.');
+                that.onActivated();
+            }).catch(function (exception) {
+                that.statusbar = 'FEHLER: ' + exception.Message;
+                that.statusbarClass = 'message-error message-off';
+            });
         };
         BladeDetail.prototype.onCommandCancel = function () {
             this.close();
@@ -1225,30 +1249,49 @@ var angularportalazure;
         }
         //#endregion
         //#region Methods
-        BladeGrid.prototype.activate = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.activate\' called.', [this]);
+        //activate(): void {
+        //    let that = this;
+        //    //this.loadItems(() => this.getItemsFunction);
+        //    //angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.activate\' called.', [this]);
+        //    //console.log('BladeGrid.activate()');
+        //    //var that = this;
+        //    //that.statusbar = 'Daten laden...';
+        //    //that.statusbarClass = '';
+        //    this.onActivate();
+        //    ////var onActivate = that.onActivate();
+        //    ////if (that.onActivate === null || that.onActivate === undefined) {
+        //    ////} else {
+        //    //    //that.loadItems(onActivate);
+        //    //    console.log('call onActivate()');
+        //    //    that.onActivate()
+        //    //        .then(function (data: any) {
+        //    //            console.log('OK');
+        //    //            that.items = data;
+        //    //            that.statusbar = '';
+        //    //            that.statusbarClass = '';
+        //    //        }).catch(function (exception: angularportalazure.Exception) {
+        //    //            console.log('exception');
+        //    //            console.log(exception);
+        //    //            that.statusbar = 'FEHLER: ' + exception.Message;
+        //    //            that.statusbarClass = 'message-info message-off';
+        //    //        });
+        //    ////}
+        //}
+        //onActivate(): angular.IHttpPromise<any> { // any should be: angular.IHttpPromise<any>
+        //    throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
+        //}
+        BladeGrid.prototype.loadItems = function (func) {
             var that = this;
             that.statusbar = 'Daten laden...';
             that.statusbarClass = '';
-            var onActivate = that.onActivate();
-            if (onActivate === null || onActivate === undefined) {
-            }
-            else {
-                that.loadItems(onActivate);
-            }
-        };
-        BladeGrid.prototype.onActivate = function () {
-            throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
-        };
-        BladeGrid.prototype.loadItems = function (f) {
-            var that = this;
-            f.then(function (data) {
+            func().then(function (data) {
                 that.items = data;
                 that.statusbar = '';
                 that.statusbarClass = '';
+                that.onActivated();
             }).catch(function (exception) {
-                that.statusbar = 'FEHLER: ' + exception;
-                that.statusbarClass = 'message-info message-off';
+                that.statusbar = 'FEHLER: ' + exception.Message;
+                that.statusbarClass = 'message-error message-off';
             });
         };
         //#region Filter
@@ -1356,8 +1399,9 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeNavItem = (function () {
         //#region Constructor
-        function BladeNavItem(title, bladePath, hrefPath, roles, isVisible, callback, bladeNav) {
+        function BladeNavItem(title, cssClass, bladePath, hrefPath, roles, isVisible, callback, bladeNav) {
             if (title === void 0) { title = ''; }
+            if (cssClass === void 0) { cssClass = ""; }
             if (bladePath === void 0) { bladePath = ''; }
             if (hrefPath === void 0) { hrefPath = ""; }
             if (roles === void 0) { roles = ""; }
@@ -1365,6 +1409,7 @@ var angularportalazure;
             if (callback === void 0) { callback = null; }
             if (bladeNav === void 0) { bladeNav = null; }
             this.title = title;
+            this.cssClass = cssClass;
             this.bladePath = bladePath;
             this.hrefPath = hrefPath;
             this.roles = roles;
@@ -1393,20 +1438,27 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeNav = (function (_super) {
         __extends(BladeNav, _super);
-        //#endregion
         //#region Constructor
         function BladeNav(portalService, path, title, subtitle, width) {
             if (title === void 0) { title = ''; }
             if (subtitle === void 0) { subtitle = ''; }
-            if (width === void 0) { width = 200; }
+            if (width === void 0) { width = 315; }
             var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
+            //#endregion
             //#region Properties
             _this.items = new Array();
             _this.isNav = true;
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNav\' constructor called.', [_this, portalService, path, title, subtitle, width]);
-            _super.prototype.navigateTo = _this.navigateTo;
+            _this.isInnerHtml = false;
             return _this;
         }
+        //#endregion
+        //#region Methods
+        BladeNav.prototype.onNavigateTo = function (path) {
+            if (path === '') {
+                return;
+            }
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
+        };
         return BladeNav;
     }(angularportalazure.BladeData));
     angularportalazure.BladeNav = BladeNav;
@@ -1418,7 +1470,24 @@ var angularportalazure;
     var Exception = (function () {
         function Exception() {
         }
-        Exception.convertFromWebApiException = function (ex) {
+        //#endregion
+        Exception.prototype.processException = function (response) {
+            var that = this;
+            this.convertFromWebApiException(response.data);
+            that.ExceptionType = response.data.ExceptionType;
+            that.Type = response.data.Type;
+            that.Message = response.data.Message;
+            that.MessageDetail = response.data.MessageDetail;
+            that.Messages = response.data.Messages;
+            that.Url = response.config.url;
+            that.Status = response.status;
+            that.StatusText = response.statusText;
+            // Find a better way to log information, maybe to the database or to Google Analytics.
+            console.log('processException:');
+            console.log(response);
+            console.log(that);
+        };
+        Exception.prototype.convertFromWebApiException = function (ex) {
             //#region Process data to Messages
             ex.Messages = [];
             var i = 1;
@@ -1443,14 +1512,21 @@ var angularportalazure;
                 ex.Type = 'ValidationsException';
             }
             //#endregion
-            Exception.onConvertFromWebApiException(ex);
-        };
-        Exception.onConvertFromWebApiException = function (ex) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Exception.convertFromWebApiException\' not overriden. You could override this.', [this]);
         };
         return Exception;
     }());
     angularportalazure.Exception = Exception;
+})(angularportalazure || (angularportalazure = {}));
+/// <reference path="debug.ts" />
+/// <reference path="iexception.ts" />
+var angularportalazure;
+(function (angularportalazure) {
+    var IExceptionDotNet = (function () {
+        function IExceptionDotNet() {
+        }
+        return IExceptionDotNet;
+    }());
+    angularportalazure.IExceptionDotNet = IExceptionDotNet;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
 var angularportalazure;

@@ -124,11 +124,13 @@ declare namespace angularportalazure {
         };
         activate(): void;
         onActivate(): void;
+        onActivated(): void;
         navigateTo(path: any): void;
         onNavigateTo(path: any): void;
         comparePaths(path1: string, path2: string): boolean;
         /** close blade. */
         close(): void;
+        showExceptionOnStatusbar(data: angularportalazure.Exception): void;
         onCommandBrowse(): void;
         onCommandCancel(): void;
         onCommandCopy(): void;
@@ -175,7 +177,7 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-    interface IBladeParameter {
+    interface BladeParameter {
         action: string;
         item?: any;
         itemId: number;
@@ -272,7 +274,7 @@ declare namespace angularportalazure {
     class PortalService {
         static $inject: string[];
         constructor($injector: any);
-        parameter: angularportalazure.IBladeParameter;
+        parameter: angularportalazure.BladeParameter;
         $analytics: angulartics.IAnalyticsService;
         animate: any;
         animation: any;
@@ -316,32 +318,15 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
-    /** If a Web API throws an exception, the following interface should be used to communicate the execption. */
-    interface IException {
-        ExceptionType: string;
-        ClassName: string;
-        Data: Object;
-        Type: string;
-        Messages?: string[];
-        Message: string;
-        MessageDetail: string;
-        Status: string;
-        StatusText: string;
-    }
-}
-declare namespace angularportalazure {
     class BladeData extends angularportalazure.Blade {
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        processException(data: angularportalazure.IException): void;
     }
 }
 declare namespace angularportalazure {
     class BladeDetail extends angularportalazure.BladeData {
         item: any;
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        activate(): void;
-        onActivate(): any;
-        onActivated(): void;
+        loadItems(func: () => any): void;
         onCommandCancel(): void;
     }
 }
@@ -349,9 +334,7 @@ declare namespace angularportalazure {
     class BladeGrid extends angularportalazure.BladeData {
         items: any[];
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        activate(): void;
-        onActivate(): any;
-        loadItems(f: any): void;
+        loadItems(func: () => any): void;
         onFilter(actual: Object, expected: string): boolean;
         /** Obsolete */
         setObsoleteLayoutProperites(): void;
@@ -360,27 +343,49 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class BladeNavItem {
         title: string;
+        cssClass: string;
         bladePath: string;
         hrefPath: string;
         roles: string;
         isVisible: boolean;
         callback: () => any;
         bladeNav: angularportalazure.BladeNav;
-        constructor(title?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav);
+        constructor(title?: string, cssClass?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav);
         onNavItemClick(): void;
     }
 }
 declare namespace angularportalazure {
     class BladeNav extends angularportalazure.BladeData {
+        constructor(portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
         items: Array<angularportalazure.BladeNavItem>;
         isNav: boolean;
-        constructor(portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
+        onNavigateTo(path: string): void;
     }
 }
 declare namespace angularportalazure {
-    class Exception {
-        static convertFromWebApiException(ex: angularportalazure.IException): void;
-        static onConvertFromWebApiException(ex: angularportalazure.IException): void;
+    class Exception implements angularportalazure.IExceptionDotNet {
+        ExceptionType: string;
+        ClassName: string;
+        Data: Object;
+        Type: string;
+        Messages?: string[];
+        Message: string;
+        MessageDetail: string;
+        Status: number;
+        StatusText: string;
+        Url: string;
+        processException(response: angular.IHttpPromiseCallbackArg<any>): void;
+        convertFromWebApiException(ex: angularportalazure.IExceptionDotNet): void;
+    }
+}
+declare namespace angularportalazure {
+    class IExceptionDotNet {
+        ExceptionType: string;
+        ClassName: string;
+        Data: Object;
+        Type: string;
+        Message: string;
+        Messages?: string[];
     }
 }
 declare namespace angularportalazure {

@@ -2,7 +2,7 @@
 /// <reference types="angulartics" />
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
-/// <reference path="ibladeparameter.ts" />
+/// <reference path="bladeparameter.ts" />
 /// <reference path="panorama.ts" />
 /// <reference path="portalshell.ts" />
 
@@ -32,7 +32,7 @@ namespace angularportalazure {
 
         //#region Properties
 
-        parameter: angularportalazure.IBladeParameter = { action: 'none', itemId: 0 };
+        parameter: angularportalazure.BladeParameter = { action: 'none', itemId: 0 };
         $analytics: angulartics.IAnalyticsService;
 
         //#region ng.IModule properties

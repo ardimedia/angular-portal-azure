@@ -144,6 +144,8 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
+    <Content Include="TODO\css.txt" />
+    <Content Include="TODO\translate.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="publish.bat" />
   </ItemGroup>
@@ -154,8 +156,9 @@
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-grid.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-nav.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNavItem.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\IExceptionDotNet.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\Exception.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\IBladeParameter.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\BladeParameter.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\Tiles.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\TileSize.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\TileSizes.ts" />
