@@ -14,8 +14,7 @@ namespace angularportalazure {
             link: function (scope, element, attrs, controller) { },
             controller: function () {
                 this.$onInit = function () {
-                    this.vm.close = function () {
-                        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                    this.close = function () {
                         portalService.bladeArea.clearLastLevel();
                     };
                 };

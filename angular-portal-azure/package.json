@@ -2,7 +2,7 @@
   "name": "@ardimedia/angular-portal-azure",
   "description": "Angular Portal Azure - GUI Framework.",
   "author": "Ardimedia Anstalt <info@ardimedia.com> (http://www.ardimedia.com)",
-  "version": "0.2.83",
+  "version": "0.2.95",
   "main": "index.js",
   "typings": "apn.d.ts",
   "dependencies": {

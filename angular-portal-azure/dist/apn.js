@@ -943,8 +943,7 @@ var angularportalazure;
             link: function (scope, element, attrs, controller) { },
             controller: function () {
                 this.$onInit = function () {
-                    this.vm.close = function () {
-                        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                    this.close = function () {
                         portalService.bladeArea.clearLastLevel();
                     };
                 };
@@ -970,8 +969,7 @@ var angularportalazure;
             link: function (scope, element, attrs, controller) { },
             controller: function () {
                 this.$onInit = function () {
-                    this.vm.close = function () {
-                        angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
+                    this.close = function () {
                         portalService.bladeArea.clearLastLevel();
                     };
                 };
@@ -986,154 +984,144 @@ var angularportalazure;
 /// <reference path="../../domain/portalservice.ts" />
 var angularportalazure;
 (function (angularportalazure) {
-    angularPortalBlade.$inject = ['angularportalazure.portalService'];
-    function angularPortalBlade(portalService) {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) {
-                controller.vm.close = function () {
-                    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [controller, portalService]);
-                    portalService.bladeArea.clearLastLevel();
-                };
-            },
-            controller: function () {
-                this.$onInit = function () {
-                    //this.vm.close = function () {
-                    //    angularportalazure.Debug.write('[angularportalazure-debug] \'directive:azurePortalBlade.close\' called.', [this, portalService]);
-                    //    portalService.bladeArea.clearLastLevel();
-                    //};
-                };
-            },
-            controllerAs: '$ctrl'
+    //angularPortalBlade.$inject = ['angularportalazure.portalService'];
+    //function angularPortalBlade(portalService: angularportalazure.PortalService) {
+    //    return {
+    //        restrict: 'E',
+    //        transclude: true,
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+    //        link: function (scope, element, attrs, controller) {
+    //            //controller.close = function () {
+    //            //    portalService.bladeArea.clearLastLevel();
+    //            //};
+    //        },
+    //        controller: function () {
+    //            this.$onInit = function () {
+    //                this.close = function () {
+    //                    portalService.bladeArea.clearLastLevel();
+    //                };
+    //            };
+    //        },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
+    //angular.module('angularportalazure').directive('angularPortalBlade', angularPortalBlade);
+    AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
+    function AngularPortalBladeController(portalService) {
+        this.$onInit = function () {
+            this.close = function () {
+                portalService.bladeArea.clearLastLevel();
+            };
         };
     }
-    angular.module('angularportalazure').directive('angularPortalBlade', angularPortalBlade);
-})(angularportalazure || (angularportalazure = {}));
-// http://blogs.msdn.com/b/laurieatkinson/archive/2014/08/23/implementing-a-save-warning-in-an-angular-spa.aspx
-//'use strict';
-//module App.Directives {
-//    // USE:
-//    // <form name="personForm" azureportal-dirty-flag>
-//    interface IDirtyFlag extends ng.IDirective {
-//    }
-//    interface IDirtyFlagScope extends ng.IScope {
-//        personForm: ng.IFormController;
-//        vm: any;
-//    }
-//    class DirtyFlag implements IDirtyFlag {
-//        static directiveId: string = 'azureportalDirtyFlag'
-//        restrict: string = 'A';
-//        personManager: App.Services.IpersonManager;
-//        constructor(personManager) {
-//            this.personManager = personManager;
-//        }
-//        link = (scope: IDirtyFlagScope, element, attrs) => {
-//            var self = this;
-//            // When the directive is first invoked, check if the stored dirty value is true and 
-//            // if so set the $dirty flag on the form.
-//            if (scope.vm.person && scope.vm.person.isDirty) {
-//                scope.personForm.$dirty = true;
-//            }
-//            // When the user navigates away from this view, check the value of the $dirty flag on this form. 
-//            // If it is dirty(indicating unsaved changes), then store the id of the current person as dirty 
-//            // using a service named personManger.
-//            scope.$on('$locationChangeStart'), function () {
-//                if (scope.personForm.$dirty) {
-//                    self.personManager.markpersonAsDirty(scope.vm.person.personId);
-//                }
-//            });
-//        }
-//    }
-//    app.directive(DirtyFlag.directiveId, ['personmanager', (pm) => new DirtyFlag(pm)]);
-//} 
-var angularportalazure;
-(function (angularportalazure) {
-    function grid($window) {
-        return {
-            restrict: 'E',
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
-            link: function (scope, element, attrs, controller) {
-                //angular.forEach(controller.vm.items, function (item) {
-                //    // Set some default values, depending on existing values
-                //    if (item.isVisible == undefined) { item.isVisible = true; }
-                //    if (item.title == undefined || item.title == '') { item.style = { cursor: 'default' }; }
-                //    if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
-                //});
-            },
-            controller: function () { },
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('angularportalazure').directive('grid', ['$window', grid]);
+    var angularPortalBlade = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+        controller: AngularPortalBladeController,
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
 })(angularportalazure || (angularportalazure = {}));
 var angularportalazure;
 (function (angularportalazure) {
-    function angularPortalHome() {
-        return {
-            restrict: 'E',
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-            link: function (scope, element, attrs, controller) { },
-            controller: function () { },
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('angularportalazure').directive('angularPortalHome', angularPortalHome);
+    //grid.$inject = ['angularportalazure.portalService'];
+    //function grid(portalService: angularportalazure.PortalService) {
+    //    return {
+    //        restrict: 'E',
+    //        transclude: true,
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
+    //        link: function (scope, element, attrs, controller) { },
+    //        controller: function () {
+    //            //this.$onInit = function () {
+    //            //    this.close = function () {
+    //            //        portalService.bladeArea.clearLastLevel();
+    //            //    };
+    //            //};
+    //        },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
+    //angular.module('angularportalazure').directive('grid', grid);
+    var grid = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('grid', grid);
 })(angularportalazure || (angularportalazure = {}));
 var angularportalazure;
 (function (angularportalazure) {
-    function nav($window) {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
-            link: function (scope, element, attrs, controller) {
-                angular.forEach(controller.vm.items, function (item) {
-                    // Set some default values, depending on existing values
-                    if (item.isVisible == undefined) {
-                        item.isVisible = true;
-                    }
-                    if (item.title == undefined || item.title == '') {
-                        item.style = { cursor: 'default' };
-                    }
-                    if (item.bladePath == undefined || item.bladePath == '') {
-                        item.style = { cursor: 'default' };
-                    }
-                });
-            },
-            controller: function () { },
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('angularportalazure').directive('nav', ['$window', nav]);
+    //function angularPortalHome() {
+    //    return {
+    //        restrict: 'E',
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
+    //        link: function (scope, element, attrs, controller) { },
+    //        controller: function () { },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
+    //angular.module('angularportalazure').directive('angularPortalHome', angularPortalHome);
+    var angularPortalHome = {
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
 })(angularportalazure || (angularportalazure = {}));
-//namespace angularportalazure {
-//    /** If a Web API throws an exception, the following interface should be used to communicate the execption. */
-//    export interface IException {
-//        ExceptionType: string;  // provided by the server
-//        ClassName: string;      // provided by the server - .NET exception class name
-//        Data: Object;           // provided by the server - object having trouble
-//        Type: string;           // provided by the server
-//        Messages?: string[];    // provided by the server
-//        Message: string;        // provided by Web API or filled by the client if empty - .NET exception messages or user defined
-//        MessageDetail: string;  // Filled by the client - .NET exception detail message
-//        Status: number;         // Filled by the client - http error code
-//        StatusText: string;     // Filled by the client - http message
-//        Url: string;            // Filled by the client - http URL
-//    }
-//}
+var angularportalazure;
+(function (angularportalazure) {
+    //nav.$inject = ['angularportalazure.portalService'];
+    //function nav(portalService: angularportalazure.PortalService) {
+    //    return {
+    //        restrict: 'E',
+    //        transclude: true,
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
+    //        link: function (scope, element, attrs, controller) {
+    //            angular.forEach(controller.items, function (item) {
+    //                // Set some default values, depending on existing values
+    //                if (item.isVisible == undefined) { item.isVisible = true; }
+    //                if (item.title == undefined || item.title == '') { item.style = { cursor: 'default' }; }
+    //                if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
+    //            });
+    //        },
+    //        controller: function () {
+    //            //this.$onInit = function () {
+    //            //    this.close = function () {
+    //            //        portalService.bladeArea.clearLastLevel();
+    //            //    };
+    //            //};
+    //        },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
+    //angular.module('angularportalazure').directive('nav', nav);
+    var nav = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('nav', nav);
+})(angularportalazure || (angularportalazure = {}));
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
-/// <reference path="iexception.ts" />
 /// <reference path="portalservice.ts" />
 var angularportalazure;
 (function (angularportalazure) {
@@ -1234,18 +1222,17 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeGrid = (function (_super) {
         __extends(BladeGrid, _super);
-        //#endregion
         //#region Constructor
         function BladeGrid(portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
             var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
+            //#endregion
             //#region Properties
             _this.items = [];
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid\' constructor called.', [_this, portalService, path, title, subtitle, width]);
-            _this.isCommandNew = true;
-            _this.commandNewText = 'neu';
             return _this;
+            //this.isCommandNew = true;
+            //this.commandNewText = 'neu';
         }
         //#endregion
         //#region Methods
@@ -1290,13 +1277,17 @@ var angularportalazure;
                 that.statusbarClass = '';
                 that.onActivated();
             }).catch(function (exception) {
-                that.statusbar = 'FEHLER: ' + exception.Message;
+                if (exception.Message === undefined) {
+                    that.statusbar = 'FEHLER: ' + exception;
+                }
+                else {
+                    that.statusbar = 'FEHLER: ' + exception.Message;
+                }
                 that.statusbarClass = 'message-error message-off';
             });
         };
         //#region Filter
         BladeGrid.prototype.onFilter = function (actual, expected) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.filter\' called.', [this, actual, expected]);
             //#region Documentation
             // > onFilter will be called for each item in an array
             // > If the item is an native type (string, number), the filter will be called with the native type in the parameter 'actual'
@@ -1305,7 +1296,7 @@ var angularportalazure;
             //#endregion
             //#region Helper functions
             // Implemenation detail:
-            // > We must implement the functions in code, since onFilter is not called within the scope of this class (this. not working).
+            // > We implemented the following functions with in-line-functions, since onFilter is not called within the scope of a class (this. not working).
             // Function to convert 'number' to 'string'
             var convertToString = function (value) {
                 return value + ''; // convert to string, so the next statements will process the value as a string
@@ -1382,7 +1373,6 @@ var angularportalazure;
         //#region OBSOLETE
         /** Obsolete */
         BladeGrid.prototype.setObsoleteLayoutProperites = function () {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.setObsoleteLayoutProperites\' called.', [this]);
             if (this.items.length !== 0) {
                 this.blade.navGrid.items = this.items; //--> needed, otherwise nav html pages will no longer work.
             }
@@ -1464,7 +1454,6 @@ var angularportalazure;
     angularportalazure.BladeNav = BladeNav;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
-/// <reference path="iexception.ts" />
 var angularportalazure;
 (function (angularportalazure) {
     var Exception = (function () {
@@ -1518,7 +1507,6 @@ var angularportalazure;
     angularportalazure.Exception = Exception;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
-/// <reference path="iexception.ts" />
 var angularportalazure;
 (function (angularportalazure) {
     var IExceptionDotNet = (function () {

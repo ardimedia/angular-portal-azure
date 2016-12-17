@@ -1,6 +1,5 @@
 ﻿/// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
-/// <reference path="iexception.ts" />
 /// <reference path="portalservice.ts" />
 
 namespace angularportalazure {

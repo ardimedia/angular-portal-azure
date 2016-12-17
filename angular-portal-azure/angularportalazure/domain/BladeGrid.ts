@@ -4,22 +4,19 @@
 
 namespace angularportalazure {
     export class BladeGrid extends angularportalazure.BladeData {
-
-        //#region Properties
-
-        items: any[] = [];
-
-        //#endregion
-
         //#region Constructor
 
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super(portalService, path, title, subtitle, width);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid\' constructor called.', [this, portalService, path, title, subtitle, width]);
-
-            this.isCommandNew = true;
-            this.commandNewText = 'neu';
+            //this.isCommandNew = true;
+            //this.commandNewText = 'neu';
         }
+
+        //#endregion
+
+        //#region Properties
+
+        items: any[] = [];
 
         //#endregion
 
@@ -73,7 +70,11 @@ namespace angularportalazure {
                 that.statusbarClass = '';
                 that.onActivated();
             }).catch(function (exception: angularportalazure.Exception) {
-                that.statusbar = 'FEHLER: ' + exception.Message;
+                if (exception.Message === undefined) {
+                    that.statusbar = 'FEHLER: ' + exception;
+                } else {
+                    that.statusbar = 'FEHLER: ' + exception.Message;
+                }
                 that.statusbarClass = 'message-error message-off';
             });
         }
@@ -81,8 +82,6 @@ namespace angularportalazure {
         //#region Filter
 
         onFilter(actual: Object, expected: string): boolean {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.filter\' called.', [this, actual, expected]);
-
             //#region Documentation
 
             // > onFilter will be called for each item in an array
@@ -95,7 +94,7 @@ namespace angularportalazure {
             //#region Helper functions
 
             // Implemenation detail:
-            // > We must implement the functions in code, since onFilter is not called within the scope of this class (this. not working).
+            // > We implemented the following functions with in-line-functions, since onFilter is not called within the scope of a class (this. not working).
 
             // Function to convert 'number' to 'string'
             var convertToString = function (value: number): string {
@@ -193,8 +192,6 @@ namespace angularportalazure {
 
         /** Obsolete */
         setObsoleteLayoutProperites() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.setObsoleteLayoutProperites\' called.', [this]);
-
             if (this.items.length !== 0) {
                 this.blade.navGrid.items = this.items; //--> needed, otherwise nav html pages will no longer work.
             }

@@ -332,8 +332,8 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class BladeGrid extends angularportalazure.BladeData {
-        items: any[];
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        items: any[];
         loadItems(func: () => any): void;
         onFilter(actual: Object, expected: string): boolean;
         /** Obsolete */

@@ -1,22 +1,34 @@
 ﻿namespace angularportalazure {
-    function grid($window) {
-        return {
-            restrict: 'E',
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
-            link: function (scope, element, attrs, controller) {
-                //angular.forEach(controller.vm.items, function (item) {
-                //    // Set some default values, depending on existing values
-                //    if (item.isVisible == undefined) { item.isVisible = true; }
-                //    if (item.title == undefined || item.title == '') { item.style = { cursor: 'default' }; }
-                //    if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
-                //});
-            },
-            controller: function () { },
-            controllerAs: '$ctrl'
-        };
-    }
+    //grid.$inject = ['angularportalazure.portalService'];
+    //function grid(portalService: angularportalazure.PortalService) {
+    //    return {
+    //        restrict: 'E',
+    //        transclude: true,
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
+    //        link: function (scope, element, attrs, controller) { },
+    //        controller: function () {
+    //            //this.$onInit = function () {
+    //            //    this.close = function () {
+    //            //        portalService.bladeArea.clearLastLevel();
+    //            //    };
+    //            //};
+    //        },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
 
-    angular.module('angularportalazure').directive('grid', ['$window', grid]);
+    //angular.module('angularportalazure').directive('grid', grid);
+
+    var grid = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+
+    angular.module('angularportalazure').component('grid', grid);
 }

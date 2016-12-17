@@ -112,13 +112,6 @@
     <Content Include="tests\AzurePortalNg\tests.js" />
     <Content Include="tests\index.html" />
     <None Include="angularportalazure\directives\dialog\README.md" />
-    <Content Include="angularportalazure\directives\dialog\style.css">
-      <DependentUpon>style.scss</DependentUpon>
-    </Content>
-    <Content Include="angularportalazure\directives\dialog\style.min.css">
-      <DependentUpon>style.css</DependentUpon>
-    </Content>
-    <Content Include="angularportalazure\directives\dialog\style.scss" />
     <Content Include="angularportalazure\directives\blade\blade.html" />
     <Content Include="angularportalazure\directives\home\home.html" />
     <Content Include="angularportalazure\directives\nav\nav.html" />
@@ -140,9 +133,6 @@
       <DependentUpon>themems.css</DependentUpon>
     </Content>
     <Content Include="design\libmixin.scss" />
-    <Content Include="angularportalazure\directives\dialog\style.css.map">
-      <DependentUpon>style.css</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
     <Content Include="TODO\css.txt" />
     <Content Include="TODO\translate.txt" />
@@ -164,7 +154,6 @@
     <TypeScriptCompile Include="angularportalazure\domain\TileSizes.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\IAddBladeEventArgs.ts" />
     <Content Include="angularportalazure\index.js" />
-    <TypeScriptCompile Include="angularportalazure\domain\IException.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDataTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\AvatarMenuTest.ts" />
     <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeAreaTest.ts" />
@@ -191,7 +180,7 @@
     <TypeScriptCompile Include="angularportalazure\domain\BladeData.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeDetail.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeGrid.ts" />
-    <TypeScriptCompile Include="angularportalazure\directives\dirtyflag\dirtyflag.ts" />
+    <None Include="angularportalazure\directives\dirtyflag\README.md" />
     <TypeScriptCompile Include="angularportalazure\azureportalng.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\home\home.ts" />

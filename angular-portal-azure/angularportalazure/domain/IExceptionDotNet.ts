@@ -1,5 +1,4 @@
 ﻿/// <reference path="debug.ts" />
-/// <reference path="iexception.ts" />
 
 namespace angularportalazure {
     export class IExceptionDotNet {
