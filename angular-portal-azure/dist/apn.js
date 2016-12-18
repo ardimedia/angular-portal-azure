@@ -312,7 +312,6 @@ var angularportalazure;
         Blade.prototype.onActivated = function () {
         };
         Blade.prototype.navigateTo = function (path) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.navigateTo\' called. You should not override this, use onNavigateTo instead.', [this, path]);
             this.onNavigateTo(path);
         };
         Blade.prototype.onNavigateTo = function (path) {
