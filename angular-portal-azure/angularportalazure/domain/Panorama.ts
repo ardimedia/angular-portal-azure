@@ -21,8 +21,6 @@ namespace angularportalazure {
 
         constructor(title: string, portalService: angularportalazure.PortalService) {
             super(portalService);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Panorama\' constructor called.', [this, title]);
-
             this.title = title;
             this.portalService.panorama = this;
 

@@ -12,8 +12,6 @@ namespace angularportalazure {
 
         static $inject = ['$injector'];
         constructor($injector: any) { // any; // any should be: angular.auto.IInjectorService
-            angularportalazure.Debug.write('[angularportalazure-debug] \'PortalService\' constructor called.', [this, $injector]);
-
             this.$injector = $injector;
             //this.$scope = $scope;
 
@@ -23,6 +21,7 @@ namespace angularportalazure {
             this.$rootScope = <angular.IRootScopeService>$injector.get('$rootScope');
             this.$window = <angular.IWindowService>$injector.get('$window');
             this.$analytics = $injector.get('$analytics');
+            this.$translate = $injector.get('$translate');
 
             this.ngDialog = <any>$injector.get('ngDialog');
             this.ngDialog.openConfirm
@@ -79,6 +78,7 @@ namespace angularportalazure {
         $rootScope: angular.IRootScopeService;
         $window: angular.IWindowService;
         $scope: angular.IScope;
+        $translate: angular.translate.ITranslateService;
 
         //#endregion
 

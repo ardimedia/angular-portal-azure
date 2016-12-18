@@ -1,5 +1,6 @@
 ﻿# Translate the following strings
   Search the following string and make sure we have appropriate translation services form them
 
+'neu'
 'Daten laden...'
 'FEHLER: '

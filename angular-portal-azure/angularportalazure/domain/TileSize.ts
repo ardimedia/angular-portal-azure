@@ -7,7 +7,6 @@ namespace angularportalazure {
         //#region Constructor
 
         constructor(public tileSizes: angularportalazure.TileSizes, public width: number, public height: number) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'TileSize\' constructor called.', [this, tileSizes, width, height]);
         }
 
         //#endregion
@@ -15,7 +14,6 @@ namespace angularportalazure {
         //#region Methods
 
         static getTileSizes(): Array<TileSize> {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'TileSize.getTileSizes\' called.', [this]);
             var tileSizes = Array<TileSize>();
 
             tileSizes.push(new TileSize(angularportalazure.TileSizes.small, 90, 90));

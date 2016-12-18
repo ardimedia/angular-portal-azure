@@ -32,7 +32,7 @@ namespace Sample1 {
             angularportalazure.Debug.write('[sample1-debug] \'Nav1.onNavigateTo\' called.', [this, path]);
             if (path === '') { return; }
 
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.path });
         }
 
         callback1() {

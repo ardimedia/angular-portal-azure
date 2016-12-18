@@ -8,7 +8,6 @@ namespace angularportalazure {
         //#region Constructor
 
         constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Tile\' constructor called.', [this, title, bladePath, portalService]);
             this.portalService = portalService;
 
             this.title = title;

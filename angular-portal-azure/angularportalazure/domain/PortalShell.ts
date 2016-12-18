@@ -33,8 +33,6 @@ namespace angularportalazure {
 
         constructor(title: string, portalService: angularportalazure.PortalService) {
             super(portalService);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'PortalShell\' constructor called.', [this, title, portalService]);
-
             this.portalService = portalService;
             this.portalService.portalShell = this;
             this.portalService.panorama = new angularportalazure.Panorama(title, this.portalService);
@@ -48,12 +46,10 @@ namespace angularportalazure {
         //#region Methods
 
         initialize() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'PortalShell.initialize\' called.', [this]);
             this.setObsoleteLayoutProperites();
         }
 
         setObsoleteLayoutProperites() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'PortalShell.setObsoleteLayoutProperites\' called.', [this]);
             this.title = this.portalService.panorama.title;
             this.tiles = this.portalService.panorama.startboard.tiles.tiles;
             this.blades = this.portalService.bladeArea.blades;
@@ -68,11 +64,11 @@ namespace angularportalazure {
                 };
             }
 
-            if (this.portalService.bladeArea != null) {
-                this.portalService.bladeArea.blades.forEach(function (blade) {
-                    blade.setObsoleteLayoutProperites();
-                });
-            }
+            //if (this.portalService.bladeArea != null) {
+            //    this.portalService.bladeArea.blades.forEach(function (blade) {
+            //        //blade.setObsoleteLayoutProperites();
+            //    });
+            //}
         }
 
         //#endregion

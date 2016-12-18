@@ -27,7 +27,7 @@ namespace Sample1 {
 
             this.portalService.parameter.action = 'new';
             this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.blade.path });
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         }
 
         onNavigateTo(customer: Sample1.Customer) {
@@ -36,7 +36,7 @@ namespace Sample1 {
             this.portalService.parameter.action = 'selected';
             this.portalService.parameter.item = customer;
             this.portalService.parameter.itemId= customer.customerPkId;
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.blade.path });
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         }
 
         //#endregion

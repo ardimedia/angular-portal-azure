@@ -11,7 +11,6 @@ namespace angularportalazure {
 
         constructor(portalService: angularportalazure.PortalService) {
             super(portalService);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea\' constructor called.', [this, portalService]);
             var that = this;
 
             // Set dependencies
@@ -22,13 +21,13 @@ namespace angularportalazure {
 
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
             if (portalService instanceof angularportalazure.PortalService == false) {
+                console.log('BladeArea.constructor: This code cannot be removed yet.')
                 return;
             }
             /** OBSOLETE: end */
 
             // Register listener1
             this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event: ng.IAngularEvent, args: angularportalazure.IAddBladeEventArgs) {
-                angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea\' BladeArea.AddBlade event processing.', [this, event, args]);
                 that.addBlade(args.path, args.pathSender);
             });
 
@@ -48,19 +47,28 @@ namespace angularportalazure {
         //#region Methods
 
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs) {
-            this.portalService.$rootScope.$broadcast('BladeArea.AddBlade', args);
+            let isActivated: boolean = false;
+            this.blades.forEach((blade) => {
+                if (blade.path === args.path) {
+                    blade.onActivate();
+                    isActivated = true;
+                    return;
+                }
+            })
+
+            if (!isActivated) {
+                console.log('broadcast: BladeArea.AddBlade')
+                this.portalService.$rootScope.$broadcast('BladeArea.AddBlade', args);
+            }
         }
 
         setFirstBlade(path: string): angularportalazure.Blade {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.setFirstBlade\' called.', [this, path]);
             this.clearAll();
             this.hidePanorama();
             return this.addBlade(path);
         }
 
-        /** obsolete */
         addBlade(path: string, senderPath: string = ''): angularportalazure.Blade {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.addBlade\' called.', [this, senderPath, path]);
             if (path == null) { return; }
             if (senderPath == null) { return; }
             var that = this;
@@ -134,33 +142,28 @@ namespace angularportalazure {
         }
 
         clearAll(): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearAll\' called.', [this]);
             this.blades.length = 0;
             this.showPanoramaIfNoBlades();
         }
 
         clearPath(path: string): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearPath\' called.', [this, path]);
             var that = this;
             // we do not distinguish between lower and upper case path name
             path = path.toLowerCase()
 
             var isremoved = that.blades.some(function (blade, index) {
                 if (blade.comparePaths(blade.path, path)) {
-                    angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearPath\' set bladeUrls.length to: ' + index);
                     that.blades.length = index;
                     return true;
                 }
             });
             if (!isremoved) {
-                angularportalazure.Debug.write('>>> bladeUrls:', [that.blades]);
                 throw new Error('[angularportalazure.BladeArea.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
             this.showPanoramaIfNoBlades();
         }
 
         clearLevel(level: number) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearLevel\' called.', [this, level]);
             if (this.blades.length < level) {
                 //throw new Error('[angularportalazure.BladeArea] level: \'' + level + '\' could not be cleard, since only \'' + this.blades.length + '\' available.');
             }
@@ -171,31 +174,26 @@ namespace angularportalazure {
         }
 
         clearLastLevel() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearLastLevel\' called.', [this]);
             this.clearLevel(this.blades.length);
             this.showPanoramaIfNoBlades();
         }
 
         clearChild(path: string): void {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearChild\' called.', [this, path]);
             var that = this;
 
             path = path.toLowerCase();
 
             if (path === '') {
-                angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearChild\' path is empty, nothing to clear.');
                 return;
             }
             var isremoved = that.blades.some(function (blade, index) {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
-                    angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.clearChild\' set bladeUrls.length to: ' + (index + 1));
                     that.blades.length = index + 1;
                     return true;
                 }
             });
             if (!isremoved) {
-                angularportalazure.Debug.write('>>> bladeUrls:', [that.blades]);
                 throw new Error('[angularportalazure.BladeArea.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
         }
@@ -226,7 +224,6 @@ namespace angularportalazure {
         //#region OBSOLETE
 
         addBladePath(path: string) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.addBladePath\' called.', [this, path]);
             // Fix issue with old code
             if (this.portalService.$window === undefined) {
                 this.portalService.$window = <any>this.portalService;
@@ -236,7 +233,6 @@ namespace angularportalazure {
         }
 
         addBladeOld(path: string) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeArea.addBladeOld\' called.', [this, path]);
             var that = this;
             if (path === undefined || path == '') { return; }
 

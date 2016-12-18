@@ -227,14 +227,14 @@ var Sample1;
             angularportalazure.Debug.write('[sample1-debug] \'Grid1.onCommandNew\' called.', [this]);
             this.portalService.parameter.action = 'new';
             this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.blade.path });
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         };
         Grid1.prototype.onNavigateTo = function (customer) {
             angularportalazure.Debug.write('[sample1-debug] \'Grid1.onNavigateTo\' called.', [this, customer]);
             this.portalService.parameter.action = 'selected';
             this.portalService.parameter.item = customer;
             this.portalService.parameter.itemId = customer.customerPkId;
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.blade.path });
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         };
         return Grid1;
     }(angularportalazure.BladeGrid));
@@ -269,7 +269,7 @@ var Sample1;
             if (path === '') {
                 return;
             }
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.path });
         };
         Nav1.prototype.callback1 = function () {
         };

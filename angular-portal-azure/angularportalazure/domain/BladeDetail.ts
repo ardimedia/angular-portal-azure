@@ -15,7 +15,6 @@ namespace angularportalazure {
 
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super(portalService, path, title, subtitle, width);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail\' constructor called.', [this, portalService, path, title, subtitle, width]);
 
             this.isCommandNew = true;
             this.commandNewText = 'neu';
@@ -35,7 +34,6 @@ namespace angularportalazure {
         //#region Methods
 
         //activate() {
-        //    angularportalazure.Debug.write('[angularportalazure-debug] \'BladeDetail.activate\' called.', [this]);
         //    var that = this;
 
         //    that.statusbar = 'Daten laden...';
@@ -70,7 +68,7 @@ namespace angularportalazure {
         //}
 
 
-        loadItems(func: () => any) {
+        loadItem(func: () => any) {
             let that = this;
 
             that.statusbar = 'Daten laden...';
@@ -78,13 +76,14 @@ namespace angularportalazure {
 
             func().then(function (data) {
                 that.item = data;
-                that.statusbar = '';
-                that.statusbarClass = '';
-                that.onActivated();
+                that.clearStatusbar();
+                that.onLoadedItem();
             }).catch(function (exception: angularportalazure.Exception) {
-                that.statusbar = 'FEHLER: ' + exception.Message;
-                that.statusbarClass = 'message-error message-off';
+                that.showExceptionOnStatusbar(exception);
             });
+        }
+
+        onLoadedItem() {
         }
 
         onCommandCancel(): void {

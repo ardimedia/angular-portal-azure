@@ -1,5 +1,5 @@
 ﻿<div>
-    <table class="azc-grid-full azc-grid-multiselectable" ng-if="!$ctrl.vm.blade.isInnerHtml">
+    <table class="azc-grid-full azc-grid-multiselectable" ng-if="!$ctrl.vm.isInnerHtml">
         <caption data-bind="text: data.summary"></caption>
         <colgroup>
             <col class="col0" style="width: 20px;">
@@ -16,7 +16,7 @@
             </tr>
         </tbody>
     </table>
-    <div ng-if="$ctrl.vm.blade.isInnerHtml">
+    <div ng-if="$ctrl.vm.isInnerHtml">
         <div ng-transclude></div>
     </div>
 </div>

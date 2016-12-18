@@ -1,6 +1,7 @@
 /// <reference types="angulartics" />
 /// <reference types="angular" />
 /// <reference types="angular-resource" />
+/// <reference types="angular-translate" />
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
@@ -46,7 +47,6 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class Blade extends angularportalazure.UserControlBase {
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        listener1: Function;
         path: string;
         private _path;
         title: string;
@@ -113,7 +113,6 @@ declare namespace angularportalazure {
         commandSwap: () => void;
         commandSwapText: string;
         /** Obsolete */
-        blade: Blade;
         /** Obsolete */
         isNavGrid: boolean;
         /** Obsolete */
@@ -130,7 +129,8 @@ declare namespace angularportalazure {
         comparePaths(path1: string, path2: string): boolean;
         /** close blade. */
         close(): void;
-        showExceptionOnStatusbar(data: angularportalazure.Exception): void;
+        clearStatusbar(): void;
+        showExceptionOnStatusbar(exception: angularportalazure.Exception): void;
         onCommandBrowse(): void;
         onCommandCancel(): void;
         onCommandCopy(): void;
@@ -149,8 +149,6 @@ declare namespace angularportalazure {
         onCommandStop(): void;
         onCommandSwap(): void;
         /** Obsolete */
-        setObsoleteLayoutProperites(): void;
-        /** Obsolete */
         bladeClose(): void;
     }
 }
@@ -161,7 +159,6 @@ declare namespace angularportalazure {
         blades: Array<angularportalazure.Blade>;
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
         setFirstBlade(path: string): angularportalazure.Blade;
-        /** obsolete */
         addBlade(path: string, senderPath?: string): angularportalazure.Blade;
         clearAll(): void;
         clearPath(path: string): void;
@@ -303,6 +300,7 @@ declare namespace angularportalazure {
         $rootScope: angular.IRootScopeService;
         $window: angular.IWindowService;
         $scope: angular.IScope;
+        $translate: angular.translate.ITranslateService;
     }
 }
 declare namespace angularportalazure {
@@ -326,7 +324,8 @@ declare namespace angularportalazure {
     class BladeDetail extends angularportalazure.BladeData {
         item: any;
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        loadItems(func: () => any): void;
+        loadItem(func: () => any): void;
+        onLoadedItem(): void;
         onCommandCancel(): void;
     }
 }
@@ -334,10 +333,9 @@ declare namespace angularportalazure {
     class BladeGrid extends angularportalazure.BladeData {
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         items: any[];
-        loadItems(func: () => any): void;
+        loadItems(func: () => angular.IPromise<any>): void;
+        onLoadedItems(): void;
         onFilter(actual: Object, expected: string): boolean;
-        /** Obsolete */
-        setObsoleteLayoutProperites(): void;
     }
 }
 declare namespace angularportalazure {

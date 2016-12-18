@@ -1,0 +1,5 @@
+﻿# Define the following CSS classes, since the are used in code
+  Search the following strings and make sure they are defined in a css file.
+
+message-error
+message-off

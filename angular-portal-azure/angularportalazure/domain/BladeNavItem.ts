@@ -7,7 +7,6 @@ namespace angularportalazure {
         //#region Constructor
 
         constructor(public title: string = '', public cssClass: string = "", public bladePath: string = '', public hrefPath: string = "", public roles: string = "", public isVisible: boolean = true, public callback: () => any = null, public bladeNav: angularportalazure.BladeNav = null) {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNavItem\' constructor called.', [this, title, bladePath, hrefPath, roles, isVisible]);
         }
 
         //#endregion
@@ -15,7 +14,6 @@ namespace angularportalazure {
         //#region
 
         onNavItemClick() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'BladeNavItem.onNavItemClick\' called.', [this]);
             if (this.callback != null) {
                 this.callback();
             }

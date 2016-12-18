@@ -21,7 +21,6 @@ namespace angularportalazure {
         //#region Methods
 
         addTile(tile: Tile): Tile {
-            Debug.write('[angularportalazure-debug] \'Tiles.addTile\' called.', [this, tile]);
             var tileSize = this.tileSizes[tile.tileSize];
             tile.size = TileSizes[tile.tileSize];  // Get CSS Name
 

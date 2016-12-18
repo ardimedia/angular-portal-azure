@@ -109,8 +109,6 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="README.md" />
-    <Content Include="tests\AzurePortalNg\tests.js" />
-    <Content Include="tests\index.html" />
     <None Include="angularportalazure\directives\dialog\README.md" />
     <Content Include="angularportalazure\directives\blade\blade.html" />
     <Content Include="angularportalazure\directives\home\home.html" />
@@ -134,6 +132,7 @@
     </Content>
     <Content Include="design\libmixin.scss" />
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
+    <Content Include="TODO\general.txt" />
     <Content Include="TODO\css.txt" />
     <Content Include="TODO\translate.txt" />
     <Content Include="tsconfig.json" />
@@ -154,15 +153,6 @@
     <TypeScriptCompile Include="angularportalazure\domain\TileSizes.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\IAddBladeEventArgs.ts" />
     <Content Include="angularportalazure\index.js" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDataTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\AvatarMenuTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeAreaTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeListTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\PortalServiceTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\UserControlBaseTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\BladeDetailTest.ts" />
-    <TypeScriptCompile Include="tests\AzurePortalNg\!base\DebugTest.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNav.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\UserControlBase.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeArea.ts" />

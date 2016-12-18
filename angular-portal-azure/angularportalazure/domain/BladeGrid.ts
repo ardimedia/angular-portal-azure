@@ -8,8 +8,8 @@ namespace angularportalazure {
 
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super(portalService, path, title, subtitle, width);
-            //this.isCommandNew = true;
-            //this.commandNewText = 'neu';
+            this.isCommandNew = true;
+            this.commandNewText = 'neu';
         }
 
         //#endregion
@@ -22,43 +22,7 @@ namespace angularportalazure {
 
         //#region Methods
 
-        //activate(): void {
-        //    let that = this;
-        //    //this.loadItems(() => this.getItemsFunction);
-        //    //angularportalazure.Debug.write('[angularportalazure-debug] \'BladeGrid.activate\' called.', [this]);
-        //    //console.log('BladeGrid.activate()');
-        //    //var that = this;
-
-        //    //that.statusbar = 'Daten laden...';
-        //    //that.statusbarClass = '';
-
-        //    this.onActivate();
-        //    ////var onActivate = that.onActivate();
-
-        //    ////if (that.onActivate === null || that.onActivate === undefined) {
-        //    ////} else {
-        //    //    //that.loadItems(onActivate);
-        //    //    console.log('call onActivate()');
-        //    //    that.onActivate()
-        //    //        .then(function (data: any) {
-        //    //            console.log('OK');
-        //    //            that.items = data;
-        //    //            that.statusbar = '';
-        //    //            that.statusbarClass = '';
-        //    //        }).catch(function (exception: angularportalazure.Exception) {
-        //    //            console.log('exception');
-        //    //            console.log(exception);
-        //    //            that.statusbar = 'FEHLER: ' + exception.Message;
-        //    //            that.statusbarClass = 'message-info message-off';
-        //    //        });
-        //    ////}
-        //}
-
-        //onActivate(): angular.IHttpPromise<any> { // any should be: angular.IHttpPromise<any>
-        //    throw new Error('[angularportalazure.BladeGrid] \'onActivate\' is an abstract function. Define one in the derived class.');
-        //}
-
-        loadItems(func: () => any) {
+        loadItems(func: () => angular.IPromise<any>) {
             let that = this;
 
             that.statusbar = 'Daten laden...';
@@ -66,18 +30,15 @@ namespace angularportalazure {
 
             func().then(function (data) {
                 that.items = data;
-                that.statusbar = '';
-                that.statusbarClass = '';
-                that.onActivated();
+                that.clearStatusbar();
+                that.onLoadedItems();
             }).catch(function (exception: angularportalazure.Exception) {
-                if (exception.Message === undefined) {
-                    that.statusbar = 'FEHLER: ' + exception;
-                } else {
-                    that.statusbar = 'FEHLER: ' + exception.Message;
-                }
-                that.statusbarClass = 'message-error message-off';
+                that.showExceptionOnStatusbar(exception);
             });
         }
+
+        /* Override this function. This function is called from the loadItems function, when the promise is done. */
+        onLoadedItems() { }
 
         //#region Filter
 
@@ -191,15 +152,15 @@ namespace angularportalazure {
         //#region OBSOLETE
 
         /** Obsolete */
-        setObsoleteLayoutProperites() {
-            if (this.items.length !== 0) {
-                this.blade.navGrid.items = this.items; //--> needed, otherwise nav html pages will no longer work.
-            }
+        //setObsoleteLayoutProperites() {
+        //    if (this.items.length !== 0) {
+        //        this.navGrid.items = this.items; //--> needed, otherwise nav html pages will no longer work.
+        //    }
 
-            this.blade.isNavGrid = this.isNavGrid;
+        //    this.isNavGrid = this.isNavGrid;
 
-            super.setObsoleteLayoutProperites();
-        }
+        //    //super.setObsoleteLayoutProperites();
+        //}
 
         //#endregion
 

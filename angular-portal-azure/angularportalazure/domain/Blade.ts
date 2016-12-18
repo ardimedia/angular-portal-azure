@@ -11,10 +11,8 @@ namespace angularportalazure {
 
         constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super(portalService);
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade\' constructor called.', [this, portalService, path, title, subtitle, width]);
             var that = this;
 
-            this.blade = this;
             this.path = path;
             this.title = title;
             this.subTitle = subtitle;
@@ -35,19 +33,27 @@ namespace angularportalazure {
 
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
             if (portalService instanceof angularportalazure.PortalService == false) {
+                console.log('Blade.constructor: This code cannot be removed yet.')
                 return;
             }
             /** OBSOLETE: end */
 
-            // Register listener1
-            this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
-                if (that.blade.comparePaths(args.path, that.blade.path)) {
-                    console.log('function call: that.activate() will probably not work since this/that is not pointing to the right object.');
-                    that.activate();
-                }
-            });
+            //// Register listener1
+            //this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
+            //    if (that.comparePaths(args.path, that.path)) {
+            //        console.log('listener1-BladeArea.AddBlade - function call: that.activate() will probably not work since this/that is not pointing to the right object. - deactivated');
+            //        //that.activate();
+            //    }
+            //});
 
             //#endregion
+
+            // Set this object to be the one, which was generated during AddBlade
+            this.portalService.bladeArea.blades.forEach((blade, index) => {
+                if (blade.path === this.path) {
+                    this.portalService.bladeArea.blades[index] = this;
+                }
+            });
         }
 
         //#endregion
@@ -56,7 +62,7 @@ namespace angularportalazure {
 
         //#region Properties
 
-        listener1: Function;
+        //listener1: Function;
 
         //#region path
 
@@ -162,7 +168,7 @@ namespace angularportalazure {
         //#region OBSOLETE
 
         /** Obsolete */
-        blade: Blade;
+        //blade: Blade;
 
         /** Obsolete */
         isNavGrid: boolean;
@@ -215,9 +221,7 @@ namespace angularportalazure {
 
         /** close blade. */
         close() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.close\' called.', [this]);
-
-            this.listener1(); // Unregister listener1
+            //this.listener1(); // Unregister listener1
 
             if (this.portalService.bladeArea !== undefined) {
                 this.portalService.bladeArea.clearPath(this.path);
@@ -229,14 +233,25 @@ namespace angularportalazure {
 
         //#region Show Exceptions
 
-        showExceptionOnStatusbar(data: angularportalazure.Exception) {
+        clearStatusbar() {
+            this.statusbar = '';
+            this.statusbarClass = '';
+        }
+
+        showExceptionOnStatusbar(exception: angularportalazure.Exception) {
             var that = this;
 
-            that.statusbar = data.Message;
-            that.statusbar += ' - ';
-            data.Messages.forEach(function (item) {
-                that.statusbar += item + ' - ';
-            })
+            if (exception.Message === undefined) {
+                that.statusbar = 'FEHLER: ' + exception;
+            } else {
+                that.statusbar = 'FEHLER: ' + exception.Message;
+                that.statusbar += ' - ';
+                exception.Messages.forEach(function (item) {
+                    that.statusbar += item + ' - ';
+                })
+            }
+
+            that.statusbarClass = 'message-error message-off';
         }
 
         //#endregion
@@ -317,32 +332,32 @@ namespace angularportalazure {
 
         //#region OBSOLETE
 
-        /** Obsolete */
-        setObsoleteLayoutProperites() {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.setObsoleteLayoutProperites\' called.', [this]);
+        ///** Obsolete */
+        //setObsoleteLayoutProperites() {
+        //    angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.setObsoleteLayoutProperites\' called.', [this]);
 
-            this.blade.title = this.title;
-            this.blade.statusbar = this.statusbar;
-            this.blade.statusbarClass = this.statusbarClass;
+        //    //this.blade.title = this.title;
+        //    //this.blade.statusbar = this.statusbar;
+        //    //this.blade.statusbarClass = this.statusbarClass;
 
-            this.blade.isCommandBrowse = this.isCommandBrowse;
-            this.blade.isCommandCancel = this.isCommandCancel;
-            this.blade.isCommandCopy = this.isCommandCopy;
-            this.blade.isCommandDelete = this.isCommandDelete;
-            this.blade.isCommandDocument = this.isCommandDocument;
-            this.blade.isCommandDocument2 = this.isCommandDocument2;
-            this.blade.isCommandDocument3 = this.isCommandDocument3;
-            this.blade.isCommandDocument4 = this.isCommandDocument4;
-            this.blade.isCommandDocument5 = this.isCommandDocument5;
-            this.blade.isCommandNew = this.isCommandNew;
-            this.blade.isCommandOrder = this.isCommandOrder;
-            this.blade.isCommandRestart = this.isCommandRestart;
-            this.blade.isCommandSave = this.isCommandSave;
-            this.blade.isCommandSearch = this.isCommandSearch;
-            this.blade.isCommandStart = this.isCommandStart;
-            this.blade.isCommandStop = this.isCommandStop;
-            this.blade.isCommandSwap = this.isCommandSwap;
-        }
+        //    //this.blade.isCommandBrowse = this.isCommandBrowse;
+        //    //this.blade.isCommandCancel = this.isCommandCancel;
+        //    //this.blade.isCommandCopy = this.isCommandCopy;
+        //    //this.blade.isCommandDelete = this.isCommandDelete;
+        //    //this.blade.isCommandDocument = this.isCommandDocument;
+        //    //this.blade.isCommandDocument2 = this.isCommandDocument2;
+        //    //this.blade.isCommandDocument3 = this.isCommandDocument3;
+        //    //this.blade.isCommandDocument4 = this.isCommandDocument4;
+        //    //this.blade.isCommandDocument5 = this.isCommandDocument5;
+        //    //this.blade.isCommandNew = this.isCommandNew;
+        //    //this.blade.isCommandOrder = this.isCommandOrder;
+        //    //this.blade.isCommandRestart = this.isCommandRestart;
+        //    //this.blade.isCommandSave = this.isCommandSave;
+        //    //this.blade.isCommandSearch = this.isCommandSearch;
+        //    //this.blade.isCommandStart = this.isCommandStart;
+        //    //this.blade.isCommandStop = this.isCommandStop;
+        //    //this.blade.isCommandSwap = this.isCommandSwap;
+        //}
 
         /** Obsolete */
         bladeClose() {

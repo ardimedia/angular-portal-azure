@@ -25,7 +25,7 @@ namespace angularportalazure {
 
         onNavigateTo(path: string) {
             if (path === '') { return; }
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.blade.path });
+            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.path });
         }
 
         //#endregion

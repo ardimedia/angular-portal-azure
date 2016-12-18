@@ -5,7 +5,6 @@ namespace angularportalazure {
         //#region Constructor
 
         constructor(username: string, firstName: string = '', lastName: string = '') {
-            angularportalazure.Debug.write('[angularportalazure-debug] \'UserAccount\' constructor called.', [this, username, firstName, lastName]);
             this.userName = username;
             this.firstName = firstName;
             this.lastName = lastName;
