@@ -19,13 +19,13 @@ namespace angularportalazure {
 
         //#region Constructor
 
-        constructor(title: string, portalService: angularportalazure.PortalService) {
-            super(portalService);
+        constructor($scope: angular.IScope, title: string, portalService: angularportalazure.PortalService) {
+            super($scope, portalService);
             this.title = title;
             this.portalService.panorama = this;
 
-            this.avatarMenu = new angularportalazure.AvatarMenu(this.portalService);
-            this.startboard = new angularportalazure.Startboard(this.portalService);
+            this.avatarMenu = new angularportalazure.AvatarMenu(this.$scope, this.portalService);
+            this.startboard = new angularportalazure.Startboard(this.$scope, this.portalService);
         }
 
         //#endregion

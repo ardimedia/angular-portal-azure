@@ -11,17 +11,16 @@ namespace angularportalazure {
         //#region Constructor
 
         static $inject = ['$injector'];
-        constructor($injector: any) { // any; // any should be: angular.auto.IInjectorService
+        constructor($injector: angular.auto.IInjectorService) {
             this.$injector = $injector;
-            //this.$scope = $scope;
 
             this.$http = <angular.IHttpService>$injector.get('$http');
             this.$httpBackend = <angular.IHttpBackendService>$injector.get('$httpBackend');
             this.$q = <angular.IQService>$injector.get('$q');
             this.$rootScope = <angular.IRootScopeService>$injector.get('$rootScope');
             this.$window = <angular.IWindowService>$injector.get('$window');
-            this.$analytics = $injector.get('$analytics');
-            this.$translate = $injector.get('$translate');
+            this.$analytics = <angulartics.IAnalyticsService>$injector.get('$analytics');
+            this.$translate = <angular.translate.ITranslateService>$injector.get('$translate');
 
             this.ngDialog = <any>$injector.get('ngDialog');
             this.ngDialog.openConfirm
@@ -71,13 +70,15 @@ namespace angularportalazure {
 
         //#region Angular Services
 
+        /** obsolete - $scope is different in any view. do have one instance in a shared service is not the right approach. */
+        $scope: angular.IScope;
+
+        $injector: angular.auto.IInjectorService;
         $http: angular.IHttpService;
         $httpBackend: angular.IHttpBackendService;
-        $injector: angular.auto.IInjectorService;
         $q: angular.IQService;
         $rootScope: angular.IRootScopeService;
         $window: angular.IWindowService;
-        $scope: angular.IScope;
         $translate: angular.translate.ITranslateService;
 
         //#endregion

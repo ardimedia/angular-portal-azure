@@ -3,29 +3,29 @@
 /// <reference path="portalservice.ts" />
 
 namespace angularportalazure {
-    export class BladeDetail extends angularportalazure.BladeData {
+    export class BladeDetail<T> extends angularportalazure.BladeData {
 
         //#region Properties
 
-        item: any = null;
+        item: T | null = null;
 
         //#endregion
 
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
-            super(portalService, path, title, subtitle, width);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
+            super($scope, portalService, path, title, subtitle, width);
 
-            this.isCommandNew = true;
+            //this.isCommandNew = true;
             this.commandNewText = 'neu';
 
-            this.isCommandSave = true;
+            //this.isCommandSave = true;
             this.commandSaveText = 'speichern';
 
-            this.isCommandDelete = true;
+            //this.isCommandDelete = true;
             this.commandDeleteText = 'löschen';
 
-            this.isCommandCancel = true;
+            //this.isCommandCancel = true;
             this.commandCancelText = 'abbrechen';
         }
 
@@ -33,57 +33,52 @@ namespace angularportalazure {
 
         //#region Methods
 
-        //activate() {
-        //    var that = this;
-
-        //    that.statusbar = 'Daten laden...';
-        //    that.statusbarClass = '';
-
-        //    var onActivate = that.onActivate();
-
-        //    if (onActivate === null || onActivate === undefined) {
-        //        that.statusbar = '';
-        //        that.statusbarClass = '';
-        //    } else {
-        //        onActivate.success(function (data: any) {
-        //            that.item = data;
-        //            that.statusbar = '';
-        //            that.statusbarClass = '';
-        //            that.onActivated();
-        //        }).error(function (data: any, status: any, headers: any, config: any) {
-        //            that.item = null;
-        //            that.statusbar = 'FEHLER: ' + data;
-        //            that.statusbarClass = 'message-info message-off';
-        //            that.onActivated();
-        //        });
-        //    }
-        //}
-
-        //onActivate(): any { // any should be: angular.IHttpPromise<any>
-        //    throw new Error('[angularportalazure.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
-        //}
-
-        //onActivated(): void {
-        //    angularportalazure.Debug.write('[angularportalazure-debug] \'onActivated\' called. You could override this.');
-        //}
-
-
         loadItem(func: () => any) {
             let that = this;
-
-            that.statusbar = 'Daten laden...';
-            that.statusbarClass = '';
+            that.onLoadItem();
 
             func().then(function (data) {
                 that.item = data;
-                that.clearStatusbar();
+                that.clearStatusBar();
                 that.onLoadedItem();
             }).catch(function (exception: angularportalazure.Exception) {
-                that.showExceptionOnStatusbar(exception);
+                that.setStatusBarException(exception);
             });
         }
 
+        onLoadItem() {
+            this.setStatusBarLoadData();
+        }
+
         onLoadedItem() {
+        }
+
+        saveItem(func: () => any) {
+            let that = this;
+            that.onSaveItem();
+
+            // Is form valid
+            if (!that.formblade.$valid) {
+                that.statusBar = 'Speichern nicht möglich!';
+                that.statusBarClass = 'message-error message-off';
+                console.log(that.formblade);
+                return;
+            }
+
+            func().then(function (data) {
+                that.item = data;
+                that.onSavedItem();
+            }).catch(function (exception: angularportalazure.Exception) {
+                that.setStatusBarException(exception);
+            });
+        }
+
+        onSaveItem() {
+            this.setStatusBarSaveData();
+        }
+
+        onSavedItem() {
+            this.clearStatusBar();
         }
 
         onCommandCancel(): void {

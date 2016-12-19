@@ -5,7 +5,8 @@ namespace angularportalazure {
     export class UserControlBase {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService) {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
+            this.$scope = $scope;
             this.portalService = portalService;
         }
 
@@ -13,6 +14,7 @@ namespace angularportalazure {
 
         //#region Properties
 
+        $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
 
         //#endregion

@@ -5,19 +5,18 @@
 
 namespace angularportalazure {
     export class Startboard extends angularportalazure.UserControlBase {
+        //#region Constructor
+
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
+            super($scope, portalService);
+            this.tiles = new angularportalazure.Tiles();
+        }
+
+        //#endregion
 
         //#region Properties
 
         tiles: angularportalazure.Tiles;
-
-        //#endregion
-
-        //#region Constructor
-
-        constructor(portalService: angularportalazure.PortalService) {
-            super(portalService);
-            this.tiles = new angularportalazure.Tiles();
-        }
 
         //#endregion
     }

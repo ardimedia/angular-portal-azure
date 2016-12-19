@@ -11,7 +11,7 @@ namespace angularportalazure {
             scope: {},
             bindToController: { vm: '=' },
             templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) { },
+            link: function (scope: angular.IScope, element, attrs, controller) { },
             controller: function () {
                 this.$onInit = function () {
                     this.close = function () {

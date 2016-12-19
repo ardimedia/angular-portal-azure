@@ -1,4 +1,5 @@
 /// <reference types="angular" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     /** Define Angular module and its dependencies */
@@ -18,6 +19,7 @@ var angularportalazure;
     });
 })(angularportalazure || (angularportalazure = {}));
 //#region Make sure console.log is working in any case, even IE9
+"use strict";
 //if ($('html').hasClass('k-ie9')) {
 //    if (typeof console !== 'object') window.console = <any>{};
 //    if (typeof console.log !== 'object') window.console.log = function () { };
@@ -90,6 +92,7 @@ var angularportalazure;
     angularportalazure.Debug = Debug;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var UserAccount = (function () {
@@ -140,45 +143,48 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var UserControlBase = (function () {
         //#region Constructor
-        function UserControlBase(portalService) {
+        function UserControlBase($scope, portalService) {
+            this.$scope = $scope;
             this.portalService = portalService;
         }
         return UserControlBase;
     }());
     angularportalazure.UserControlBase = UserControlBase;
 })(angularportalazure || (angularportalazure = {}));
-/// <reference types="angular" />
-/// <reference path="debug.ts" />
-/// <reference path="useraccount.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="usercontrolbase.ts" />
-/// <reference path="iaddbladeeventargs.ts" />
+"use strict";
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/// <reference path="debug.ts" />
+/// <reference path="useraccount.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="usercontrolbase.ts" />
+/// <reference path="iaddbladeeventargs.ts" />
 var angularportalazure;
 (function (angularportalazure) {
     var Blade = (function (_super) {
         __extends(Blade, _super);
         //#region Constructor
-        function Blade(portalService, path, title, subtitle, width) {
+        function Blade($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            var _this = _super.call(this, portalService) || this;
+            var _this = _super.call(this, $scope, portalService) || this;
             //#endregion
             _this.title = '';
             _this.subTitle = '';
             _this.width = { 'width': '0' };
             _this.widthStackLayout = { 'width': '50px' };
             _this.isInnerHtml = true;
-            _this.statusbar = '';
-            _this.statusbarClass = '';
+            _this.statusBar = '';
+            _this.statusBarClass = '';
             //#endregion
             //#region Commands
             _this.isCommandBrowse = false;
@@ -284,13 +290,10 @@ var angularportalazure;
                     _this.portalService.bladeArea.blades[index] = _this;
                 }
             });
+            _this.setBladeHeights();
             return _this;
         }
         Object.defineProperty(Blade.prototype, "path", {
-            //#endregion
-            //#region Properties
-            //#region Properties
-            //listener1: Function;
             //#region path
             get: function () {
                 return this._path;
@@ -349,24 +352,33 @@ var angularportalazure;
                 throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.bladeArea\' available.');
             }
         };
-        //#region Show Exceptions
-        Blade.prototype.clearStatusbar = function () {
-            this.statusbar = '';
-            this.statusbarClass = '';
+        //#region Set StatusBar
+        Blade.prototype.clearStatusBar = function () {
+            this.statusBar = '';
+            this.statusBarClass = '';
         };
-        Blade.prototype.showExceptionOnStatusbar = function (exception) {
+        Blade.prototype.setStatusBarLoadData = function () {
+            this.statusBar = 'Daten laden...';
+            this.statusBarClass = '';
+        };
+        Blade.prototype.setStatusBarSaveData = function () {
+            this.statusBar = 'Daten speichern...';
+            this.statusBarClass = '';
+        };
+        Blade.prototype.setStatusBarException = function (exception) {
             var that = this;
             if (exception.Message === undefined) {
-                that.statusbar = 'FEHLER: ' + exception;
+                that.statusBar = 'FEHLER: ' + exception;
             }
             else {
-                that.statusbar = 'FEHLER: ' + exception.Message;
-                that.statusbar += ' - ';
+                that.statusBar = 'FEHLER: ' + exception.Message;
+            }
+            if (exception.Messages != undefined) {
                 exception.Messages.forEach(function (item) {
-                    that.statusbar += item + ' - ';
+                    that.statusBar += ' - ' + item;
                 });
             }
-            that.statusbarClass = 'message-error message-off';
+            that.statusBarClass = 'message-error message-off';
         };
         //#endregion
         //#endregion
@@ -424,33 +436,32 @@ var angularportalazure;
         };
         //#endregion
         //#region OBSOLETE
-        ///** Obsolete */
-        //setObsoleteLayoutProperites() {
-        //    angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.setObsoleteLayoutProperites\' called.', [this]);
-        //    //this.blade.title = this.title;
-        //    //this.blade.statusbar = this.statusbar;
-        //    //this.blade.statusbarClass = this.statusbarClass;
-        //    //this.blade.isCommandBrowse = this.isCommandBrowse;
-        //    //this.blade.isCommandCancel = this.isCommandCancel;
-        //    //this.blade.isCommandCopy = this.isCommandCopy;
-        //    //this.blade.isCommandDelete = this.isCommandDelete;
-        //    //this.blade.isCommandDocument = this.isCommandDocument;
-        //    //this.blade.isCommandDocument2 = this.isCommandDocument2;
-        //    //this.blade.isCommandDocument3 = this.isCommandDocument3;
-        //    //this.blade.isCommandDocument4 = this.isCommandDocument4;
-        //    //this.blade.isCommandDocument5 = this.isCommandDocument5;
-        //    //this.blade.isCommandNew = this.isCommandNew;
-        //    //this.blade.isCommandOrder = this.isCommandOrder;
-        //    //this.blade.isCommandRestart = this.isCommandRestart;
-        //    //this.blade.isCommandSave = this.isCommandSave;
-        //    //this.blade.isCommandSearch = this.isCommandSearch;
-        //    //this.blade.isCommandStart = this.isCommandStart;
-        //    //this.blade.isCommandStop = this.isCommandStop;
-        //    //this.blade.isCommandSwap = this.isCommandSwap;
-        //}
         /** Obsolete */
         Blade.prototype.bladeClose = function () {
             this.close();
+        };
+        //#endregion
+        //#endregion
+        Blade.prototype.setTitle = function (watchExpression, func) {
+            var _this = this;
+            if (this.watcherTitle === undefined) {
+                this.watcherTitle = this.$scope.$watch(watchExpression, function () { func(); });
+                this.$scope.$on('$destroy', function () { _this.watcherTitle(); });
+            }
+        };
+        Blade.prototype.setBladeHeights = function () {
+            var that = this;
+            that.bladeContentHeight = $('.fxs-blade-content').height();
+            that.bladeContentInnerHeight = that.bladeContentHeight - 60;
+            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+            var id;
+            $(window).resize(function () {
+                clearTimeout(id);
+                id = setTimeout(function () {
+                    that.bladeContentHeight = $('.fxs-blade-content').height();
+                    that.bladeContentInnerHeight = that.bladeContentHeight - 60;
+                }, 500);
+            });
         };
         return Blade;
     }(angularportalazure.UserControlBase));
@@ -462,13 +473,14 @@ var angularportalazure;
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="iaddbladeeventargs.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeArea = (function (_super) {
         __extends(BladeArea, _super);
         //#region Constructor
-        function BladeArea(portalService) {
-            var _this = _super.call(this, portalService) || this;
+        function BladeArea($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService) || this;
             _this.blades = new Array();
             var that = _this;
             // Set dependencies
@@ -491,16 +503,17 @@ var angularportalazure;
         //#endregion
         //#region Methods
         BladeArea.prototype.raiseAddBladeEvent = function (args) {
-            var isActivated = false;
+            var isBladeAlreadyShown = false;
             this.blades.forEach(function (blade) {
                 if (blade.path === args.path) {
+                    // Blade is already show, just activate it again
                     blade.onActivate();
-                    isActivated = true;
+                    isBladeAlreadyShown = true;
                     return;
                 }
             });
-            if (!isActivated) {
-                console.log('broadcast: BladeArea.AddBlade');
+            if (!isBladeAlreadyShown) {
+                // Add the blade, since it is not yet shown
                 this.portalService.$rootScope.$broadcast('BladeArea.AddBlade', args);
             }
         };
@@ -548,7 +561,7 @@ var angularportalazure;
             });
             //#endregion
             //#region Show the blade
-            var blade = new angularportalazure.Blade(that.portalService, path, '');
+            var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
             that.blades.push(blade);
             //#endregion
             //#region Position the blade
@@ -649,7 +662,7 @@ var angularportalazure;
             if (path === undefined || path == '') {
                 return;
             }
-            var blade = new angularportalazure.Blade(that.portalService, path, '');
+            var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
             that.blades.push(blade);
             var portalcontent = that.portalService.$window.document.getElementById('azureportalscroll');
             that.portalService.$window.setTimeout(function () {
@@ -673,22 +686,25 @@ var angularportalazure;
     })();
     //#endregion
 })(angularportalazure || (angularportalazure = {}));
+"use strict";
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="useraccount.ts" />
 /// <reference path="usercontrolbase.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var AvatarMenu = (function (_super) {
         __extends(AvatarMenu, _super);
         //#region Constructor
-        function AvatarMenu(portalService) {
-            return _super.call(this, portalService) || this;
+        function AvatarMenu($scope, portalService) {
+            return _super.call(this, $scope, portalService) || this;
         }
         return AvatarMenu;
     }(angularportalazure.UserControlBase));
     angularportalazure.AvatarMenu = AvatarMenu;
 })(angularportalazure || (angularportalazure = {}));
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     /** The names are used in CSS for layouting, e.g. style='mini' */
@@ -702,6 +718,7 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
 /// <reference path="tilesizes.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var TileSize = (function () {
@@ -729,6 +746,7 @@ var angularportalazure;
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="tilesize.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Tile = (function () {
@@ -764,6 +782,7 @@ var angularportalazure;
 /// <reference path="tile.ts" />
 /// <reference path="tilesize.ts" />
 /// <reference path="tilesizes.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Tiles = (function () {
@@ -805,14 +824,14 @@ var angularportalazure;
 /// <reference path="portalservice.ts" />
 /// <reference path="tiles.ts" />
 /// <reference path="usercontrolbase.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Startboard = (function (_super) {
         __extends(Startboard, _super);
-        //#endregion
         //#region Constructor
-        function Startboard(portalService) {
-            var _this = _super.call(this, portalService) || this;
+        function Startboard($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService) || this;
             _this.tiles = new angularportalazure.Tiles();
             return _this;
         }
@@ -825,19 +844,20 @@ var angularportalazure;
 /// <reference path="startboard.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Panorama = (function (_super) {
         __extends(Panorama, _super);
         //#endregion
         //#region Constructor
-        function Panorama(title, portalService) {
-            var _this = _super.call(this, portalService) || this;
+        function Panorama($scope, title, portalService) {
+            var _this = _super.call(this, $scope, portalService) || this;
             _this.isVisible = true;
             _this.title = title;
             _this.portalService.panorama = _this;
-            _this.avatarMenu = new angularportalazure.AvatarMenu(_this.portalService);
-            _this.startboard = new angularportalazure.Startboard(_this.portalService);
+            _this.avatarMenu = new angularportalazure.AvatarMenu(_this.$scope, _this.portalService);
+            _this.startboard = new angularportalazure.Startboard(_this.$scope, _this.portalService);
             return _this;
         }
         return Panorama;
@@ -850,6 +870,7 @@ var angularportalazure;
 /// <reference path="panorama.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="tiles.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var PortalShell = (function (_super) {
@@ -857,12 +878,12 @@ var angularportalazure;
         //#endregion
         //#endregion
         //#region Constructor
-        function PortalShell(title, portalService) {
-            var _this = _super.call(this, portalService) || this;
+        function PortalShell(portalService, title) {
+            var _this = _super.call(this, null, portalService) || this;
             _this.portalService = portalService;
             _this.portalService.portalShell = _this;
-            _this.portalService.panorama = new angularportalazure.Panorama(title, _this.portalService);
-            _this.portalService.bladeArea = new angularportalazure.BladeArea(portalService);
+            _this.portalService.panorama = new angularportalazure.Panorama(_this.$scope, title, _this.portalService);
+            _this.portalService.bladeArea = new angularportalazure.BladeArea(_this.$scope, portalService);
             _this.initialize();
             return _this;
         }
@@ -900,6 +921,7 @@ var angularportalazure;
 /// <reference path="bladeparameter.ts" />
 /// <reference path="panorama.ts" />
 /// <reference path="portalshell.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var PortalService = (function () {
@@ -908,7 +930,6 @@ var angularportalazure;
             //#region Properties
             this.parameter = { action: 'none', itemId: 0 };
             this.$injector = $injector;
-            //this.$scope = $scope;
             this.$http = $injector.get('$http');
             this.$httpBackend = $injector.get('$httpBackend');
             this.$q = $injector.get('$q');
@@ -929,6 +950,61 @@ var angularportalazure;
 /// <reference types="angular" />
 /// <reference path="../../domain/debug.ts" />
 /// <reference path="../../domain/portalservice.ts" />
+"use strict";
+var angularportalazure;
+(function (angularportalazure) {
+    angularPortalBladeGrid.$inject = ['angularportalazure.portalService'];
+    function angularPortalBladeGrid(portalService) {
+        return {
+            restrict: 'E',
+            transclude: true,
+            scope: {},
+            bindToController: { vm: '=' },
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+            link: function (scope, element, attrs, controller) { },
+            controller: function () {
+                this.$onInit = function () {
+                    this.close = function () {
+                        portalService.bladeArea.clearLastLevel();
+                    };
+                };
+            },
+            controllerAs: '$ctrl'
+        };
+    }
+    angular.module('angularportalazure').directive('angularPortalBladeGrid', angularPortalBladeGrid);
+})(angularportalazure || (angularportalazure = {}));
+/// <reference types="angular" />
+/// <reference path="../../domain/debug.ts" />
+/// <reference path="../../domain/portalservice.ts" />
+"use strict";
+var angularportalazure;
+(function (angularportalazure) {
+    angularPortalBladeNav.$inject = ['angularportalazure.portalService'];
+    function angularPortalBladeNav(portalService) {
+        return {
+            restrict: 'E',
+            transclude: true,
+            scope: {},
+            bindToController: { vm: '=' },
+            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+            link: function (scope, element, attrs, controller) { },
+            controller: function () {
+                this.$onInit = function () {
+                    this.close = function () {
+                        portalService.bladeArea.clearLastLevel();
+                    };
+                };
+            },
+            controllerAs: '$ctrl'
+        };
+    }
+    angular.module('angularportalazure').directive('angularPortalBladeNav', angularPortalBladeNav);
+})(angularportalazure || (angularportalazure = {}));
+/// <reference types="angular" />
+/// <reference path="../../domain/debug.ts" />
+/// <reference path="../../domain/portalservice.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     //angularPortalBlade.$inject = ['angularportalazure.portalService'];
@@ -973,58 +1049,7 @@ var angularportalazure;
     };
     angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
 })(angularportalazure || (angularportalazure = {}));
-/// <reference types="angular" />
-/// <reference path="../../domain/debug.ts" />
-/// <reference path="../../domain/portalservice.ts" />
-var angularportalazure;
-(function (angularportalazure) {
-    angularPortalBladeGrid.$inject = ['angularportalazure.portalService'];
-    function angularPortalBladeGrid(portalService) {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) { },
-            controller: function () {
-                this.$onInit = function () {
-                    this.close = function () {
-                        portalService.bladeArea.clearLastLevel();
-                    };
-                };
-            },
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('angularportalazure').directive('angularPortalBladeGrid', angularPortalBladeGrid);
-})(angularportalazure || (angularportalazure = {}));
-/// <reference types="angular" />
-/// <reference path="../../domain/debug.ts" />
-/// <reference path="../../domain/portalservice.ts" />
-var angularportalazure;
-(function (angularportalazure) {
-    angularPortalBladeNav.$inject = ['angularportalazure.portalService'];
-    function angularPortalBladeNav(portalService) {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) { },
-            controller: function () {
-                this.$onInit = function () {
-                    this.close = function () {
-                        portalService.bladeArea.clearLastLevel();
-                    };
-                };
-            },
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('angularportalazure').directive('angularPortalBladeNav', angularPortalBladeNav);
-})(angularportalazure || (angularportalazure = {}));
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     //grid.$inject = ['angularportalazure.portalService'];
@@ -1057,6 +1082,7 @@ var angularportalazure;
     };
     angular.module('angularportalazure').component('grid', grid);
 })(angularportalazure || (angularportalazure = {}));
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     //function angularPortalHome() {
@@ -1080,6 +1106,7 @@ var angularportalazure;
     };
     angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
 })(angularportalazure || (angularportalazure = {}));
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     //nav.$inject = ['angularportalazure.portalService'];
@@ -1122,15 +1149,16 @@ var angularportalazure;
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeData = (function (_super) {
         __extends(BladeData, _super);
         //#region Constructor
-        function BladeData(portalService, path, title, subtitle, width) {
+        function BladeData($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 300; }
-            return _super.call(this, portalService, path, title, subtitle, width) || this;
+            return _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
         }
         return BladeData;
     }(angularportalazure.Blade));
@@ -1139,71 +1167,69 @@ var angularportalazure;
 /// <reference path="bladedata.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeDetail = (function (_super) {
         __extends(BladeDetail, _super);
         //#endregion
         //#region Constructor
-        function BladeDetail(portalService, path, title, subtitle, width) {
+        function BladeDetail($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
+            var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
             //#region Properties
             _this.item = null;
-            _this.isCommandNew = true;
+            //this.isCommandNew = true;
             _this.commandNewText = 'neu';
-            _this.isCommandSave = true;
+            //this.isCommandSave = true;
             _this.commandSaveText = 'speichern';
-            _this.isCommandDelete = true;
+            //this.isCommandDelete = true;
             _this.commandDeleteText = 'löschen';
-            _this.isCommandCancel = true;
+            //this.isCommandCancel = true;
             _this.commandCancelText = 'abbrechen';
             return _this;
         }
         //#endregion
         //#region Methods
-        //activate() {
-        //    var that = this;
-        //    that.statusbar = 'Daten laden...';
-        //    that.statusbarClass = '';
-        //    var onActivate = that.onActivate();
-        //    if (onActivate === null || onActivate === undefined) {
-        //        that.statusbar = '';
-        //        that.statusbarClass = '';
-        //    } else {
-        //        onActivate.success(function (data: any) {
-        //            that.item = data;
-        //            that.statusbar = '';
-        //            that.statusbarClass = '';
-        //            that.onActivated();
-        //        }).error(function (data: any, status: any, headers: any, config: any) {
-        //            that.item = null;
-        //            that.statusbar = 'FEHLER: ' + data;
-        //            that.statusbarClass = 'message-info message-off';
-        //            that.onActivated();
-        //        });
-        //    }
-        //}
-        //onActivate(): any { // any should be: angular.IHttpPromise<any>
-        //    throw new Error('[angularportalazure.BladeDetail] \'onActivate\' is an abstract function. Define one in the derived class.');
-        //}
-        //onActivated(): void {
-        //    angularportalazure.Debug.write('[angularportalazure-debug] \'onActivated\' called. You could override this.');
-        //}
         BladeDetail.prototype.loadItem = function (func) {
             var that = this;
-            that.statusbar = 'Daten laden...';
-            that.statusbarClass = '';
+            that.onLoadItem();
             func().then(function (data) {
                 that.item = data;
-                that.clearStatusbar();
+                that.clearStatusBar();
                 that.onLoadedItem();
             }).catch(function (exception) {
-                that.showExceptionOnStatusbar(exception);
+                that.setStatusBarException(exception);
             });
         };
+        BladeDetail.prototype.onLoadItem = function () {
+            this.setStatusBarLoadData();
+        };
         BladeDetail.prototype.onLoadedItem = function () {
+        };
+        BladeDetail.prototype.saveItem = function (func) {
+            var that = this;
+            that.onSaveItem();
+            // Is form valid
+            if (!that.formblade.$valid) {
+                that.statusBar = 'Speichern nicht möglich!';
+                that.statusBarClass = 'message-error message-off';
+                console.log(that.formblade);
+                return;
+            }
+            func().then(function (data) {
+                that.item = data;
+                that.onSavedItem();
+            }).catch(function (exception) {
+                that.setStatusBarException(exception);
+            });
+        };
+        BladeDetail.prototype.onSaveItem = function () {
+            this.setStatusBarSaveData();
+        };
+        BladeDetail.prototype.onSavedItem = function () {
+            this.clearStatusBar();
         };
         BladeDetail.prototype.onCommandCancel = function () {
             this.close();
@@ -1215,19 +1241,20 @@ var angularportalazure;
 /// <reference path="bladedata.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeGrid = (function (_super) {
         __extends(BladeGrid, _super);
         //#region Constructor
-        function BladeGrid(portalService, path, title, subtitle, width) {
+        function BladeGrid($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
+            var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
             //#endregion
             //#region Properties
             _this.items = [];
-            _this.isCommandNew = true;
+            //this.isCommandNew = true;
             _this.commandNewText = 'neu';
             return _this;
         }
@@ -1235,18 +1262,20 @@ var angularportalazure;
         //#region Methods
         BladeGrid.prototype.loadItems = function (func) {
             var that = this;
-            that.statusbar = 'Daten laden...';
-            that.statusbarClass = '';
+            that.onLoadItems();
             func().then(function (data) {
                 that.items = data;
-                that.clearStatusbar();
                 that.onLoadedItems();
             }).catch(function (exception) {
-                that.showExceptionOnStatusbar(exception);
+                that.setStatusBarException(exception);
             });
         };
-        /* Override this function. This function is called from the loadItems function, when the promise is done. */
-        BladeGrid.prototype.onLoadedItems = function () { };
+        BladeGrid.prototype.onLoadItems = function () {
+            this.setStatusBarLoadData();
+        };
+        BladeGrid.prototype.onLoadedItems = function () {
+            this.clearStatusBar();
+        };
         //#region Filter
         BladeGrid.prototype.onFilter = function (actual, expected) {
             //#region Documentation
@@ -1336,6 +1365,7 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
 /// <reference path="bladenav.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeNavItem = (function () {
@@ -1373,16 +1403,17 @@ var angularportalazure;
 /// <reference path="debug.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeNav = (function (_super) {
         __extends(BladeNav, _super);
         //#region Constructor
-        function BladeNav(portalService, path, title, subtitle, width) {
+        function BladeNav($scope, portalService, path, title, subtitle, width) {
             if (title === void 0) { title = ''; }
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 315; }
-            var _this = _super.call(this, portalService, path, title, subtitle, width) || this;
+            var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
             //#endregion
             //#region Properties
             _this.items = new Array();
@@ -1403,6 +1434,7 @@ var angularportalazure;
     angularportalazure.BladeNav = BladeNav;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Exception = (function () {
@@ -1456,6 +1488,7 @@ var angularportalazure;
     angularportalazure.Exception = Exception;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="debug.ts" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var IExceptionDotNet = (function () {
@@ -1466,6 +1499,7 @@ var angularportalazure;
     angularportalazure.IExceptionDotNet = IExceptionDotNet;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
+"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var DataService = (function () {

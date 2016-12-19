@@ -4,13 +4,14 @@
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="iaddbladeeventargs.ts" />
+declare var $: JQueryStatic;
 
 namespace angularportalazure {
     export class Blade extends angularportalazure.UserControlBase {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
-            super(portalService);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
+            super($scope, portalService);
             var that = this;
 
             this.path = path;
@@ -54,15 +55,20 @@ namespace angularportalazure {
                     this.portalService.bladeArea.blades[index] = this;
                 }
             });
+
+            this.setBladeHeights();
         }
 
         //#endregion
 
         //#region Properties
 
+        private watcherTitle: () => void;
+
         //#region Properties
 
-        //listener1: Function;
+        bladeContentHeight: number;
+        bladeContentInnerHeight: number;
 
         //#region path
 
@@ -86,8 +92,8 @@ namespace angularportalazure {
 
         isInnerHtml: boolean = true;
 
-        statusbar: string = '';
-        statusbarClass: string = '';
+        statusBar: string = '';
+        statusBarClass: string = '';
 
         formblade: any; // angular.IFormController; // name of the ng-form directive
 
@@ -175,7 +181,7 @@ namespace angularportalazure {
 
         /** Obsolete */
         navGrid = {
-            portalService: null,
+            portalService: <angularportalazure.PortalService | null>null,
             items: [],
             navigateTo: function (path: string) { }
         };
@@ -231,27 +237,39 @@ namespace angularportalazure {
         }
 
 
-        //#region Show Exceptions
+        //#region Set StatusBar
 
-        clearStatusbar() {
-            this.statusbar = '';
-            this.statusbarClass = '';
+        clearStatusBar() {
+            this.statusBar = '';
+            this.statusBarClass = '';
         }
 
-        showExceptionOnStatusbar(exception: angularportalazure.Exception) {
+        setStatusBarLoadData() {
+            this.statusBar = 'Daten laden...';
+            this.statusBarClass = '';
+        }
+
+        setStatusBarSaveData() {
+            this.statusBar = 'Daten speichern...';
+            this.statusBarClass = '';
+        }
+
+        setStatusBarException(exception: angularportalazure.Exception) {
             var that = this;
 
             if (exception.Message === undefined) {
-                that.statusbar = 'FEHLER: ' + exception;
+                that.statusBar = 'FEHLER: ' + exception;
             } else {
-                that.statusbar = 'FEHLER: ' + exception.Message;
-                that.statusbar += ' - ';
-                exception.Messages.forEach(function (item) {
-                    that.statusbar += item + ' - ';
-                })
+                that.statusBar = 'FEHLER: ' + exception.Message;
             }
 
-            that.statusbarClass = 'message-error message-off';
+            if (exception.Messages != undefined) {
+                exception.Messages.forEach(function (item) {
+                    that.statusBar += ' - ' + item;
+                });
+            }
+
+            that.statusBarClass = 'message-error message-off';
         }
 
         //#endregion
@@ -332,33 +350,6 @@ namespace angularportalazure {
 
         //#region OBSOLETE
 
-        ///** Obsolete */
-        //setObsoleteLayoutProperites() {
-        //    angularportalazure.Debug.write('[angularportalazure-debug] \'Blade.setObsoleteLayoutProperites\' called.', [this]);
-
-        //    //this.blade.title = this.title;
-        //    //this.blade.statusbar = this.statusbar;
-        //    //this.blade.statusbarClass = this.statusbarClass;
-
-        //    //this.blade.isCommandBrowse = this.isCommandBrowse;
-        //    //this.blade.isCommandCancel = this.isCommandCancel;
-        //    //this.blade.isCommandCopy = this.isCommandCopy;
-        //    //this.blade.isCommandDelete = this.isCommandDelete;
-        //    //this.blade.isCommandDocument = this.isCommandDocument;
-        //    //this.blade.isCommandDocument2 = this.isCommandDocument2;
-        //    //this.blade.isCommandDocument3 = this.isCommandDocument3;
-        //    //this.blade.isCommandDocument4 = this.isCommandDocument4;
-        //    //this.blade.isCommandDocument5 = this.isCommandDocument5;
-        //    //this.blade.isCommandNew = this.isCommandNew;
-        //    //this.blade.isCommandOrder = this.isCommandOrder;
-        //    //this.blade.isCommandRestart = this.isCommandRestart;
-        //    //this.blade.isCommandSave = this.isCommandSave;
-        //    //this.blade.isCommandSearch = this.isCommandSearch;
-        //    //this.blade.isCommandStart = this.isCommandStart;
-        //    //this.blade.isCommandStop = this.isCommandStop;
-        //    //this.blade.isCommandSwap = this.isCommandSwap;
-        //}
-
         /** Obsolete */
         bladeClose() {
             this.close();
@@ -366,5 +357,28 @@ namespace angularportalazure {
         //#endregion
 
         //#endregion
+
+        setTitle(watchExpression: string, func: () => void) {
+            if (this.watcherTitle === undefined) {
+                this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
+                this.$scope.$on('$destroy', () => { this.watcherTitle(); });
+            }
+        }
+
+        private setBladeHeights(): void {
+            let that = this;
+            that.bladeContentHeight = $('.fxs-blade-content').height();
+            that.bladeContentInnerHeight = that.bladeContentHeight - 60;
+
+            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+            var id: NodeJS.Timer;
+            $(window).resize(function () {
+                clearTimeout(id);
+                id = setTimeout(() => {
+                    that.bladeContentHeight = $('.fxs-blade-content').height();
+                    that.bladeContentInnerHeight = that.bladeContentHeight - 60;
+                }, 500);
+            });
+        }
     }
 }

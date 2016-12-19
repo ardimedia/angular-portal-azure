@@ -9,8 +9,8 @@ namespace angularportalazure {
     export class BladeArea extends angularportalazure.UserControlBase {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService) {
-            super(portalService);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
+            super($scope, portalService);
             var that = this;
 
             // Set dependencies
@@ -47,28 +47,29 @@ namespace angularportalazure {
         //#region Methods
 
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs) {
-            let isActivated: boolean = false;
+            let isBladeAlreadyShown: boolean = false;
             this.blades.forEach((blade) => {
                 if (blade.path === args.path) {
+                    // Blade is already show, just activate it again
                     blade.onActivate();
-                    isActivated = true;
+                    isBladeAlreadyShown = true;
                     return;
                 }
             })
 
-            if (!isActivated) {
-                console.log('broadcast: BladeArea.AddBlade')
+            if (!isBladeAlreadyShown) {
+                // Add the blade, since it is not yet shown
                 this.portalService.$rootScope.$broadcast('BladeArea.AddBlade', args);
             }
         }
 
-        setFirstBlade(path: string): angularportalazure.Blade {
+        setFirstBlade(path: string): angularportalazure.Blade | void {
             this.clearAll();
             this.hidePanorama();
             return this.addBlade(path);
         }
 
-        addBlade(path: string, senderPath: string = ''): angularportalazure.Blade {
+        addBlade(path: string, senderPath: string = ''): angularportalazure.Blade | void {
             if (path == null) { return; }
             if (senderPath == null) { return; }
             var that = this;
@@ -114,7 +115,7 @@ namespace angularportalazure {
 
             //#region Show the blade
 
-            var blade = new angularportalazure.Blade(that.portalService, path, '');
+            var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
             that.blades.push(blade);
 
             //#endregion
@@ -236,7 +237,7 @@ namespace angularportalazure {
             var that = this;
             if (path === undefined || path == '') { return; }
 
-            var blade = new angularportalazure.Blade(that.portalService, path, '');
+            var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
             that.blades.push(blade);
 
             var portalcontent = that.portalService.$window.document.getElementById('azureportalscroll');

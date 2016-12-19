@@ -68,7 +68,7 @@ a {
   min-width: 450px; }
 
 .fxs-panorama .fxs-panorama-homearea .fxs-panorama-title {
-  font-family: wf_segoe-ui_light,"Segoe UI Light","Segoe WP Light","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Light","Segoe WP Light","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 40px;
   line-height: 54px;
@@ -94,7 +94,7 @@ a {
 
 .fxs-avatarmenu .fxs-avatarmenu-header {
   position: relative;
-  font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   height: 35px;
   color: #fff;
@@ -134,7 +134,7 @@ a {
   -ms-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  font-family: wf_segoe-ui_semibold,"Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 10px;
   text-transform: uppercase;
@@ -190,6 +190,9 @@ a {
   margin: 0 -25px;
   padding: 0 25px; }
 
+.fxs-stacklayout-child {
+  height: 100%; }
+
 .fxs-flowlayout > .fxs-flowlayout-childcontainer {
   position: relative;
   -webkit-transition: height .25s linear, width .25s linear 0s;
@@ -241,14 +244,14 @@ a {
   top: -4px; }
 
 .fxs-part .fxs-part-title h2 {
-  font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #32383f; }
 
 .fxs-part .fxs-part-title h3 {
-  font-family: wf_segoe-ui_semibold,"Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 10px;
   line-height: 10px;
@@ -265,9 +268,9 @@ a {
   text-overflow: ellipsis; }
 
 .fxs-part .fxs-part-content {
-  font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  /*font-size: 12px;*/
   line-height: 18px;
   color: #464f59;
   /*line-height: normal;*/
@@ -363,7 +366,7 @@ a {
 
 .fxs-blade .fxs-blade-statusbar, .fxs-blade .fxs-blade-loading-status {
   padding: 5px 0 5px 25px;
-  font-family: wf_segoe-ui_semibold,"Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 10px;
   line-height: 10px;
@@ -424,7 +427,7 @@ a {
 
 .fxs-blade .fxs-blade-header .fxs-blade-title h2 {
   margin: 0;
-  font-family: wf_segoe-ui_semilight,"Segoe UI Light","Segoe WP Light","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Light","Segoe WP Light","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 20px;
   line-height: 28px;
@@ -438,7 +441,7 @@ a {
 
 .fxs-blade .fxs-blade-header .fxs-blade-title h3 {
   margin: 3px 0 2px 0;
-  font-family: wf_segoe-ui_semibold,"Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 10px;
   line-height: 10px;
@@ -486,7 +489,7 @@ a {
   left: 0; }
 
 .fxs-commandBar .fxs-commandBar-item {
-  font-family: wf_segoe-ui_semibold,"Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 10px;
   line-height: 10px;
@@ -572,7 +575,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
-  font-family: wf_segoe-ui_light,"Segoe UI Light","Segoe WP Light","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Light","Segoe WP Light","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 32px;
@@ -623,7 +626,7 @@ a {
   height: 29px; }
 
 .fxs-part .fxs-part-title h3 {
-  font-family: wf_segoe-ui_semibold,"Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
   font-size: 10px;
   line-height: 10px;
@@ -633,7 +636,7 @@ a {
 
 .azc-grid {
   position: relative;
-  font-size: 12px; }
+  /*font-size: 12px;*/ }
 
 .azc-grid:focus {
   outline: none !important; }
@@ -651,9 +654,9 @@ a {
   overflow-y: visible; }
 
 .fxs-part .fxs-part-content {
-  font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-family: "Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  /*font-size: 12px;*/
   line-height: 18px;
   color: #464f59;
   line-height: normal;
@@ -680,14 +683,14 @@ a {
   padding-left: 0px; }
 
 .azc-grid table thead tr th {
-  font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  /*font-family: "Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;*/
   text-transform: uppercase;
-  text-align: left;
-  font-size: 10px;
-  padding: 0;
-  height: 40px;
-  font-family: wf_segoe-ui_bold,"Segoe UI Bold","Segoe WP Bold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
-  font-weight: 800;
+  /*text-align: left;*/
+  /*font-size: 10px;*/
+  /*padding: 0;*/
+  /*height: 40px;*/
+  /*font-family: "Segoe UI Bold","Segoe WP Bold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;*/
+  /*font-weight: 800;*/
   /* IW CHANGED FROM 400 to 800, since Segoe Bold not working!? */ }
 
 .azc-grid table thead tr th > a {
@@ -715,9 +718,9 @@ a {
 .azc-grid-activateableRow table tbody tr[data-grid-row-activated='true'][aria-selected='true'] {
   background-color: #c6edfa !important; }
 
-.azc-grid-selectableRow table tbody tr[aria-selected='true'] {
-  background-color: #d2f1fc !important; }
-
+/*.azc-grid-selectableRow table tbody tr[aria-selected='true'] {
+    background-color: #d2f1fc !important;
+}*/
 .azc-grid-selectableRow table tbody tr[aria-selected='true'] td {
   color: inherit !important; }
 

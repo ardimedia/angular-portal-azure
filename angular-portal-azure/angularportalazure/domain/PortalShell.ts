@@ -31,12 +31,12 @@ namespace angularportalazure {
 
         //#region Constructor
 
-        constructor(title: string, portalService: angularportalazure.PortalService) {
-            super(portalService);
+        constructor(portalService: angularportalazure.PortalService, title: string) {
+            super(null, portalService);
             this.portalService = portalService;
             this.portalService.portalShell = this;
-            this.portalService.panorama = new angularportalazure.Panorama(title, this.portalService);
-            this.portalService.bladeArea = new angularportalazure.BladeArea(portalService);
+            this.portalService.panorama = new angularportalazure.Panorama(this.$scope, title, this.portalService);
+            this.portalService.bladeArea = new angularportalazure.BladeArea(this.$scope, portalService);
 
             this.initialize();
         }

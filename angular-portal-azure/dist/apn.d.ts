@@ -1,6 +1,7 @@
-/// <reference types="angulartics" />
 /// <reference types="angular" />
+/// <reference types="jquery" />
 /// <reference types="angular-resource" />
+/// <reference types="angulartics" />
 /// <reference types="angular-translate" />
 declare namespace angularportalazure {
 }
@@ -34,7 +35,8 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class UserControlBase {
-        constructor(portalService: angularportalazure.PortalService);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
     }
 }
@@ -44,9 +46,13 @@ declare namespace angularportalazure {
         pathSender: string;
     }
 }
+declare var $: JQueryStatic;
 declare namespace angularportalazure {
     class Blade extends angularportalazure.UserControlBase {
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        private watcherTitle;
+        bladeContentHeight: number;
+        bladeContentInnerHeight: number;
         path: string;
         private _path;
         title: string;
@@ -58,8 +64,8 @@ declare namespace angularportalazure {
             'width': string;
         };
         isInnerHtml: boolean;
-        statusbar: string;
-        statusbarClass: string;
+        statusBar: string;
+        statusBarClass: string;
         formblade: any;
         isCommandBrowse: boolean;
         commandBrowse: () => void;
@@ -117,7 +123,7 @@ declare namespace angularportalazure {
         isNavGrid: boolean;
         /** Obsolete */
         navGrid: {
-            portalService: any;
+            portalService: PortalService;
             items: any[];
             navigateTo: (path: string) => void;
         };
@@ -129,8 +135,10 @@ declare namespace angularportalazure {
         comparePaths(path1: string, path2: string): boolean;
         /** close blade. */
         close(): void;
-        clearStatusbar(): void;
-        showExceptionOnStatusbar(exception: angularportalazure.Exception): void;
+        clearStatusBar(): void;
+        setStatusBarLoadData(): void;
+        setStatusBarSaveData(): void;
+        setStatusBarException(exception: angularportalazure.Exception): void;
         onCommandBrowse(): void;
         onCommandCancel(): void;
         onCommandCopy(): void;
@@ -150,16 +158,18 @@ declare namespace angularportalazure {
         onCommandSwap(): void;
         /** Obsolete */
         bladeClose(): void;
+        setTitle(watchExpression: string, func: () => void): void;
+        private setBladeHeights();
     }
 }
 declare namespace angularportalazure {
     class BladeArea extends angularportalazure.UserControlBase {
-        constructor(portalService: angularportalazure.PortalService);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
         private listener1;
         blades: Array<angularportalazure.Blade>;
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
-        setFirstBlade(path: string): angularportalazure.Blade;
-        addBlade(path: string, senderPath?: string): angularportalazure.Blade;
+        setFirstBlade(path: string): angularportalazure.Blade | void;
+        addBlade(path: string, senderPath?: string): angularportalazure.Blade | void;
         clearAll(): void;
         clearPath(path: string): void;
         clearLevel(level: number): void;
@@ -182,8 +192,8 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class AvatarMenu extends angularportalazure.UserControlBase {
-        constructor(portalService: angularportalazure.PortalService);
-        userAccount: angularportalazure.UserAccount;
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        userAccount: angularportalazure.UserAccount | null;
     }
 }
 declare namespace angularportalazure {
@@ -235,8 +245,8 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class Startboard extends angularportalazure.UserControlBase {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
         tiles: angularportalazure.Tiles;
-        constructor(portalService: angularportalazure.PortalService);
     }
 }
 declare namespace angularportalazure {
@@ -245,7 +255,7 @@ declare namespace angularportalazure {
         isVisible: boolean;
         avatarMenu: angularportalazure.AvatarMenu;
         startboard: angularportalazure.Startboard;
-        constructor(title: string, portalService: angularportalazure.PortalService);
+        constructor($scope: angular.IScope, title: string, portalService: angularportalazure.PortalService);
     }
 }
 declare namespace angularportalazure {
@@ -262,7 +272,7 @@ declare namespace angularportalazure {
         /** Obsolete
          * start using this.bladesNew.blades. */
         blades: any[];
-        constructor(title: string, portalService: angularportalazure.PortalService);
+        constructor(portalService: angularportalazure.PortalService, title: string);
         initialize(): void;
         setObsoleteLayoutProperites(): void;
     }
@@ -270,7 +280,7 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class PortalService {
         static $inject: string[];
-        constructor($injector: any);
+        constructor($injector: angular.auto.IInjectorService);
         parameter: angularportalazure.BladeParameter;
         $analytics: angulartics.IAnalyticsService;
         animate: any;
@@ -293,13 +303,14 @@ declare namespace angularportalazure {
         panorama: angularportalazure.Panorama;
         bladeArea: angularportalazure.BladeArea;
         ngDialog: any;
+        /** obsolete - $scope is different in any view. do have one instance in a shared service is not the right approach. */
+        $scope: angular.IScope;
+        $injector: angular.auto.IInjectorService;
         $http: angular.IHttpService;
         $httpBackend: angular.IHttpBackendService;
-        $injector: angular.auto.IInjectorService;
         $q: angular.IQService;
         $rootScope: angular.IRootScopeService;
         $window: angular.IWindowService;
-        $scope: angular.IScope;
         $translate: angular.translate.ITranslateService;
     }
 }
@@ -317,23 +328,28 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class BladeData extends angularportalazure.Blade {
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
     }
 }
 declare namespace angularportalazure {
-    class BladeDetail extends angularportalazure.BladeData {
-        item: any;
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+    class BladeDetail<T> extends angularportalazure.BladeData {
+        item: T | null;
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         loadItem(func: () => any): void;
+        onLoadItem(): void;
         onLoadedItem(): void;
+        saveItem(func: () => any): void;
+        onSaveItem(): void;
+        onSavedItem(): void;
         onCommandCancel(): void;
     }
 }
 declare namespace angularportalazure {
     class BladeGrid extends angularportalazure.BladeData {
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         items: any[];
         loadItems(func: () => angular.IPromise<any>): void;
+        onLoadItems(): void;
         onLoadedItems(): void;
         onFilter(actual: Object, expected: string): boolean;
     }
@@ -347,14 +363,14 @@ declare namespace angularportalazure {
         roles: string;
         isVisible: boolean;
         callback: () => any;
-        bladeNav: angularportalazure.BladeNav;
-        constructor(title?: string, cssClass?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav);
+        bladeNav: angularportalazure.BladeNav | null;
+        constructor(title?: string, cssClass?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav | null);
         onNavItemClick(): void;
     }
 }
 declare namespace angularportalazure {
     class BladeNav extends angularportalazure.BladeData {
-        constructor(portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
         items: Array<angularportalazure.BladeNavItem>;
         isNav: boolean;
         onNavigateTo(path: string): void;
@@ -366,11 +382,11 @@ declare namespace angularportalazure {
         ClassName: string;
         Data: Object;
         Type: string;
-        Messages?: string[];
+        Messages: string[];
         Message: string;
         MessageDetail: string;
-        Status: number;
-        StatusText: string;
+        Status: number | undefined;
+        StatusText: string | undefined;
         Url: string;
         processException(response: angular.IHttpPromiseCallbackArg<any>): void;
         convertFromWebApiException(ex: angularportalazure.IExceptionDotNet): void;
@@ -383,7 +399,7 @@ declare namespace angularportalazure {
         Data: Object;
         Type: string;
         Message: string;
-        Messages?: string[];
+        Messages: string[];
     }
 }
 declare namespace angularportalazure {

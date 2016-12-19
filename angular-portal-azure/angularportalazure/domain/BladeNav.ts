@@ -7,8 +7,8 @@ namespace angularportalazure {
     export class BladeNav extends angularportalazure.BladeData {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string = '', subtitle: string = '', width: number = 315) {
-            super(portalService, path, title, subtitle, width);
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string = '', subtitle: string = '', width: number = 315) {
+            super($scope, portalService, path, title, subtitle, width);
             this.isInnerHtml = false;
         }
 

@@ -6,9 +6,9 @@ namespace angularportalazure {
     export class BladeGrid extends angularportalazure.BladeData {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
-            super(portalService, path, title, subtitle, width);
-            this.isCommandNew = true;
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
+            super($scope, portalService, path, title, subtitle, width);
+            //this.isCommandNew = true;
             this.commandNewText = 'neu';
         }
 
@@ -24,21 +24,23 @@ namespace angularportalazure {
 
         loadItems(func: () => angular.IPromise<any>) {
             let that = this;
-
-            that.statusbar = 'Daten laden...';
-            that.statusbarClass = '';
+            that.onLoadItems();
 
             func().then(function (data) {
                 that.items = data;
-                that.clearStatusbar();
                 that.onLoadedItems();
             }).catch(function (exception: angularportalazure.Exception) {
-                that.showExceptionOnStatusbar(exception);
+                that.setStatusBarException(exception);
             });
         }
 
-        /* Override this function. This function is called from the loadItems function, when the promise is done. */
-        onLoadedItems() { }
+        onLoadItems() {
+            this.setStatusBarLoadData();
+        }
+
+        onLoadedItems() {
+            this.clearStatusBar();
+        }
 
         //#region Filter
 

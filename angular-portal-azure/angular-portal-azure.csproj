@@ -80,16 +80,8 @@
     <Content Include="design\libmixin.min.css">
       <DependentUpon>libmixin.css</DependentUpon>
     </Content>
-    <Content Include="design\test\azure.html" />
-    <Content Include="design\test\required\test1.html" />
-    <Content Include="design\test\test.css">
-      <DependentUpon>test.scss</DependentUpon>
-    </Content>
-    <Content Include="design\test\test.min.css">
-      <DependentUpon>test.css</DependentUpon>
-    </Content>
-    <Content Include="design\fromMsPortal\style0.css" />
-    <Content Include="design\fromMsPortal\style1.css" />
+    <Content Include="design\sample\fromMsPortal\style0.css" />
+    <Content Include="design\sample\fromMsPortal\style1.css" />
     <Content Include="design\themems.css">
       <DependentUpon>themems.scss</DependentUpon>
     </Content>
@@ -121,10 +113,6 @@
     <Content Include="design\portallayout.scss" />
     <Content Include="design\portallayout.css.map">
       <DependentUpon>portallayout.css</DependentUpon>
-    </Content>
-    <Content Include="design\test\test.scss" />
-    <Content Include="design\test\test.css.map">
-      <DependentUpon>test.css</DependentUpon>
     </Content>
     <Content Include="design\themems.scss" />
     <Content Include="design\themems.css.map">
