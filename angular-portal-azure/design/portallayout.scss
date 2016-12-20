@@ -1,4 +1,6 @@
-﻿/*
+﻿/*#region CHECKOUT */
+
+/*
 PORTAL SHELL:
     fxs-portal:             contains everything
     fxs-portal-content:     contains the content. eg. no navbar
@@ -851,7 +853,7 @@ a {
 }
 
 .azc-grid table th:first-child a, .azc-grid table td:first-of-type {
-    padding-left: 7px;
+    /*padding-left: 7px;*/
 }
 
 .azc-grid table tbody:last-child tr:last-child td {
@@ -860,7 +862,7 @@ a {
 
 .azc-grid table tbody tr td {
     color: #3d3d3d;
-    padding: 1px 0 1px 10px;
+    /*padding: 1px 0 1px 10px;*/
     height: 33px;
     border-top: 1px solid #dcdfe2;
     border-bottom: 1px solid #dcdfe2;
@@ -890,3 +892,17 @@ a {
 .msportalfx-svg-c01 {
     fill: #fff;
 }
+
+/*#endregion */
+
+/*#region KENDO*/
+
+.k-grid-content table tbody tr {
+    padding: 1px 0 1px 10px;
+}
+
+.k-grid td {
+    padding: 0 .6em;
+}
+
+/*#endregion*/
