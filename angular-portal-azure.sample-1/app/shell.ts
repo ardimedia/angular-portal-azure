@@ -2,8 +2,9 @@
     class Sample1Shell extends angularportalazure.PortalShell {
         //#region Constructor
 
+        static $inject = ['angularportalazure.portalService'];
         constructor(portalService: angularportalazure.PortalService) {
-            super('SAMPLE TypeScript', portalService);
+            super(portalService, 'SAMPLE TypeScript');
             this.portalService.panorama.startboard.tiles.showTiles = true;
 
             this.portalService.panorama.avatarMenu.userAccount = new angularportalazure.UserAccount('useraccount@mail.com', 'first', 'last');
@@ -65,12 +66,5 @@
         //#endregion
     }
 
-    //#region Angular Registration
-
-    (function () {
-        'use strict';
-        angular.module('sample1App').controller('sampleShell1', ['angularportalazure.portalService', Sample1Shell]);
-    })();
-
-    //#endregion
+    angular.module('sample1App').controller('sampleShell1', Sample1Shell);
 }

@@ -276,7 +276,7 @@ a {
 
 .fxs-part .fxs-part-title {
     /*display: none;*/
-    height: 49px;
+    /*height: 49px;*/
     position: relative;
     top: -4px;
 }
@@ -656,7 +656,7 @@ a {
 .fxs-lens {
     position: relative;
     height: 100%;
-    padding-bottom: 25px;
+    /*padding-bottom: 25px;*/
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -690,7 +690,7 @@ a {
 }
 
 .fxs-tilesize-fullwidthfitheight.fxs-tile {
-    height: auto;
+    height: 100%;
     width: 100%;
 }
 
@@ -699,22 +699,13 @@ a {
 }
 
 .fxs-blade-locked.fxs-blade .fxs-part {
-    padding: 0 0 15px 0;
+    /*padding: 0 0 15px 0;*/
+    padding: 0;
 }
 
 
 /*#endregion*/
 
-
-.fxs-blade .fxs-blade-content {
-    padding: 25px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    -ms-scrollbar-track-color: #d8d8ea;
-    -ms-scrollbar-arrow-color: #758393;
-    -ms-scrollbar-face-color: #63707e;
-}
 
 .fxs-lens > .fxs-lens-drag-handle {
     position: absolute;
@@ -730,7 +721,7 @@ a {
 }
 
 .fxs-blade-locked.fxs-blade .fxs-part .fxs-part-title {
-    height: 29px;
+    /*height: 29px;*/
 }
 
 .fxs-part .fxs-part-title h3 {

@@ -1,12 +1,12 @@
 ﻿/// <reference types="angular" />
 
 namespace Sample1 {
-    class Detail1 extends angularportalazure.BladeDetail {
+    class Detail1 extends angularportalazure.BladeDetail<any> {
         //#region Constructor
 
-        static $inject = ['angularportalazure.portalService'];
-        constructor(portalService: angularportalazure.PortalService) {
-            super(portalService, '/app/detail1/detail1.html', 'Detail-1', 'TypeScript based', 500);
+        static $inject = ['$scope', 'angularportalazure.portalService'];
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
+            super($scope, portalService, '/app/detail1/detail1.html', 'Detail-1', 'TypeScript based', 500);
 
             this.activate();
         }

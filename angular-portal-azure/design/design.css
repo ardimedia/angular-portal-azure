@@ -250,7 +250,7 @@ a {
 
 .fxs-part .fxs-part-title {
   /*display: none;*/
-  height: 49px;
+  /*height: 49px;*/
   position: relative;
   top: -4px; }
 
@@ -574,7 +574,7 @@ a {
 .fxs-lens {
   position: relative;
   height: 100%;
-  padding-bottom: 25px;
+  /*padding-bottom: 25px;*/
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
@@ -602,25 +602,17 @@ a {
   margin-bottom: 5px; }
 
 .fxs-tilesize-fullwidthfitheight.fxs-tile {
-  height: auto;
+  height: 100%;
   width: 100%; }
 
 .fxs-blade-locked.fxs-blade .fxs-part, .fxs-bladestyle-context.fxs-blade .fxs-part, .fxs-bladestyle-contextaction.fxs-blade .fxs-part, .fxs-bladestyle-help.fxs-blade .fxs-part {
   box-shadow: none; }
 
 .fxs-blade-locked.fxs-blade .fxs-part {
-  padding: 0 0 15px 0; }
+  /*padding: 0 0 15px 0;*/
+  padding: 0; }
 
 /*#endregion*/
-.fxs-blade .fxs-blade-content {
-  padding: 25px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-  -ms-scrollbar-track-color: #d8d8ea;
-  -ms-scrollbar-arrow-color: #758393;
-  -ms-scrollbar-face-color: #63707e; }
-
 .fxs-lens > .fxs-lens-drag-handle {
   position: absolute;
   z-index: 52;
@@ -634,7 +626,7 @@ a {
   transition: opacity .25s ease-out; }
 
 .fxs-blade-locked.fxs-blade .fxs-part .fxs-part-title {
-  height: 29px; }
+  /*height: 29px;*/ }
 
 .fxs-part .fxs-part-title h3 {
   font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;

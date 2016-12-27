@@ -5,8 +5,9 @@ namespace Sample1 {
     class Grid1 extends angularportalazure.BladeGrid {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService) {
-            super(portalService, '/app/grid1/grid1.html', 'Grid-1', 'TypeScript based', 500);
+        static $inject = ['$scope', 'angularportalazure.portalService'];
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
+            super($scope, portalService, '/app/grid1/grid1.html', 'Grid-1', 'TypeScript based', 500);
 
             this.activate();
         }
@@ -19,7 +20,7 @@ namespace Sample1 {
             angularportalazure.Debug.write('[sample1-debug] \'Grid1.onActivate\' called.', [this]);
 
             this.items = new CustomerService().getAll();
-            this.statusbar = '';
+            this.statusBar = '';
         }
 
         onCommandNew(): void {
@@ -35,12 +36,12 @@ namespace Sample1 {
 
             this.portalService.parameter.action = 'selected';
             this.portalService.parameter.item = customer;
-            this.portalService.parameter.itemId= customer.customerPkId;
+            this.portalService.parameter.itemId = customer.customerPkId;
             this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         }
 
         //#endregion
     }
 
-    angular.module('sample1App').controller('grid1', ['angularportalazure.portalService', Grid1]);
+    angular.module('sample1App').controller('grid1', Grid1);
 }

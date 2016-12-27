@@ -5,6 +5,7 @@ namespace Sample1 {
     var app: ng.IModule = angular.module('sample1App', [
         'ngResource',
         'ngDialog',
+        'ngDialog',
         'angularportalazure'
     ]);
 

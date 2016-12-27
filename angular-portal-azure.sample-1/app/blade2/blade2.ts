@@ -2,18 +2,19 @@
 /// <reference types="angular" />
 
 namespace Sample1 {
-    class Blade2 extends angularportalazure.BladeDetail {
+    class Blade2 extends angularportalazure.BladeDetail<any> {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService) {
-            super(portalService, '/app/blade2/blade2.html', 'Blade 2', 'TypeScript based', 500);
+        static $inject = ['$scope', 'angularportalazure.portalService'];
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
+            super($scope, portalService, '/app/blade2/blade2.html', 'Blade 2', 'TypeScript based', 500);
 
             this.isCommandNew = true;
             this.commandNewText = 'Blade 2-1';
             this.isCommandSave = true;
             this.commandSaveText = 'Blade 1';
 
-            this.statusbar = 'Blade 2...';
+            this.statusBar = 'Blade 2...';
         }
 
         //#endregion
@@ -43,5 +44,5 @@ namespace Sample1 {
         //#endregion
     }
 
-    angular.module('sample1App').controller('blade2', ['angularportalazure.portalService', Blade2]);
+    angular.module('sample1App').controller('blade2', Blade2);
 }
