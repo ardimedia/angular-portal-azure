@@ -32,8 +32,10 @@ namespace angularportalazure {
     AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
     function AngularPortalBladeController(portalService: angularportalazure.PortalService) {
         this.$onInit = function () {
+            portalService.areaNotification.show();
             this.close = function () {
-                portalService.bladeArea.clearLastLevel();
+                //portalService.bladeArea.clearLastLevel();
+                portalService.areaNotification.hide();
             };
         };
     }

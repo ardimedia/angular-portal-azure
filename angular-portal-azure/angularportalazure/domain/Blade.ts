@@ -20,7 +20,7 @@ namespace angularportalazure {
             this.width.width = width + 'px';
             this.widthStackLayout.width = width - 50 + 'px';
 
-            this.navGrid.portalService = portalService;
+            //this.navGrid.portalService = portalService;
 
             if (!portalService) { throw new Error('[angularportalazure.Blade] constructor parameter \'portalService\' must be provided.'); }
             if (!path) { throw new Error('[angularportalazure.Blade] constructor parameter \'path\' must be a string.'); }
@@ -33,10 +33,10 @@ namespace angularportalazure {
             //#region Add BladeArea.AddBlade event listener
 
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
-            if (portalService instanceof angularportalazure.PortalService == false) {
-                console.log('Blade.constructor: This code cannot be removed yet.')
-                return;
-            }
+            //if (portalService instanceof angularportalazure.PortalService == false) {
+            //    console.log('Blade.constructor: This code cannot be removed yet.')
+            //    return;
+            //}
             /** OBSOLETE: end */
 
             //// Register listener1
@@ -49,7 +49,8 @@ namespace angularportalazure {
 
             //#endregion
 
-            // Set this object to be the one, which was generated during AddBlade
+            // Set 'this.portalService.bladeArea.blades[index]' to 'this'
+            // 'this.portalService.bladeArea.blades[index]' was generated during AddBlade
             this.portalService.bladeArea.blades.forEach((blade, index) => {
                 if (blade.path === this.path) {
                     this.portalService.bladeArea.blades[index] = this;
@@ -63,14 +64,16 @@ namespace angularportalazure {
 
         //#region Properties
 
-        private watcherTitle: () => void;
+        //private watcherTitle: () => void;
 
         //#region Properties
 
-        bladeContentHeight: number;
+        private bladeContentHeight: number;
         bladeContentInnerHeight: number;
 
         //#region path
+
+        private _path: string;
 
         get path(): string {
             return this._path;
@@ -81,7 +84,6 @@ namespace angularportalazure {
             if (newPath == null) { return; }
             this._path = newPath.toLowerCase();
         }
-        private _path: string;
 
         //#endregion
 
@@ -177,14 +179,14 @@ namespace angularportalazure {
         //blade: Blade;
 
         /** Obsolete */
-        isNavGrid: boolean;
+        //isNavGrid: boolean;
 
         /** Obsolete */
-        navGrid = {
-            portalService: <angularportalazure.PortalService | null>null,
-            items: [],
-            navigateTo: function (path: string) { }
-        };
+        //navGrid = {
+        //    portalService: <angularportalazure.PortalService | null>null,
+        //    items: [],
+        //    navigateTo: function (path: string) { }
+        //};
 
         //#endregion
 
@@ -351,24 +353,24 @@ namespace angularportalazure {
         //#region OBSOLETE
 
         /** Obsolete */
-        bladeClose() {
-            this.close();
-        }
+        //bladeClose() {
+        //    this.close();
+        //}
         //#endregion
 
         //#endregion
 
-        setTitle(watchExpression: string, func: () => void) {
-            if (this.watcherTitle === undefined) {
-                this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
-                this.$scope.$on('$destroy', () => { this.watcherTitle(); });
-            }
-        }
+        //setTitle(watchExpression: string, func: () => void) {
+        //    if (this.watcherTitle === undefined) {
+        //        this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
+        //        this.$scope.$on('$destroy', () => { this.watcherTitle(); });
+        //    }
+        //}
 
         private setBladeHeights(): void {
             let that = this;
             that.bladeContentHeight = $('.fxs-blade-content').height();
-            that.bladeContentInnerHeight = that.bladeContentHeight - 60;
+            that.bladeContentInnerHeight = that.bladeContentHeight - 20;
 
             // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
             var id: NodeJS.Timer;
@@ -376,7 +378,7 @@ namespace angularportalazure {
                 clearTimeout(id);
                 id = setTimeout(() => {
                     that.bladeContentHeight = $('.fxs-blade-content').height();
-                    that.bladeContentInnerHeight = that.bladeContentHeight - 60;
+                    that.bladeContentInnerHeight = that.bladeContentHeight - 20;
                 }, 500);
             });
         }

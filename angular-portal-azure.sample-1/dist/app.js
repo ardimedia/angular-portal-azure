@@ -304,7 +304,7 @@ var Sample1;
             tile.subTitle = 'TypeScript based';
             var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
             tile.subTitle = 'TypeScript based';
-            _this.setObsoleteLayoutProperites();
+            //this.setObsoleteLayoutProperites();
             _this.httpTestData();
             return _this;
         }

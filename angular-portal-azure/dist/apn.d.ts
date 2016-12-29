@@ -50,11 +50,10 @@ declare var $: JQueryStatic;
 declare namespace angularportalazure {
     class Blade extends angularportalazure.UserControlBase {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        private watcherTitle;
-        bladeContentHeight: number;
+        private bladeContentHeight;
         bladeContentInnerHeight: number;
-        path: string;
         private _path;
+        path: string;
         title: string;
         subTitle: string;
         width: {
@@ -120,13 +119,7 @@ declare namespace angularportalazure {
         commandSwapText: string;
         /** Obsolete */
         /** Obsolete */
-        isNavGrid: boolean;
         /** Obsolete */
-        navGrid: {
-            portalService: PortalService;
-            items: any[];
-            navigateTo: (path: string) => void;
-        };
         activate(): void;
         onActivate(): void;
         onActivated(): void;
@@ -157,14 +150,15 @@ declare namespace angularportalazure {
         onCommandStop(): void;
         onCommandSwap(): void;
         /** Obsolete */
-        bladeClose(): void;
-        setTitle(watchExpression: string, func: () => void): void;
         private setBladeHeights();
     }
 }
 declare namespace angularportalazure {
     class BladeArea extends angularportalazure.UserControlBase {
+        static $inject: string[];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        private areaBlades;
+        private portalScroll;
         private listener1;
         blades: Array<angularportalazure.Blade>;
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
@@ -177,10 +171,50 @@ declare namespace angularportalazure {
         clearChild(path: string): void;
         showPanoramaIfNoBlades(): void;
         hidePanorama(): void;
-        /** You need to call this when BladeArea is no longer used, otherwise the listener does not get removed. */
+        /** We need to call this when BladeArea is no longer used, otherwise the listener does not get removed. */
         close(): void;
-        addBladePath(path: string): void;
-        addBladeOld(path: string): void;
+        private setupResizerListener();
+    }
+}
+declare namespace angularportalazure {
+    class BladeData extends angularportalazure.Blade {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+    }
+}
+declare namespace angularportalazure {
+    class BladeNav extends angularportalazure.BladeData {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
+        items: Array<angularportalazure.BladeNavItem>;
+        isNav: boolean;
+        onNavigateTo(path: string): void;
+    }
+}
+declare namespace angularportalazure {
+    class BladeNavItem {
+        title: string;
+        cssClass: string;
+        bladePath: string;
+        hrefPath: string;
+        roles: string;
+        isVisible: boolean;
+        callback: () => any;
+        bladeNav: angularportalazure.BladeNav | null;
+        constructor(title?: string, cssClass?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav | null);
+        onNavItemClick(): void;
+    }
+}
+declare namespace angularportalazure {
+    class AreaNotification extends angularportalazure.UserControlBase {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        private portalWidth;
+        private portalHeight;
+        private areaNotification;
+        widthAreaUsed: number;
+        width: number;
+        backgroundColor: string;
+        hide(): void;
+        show(): void;
+        private setupResizerListener();
     }
 }
 declare namespace angularportalazure {
@@ -260,21 +294,7 @@ declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class PortalShell extends angularportalazure.UserControlBase {
-        /** Obsolete
-         * start using this.panorama.title */
-        title: string;
-        /** Obsolete
-         * start using this.panorama.avatarMenu.userAccount */
-        user: {};
-        /** Obsolete
-         * start using this.panorama.startboard.tiles */
-        tiles: angularportalazure.Tiles[];
-        /** Obsolete
-         * start using this.bladesNew.blades. */
-        blades: any[];
         constructor(portalService: angularportalazure.PortalService, title: string);
-        initialize(): void;
-        setObsoleteLayoutProperites(): void;
     }
 }
 declare namespace angularportalazure {
@@ -302,6 +322,7 @@ declare namespace angularportalazure {
         portalShell: angularportalazure.PortalShell;
         panorama: angularportalazure.Panorama;
         bladeArea: angularportalazure.BladeArea;
+        areaNotification: angularportalazure.AreaNotification;
         ngDialog: any;
         /** obsolete - $scope is different in any view. do have one instance in a shared service is not the right approach. */
         $scope: angular.IScope;
@@ -327,11 +348,6 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
-    class BladeData extends angularportalazure.Blade {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-    }
-}
-declare namespace angularportalazure {
     class BladeDetail<T> extends angularportalazure.BladeData {
         item: T | null;
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
@@ -352,28 +368,6 @@ declare namespace angularportalazure {
         onLoadItems(): void;
         onLoadedItems(): void;
         onFilter(actual: Object, expected: string): boolean;
-    }
-}
-declare namespace angularportalazure {
-    class BladeNavItem {
-        title: string;
-        cssClass: string;
-        bladePath: string;
-        hrefPath: string;
-        roles: string;
-        isVisible: boolean;
-        callback: () => any;
-        bladeNav: angularportalazure.BladeNav | null;
-        constructor(title?: string, cssClass?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav | null);
-        onNavItemClick(): void;
-    }
-}
-declare namespace angularportalazure {
-    class BladeNav extends angularportalazure.BladeData {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
-        items: Array<angularportalazure.BladeNavItem>;
-        isNav: boolean;
-        onNavigateTo(path: string): void;
     }
 }
 declare namespace angularportalazure {

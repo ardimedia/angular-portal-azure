@@ -9,13 +9,17 @@ namespace angularportalazure {
     export class BladeArea extends angularportalazure.UserControlBase {
         //#region Constructor
 
+        static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
             var that = this;
 
+            this.areaBlades = $('#apa-blade-area');
+            this.portalScroll = $('#apa-portal-scroll');
+
             // Set dependencies
             this.portalService = portalService;
-            this.portalService.bladeArea = this;
+            //this.portalService.bladeArea = this;
 
             //#region Add BladeArea.AddBlade event listener
 
@@ -32,11 +36,16 @@ namespace angularportalazure {
             });
 
             //#endregion
+
+            this.setupResizerListener()
         }
 
         //#endregion
 
         //#region Properties
+
+        private areaBlades: JQuery;
+        private portalScroll: JQuery;
 
         private listener1;
 
@@ -88,9 +97,9 @@ namespace angularportalazure {
                     throw new Error('[angularportalazure.BladeArea] \'this.$window.document\' undefined.');
                 }
 
-                var portalcontent = that.portalService.$window.document.getElementById('azureportalscroll');
+                var portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
                 if (portalcontent === null) {
-                    throw new Error('[angularportalazure.BladeArea] HTML element with ID [azureportalscroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
+                    throw new Error('[angularportalazure.BladeArea] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
                 }
             }
 
@@ -215,7 +224,7 @@ namespace angularportalazure {
             }
         }
 
-        /** You need to call this when BladeArea is no longer used, otherwise the listener does not get removed. */
+        /** We need to call this when BladeArea is no longer used, otherwise the listener does not get removed. */
         close() {
             this.listener1();  // Unregister listener1
         }
@@ -224,46 +233,57 @@ namespace angularportalazure {
 
         //#region OBSOLETE
 
-        addBladePath(path: string) {
-            // Fix issue with old code
-            if (this.portalService.$window === undefined) {
-                this.portalService.$window = <any>this.portalService;
-            }
-            this.addBlade(path);
-            //this.addBladeOld(path);
-        }
+        //addBladePath(path: string) {
+        //    // Fix issue with old code
+        //    if (this.portalService.$window === undefined) {
+        //        this.portalService.$window = <any>this.portalService;
+        //    }
+        //    this.addBlade(path);
+        //    //this.addBladeOld(path);
+        //}
 
-        addBladeOld(path: string) {
-            var that = this;
-            if (path === undefined || path == '') { return; }
+        //addBladeOld(path: string) {
+        //    var that = this;
+        //    if (path === undefined || path == '') { return; }
 
-            var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
-            that.blades.push(blade);
+        //    var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
+        //    that.blades.push(blade);
 
-            var portalcontent = that.portalService.$window.document.getElementById('azureportalscroll');
-            that.portalService.$window.setTimeout(function () {
-                var azureportalblades = that.portalService.$window.document.getElementsByClassName('azureportalblade');
+        //    var portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
+        //    that.portalService.$window.setTimeout(function () {
+        //        var azureportalblades = that.portalService.$window.document.getElementsByClassName('azureportalblade');
 
-                var i = that.blades.length - 1;
+        //        var i = that.blades.length - 1;
 
-                // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
-                //       So now if it is, the user has to scroll on its own.
-                if (azureportalblades[i] !== undefined && (<any>azureportalblades[i]).offsetLeft !== undefined) {
-                    var sl = (<any>azureportalblades[i]).offsetLeft - 30;
-                    portalcontent.scrollLeft = sl;
-                }
-            }, 250);
-        }
+        //        // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
+        //        //       So now if it is, the user has to scroll on its own.
+        //        if (azureportalblades[i] !== undefined && (<any>azureportalblades[i]).offsetLeft !== undefined) {
+        //            var sl = (<any>azureportalblades[i]).offsetLeft - 30;
+        //            portalcontent.scrollLeft = sl;
+        //        }
+        //    }, 250);
+        //}
 
         //#endregion
+
+
+        private setupResizerListener() {
+            let that = this;
+            that.portalScroll.css('margin-right', that.portalService.areaNotification.widthAreaUsed + 'px');
+            console.log(that.portalScroll.css('margin-right'));
+
+            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+            let id: NodeJS.Timer;
+            $(window).resize(function () {
+                clearTimeout(id);
+                id = setTimeout(() => {
+                    that.portalScroll.css('margin-right', that.portalService.areaNotification.widthAreaUsed + 'px');
+                    console.log(that.portalScroll.css('margin-right'));
+                }, 50);
+
+            });
+        }
     }
 
-    //#region Angular Registration
-
-    (function () {
-        'use strict';
-        angular.module('angularportalazure').service('angularportalazure.bladeArea', ['$window', BladeArea]);
-    })();
-
-    //#endregion
+    angular.module('angularportalazure').service('angularportalazure.bladeArea', BladeArea);
 }

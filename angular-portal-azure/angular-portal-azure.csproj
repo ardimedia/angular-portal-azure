@@ -132,6 +132,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-grid.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-nav.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\AreaNotification.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNavItem.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\IExceptionDotNet.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\Exception.ts" />

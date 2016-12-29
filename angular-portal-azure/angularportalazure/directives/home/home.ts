@@ -13,9 +13,18 @@
 
     //angular.module('angularportalazure').directive('angularPortalHome', angularPortalHome);
 
+    AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
+    function AngularPortalHomeController($scope: angular.IScope, portalService: angularportalazure.PortalService) {
+        this.$onInit = function () {
+            console.log('initializse');
+            portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
+            portalService.bladeArea = new angularportalazure.BladeArea($scope, portalService);
+        };
+    }
+
     var angularPortalHome = {
         templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-        controller: function () { },
+        controller: AngularPortalHomeController,
         bindings: {
             vm: '='
         }

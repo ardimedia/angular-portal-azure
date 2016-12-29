@@ -15,7 +15,7 @@ namespace angularportalazure {
             controller: function () {
                 this.$onInit = function () {
                     this.close = function () {
-                        portalService.bladeArea.clearLastLevel();
+                        //portalService.bladeArea.clearLastLevel();
                     };
                 };
             },

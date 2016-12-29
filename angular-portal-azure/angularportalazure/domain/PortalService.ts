@@ -1,5 +1,6 @@
 ﻿/// <reference types="angular" />
 /// <reference types="angulartics" />
+/// <reference path="areanotification.ts" />
 /// <reference path="bladearea.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="bladeparameter.ts" />
@@ -59,6 +60,7 @@ namespace angularportalazure {
         portalShell: angularportalazure.PortalShell;
         panorama: angularportalazure.Panorama;
         bladeArea: angularportalazure.BladeArea;
+        areaNotification: angularportalazure.AreaNotification; // is created and set in 'home' directive
 
         //#endregion
 
