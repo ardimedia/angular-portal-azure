@@ -1,13 +1,28 @@
 ﻿@charset "UTF-8";
 /* This libraries contains some mixin*/
+/*@mixin borderbox0() {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}*/
+/*html, body {
+    @include borderbox0;
+    height: 100%;
+    width: 0;
+}*/
+html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
 html, body {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   height: 100%;
-  width: 0; }
+  width: 0;
+  margin: 0;
+  padding: 0; }
 
 /*#region CHECKOUT */
 /*
@@ -407,7 +422,7 @@ a {
   margin-top: 4px;
   margin-left: 6px;
   padding: 0;
-  opacity: 0.3;
+  opacity: 0.6;
   -webkit-transition: opacity .2s ease-out;
   -moz-transition: opacity .2s ease-out;
   -o-transition: opacity .2s ease-out;
@@ -421,10 +436,10 @@ a {
   fill: #fff; }
 
 .fxs-blade .fxs-blade-header .fxs-blade-actions button > svg * {
-  fill: #8f9ca8; }
+  /*fill: #8f9ca8;*/ }
 
 .fxs-blade .fxs-blade-header .fxs-blade-actions button svg * {
-  fill: #63707e; }
+  /*fill: #63707e;*/ }
 
 .msportalfx-svg-c01 {
   fill: #fff; }

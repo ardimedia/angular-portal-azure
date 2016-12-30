@@ -90,7 +90,7 @@ var Sample1;
         //#endregion
         //#region Methods - Overrides for Blade
         Blade11.prototype.onCommandNew = function () {
-            this.portalService.bladeArea.addBlade('/Sample1/blade2/blade2.html', this.path);
+            this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
         };
         Blade11.prototype.onActivate = function () {
         };
@@ -123,10 +123,10 @@ var Sample1;
         //#endregion
         //#region Methods - Overrides for Blade
         Blade2.prototype.onCommandNew = function () {
-            this.portalService.bladeArea.addBlade('/Sample1/blade21/blade21.html', this.path);
+            this.portalService.areaBlades.addBlade('/Sample1/blade21/blade21.html', this.path);
         };
         Blade2.prototype.onCommandSave = function () {
-            this.portalService.bladeArea.addBlade('/Sample1/blade1/blade1.html', this.path);
+            this.portalService.areaBlades.addBlade('/Sample1/blade1/blade1.html', this.path);
         };
         Blade2.prototype.onActivate = function () {
             console.log('Blade2.onActivate');
@@ -158,7 +158,7 @@ var Sample1;
         //#endregion
         //#region Methods - Overrides for Blade
         Blade21.prototype.onCommandNew = function () {
-            this.portalService.bladeArea.addBlade('/Sample1/blade2/blade2.html', this.path);
+            this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
         };
         Blade21.prototype.onActivate = function () {
             console.log('Blade21.onActivate');
@@ -230,14 +230,14 @@ var Sample1;
             angularportalazure.Debug.write('[sample1-debug] \'Grid1.onCommandNew\' called.', [this]);
             this.portalService.parameter.action = 'new';
             this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
+            this.portalService.areaBlades.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         };
         Grid1.prototype.onNavigateTo = function (customer) {
             angularportalazure.Debug.write('[sample1-debug] \'Grid1.onNavigateTo\' called.', [this, customer]);
             this.portalService.parameter.action = 'selected';
             this.portalService.parameter.item = customer;
             this.portalService.parameter.itemId = customer.customerPkId;
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
+            this.portalService.areaBlades.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         };
         return Grid1;
     }(angularportalazure.BladeGrid));
@@ -274,7 +274,7 @@ var Sample1;
             if (path === '') {
                 return;
             }
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.path });
+            this.portalService.areaBlades.raiseAddBladeEvent({ path: path, pathSender: this.path });
         };
         Nav1.prototype.callback1 = function () {
         };

@@ -397,7 +397,7 @@ a {
   margin-top: 4px;
   margin-left: 6px;
   padding: 0;
-  opacity: 0.3;
+  opacity: 0.6;
   -webkit-transition: opacity .2s ease-out;
   -moz-transition: opacity .2s ease-out;
   -o-transition: opacity .2s ease-out;
@@ -411,10 +411,10 @@ a {
   fill: #fff; }
 
 .fxs-blade .fxs-blade-header .fxs-blade-actions button > svg * {
-  fill: #8f9ca8; }
+  /*fill: #8f9ca8;*/ }
 
 .fxs-blade .fxs-blade-header .fxs-blade-actions button svg * {
-  fill: #63707e; }
+  /*fill: #63707e;*/ }
 
 .msportalfx-svg-c01 {
   fill: #fff; }

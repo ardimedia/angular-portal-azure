@@ -6,7 +6,7 @@
 /// <reference path="iaddbladeeventargs.ts" />
 
 namespace angularportalazure {
-    export class BladeArea extends angularportalazure.UserControlBase {
+    export class AreaBlades extends angularportalazure.UserControlBase {
         //#region Constructor
 
         static $inject = ['$scope', 'angularportalazure.portalService'];
@@ -14,40 +14,39 @@ namespace angularportalazure {
             super($scope, portalService);
             var that = this;
 
-            this.areaBlades = $('#apa-blade-area');
-            this.portalScroll = $('#apa-portal-scroll');
+            this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
+            this.portalScroll = this.portalService.$window.document.getElementById('apa-portal-scroll');
 
             // Set dependencies
             this.portalService = portalService;
-            //this.portalService.bladeArea = this;
+            //this.portalService.areaBlades = this;
 
-            //#region Add BladeArea.AddBlade event listener
+            //#region Add AreaBlades.AddBlade event listener
 
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
-            if (portalService instanceof angularportalazure.PortalService == false) {
-                console.log('BladeArea.constructor: This code cannot be removed yet.')
-                return;
-            }
+            //if (portalService instanceof angularportalazure.PortalService == false) {
+            //    console.log('AreaBlades.constructor: This code cannot be removed yet.')
+            //    return;
+            //}
             /** OBSOLETE: end */
-
-            // Register listener1
-            this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event: ng.IAngularEvent, args: angularportalazure.IAddBladeEventArgs) {
-                that.addBlade(args.path, args.pathSender);
-            });
 
             //#endregion
 
-            this.setupResizerListener()
+            this.setupAddBladeListener();
+            this.setupShowHideNotificationAreaListener();
+            this.setupWindowResizeListener(() => { this.setPortalScrollCss(); });
         }
 
         //#endregion
 
         //#region Properties
 
-        private areaBlades: JQuery;
-        private portalScroll: JQuery;
+        private areaBlades: HTMLElement;
+        private portalScroll: HTMLElement;
 
-        private listener1;
+        private addBladeListener;
+        private areaNotificationShowListener;
+        private areaNotificationHideListener;
 
         blades: Array<angularportalazure.Blade> = new Array<angularportalazure.Blade>();
 
@@ -68,7 +67,7 @@ namespace angularportalazure {
 
             if (!isBladeAlreadyShown) {
                 // Add the blade, since it is not yet shown
-                this.portalService.$rootScope.$broadcast('BladeArea.AddBlade', args);
+                this.portalService.$rootScope.$broadcast('AreaBlades.AddBlade', args);
             }
         }
 
@@ -94,12 +93,12 @@ namespace angularportalazure {
 
             if (that.portalService.$window !== undefined) {
                 if (that.portalService.$window.document === undefined) {
-                    throw new Error('[angularportalazure.BladeArea] \'this.$window.document\' undefined.');
+                    throw new Error('[angularportalazure.AreaBlades] \'this.$window.document\' undefined.');
                 }
 
                 var portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
                 if (portalcontent === null) {
-                    throw new Error('[angularportalazure.BladeArea] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
+                    throw new Error('[angularportalazure.AreaBlades] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
                 }
             }
 
@@ -116,7 +115,7 @@ namespace angularportalazure {
             this.blades.forEach(function (blade) {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
-                    throw new Error('[angularportalazure.BladeArea] path: \'' + path + '\' will not be added. It is already added.');
+                    throw new Error('[angularportalazure.AreaBlades] path: \'' + path + '\' will not be added. It is already added.');
                 };
             });
 
@@ -124,7 +123,7 @@ namespace angularportalazure {
 
             //#region Show the blade
 
-            var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
+            var blade = new angularportalazure.Blade(that.portalService.$scope, that.portalService, path, '');
             that.blades.push(blade);
 
             //#endregion
@@ -168,14 +167,14 @@ namespace angularportalazure {
                 }
             });
             if (!isremoved) {
-                throw new Error('[angularportalazure.BladeArea.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
+                throw new Error('[angularportalazure.AreaBlades.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
             this.showPanoramaIfNoBlades();
         }
 
         clearLevel(level: number) {
             if (this.blades.length < level) {
-                //throw new Error('[angularportalazure.BladeArea] level: \'' + level + '\' could not be cleard, since only \'' + this.blades.length + '\' available.');
+                //throw new Error('[angularportalazure.AreaBlades] level: \'' + level + '\' could not be cleard, since only \'' + this.blades.length + '\' available.');
             }
 
             if (level == 0) { level = 1; }
@@ -204,7 +203,7 @@ namespace angularportalazure {
                 }
             });
             if (!isremoved) {
-                throw new Error('[angularportalazure.BladeArea.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
+                throw new Error('[angularportalazure.AreaBlades.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
         }
 
@@ -224,12 +223,50 @@ namespace angularportalazure {
             }
         }
 
-        /** We need to call this when BladeArea is no longer used, otherwise the listener does not get removed. */
+        /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
         close() {
-            this.listener1();  // Unregister listener1
+            // Unregister Listeners
+            this.addBladeListener();
+            this.areaNotificationShowListener();
+            this.areaNotificationHideListener();
         }
 
         //#endregion
+
+        private setPortalScrollCss() {
+            this.portalScroll.style.marginRight = this.portalService.areaNotification.widthAreaUsed + 'px';
+        }
+
+        private setupShowHideNotificationAreaListener() {
+            this.areaNotificationShowListener = this.portalService.$rootScope.$on('AreaNotification.Show', (event: ng.IAngularEvent, args: angularportalazure.IAddBladeEventArgs) => {
+                this.setPortalScrollCss();
+            });
+
+            this.areaNotificationHideListener = this.portalService.$rootScope.$on('AreaNotification.Hide', (event: ng.IAngularEvent, args: angularportalazure.IAddBladeEventArgs) => {
+                this.setPortalScrollCss();
+            });
+        }
+
+        private setupAddBladeListener() {
+            let that = this;
+            that.addBladeListener = that.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event: ng.IAngularEvent, args: angularportalazure.IAddBladeEventArgs) {
+                that.addBlade(args.path, args.pathSender);
+            });
+        }
+
+        //private setupResizeListener() {
+        //    this.setPortalScrollCss();
+
+        //    // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+        //    let id: NodeJS.Timer;
+        //    $(window).resize(() => {
+        //        clearTimeout(id);
+        //        id = setTimeout(() => {
+        //            this.setPortalScrollCss();
+        //        }, 50);
+
+        //    });
+        //}
 
         //#region OBSOLETE
 
@@ -265,25 +302,7 @@ namespace angularportalazure {
         //}
 
         //#endregion
-
-
-        private setupResizerListener() {
-            let that = this;
-            that.portalScroll.css('margin-right', that.portalService.areaNotification.widthAreaUsed + 'px');
-            console.log(that.portalScroll.css('margin-right'));
-
-            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-            let id: NodeJS.Timer;
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(() => {
-                    that.portalScroll.css('margin-right', that.portalService.areaNotification.widthAreaUsed + 'px');
-                    console.log(that.portalScroll.css('margin-right'));
-                }, 50);
-
-            });
-        }
     }
 
-    angular.module('angularportalazure').service('angularportalazure.bladeArea', BladeArea);
+    angular.module('angularportalazure').service('angularportalazure.areaBlades', AreaBlades);
 }

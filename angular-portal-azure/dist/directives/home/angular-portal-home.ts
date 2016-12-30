@@ -16,9 +16,8 @@
     AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
     function AngularPortalHomeController($scope: angular.IScope, portalService: angularportalazure.PortalService) {
         this.$onInit = function () {
-            console.log('initializse');
             portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
-            portalService.bladeArea = new angularportalazure.BladeArea($scope, portalService);
+            portalService.areaBlades = new angularportalazure.AreaBlades($scope, portalService);
         };
     }
 

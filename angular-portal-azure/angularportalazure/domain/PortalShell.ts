@@ -1,4 +1,4 @@
-﻿/// <reference path="bladearea.ts" />
+﻿/// <reference path="areablades.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="panorama.ts" />
@@ -14,8 +14,8 @@ namespace angularportalazure {
 
             this.portalService = portalService;
             this.portalService.portalShell = this;
-            this.portalService.panorama = new angularportalazure.Panorama(this.$scope, title, this.portalService);
-            //this.portalService.bladeArea = new angularportalazure.BladeArea(this.$scope, portalService);
+            this.portalService.panorama = new angularportalazure.Panorama(this.portalService.$scope, title, this.portalService);
+            //this.portalService.areaBlades = new angularportalazure.BladeArea(this.$scope, portalService);
 
             this.portalService.panorama.title = title;
 
@@ -54,10 +54,10 @@ namespace angularportalazure {
         //setObsoleteLayoutProperites() {
         //    this.title = this.portalService.panorama.title;
         //    this.tiles = this.portalService.panorama.startboard.tiles.tiles;
-        //    this.blades = this.portalService.bladeArea.blades;
+        //    this.blades = this.portalService.areaBlades.blades;
 
         //    //var bladeServiceOLD = <angularportalazure.Blade>this.portalService.$injector.get('bladeService');
-        //    //bladeServiceOLD.blades = this.portalService.bladeArea.blades;
+        //    //bladeServiceOLD.blades = this.portalService.areaBlades.blades;
 
         //    if (this.portalService.panorama.avatarMenu.userAccount != undefined) {
         //        this.user = {
@@ -66,8 +66,8 @@ namespace angularportalazure {
         //        };
         //    }
 
-        //    //if (this.portalService.bladeArea != null) {
-        //    //    this.portalService.bladeArea.blades.forEach(function (blade) {
+        //    //if (this.portalService.areaBlades != null) {
+        //    //    this.portalService.areaBlades.blades.forEach(function (blade) {
         //    //        //blade.setObsoleteLayoutProperites();
         //    //    });
         //    //}

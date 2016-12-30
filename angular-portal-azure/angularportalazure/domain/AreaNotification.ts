@@ -10,24 +10,37 @@ namespace angularportalazure {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
 
-            this.areaNotification = $('#apa-notification-area');
+            this.areaNotification = this.portalService.$window.document.getElementById('apa-notification-area');
 
             this.hide();
-            this.setupResizerListener();
+            this.setupWindowResizeListener(() => { this.calcualteCssStyles(); });
         }
 
         //#endregion
 
         //#region Properties
 
-        private portalWidth: number;
-        private portalHeight: number;
-
-        private areaNotification: JQuery;
+        private areaNotification: HTMLElement;
 
         widthAreaUsed: number = 0;
-        width: number = 250;
-        backgroundColor: string = '#32383f';
+
+        private _width: number = 250;
+        get width(): number {
+            return this._width;
+        }
+        set width(value: number) {
+            this._width = value;
+            this.calcualteCssStyles();
+        }
+
+        private _backgroundColor: string = '#32383f';
+        get backgroundColor(): string {
+            return this._backgroundColor;
+        }
+        set backgroundColor(value: string) {
+            this._backgroundColor = value;
+            this.calcualteCssStyles();
+        }
 
         //#endregion
 
@@ -35,33 +48,31 @@ namespace angularportalazure {
 
         hide() {
             this.widthAreaUsed = 0;
-            this.areaNotification.css('display', 'none');
+            this.areaNotification.style.display = 'none';
+
+            this.portalService.$rootScope.$broadcast('AreaNotification.Hide');
         }
 
         show() {
-            this.areaNotification.css('position', 'absolute');
-            this.areaNotification.css('top:0', '0');
-            this.areaNotification.css('height', '100%');
-            this.areaNotification.css('background-color', this.backgroundColor);
-            this.areaNotification.css('border-left', '2px solid gray');
-            this.areaNotification.css('width', this.width + 'px');
-            this.areaNotification.css('left', $(window).width() - this.width + 'px');
+            this.widthAreaUsed = 1; // Indicate to the calcualteCssStyles function, that we need to set this value
+            this.calcualteCssStyles();
+            this.areaNotification.style.display = 'inline-block';
 
-            this.widthAreaUsed = this.width;
-            this.areaNotification.css('display', 'inline-block');
+            this.portalService.$rootScope.$broadcast('AreaNotification.Show');
         }
 
-        private setupResizerListener() {
-            let that = this;
-            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-            let id: NodeJS.Timer;
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(() => {
-                    that.show();
-                }, 50);
+        private calcualteCssStyles() {
+            this.areaNotification.style.position = 'absolute';
+            this.areaNotification.style.top = '0';
+            this.areaNotification.style.height = '100%';
+            this.areaNotification.style.backgroundColor = this.backgroundColor;
+            this.areaNotification.style.borderLeft = '2px solid gray';
+            this.areaNotification.style.width = this.width + 'px';
+            this.areaNotification.style.left = this.portalService.$window.innerWidth - this.width + 'px';
 
-            });
+            if (this.widthAreaUsed != 0) {
+                this.widthAreaUsed = this.width;
+            }
         }
 
         //#endregion

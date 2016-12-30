@@ -22,11 +22,11 @@ namespace Sample1 {
         //#region Methods - Overrides for Blade
 
         onCommandNew(): void {
-            this.portalService.bladeArea.addBlade('/Sample1/blade21/blade21.html', this.path);
+            this.portalService.areaBlades.addBlade('/Sample1/blade21/blade21.html', this.path);
         }
 
         onCommandSave(): void {
-            this.portalService.bladeArea.addBlade('/Sample1/blade1/blade1.html', this.path);
+            this.portalService.areaBlades.addBlade('/Sample1/blade1/blade1.html', this.path);
         }
 
         onActivate() {

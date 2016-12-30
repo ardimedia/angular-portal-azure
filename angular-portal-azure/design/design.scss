@@ -1,9 +1,24 @@
 ﻿@import 'libmixin.scss';
 
-html, body {
+/*html, body {
     @include borderbox0;
     height: 100%;
     width: 0;
+}*/
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html, body {
+    height: 100%;
+    width: 0;
+    margin: 0;
+    padding: 0;
 }
 
 @import 'portallayout.scss';

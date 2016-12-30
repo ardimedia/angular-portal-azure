@@ -18,7 +18,7 @@ namespace angularportalazure {
             this.title = title;
             this.subTitle = subtitle;
             this.width.width = width + 'px';
-            this.widthStackLayout.width = width - 50 + 'px';
+            this.widthStackLayout.width = width - 50 + 'px';  // 50 = padding (left and right)
 
             //this.navGrid.portalService = portalService;
 
@@ -30,7 +30,7 @@ namespace angularportalazure {
 
             if (width < 50) { throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be at least 50.'); }
 
-            //#region Add BladeArea.AddBlade event listener
+            //#region Add AreaBlades.AddBlade event listener
 
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
             //if (portalService instanceof angularportalazure.PortalService == false) {
@@ -40,23 +40,24 @@ namespace angularportalazure {
             /** OBSOLETE: end */
 
             //// Register listener1
-            //this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
+            //this.listener1 = that.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
             //    if (that.comparePaths(args.path, that.path)) {
-            //        console.log('listener1-BladeArea.AddBlade - function call: that.activate() will probably not work since this/that is not pointing to the right object. - deactivated');
+            //        console.log('listener1-AreaBlades.AddBlade - function call: that.activate() will probably not work since this/that is not pointing to the right object. - deactivated');
             //        //that.activate();
             //    }
             //});
 
             //#endregion
 
-            // Set 'this.portalService.bladeArea.blades[index]' to 'this'
-            // 'this.portalService.bladeArea.blades[index]' was generated during AddBlade
-            this.portalService.bladeArea.blades.forEach((blade, index) => {
+            // Set 'this.portalService.areaBlades.blades[index]' to 'this'
+            // 'this.portalService.areaBlades.blades[index]' was generated during AddBlade
+            this.portalService.areaBlades.blades.forEach((blade, index) => {
                 if (blade.path === this.path) {
-                    this.portalService.bladeArea.blades[index] = this;
+                    this.portalService.areaBlades.blades[index] = this;
                 }
             });
 
+            this.setupWindowResizeListener(() => { this.setBladeHeights(); });
             this.setBladeHeights();
         }
 
@@ -64,12 +65,12 @@ namespace angularportalazure {
 
         //#region Properties
 
-        //private watcherTitle: () => void;
+        private watcherTitle: () => void;
 
         //#region Properties
 
-        private bladeContentHeight: number;
-        bladeContentInnerHeight: number;
+        bladeContentHeight: number;
+        bladeContentHeightInner: number;
 
         //#region path
 
@@ -231,10 +232,10 @@ namespace angularportalazure {
         close() {
             //this.listener1(); // Unregister listener1
 
-            if (this.portalService.bladeArea !== undefined) {
-                this.portalService.bladeArea.clearPath(this.path);
+            if (this.portalService.areaBlades !== undefined) {
+                this.portalService.areaBlades.clearPath(this.path);
             } else {
-                throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.bladeArea\' available.');
+                throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.areaBlades\' available.');
             }
         }
 
@@ -360,27 +361,28 @@ namespace angularportalazure {
 
         //#endregion
 
-        //setTitle(watchExpression: string, func: () => void) {
-        //    if (this.watcherTitle === undefined) {
-        //        this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
-        //        this.$scope.$on('$destroy', () => { this.watcherTitle(); });
-        //    }
-        //}
+        setTitle(watchExpression: string, func: () => void) {
+            if (this.watcherTitle === undefined) {
+                this.watcherTitle = this.portalService.$scope.$watch(watchExpression, () => { func(); });
+                this.portalService.$scope.$on('$destroy', () => { this.watcherTitle(); });
+            }
+        }
 
         private setBladeHeights(): void {
-            let that = this;
-            that.bladeContentHeight = $('.fxs-blade-content').height();
-            that.bladeContentInnerHeight = that.bladeContentHeight - 20;
+            this.portalService.$timeout(() => {
+                this.bladeContentHeight = this.portalService.$window.innerHeight - 125; // 125 = header
+                this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
+            }, 50);
 
-            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-            var id: NodeJS.Timer;
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(() => {
-                    that.bladeContentHeight = $('.fxs-blade-content').height();
-                    that.bladeContentInnerHeight = that.bladeContentHeight - 20;
-                }, 500);
-            });
+            //// http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+            //var id: NodeJS.Timer;
+            //$(window).resize(function () {
+            //    clearTimeout(id);
+            //    id = setTimeout(() => {
+            //        that.bladeContentHeight = $('.fxs-blade-content').height();
+            //        that.bladeContentInnerHeight = that.bladeContentHeight - 20;
+            //    }, 500);
+            //});
         }
     }
 }

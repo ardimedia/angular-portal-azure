@@ -130,8 +130,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-grid.ts" />
-    <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade-nav.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\AreaNotification.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNavItem.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\IExceptionDotNet.ts" />
@@ -144,9 +142,9 @@
     <Content Include="angularportalazure\index.js" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNav.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\UserControlBase.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeArea.ts" />
+    <TypeScriptCompile Include="angularportalazure\domain\AreaBlades.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\Debug.ts" />
-    <TypeScriptCompile Include="angularportalazure\directives\nav\nav.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\nav\angular-portal-nav.ts" />
     <TypeScriptCompile Include="angularportalazure\services\DataService.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\PortalService.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\Startboard.ts" />
@@ -162,8 +160,8 @@
     <None Include="angularportalazure\directives\dirtyflag\README.md" />
     <TypeScriptCompile Include="angularportalazure\azureportalng.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade.ts" />
-    <TypeScriptCompile Include="angularportalazure\directives\home\home.ts" />
-    <TypeScriptCompile Include="angularportalazure\directives\grid\grid.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\home\angular-portal-home.ts" />
+    <TypeScriptCompile Include="angularportalazure\directives\grid\angular-portal-grid.ts" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

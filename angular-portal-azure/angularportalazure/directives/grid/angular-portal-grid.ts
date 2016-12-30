@@ -11,7 +11,7 @@
     //        controller: function () {
     //            //this.$onInit = function () {
     //            //    this.close = function () {
-    //            //        portalService.bladeArea.clearLastLevel();
+    //            //        portalService.areaBlades.clearLastLevel();
     //            //    };
     //            //};
     //        },
@@ -21,14 +21,14 @@
 
     //angular.module('angularportalazure').directive('grid', grid);
 
-    var grid = {
+    var angularPortalGrid = {
         transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/bladegrid/bladegrid.html',
         controller: function () { },
         bindings: {
             vm: '='
         }
     };
 
-    angular.module('angularportalazure').component('grid', grid);
+    angular.module('angularportalazure').component('angularPortalGrid', angularPortalGrid);
 }

@@ -26,7 +26,7 @@ namespace Sample1 {
         //#region Methods - Overrides for Blade
 
         onCommandNew(): void {
-            this.portalService.bladeArea.addBlade('/Sample1/blade2/blade2.html', this.path);
+            this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
         }
 
         onActivate() {

@@ -6,16 +6,34 @@ namespace angularportalazure {
         //#region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
-            this.$scope = $scope;
+            //this.$scope = $scope;
             this.portalService = portalService;
+            this.portalService.$scope = $scope;
         }
 
         //#endregion
 
         //#region Properties
 
-        $scope: angular.IScope;
+        //$scope: angular.IScope;
         portalService: angularportalazure.PortalService;
+
+        //#endregion
+
+        //#region Methods
+
+
+        setupWindowResizeListener(callback: () => void) {
+            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+            let id: NodeJS.Timer;
+
+            this.portalService.$window.addEventListener('resize', () => {
+                clearTimeout(id);
+                id = setTimeout(() => {
+                    callback();
+                }, 50);
+            });
+        }
 
         //#endregion
     }

@@ -18,7 +18,7 @@
     //        controller: function () {
     //            //this.$onInit = function () {
     //            //    this.close = function () {
-    //            //        portalService.bladeArea.clearLastLevel();
+    //            //        portalService.areaBlades.clearLastLevel();
     //            //    };
     //            //};
     //        },
@@ -28,7 +28,7 @@
 
     //angular.module('angularportalazure').directive('nav', nav);
 
-    var nav = {
+    var angularPortalNav = {
         transclude: true,
         templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
         controller: function () { },
@@ -37,5 +37,5 @@
         }
     };
 
-    angular.module('angularportalazure').component('nav', nav);
+    angular.module('angularportalazure').component('angularPortalNav', angularPortalNav);
 }

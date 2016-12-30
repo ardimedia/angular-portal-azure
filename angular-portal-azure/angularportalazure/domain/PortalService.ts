@@ -1,7 +1,7 @@
 ﻿/// <reference types="angular" />
 /// <reference types="angulartics" />
 /// <reference path="areanotification.ts" />
-/// <reference path="bladearea.ts" />
+/// <reference path="areablades.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="bladeparameter.ts" />
 /// <reference path="panorama.ts" />
@@ -21,6 +21,7 @@ namespace angularportalazure {
             this.$rootScope = <angular.IRootScopeService>$injector.get('$rootScope');
             this.$window = <angular.IWindowService>$injector.get('$window');
             this.$analytics = <angulartics.IAnalyticsService>$injector.get('$analytics');
+            this.$timeout = <angular.ITimeoutService>$injector.get('$timeout');
             this.$translate = <angular.translate.ITranslateService>$injector.get('$translate');
 
             this.ngDialog = <any>$injector.get('ngDialog');
@@ -59,7 +60,7 @@ namespace angularportalazure {
 
         portalShell: angularportalazure.PortalShell;
         panorama: angularportalazure.Panorama;
-        bladeArea: angularportalazure.BladeArea;
+        areaBlades: angularportalazure.AreaBlades;
         areaNotification: angularportalazure.AreaNotification; // is created and set in 'home' directive
 
         //#endregion
@@ -81,6 +82,7 @@ namespace angularportalazure {
         $q: angular.IQService;
         $rootScope: angular.IRootScopeService;
         $window: angular.IWindowService;
+        $timeout: angular.ITimeoutService;
         $translate: angular.translate.ITranslateService;
 
         //#endregion

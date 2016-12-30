@@ -175,9 +175,22 @@ var angularportalazure;
     var UserControlBase = (function () {
         //#region Constructor
         function UserControlBase($scope, portalService) {
-            this.$scope = $scope;
+            //this.$scope = $scope;
             this.portalService = portalService;
+            this.portalService.$scope = $scope;
         }
+        //#endregion
+        //#region Methods
+        UserControlBase.prototype.setupWindowResizeListener = function (callback) {
+            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+            var id;
+            this.portalService.$window.addEventListener('resize', function () {
+                clearTimeout(id);
+                id = setTimeout(function () {
+                    callback();
+                }, 50);
+            });
+        };
         return UserControlBase;
     }());
     angularportalazure.UserControlBase = UserControlBase;
@@ -269,7 +282,7 @@ var angularportalazure;
             _this.title = title;
             _this.subTitle = subtitle;
             _this.width.width = width + 'px';
-            _this.widthStackLayout.width = width - 50 + 'px';
+            _this.widthStackLayout.width = width - 50 + 'px'; // 50 = padding (left and right)
             //this.navGrid.portalService = portalService;
             if (!portalService) {
                 throw new Error('[angularportalazure.Blade] constructor parameter \'portalService\' must be provided.');
@@ -289,7 +302,7 @@ var angularportalazure;
             if (width < 50) {
                 throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be at least 50.');
             }
-            //#region Add BladeArea.AddBlade event listener
+            //#region Add AreaBlades.AddBlade event listener
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
             //if (portalService instanceof angularportalazure.PortalService == false) {
             //    console.log('Blade.constructor: This code cannot be removed yet.')
@@ -297,20 +310,21 @@ var angularportalazure;
             //}
             /** OBSOLETE: end */
             //// Register listener1
-            //this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
+            //this.listener1 = that.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
             //    if (that.comparePaths(args.path, that.path)) {
-            //        console.log('listener1-BladeArea.AddBlade - function call: that.activate() will probably not work since this/that is not pointing to the right object. - deactivated');
+            //        console.log('listener1-AreaBlades.AddBlade - function call: that.activate() will probably not work since this/that is not pointing to the right object. - deactivated');
             //        //that.activate();
             //    }
             //});
             //#endregion
-            // Set 'this.portalService.bladeArea.blades[index]' to 'this'
-            // 'this.portalService.bladeArea.blades[index]' was generated during AddBlade
-            _this.portalService.bladeArea.blades.forEach(function (blade, index) {
+            // Set 'this.portalService.areaBlades.blades[index]' to 'this'
+            // 'this.portalService.areaBlades.blades[index]' was generated during AddBlade
+            _this.portalService.areaBlades.blades.forEach(function (blade, index) {
                 if (blade.path === _this.path) {
-                    _this.portalService.bladeArea.blades[index] = _this;
+                    _this.portalService.areaBlades.blades[index] = _this;
                 }
             });
+            _this.setupWindowResizeListener(function () { _this.setBladeHeights(); });
             _this.setBladeHeights();
             return _this;
         }
@@ -377,11 +391,11 @@ var angularportalazure;
         /** close blade. */
         Blade.prototype.close = function () {
             //this.listener1(); // Unregister listener1
-            if (this.portalService.bladeArea !== undefined) {
-                this.portalService.bladeArea.clearPath(this.path);
+            if (this.portalService.areaBlades !== undefined) {
+                this.portalService.areaBlades.clearPath(this.path);
             }
             else {
-                throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.bladeArea\' available.');
+                throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.areaBlades\' available.');
             }
         };
         //#region Set StatusBar
@@ -474,25 +488,28 @@ var angularportalazure;
         //}
         //#endregion
         //#endregion
-        //setTitle(watchExpression: string, func: () => void) {
-        //    if (this.watcherTitle === undefined) {
-        //        this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
-        //        this.$scope.$on('$destroy', () => { this.watcherTitle(); });
-        //    }
-        //}
+        Blade.prototype.setTitle = function (watchExpression, func) {
+            var _this = this;
+            if (this.watcherTitle === undefined) {
+                this.watcherTitle = this.portalService.$scope.$watch(watchExpression, function () { func(); });
+                this.portalService.$scope.$on('$destroy', function () { _this.watcherTitle(); });
+            }
+        };
         Blade.prototype.setBladeHeights = function () {
-            var that = this;
-            that.bladeContentHeight = $('.fxs-blade-content').height();
-            that.bladeContentInnerHeight = that.bladeContentHeight - 20;
-            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-            var id;
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(function () {
-                    that.bladeContentHeight = $('.fxs-blade-content').height();
-                    that.bladeContentInnerHeight = that.bladeContentHeight - 20;
-                }, 500);
-            });
+            var _this = this;
+            this.portalService.$timeout(function () {
+                _this.bladeContentHeight = _this.portalService.$window.innerHeight - 125; // 125 = header
+                _this.bladeContentHeightInner = _this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
+            }, 50);
+            //// http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+            //var id: NodeJS.Timer;
+            //$(window).resize(function () {
+            //    clearTimeout(id);
+            //    id = setTimeout(() => {
+            //        that.bladeContentHeight = $('.fxs-blade-content').height();
+            //        that.bladeContentInnerHeight = that.bladeContentHeight - 20;
+            //    }, 500);
+            //});
         };
         return Blade;
     }(angularportalazure.UserControlBase));
@@ -507,35 +524,33 @@ var angularportalazure;
 "use strict";
 var angularportalazure;
 (function (angularportalazure) {
-    var BladeArea = (function (_super) {
-        __extends(BladeArea, _super);
-        function BladeArea($scope, portalService) {
+    var AreaBlades = (function (_super) {
+        __extends(AreaBlades, _super);
+        function AreaBlades($scope, portalService) {
             var _this = _super.call(this, $scope, portalService) || this;
             _this.blades = new Array();
             var that = _this;
-            _this.areaBlades = $('#apa-blade-area');
-            _this.portalScroll = $('#apa-portal-scroll');
+            _this.areaBlades = _this.portalService.$window.document.getElementById('apa-blade-area');
+            _this.portalScroll = _this.portalService.$window.document.getElementById('apa-portal-scroll');
             // Set dependencies
             _this.portalService = portalService;
-            //this.portalService.bladeArea = this;
-            //#region Add BladeArea.AddBlade event listener
+            //this.portalService.areaBlades = this;
+            //#region Add AreaBlades.AddBlade event listener
             /** OBSOLETE: remove when all OBSOLETE code has been removed */
-            if (portalService instanceof angularportalazure.PortalService == false) {
-                console.log('BladeArea.constructor: This code cannot be removed yet.');
-                return _this;
-            }
+            //if (portalService instanceof angularportalazure.PortalService == false) {
+            //    console.log('AreaBlades.constructor: This code cannot be removed yet.')
+            //    return;
+            //}
             /** OBSOLETE: end */
-            // Register listener1
-            _this.listener1 = that.portalService.$rootScope.$on('BladeArea.AddBlade', function (event, args) {
-                that.addBlade(args.path, args.pathSender);
-            });
             //#endregion
-            _this.setupResizerListener();
+            _this.setupAddBladeListener();
+            _this.setupShowHideNotificationAreaListener();
+            _this.setupWindowResizeListener(function () { _this.setPortalScrollCss(); });
             return _this;
         }
         //#endregion
         //#region Methods
-        BladeArea.prototype.raiseAddBladeEvent = function (args) {
+        AreaBlades.prototype.raiseAddBladeEvent = function (args) {
             var isBladeAlreadyShown = false;
             this.blades.forEach(function (blade) {
                 if (blade.path === args.path) {
@@ -547,15 +562,15 @@ var angularportalazure;
             });
             if (!isBladeAlreadyShown) {
                 // Add the blade, since it is not yet shown
-                this.portalService.$rootScope.$broadcast('BladeArea.AddBlade', args);
+                this.portalService.$rootScope.$broadcast('AreaBlades.AddBlade', args);
             }
         };
-        BladeArea.prototype.setFirstBlade = function (path) {
+        AreaBlades.prototype.setFirstBlade = function (path) {
             this.clearAll();
             this.hidePanorama();
             return this.addBlade(path);
         };
-        BladeArea.prototype.addBlade = function (path, senderPath) {
+        AreaBlades.prototype.addBlade = function (path, senderPath) {
             if (senderPath === void 0) { senderPath = ''; }
             if (path == null) {
                 return;
@@ -573,11 +588,11 @@ var angularportalazure;
             }
             if (that.portalService.$window !== undefined) {
                 if (that.portalService.$window.document === undefined) {
-                    throw new Error('[angularportalazure.BladeArea] \'this.$window.document\' undefined.');
+                    throw new Error('[angularportalazure.AreaBlades] \'this.$window.document\' undefined.');
                 }
                 var portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
                 if (portalcontent === null) {
-                    throw new Error('[angularportalazure.BladeArea] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
+                    throw new Error('[angularportalazure.AreaBlades] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
                 }
             }
             //#endregion
@@ -588,13 +603,13 @@ var angularportalazure;
             this.blades.forEach(function (blade) {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
-                    throw new Error('[angularportalazure.BladeArea] path: \'' + path + '\' will not be added. It is already added.');
+                    throw new Error('[angularportalazure.AreaBlades] path: \'' + path + '\' will not be added. It is already added.');
                 }
                 ;
             });
             //#endregion
             //#region Show the blade
-            var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
+            var blade = new angularportalazure.Blade(that.portalService.$scope, that.portalService, path, '');
             that.blades.push(blade);
             //#endregion
             //#region Position the blade
@@ -613,11 +628,11 @@ var angularportalazure;
             //#endregion
             return blade;
         };
-        BladeArea.prototype.clearAll = function () {
+        AreaBlades.prototype.clearAll = function () {
             this.blades.length = 0;
             this.showPanoramaIfNoBlades();
         };
-        BladeArea.prototype.clearPath = function (path) {
+        AreaBlades.prototype.clearPath = function (path) {
             var that = this;
             // we do not distinguish between lower and upper case path name
             path = path.toLowerCase();
@@ -628,11 +643,11 @@ var angularportalazure;
                 }
             });
             if (!isremoved) {
-                throw new Error('[angularportalazure.BladeArea.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
+                throw new Error('[angularportalazure.AreaBlades.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
             this.showPanoramaIfNoBlades();
         };
-        BladeArea.prototype.clearLevel = function (level) {
+        AreaBlades.prototype.clearLevel = function (level) {
             if (this.blades.length < level) {
             }
             if (level == 0) {
@@ -641,11 +656,11 @@ var angularportalazure;
             this.blades.length = level - 1;
             this.showPanoramaIfNoBlades();
         };
-        BladeArea.prototype.clearLastLevel = function () {
+        AreaBlades.prototype.clearLastLevel = function () {
             this.clearLevel(this.blades.length);
             this.showPanoramaIfNoBlades();
         };
-        BladeArea.prototype.clearChild = function (path) {
+        AreaBlades.prototype.clearChild = function (path) {
             var that = this;
             path = path.toLowerCase();
             if (path === '') {
@@ -659,10 +674,10 @@ var angularportalazure;
                 }
             });
             if (!isremoved) {
-                throw new Error('[angularportalazure.BladeArea.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
+                throw new Error('[angularportalazure.AreaBlades.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
         };
-        BladeArea.prototype.showPanoramaIfNoBlades = function () {
+        AreaBlades.prototype.showPanoramaIfNoBlades = function () {
             if (this.blades.length === 0) {
                 if (this.portalService.panorama !== undefined) {
                     {
@@ -671,65 +686,45 @@ var angularportalazure;
                 }
             }
         };
-        BladeArea.prototype.hidePanorama = function () {
+        AreaBlades.prototype.hidePanorama = function () {
             if (this.portalService.panorama !== undefined) {
                 this.portalService.panorama.isVisible = false;
             }
         };
-        /** We need to call this when BladeArea is no longer used, otherwise the listener does not get removed. */
-        BladeArea.prototype.close = function () {
-            this.listener1(); // Unregister listener1
+        /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
+        AreaBlades.prototype.close = function () {
+            // Unregister Listeners
+            this.addBladeListener();
+            this.areaNotificationShowListener();
+            this.areaNotificationHideListener();
         };
         //#endregion
-        //#region OBSOLETE
-        //addBladePath(path: string) {
-        //    // Fix issue with old code
-        //    if (this.portalService.$window === undefined) {
-        //        this.portalService.$window = <any>this.portalService;
-        //    }
-        //    this.addBlade(path);
-        //    //this.addBladeOld(path);
-        //}
-        //addBladeOld(path: string) {
-        //    var that = this;
-        //    if (path === undefined || path == '') { return; }
-        //    var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
-        //    that.blades.push(blade);
-        //    var portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
-        //    that.portalService.$window.setTimeout(function () {
-        //        var azureportalblades = that.portalService.$window.document.getElementsByClassName('azureportalblade');
-        //        var i = that.blades.length - 1;
-        //        // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
-        //        //       So now if it is, the user has to scroll on its own.
-        //        if (azureportalblades[i] !== undefined && (<any>azureportalblades[i]).offsetLeft !== undefined) {
-        //            var sl = (<any>azureportalblades[i]).offsetLeft - 30;
-        //            portalcontent.scrollLeft = sl;
-        //        }
-        //    }, 250);
-        //}
-        //#endregion
-        BladeArea.prototype.setupResizerListener = function () {
-            var that = this;
-            that.portalScroll.css('margin-right', that.portalService.areaNotification.widthAreaUsed + 'px');
-            console.log(that.portalScroll.css('margin-right'));
-            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-            var id;
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(function () {
-                    that.portalScroll.css('margin-right', that.portalService.areaNotification.widthAreaUsed + 'px');
-                    console.log(that.portalScroll.css('margin-right'));
-                }, 50);
+        AreaBlades.prototype.setPortalScrollCss = function () {
+            this.portalScroll.style.marginRight = this.portalService.areaNotification.widthAreaUsed + 'px';
+        };
+        AreaBlades.prototype.setupShowHideNotificationAreaListener = function () {
+            var _this = this;
+            this.areaNotificationShowListener = this.portalService.$rootScope.$on('AreaNotification.Show', function (event, args) {
+                _this.setPortalScrollCss();
+            });
+            this.areaNotificationHideListener = this.portalService.$rootScope.$on('AreaNotification.Hide', function (event, args) {
+                _this.setPortalScrollCss();
             });
         };
-        return BladeArea;
+        AreaBlades.prototype.setupAddBladeListener = function () {
+            var that = this;
+            that.addBladeListener = that.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event, args) {
+                that.addBlade(args.path, args.pathSender);
+            });
+        };
+        return AreaBlades;
     }(angularportalazure.UserControlBase));
     //#region Constructor
-    BladeArea.$inject = ['$scope', 'angularportalazure.portalService'];
-    angularportalazure.BladeArea = BladeArea;
-    angular.module('angularportalazure').service('angularportalazure.bladeArea', BladeArea);
+    AreaBlades.$inject = ['$scope', 'angularportalazure.portalService'];
+    angularportalazure.AreaBlades = AreaBlades;
+    angular.module('angularportalazure').service('angularportalazure.areaBlades', AreaBlades);
 })(angularportalazure || (angularportalazure = {}));
-/// <reference path="bladearea.ts" />
+/// <reference path="areablades.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
 "use strict";
@@ -775,7 +770,7 @@ var angularportalazure;
             if (path === '') {
                 return;
             }
-            this.portalService.bladeArea.raiseAddBladeEvent({ path: path, pathSender: this.path });
+            this.portalService.areaBlades.raiseAddBladeEvent({ path: path, pathSender: this.path });
         };
         return BladeNav;
     }(angularportalazure.BladeData));
@@ -830,40 +825,59 @@ var angularportalazure;
         function AreaNotification($scope, portalService) {
             var _this = _super.call(this, $scope, portalService) || this;
             _this.widthAreaUsed = 0;
-            _this.width = 250;
-            _this.backgroundColor = '#32383f';
-            _this.areaNotification = $('#apa-notification-area');
+            _this._width = 250;
+            _this._backgroundColor = '#32383f';
+            _this.areaNotification = _this.portalService.$window.document.getElementById('apa-notification-area');
             _this.hide();
-            _this.setupResizerListener();
+            _this.setupWindowResizeListener(function () { _this.calcualteCssStyles(); });
             return _this;
         }
+        Object.defineProperty(AreaNotification.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            set: function (value) {
+                this._width = value;
+                this.calcualteCssStyles();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AreaNotification.prototype, "backgroundColor", {
+            get: function () {
+                return this._backgroundColor;
+            },
+            set: function (value) {
+                this._backgroundColor = value;
+                this.calcualteCssStyles();
+            },
+            enumerable: true,
+            configurable: true
+        });
         //#endregion
         //#region Methods
         AreaNotification.prototype.hide = function () {
             this.widthAreaUsed = 0;
-            this.areaNotification.css('display', 'none');
+            this.areaNotification.style.display = 'none';
+            this.portalService.$rootScope.$broadcast('AreaNotification.Hide');
         };
         AreaNotification.prototype.show = function () {
-            this.areaNotification.css('position', 'absolute');
-            this.areaNotification.css('top:0', '0');
-            this.areaNotification.css('height', '100%');
-            this.areaNotification.css('background-color', this.backgroundColor);
-            this.areaNotification.css('border-left', '2px solid gray');
-            this.areaNotification.css('width', this.width + 'px');
-            this.areaNotification.css('left', $(window).width() - this.width + 'px');
-            this.widthAreaUsed = this.width;
-            this.areaNotification.css('display', 'inline-block');
+            this.widthAreaUsed = 1; // Indicate to the calcualteCssStyles function, that we need to set this value
+            this.calcualteCssStyles();
+            this.areaNotification.style.display = 'inline-block';
+            this.portalService.$rootScope.$broadcast('AreaNotification.Show');
         };
-        AreaNotification.prototype.setupResizerListener = function () {
-            var that = this;
-            // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-            var id;
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(function () {
-                    that.show();
-                }, 50);
-            });
+        AreaNotification.prototype.calcualteCssStyles = function () {
+            this.areaNotification.style.position = 'absolute';
+            this.areaNotification.style.top = '0';
+            this.areaNotification.style.height = '100%';
+            this.areaNotification.style.backgroundColor = this.backgroundColor;
+            this.areaNotification.style.borderLeft = '2px solid gray';
+            this.areaNotification.style.width = this.width + 'px';
+            this.areaNotification.style.left = this.portalService.$window.innerWidth - this.width + 'px';
+            if (this.widthAreaUsed != 0) {
+                this.widthAreaUsed = this.width;
+            }
         };
         return AreaNotification;
     }(angularportalazure.UserControlBase));
@@ -955,7 +969,7 @@ var angularportalazure;
         //#endregion
         //#region Methods
         Tile.prototype.clicked = function () {
-            this.portalService.bladeArea.setFirstBlade(this.bladePath);
+            this.portalService.areaBlades.setFirstBlade(this.bladePath);
         };
         return Tile;
     }());
@@ -1039,15 +1053,15 @@ var angularportalazure;
             _this.isVisible = true;
             _this.title = title;
             _this.portalService.panorama = _this;
-            _this.avatarMenu = new angularportalazure.AvatarMenu(_this.$scope, _this.portalService);
-            _this.startboard = new angularportalazure.Startboard(_this.$scope, _this.portalService);
+            _this.avatarMenu = new angularportalazure.AvatarMenu(_this.portalService.$scope, _this.portalService);
+            _this.startboard = new angularportalazure.Startboard(_this.portalService.$scope, _this.portalService);
             return _this;
         }
         return Panorama;
     }(angularportalazure.UserControlBase));
     angularportalazure.Panorama = Panorama;
 })(angularportalazure || (angularportalazure = {}));
-/// <reference path="bladearea.ts" />
+/// <reference path="areablades.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="panorama.ts" />
@@ -1063,8 +1077,8 @@ var angularportalazure;
             var _this = _super.call(this, null, portalService) || this;
             _this.portalService = portalService;
             _this.portalService.portalShell = _this;
-            _this.portalService.panorama = new angularportalazure.Panorama(_this.$scope, title, _this.portalService);
-            //this.portalService.bladeArea = new angularportalazure.BladeArea(this.$scope, portalService);
+            _this.portalService.panorama = new angularportalazure.Panorama(_this.portalService.$scope, title, _this.portalService);
+            //this.portalService.areaBlades = new angularportalazure.BladeArea(this.$scope, portalService);
             _this.portalService.panorama.title = title;
             return _this;
             //this.initialize();
@@ -1076,7 +1090,7 @@ var angularportalazure;
 /// <reference types="angular" />
 /// <reference types="angulartics" />
 /// <reference path="areanotification.ts" />
-/// <reference path="bladearea.ts" />
+/// <reference path="areablades.ts" />
 /// <reference path="debug.ts" />
 /// <reference path="bladeparameter.ts" />
 /// <reference path="panorama.ts" />
@@ -1096,6 +1110,7 @@ var angularportalazure;
             this.$rootScope = $injector.get('$rootScope');
             this.$window = $injector.get('$window');
             this.$analytics = $injector.get('$analytics');
+            this.$timeout = $injector.get('$timeout');
             this.$translate = $injector.get('$translate');
             this.ngDialog = $injector.get('ngDialog');
             this.ngDialog.openConfirm;
@@ -1113,60 +1128,6 @@ var angularportalazure;
 "use strict";
 var angularportalazure;
 (function (angularportalazure) {
-    angularPortalBladeGrid.$inject = ['angularportalazure.portalService'];
-    function angularPortalBladeGrid(portalService) {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) { },
-            controller: function () {
-                this.$onInit = function () {
-                    this.close = function () {
-                        //portalService.bladeArea.clearLastLevel();
-                    };
-                };
-            },
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('angularportalazure').directive('angularPortalBladeGrid', angularPortalBladeGrid);
-})(angularportalazure || (angularportalazure = {}));
-/// <reference types="angular" />
-/// <reference path="../../domain/debug.ts" />
-/// <reference path="../../domain/portalservice.ts" />
-"use strict";
-var angularportalazure;
-(function (angularportalazure) {
-    angularPortalBladeNav.$inject = ['angularportalazure.portalService'];
-    function angularPortalBladeNav(portalService) {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {},
-            bindToController: { vm: '=' },
-            templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-            link: function (scope, element, attrs, controller) { },
-            controller: function () {
-                this.$onInit = function () {
-                    this.close = function () {
-                        //portalService.bladeArea.clearLastLevel();
-                    };
-                };
-            },
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('angularportalazure').directive('angularPortalBladeNav', angularPortalBladeNav);
-})(angularportalazure || (angularportalazure = {}));
-/// <reference types="angular" />
-/// <reference path="../../domain/debug.ts" />
-/// <reference path="../../domain/portalservice.ts" />
-"use strict";
-var angularportalazure;
-(function (angularportalazure) {
     //angularPortalBlade.$inject = ['angularportalazure.portalService'];
     //function angularPortalBlade(portalService: angularportalazure.PortalService) {
     //    return {
@@ -1177,13 +1138,13 @@ var angularportalazure;
     //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
     //        link: function (scope, element, attrs, controller) {
     //            //controller.close = function () {
-    //            //    portalService.bladeArea.clearLastLevel();
+    //            //    portalService.areaBlades.clearLastLevel();
     //            //};
     //        },
     //        controller: function () {
     //            this.$onInit = function () {
     //                this.close = function () {
-    //                    portalService.bladeArea.clearLastLevel();
+    //                    portalService.areaBlades.clearLastLevel();
     //                };
     //            };
     //        },
@@ -1194,10 +1155,10 @@ var angularportalazure;
     AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
     function AngularPortalBladeController(portalService) {
         this.$onInit = function () {
-            portalService.areaNotification.show();
+            //portalService.areaNotification.show();
             this.close = function () {
-                //portalService.bladeArea.clearLastLevel();
-                portalService.areaNotification.hide();
+                //portalService.areaBlades.clearLastLevel();
+                //portalService.areaNotification.hide();
             };
         };
     }
@@ -1210,111 +1171,6 @@ var angularportalazure;
         }
     };
     angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
-})(angularportalazure || (angularportalazure = {}));
-"use strict";
-var angularportalazure;
-(function (angularportalazure) {
-    //grid.$inject = ['angularportalazure.portalService'];
-    //function grid(portalService: angularportalazure.PortalService) {
-    //    return {
-    //        restrict: 'E',
-    //        transclude: true,
-    //        scope: {},
-    //        bindToController: { vm: '=' },
-    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
-    //        link: function (scope, element, attrs, controller) { },
-    //        controller: function () {
-    //            //this.$onInit = function () {
-    //            //    this.close = function () {
-    //            //        portalService.bladeArea.clearLastLevel();
-    //            //    };
-    //            //};
-    //        },
-    //        controllerAs: '$ctrl'
-    //    };
-    //}
-    //angular.module('angularportalazure').directive('grid', grid);
-    var grid = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
-        controller: function () { },
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('grid', grid);
-})(angularportalazure || (angularportalazure = {}));
-"use strict";
-var angularportalazure;
-(function (angularportalazure) {
-    //function angularPortalHome() {
-    //    return {
-    //        restrict: 'E',
-    //        scope: {},
-    //        bindToController: { vm: '=' },
-    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-    //        link: function (scope, element, attrs, controller) { },
-    //        controller: function () { },
-    //        controllerAs: '$ctrl'
-    //    };
-    //}
-    //angular.module('angularportalazure').directive('angularPortalHome', angularPortalHome);
-    AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
-    function AngularPortalHomeController($scope, portalService) {
-        this.$onInit = function () {
-            console.log('initializse');
-            portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
-            portalService.bladeArea = new angularportalazure.BladeArea($scope, portalService);
-        };
-    }
-    var angularPortalHome = {
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-        controller: AngularPortalHomeController,
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
-})(angularportalazure || (angularportalazure = {}));
-"use strict";
-var angularportalazure;
-(function (angularportalazure) {
-    //nav.$inject = ['angularportalazure.portalService'];
-    //function nav(portalService: angularportalazure.PortalService) {
-    //    return {
-    //        restrict: 'E',
-    //        transclude: true,
-    //        scope: {},
-    //        bindToController: { vm: '=' },
-    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
-    //        link: function (scope, element, attrs, controller) {
-    //            angular.forEach(controller.items, function (item) {
-    //                // Set some default values, depending on existing values
-    //                if (item.isVisible == undefined) { item.isVisible = true; }
-    //                if (item.title == undefined || item.title == '') { item.style = { cursor: 'default' }; }
-    //                if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
-    //            });
-    //        },
-    //        controller: function () {
-    //            //this.$onInit = function () {
-    //            //    this.close = function () {
-    //            //        portalService.bladeArea.clearLastLevel();
-    //            //    };
-    //            //};
-    //        },
-    //        controllerAs: '$ctrl'
-    //    };
-    //}
-    //angular.module('angularportalazure').directive('nav', nav);
-    var nav = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
-        controller: function () { },
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('nav', nav);
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="bladedata.ts" />
 /// <reference path="debug.ts" />
@@ -1603,4 +1459,108 @@ var angularportalazure;
         return DataService;
     }());
     angularportalazure.DataService = DataService;
+})(angularportalazure || (angularportalazure = {}));
+"use strict";
+var angularportalazure;
+(function (angularportalazure) {
+    //nav.$inject = ['angularportalazure.portalService'];
+    //function nav(portalService: angularportalazure.PortalService) {
+    //    return {
+    //        restrict: 'E',
+    //        transclude: true,
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
+    //        link: function (scope, element, attrs, controller) {
+    //            angular.forEach(controller.items, function (item) {
+    //                // Set some default values, depending on existing values
+    //                if (item.isVisible == undefined) { item.isVisible = true; }
+    //                if (item.title == undefined || item.title == '') { item.style = { cursor: 'default' }; }
+    //                if (item.bladePath == undefined || item.bladePath == '') { item.style = { cursor: 'default' }; }
+    //            });
+    //        },
+    //        controller: function () {
+    //            //this.$onInit = function () {
+    //            //    this.close = function () {
+    //            //        portalService.areaBlades.clearLastLevel();
+    //            //    };
+    //            //};
+    //        },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
+    //angular.module('angularportalazure').directive('nav', nav);
+    var angularPortalNav = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalNav', angularPortalNav);
+})(angularportalazure || (angularportalazure = {}));
+"use strict";
+var angularportalazure;
+(function (angularportalazure) {
+    //function angularPortalHome() {
+    //    return {
+    //        restrict: 'E',
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
+    //        link: function (scope, element, attrs, controller) { },
+    //        controller: function () { },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
+    //angular.module('angularportalazure').directive('angularPortalHome', angularPortalHome);
+    AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
+    function AngularPortalHomeController($scope, portalService) {
+        this.$onInit = function () {
+            portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
+            portalService.areaBlades = new angularportalazure.AreaBlades($scope, portalService);
+        };
+    }
+    var angularPortalHome = {
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
+        controller: AngularPortalHomeController,
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
+})(angularportalazure || (angularportalazure = {}));
+"use strict";
+var angularportalazure;
+(function (angularportalazure) {
+    //grid.$inject = ['angularportalazure.portalService'];
+    //function grid(portalService: angularportalazure.PortalService) {
+    //    return {
+    //        restrict: 'E',
+    //        transclude: true,
+    //        scope: {},
+    //        bindToController: { vm: '=' },
+    //        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/grid/grid.html',
+    //        link: function (scope, element, attrs, controller) { },
+    //        controller: function () {
+    //            //this.$onInit = function () {
+    //            //    this.close = function () {
+    //            //        portalService.areaBlades.clearLastLevel();
+    //            //    };
+    //            //};
+    //        },
+    //        controllerAs: '$ctrl'
+    //    };
+    //}
+    //angular.module('angularportalazure').directive('grid', grid);
+    var angularPortalGrid = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/bladegrid/bladegrid.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalGrid', angularPortalGrid);
 })(angularportalazure || (angularportalazure = {}));

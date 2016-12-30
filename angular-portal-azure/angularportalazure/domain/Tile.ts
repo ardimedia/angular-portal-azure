@@ -50,7 +50,7 @@ namespace angularportalazure {
         //#region Methods
 
         clicked() {
-            this.portalService.bladeArea.setFirstBlade(this.bladePath);
+            this.portalService.areaBlades.setFirstBlade(this.bladePath);
         }
 
         //#endregion

@@ -36,8 +36,8 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class UserControlBase {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
+        setupWindowResizeListener(callback: () => void): void;
     }
 }
 declare namespace angularportalazure {
@@ -50,8 +50,9 @@ declare var $: JQueryStatic;
 declare namespace angularportalazure {
     class Blade extends angularportalazure.UserControlBase {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        private bladeContentHeight;
-        bladeContentInnerHeight: number;
+        private watcherTitle;
+        bladeContentHeight: number;
+        bladeContentHeightInner: number;
         private _path;
         path: string;
         title: string;
@@ -150,16 +151,19 @@ declare namespace angularportalazure {
         onCommandStop(): void;
         onCommandSwap(): void;
         /** Obsolete */
+        setTitle(watchExpression: string, func: () => void): void;
         private setBladeHeights();
     }
 }
 declare namespace angularportalazure {
-    class BladeArea extends angularportalazure.UserControlBase {
+    class AreaBlades extends angularportalazure.UserControlBase {
         static $inject: string[];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
         private areaBlades;
         private portalScroll;
-        private listener1;
+        private addBladeListener;
+        private areaNotificationShowListener;
+        private areaNotificationHideListener;
         blades: Array<angularportalazure.Blade>;
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
         setFirstBlade(path: string): angularportalazure.Blade | void;
@@ -171,9 +175,11 @@ declare namespace angularportalazure {
         clearChild(path: string): void;
         showPanoramaIfNoBlades(): void;
         hidePanorama(): void;
-        /** We need to call this when BladeArea is no longer used, otherwise the listener does not get removed. */
+        /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
         close(): void;
-        private setupResizerListener();
+        private setPortalScrollCss();
+        private setupShowHideNotificationAreaListener();
+        private setupAddBladeListener();
     }
 }
 declare namespace angularportalazure {
@@ -206,15 +212,15 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class AreaNotification extends angularportalazure.UserControlBase {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        private portalWidth;
-        private portalHeight;
         private areaNotification;
         widthAreaUsed: number;
+        private _width;
         width: number;
+        private _backgroundColor;
         backgroundColor: string;
         hide(): void;
         show(): void;
-        private setupResizerListener();
+        private calcualteCssStyles();
     }
 }
 declare namespace angularportalazure {
@@ -321,7 +327,7 @@ declare namespace angularportalazure {
         requires: any;
         portalShell: angularportalazure.PortalShell;
         panorama: angularportalazure.Panorama;
-        bladeArea: angularportalazure.BladeArea;
+        areaBlades: angularportalazure.AreaBlades;
         areaNotification: angularportalazure.AreaNotification;
         ngDialog: any;
         /** obsolete - $scope is different in any view. do have one instance in a shared service is not the right approach. */
@@ -332,18 +338,9 @@ declare namespace angularportalazure {
         $q: angular.IQService;
         $rootScope: angular.IRootScopeService;
         $window: angular.IWindowService;
+        $timeout: angular.ITimeoutService;
         $translate: angular.translate.ITranslateService;
     }
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
 }
@@ -403,4 +400,10 @@ declare namespace angularportalazure {
         constructor($http: angular.IHttpService, $q: angular.IQService);
         getData(url: string): any;
     }
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
 }
