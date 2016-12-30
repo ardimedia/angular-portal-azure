@@ -1,6 +1,4 @@
-﻿/// <reference path="debug.ts" />
-
-namespace angularportalazure {
+﻿namespace angularportalazure {
     export class Exception implements angularportalazure.IExceptionDotNet {
         //#region Properites
 
@@ -20,7 +18,7 @@ namespace angularportalazure {
         //#endregion
 
         processException(response: angular.IHttpPromiseCallbackArg<any>) {
-            var that = this;
+            let that = this;
 
             this.convertFromWebApiException(response.data);
 
@@ -44,7 +42,7 @@ namespace angularportalazure {
             //#region Process data to Messages
 
             ex.Messages = [];
-            var i = 1;
+            let i = 1;
             while (ex.Data[i + ''] !== undefined) {
                 ex.Messages.push(ex.Data[i + '']);
                 i++;

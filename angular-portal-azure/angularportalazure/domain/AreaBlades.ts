@@ -1,5 +1,4 @@
 ﻿/// <reference types="angular" />
-/// <reference path="debug.ts" />
 /// <reference path="blade.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="portalservice.ts" />
@@ -12,25 +11,10 @@ namespace angularportalazure {
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
-            var that = this;
+            let that = this;
 
             this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
             this.portalScroll = this.portalService.$window.document.getElementById('apa-portal-scroll');
-
-            // Set dependencies
-            this.portalService = portalService;
-            //this.portalService.areaBlades = this;
-
-            //#region Add AreaBlades.AddBlade event listener
-
-            /** OBSOLETE: remove when all OBSOLETE code has been removed */
-            //if (portalService instanceof angularportalazure.PortalService == false) {
-            //    console.log('AreaBlades.constructor: This code cannot be removed yet.')
-            //    return;
-            //}
-            /** OBSOLETE: end */
-
-            //#endregion
 
             this.setupAddBladeListener();
             this.setupShowHideNotificationAreaListener();
@@ -63,7 +47,7 @@ namespace angularportalazure {
                     isBladeAlreadyShown = true;
                     return;
                 }
-            })
+            });
 
             if (!isBladeAlreadyShown) {
                 // Add the blade, since it is not yet shown
@@ -80,8 +64,8 @@ namespace angularportalazure {
         addBlade(path: string, senderPath: string = ''): angularportalazure.Blade | void {
             if (path == null) { return; }
             if (senderPath == null) { return; }
-            var that = this;
-
+            let that = this;
+            let portalcontent = null;
             this.portalService.$analytics.pageTrack(path);
 
             path = path.toLowerCase();
@@ -96,7 +80,7 @@ namespace angularportalazure {
                     throw new Error('[angularportalazure.AreaBlades] \'this.$window.document\' undefined.');
                 }
 
-                var portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
+                portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
                 if (portalcontent === null) {
                     throw new Error('[angularportalazure.AreaBlades] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
                 }
@@ -123,7 +107,7 @@ namespace angularportalazure {
 
             //#region Show the blade
 
-            var blade = new angularportalazure.Blade(that.portalService.$scope, that.portalService, path, '');
+            let blade = new angularportalazure.Blade(this.$scope, that.portalService, path, '');
             that.blades.push(blade);
 
             //#endregion
@@ -132,14 +116,14 @@ namespace angularportalazure {
 
             if (that.portalService.$window !== undefined) {
                 that.portalService.$window.setTimeout(function () {
-                    var azureportalblades = that.portalService.$window.document.getElementsByClassName('azureportalblade');
+                    let azureportalblades = that.portalService.$window.document.getElementsByClassName('azureportalblade');
 
-                    var i = that.blades.length - 1;
+                    let i = that.blades.length - 1;
 
                     // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
                     //       So now if it is, the user has to scroll on its own.
                     if (azureportalblades[i] !== undefined && (<any>azureportalblades[i]).offsetLeft !== undefined) {
-                        var sl = (<any>azureportalblades[i]).offsetLeft - 30;
+                        let sl = (<any>azureportalblades[i]).offsetLeft - 30;
                         portalcontent.scrollLeft = sl;
                     }
                 }, 250);
@@ -156,11 +140,11 @@ namespace angularportalazure {
         }
 
         clearPath(path: string): void {
-            var that = this;
+            let that = this;
             // we do not distinguish between lower and upper case path name
-            path = path.toLowerCase()
+            path = path.toLowerCase();
 
-            var isremoved = that.blades.some(function (blade, index) {
+            let isremoved = that.blades.some(function (blade, index) {
                 if (blade.comparePaths(blade.path, path)) {
                     that.blades.length = index;
                     return true;
@@ -174,10 +158,10 @@ namespace angularportalazure {
 
         clearLevel(level: number) {
             if (this.blades.length < level) {
-                //throw new Error('[angularportalazure.AreaBlades] level: \'' + level + '\' could not be cleard, since only \'' + this.blades.length + '\' available.');
+                throw new Error('[angularportalazure.AreaBlades] level: \'' + level + '\' could not be cleard, since only \'' + this.blades.length + '\' available.');
             }
 
-            if (level == 0) { level = 1; }
+            if (level === 0) { level = 1; }
             this.blades.length = level - 1;
             this.showPanoramaIfNoBlades();
         }
@@ -188,14 +172,14 @@ namespace angularportalazure {
         }
 
         clearChild(path: string): void {
-            var that = this;
+            let that = this;
 
             path = path.toLowerCase();
 
             if (path === '') {
                 return;
             }
-            var isremoved = that.blades.some(function (blade, index) {
+            let isremoved = that.blades.some(function (blade, index) {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
                     that.blades.length = index + 1;
@@ -253,55 +237,6 @@ namespace angularportalazure {
                 that.addBlade(args.path, args.pathSender);
             });
         }
-
-        //private setupResizeListener() {
-        //    this.setPortalScrollCss();
-
-        //    // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-        //    let id: NodeJS.Timer;
-        //    $(window).resize(() => {
-        //        clearTimeout(id);
-        //        id = setTimeout(() => {
-        //            this.setPortalScrollCss();
-        //        }, 50);
-
-        //    });
-        //}
-
-        //#region OBSOLETE
-
-        //addBladePath(path: string) {
-        //    // Fix issue with old code
-        //    if (this.portalService.$window === undefined) {
-        //        this.portalService.$window = <any>this.portalService;
-        //    }
-        //    this.addBlade(path);
-        //    //this.addBladeOld(path);
-        //}
-
-        //addBladeOld(path: string) {
-        //    var that = this;
-        //    if (path === undefined || path == '') { return; }
-
-        //    var blade = new angularportalazure.Blade(that.$scope, that.portalService, path, '');
-        //    that.blades.push(blade);
-
-        //    var portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
-        //    that.portalService.$window.setTimeout(function () {
-        //        var azureportalblades = that.portalService.$window.document.getElementsByClassName('azureportalblade');
-
-        //        var i = that.blades.length - 1;
-
-        //        // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
-        //        //       So now if it is, the user has to scroll on its own.
-        //        if (azureportalblades[i] !== undefined && (<any>azureportalblades[i]).offsetLeft !== undefined) {
-        //            var sl = (<any>azureportalblades[i]).offsetLeft - 30;
-        //            portalcontent.scrollLeft = sl;
-        //        }
-        //    }, 250);
-        //}
-
-        //#endregion
     }
 
     angular.module('angularportalazure').service('angularportalazure.areaBlades', AreaBlades);

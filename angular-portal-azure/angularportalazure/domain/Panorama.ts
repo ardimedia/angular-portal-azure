@@ -1,5 +1,4 @@
 ﻿/// <reference path="avatarmenu.ts" />
-/// <reference path="debug.ts" />
 /// <reference path="startboard.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
@@ -24,8 +23,8 @@ namespace angularportalazure {
             this.title = title;
             this.portalService.panorama = this;
 
-            this.avatarMenu = new angularportalazure.AvatarMenu(this.portalService.$scope, this.portalService);
-            this.startboard = new angularportalazure.Startboard(this.portalService.$scope, this.portalService);
+            this.avatarMenu = new angularportalazure.AvatarMenu(this.$scope, this.portalService);
+            this.startboard = new angularportalazure.Startboard(this.$scope, this.portalService);
         }
 
         //#endregion

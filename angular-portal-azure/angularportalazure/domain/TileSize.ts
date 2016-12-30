@@ -1,5 +1,4 @@
-﻿/// <reference path="debug.ts" />
-/// <reference path="tilesizes.ts" />
+﻿/// <reference path="tilesizes.ts" />
 
 namespace angularportalazure {
     export class TileSize {
@@ -14,7 +13,7 @@ namespace angularportalazure {
         //#region Methods
 
         static getTileSizes(): Array<TileSize> {
-            var tileSizes = Array<TileSize>();
+            let tileSizes = Array<TileSize>();
 
             tileSizes.push(new TileSize(angularportalazure.TileSizes.small, 90, 90));
             tileSizes.push(new TileSize(angularportalazure.TileSizes.mini, 180, 90));

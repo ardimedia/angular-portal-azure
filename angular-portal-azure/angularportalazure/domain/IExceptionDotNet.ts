@@ -1,6 +1,4 @@
-﻿/// <reference path="debug.ts" />
-
-namespace angularportalazure {
+﻿namespace angularportalazure {
     export class IExceptionDotNet {
         //#region Properites
 

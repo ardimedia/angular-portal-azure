@@ -1,6 +1,4 @@
-﻿/// <reference path="debug.ts" />
-
-namespace angularportalazure {
+﻿namespace angularportalazure {
     export class UserAccount {
         //#region Constructor
 
@@ -15,6 +13,7 @@ namespace angularportalazure {
         //#region Properties
 
         //#region firstName
+
         private _firstName: string;
         get firstName(): string {
             return this._firstName;
@@ -43,7 +42,6 @@ namespace angularportalazure {
         }
         set name(value: string) {
             throw new Error('[angularportalazure.UserAccount] \'name\' is a calculated value from \'firsName\' and \'lastName\'. Assignment not allowed.');
-            //this._name = value;
         }
         //#endregion
 

@@ -1,11 +1,10 @@
 ﻿/// <reference types="angular" />
-/// <reference types="angulartics" />
 /// <reference path="areanotification.ts" />
 /// <reference path="areablades.ts" />
-/// <reference path="debug.ts" />
 /// <reference path="bladeparameter.ts" />
 /// <reference path="panorama.ts" />
 /// <reference path="portalshell.ts" />
+/// <reference types="angulartics" />
 
 namespace angularportalazure {
     export class PortalService {
@@ -25,7 +24,6 @@ namespace angularportalazure {
             this.$translate = <angular.translate.ITranslateService>$injector.get('$translate');
 
             this.ngDialog = <any>$injector.get('ngDialog');
-            this.ngDialog.openConfirm
         }
 
         //#endregion
@@ -73,9 +71,6 @@ namespace angularportalazure {
 
         //#region Angular Services
 
-        /** obsolete - $scope is different in any view. do have one instance in a shared service is not the right approach. */
-        $scope: angular.IScope;
-
         $injector: angular.auto.IInjectorService;
         $http: angular.IHttpService;
         $httpBackend: angular.IHttpBackendService;
@@ -86,16 +81,6 @@ namespace angularportalazure {
         $translate: angular.translate.ITranslateService;
 
         //#endregion
-
-        //#endregion
-
-        //#region Methods
-
-        //initialize(portalShell: PortalShell) {
-        //    angularportalazure.Debug.write('[angularportalazure-debug] \'PortalService.initialize\' called.', [this, portalShell]);
-        //    this.portalShell = portalShell;
-        //    this.portalShell.setObsoleteLayoutProperites();
-        //}
 
         //#endregion
     }

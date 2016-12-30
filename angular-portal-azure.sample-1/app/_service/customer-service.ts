@@ -3,7 +3,7 @@
         constructor() { }
 
         getAll(): Customer[] {
-            var list: Customer[] = [];
+            let list: Customer[] = [];
 
             list.push(new Customer(1, 'Evi', 'Pfleger'));
             list.push(new Customer(2, 'Harry', 'Pfleger'));

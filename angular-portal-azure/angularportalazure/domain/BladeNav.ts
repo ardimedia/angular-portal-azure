@@ -1,5 +1,4 @@
 ﻿/// <reference path="bladedata.ts" />
-/// <reference path="debug.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />
 

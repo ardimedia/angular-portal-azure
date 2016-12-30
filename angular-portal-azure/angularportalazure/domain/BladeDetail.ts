@@ -1,5 +1,4 @@
 ﻿/// <reference path="bladedata.ts" />
-/// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
 
 namespace angularportalazure {
@@ -16,16 +15,9 @@ namespace angularportalazure {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super($scope, portalService, path, title, subtitle, width);
 
-            //this.isCommandNew = true;
             this.commandNewText = 'neu';
-
-            //this.isCommandSave = true;
             this.commandSaveText = 'speichern';
-
-            //this.isCommandDelete = true;
             this.commandDeleteText = 'löschen';
-
-            //this.isCommandCancel = true;
             this.commandCancelText = 'abbrechen';
         }
 

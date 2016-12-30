@@ -1,5 +1,4 @@
-﻿/// <reference path="debug.ts" />
-/// <reference path="portalservice.ts" />
+﻿/// <reference path="portalservice.ts" />
 /// <reference path="useraccount.ts" />
 /// <reference path="usercontrolbase.ts" />
 

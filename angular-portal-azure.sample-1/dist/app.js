@@ -30,39 +30,18 @@ var Sample1;
     }());
     Sample1.CustomerService = CustomerService;
 })(Sample1 || (Sample1 = {}));
+/// <reference types="angular" />
+/// <reference types="angulartics" />
 /// <reference types="@ardimedia/angular-portal-azure" />
 /// <reference path="../node_modules/@types/angular/index.d.ts" />
 var Sample1;
 (function (Sample1) {
-    var app = angular.module('sample1App', [
+    angular.module('sample1App', [
         'ngResource',
         'ngDialog',
         'ngDialog',
         'angularportalazure'
     ]);
-    //#region Configuration
-    /** configure angular */
-    //app.config([function (): void {
-    //    angularportalazure.Debug.enable(); // '[sample1-debug]'
-    //    angularportalazure.Debug.isEnabled = true;
-    //    angularportalazure.Debug.isWithObjects = false;
-    //}]);
-    /** configure angular dialog */
-    //app.config(['ngDialogProvider', function (ngDialogProvider: any): void {
-    //    ngDialogProvider.setDefaults({
-    //        className: 'ngdialog-theme-default',
-    //        plain: false,
-    //        showClose: false,
-    //        closeByDocument: true,
-    //        closeByEscape: true,
-    //        appendTo: false
-    //    });
-    //}]);
-    /** run angular */
-    //app.run(['$templateCache', function ($templateCache) {
-    //    $templateCache.removeAll();
-    //}]);
-    //#endregion
     /** bootstrap angular */
     angular.element(document.body).ready(function () {
         angular.bootstrap(document.body, ['sample1App'], { strictDi: true });
@@ -292,19 +271,30 @@ var Sample1;
             var _this = _super.call(this, portalService, 'SAMPLE TypeScript') || this;
             _this.portalService.panorama.startboard.tiles.showTiles = true;
             _this.portalService.panorama.avatarMenu.userAccount = new angularportalazure.UserAccount('useraccount@mail.com', 'first', 'last');
-            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
-            tile.subTitle = 'TypeScript based';
-            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Grid 1', '/app/grid1/grid1.html', portalService));
-            tile.subTitle = 'TypeScript based';
-            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
-            tile.subTitle = 'TypeScript based';
-            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
-            tile.subTitle = 'TypeScript based';
-            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
-            tile.subTitle = 'TypeScript based';
-            var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
-            tile.subTitle = 'TypeScript based';
-            //this.setObsoleteLayoutProperites();
+            {
+                var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Navigation 1', '/app/nav1/nav1.html', portalService));
+                tile.subTitle = 'TypeScript based';
+            }
+            {
+                var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Grid 1', '/app/grid1/grid1.html', portalService));
+                tile.subTitle = 'TypeScript based';
+            }
+            {
+                var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 1-1', '/app/blade11/blade11.html', portalService));
+                tile.subTitle = 'TypeScript based';
+            }
+            {
+                var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2', '/app/blade2/blade2.html', portalService));
+                tile.subTitle = 'TypeScript based';
+            }
+            {
+                var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Blade 2-1', '/app/blade21/blade21.html', portalService));
+                tile.subTitle = 'TypeScript based';
+            }
+            {
+                var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
+                tile.subTitle = 'TypeScript based';
+            }
             _this.httpTestData();
             return _this;
         }
@@ -316,19 +306,6 @@ var Sample1;
             customers.push(new Sample1.Customer(1002, 'Eva', 'Cooker'));
             customers.push(new Sample1.Customer(1003, 'Niklas', 'Soccer'));
             customers.push(new Sample1.Customer(1004, 'Julia', 'Singer'));
-            //this.portalService.$httpBackend.whenGET(/\/angularportalazure\/.*/).passThrough();
-            //this.portalService.$httpBackend.whenGET(/\/sample1\/.*/).passThrough();
-            //this.portalService.$httpBackend.whenGET(/\/Sample1\/.*/).passThrough();
-            //this.portalService.$httpBackend.whenGET('/customers')
-            //    .respond(customers);
-            //this.portalService.$httpBackend.whenGET('/customer/1001')
-            //    .respond(customers[0]);
-            //this.portalService.$httpBackend.whenGET('/customer/1002')
-            //    .respond(customers[1]);
-            //this.portalService.$httpBackend.whenGET('/customer/1003')
-            //    .respond(customers[2]);
-            //this.portalService.$httpBackend.whenGET('/customer/1004')
-            //    .respond(customers[3]);
         };
         return Sample1Shell;
     }(angularportalazure.PortalShell));

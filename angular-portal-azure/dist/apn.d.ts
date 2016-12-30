@@ -6,21 +6,6 @@
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
-    class Debug {
-        constructor();
-        static isEnabled: boolean;
-        static isWithObjects: boolean;
-        static keys: Array<string>;
-        static enable(key?: string): void;
-        static disable(key?: string): void;
-        static write(debugLine: string, objects?: Array<any>): boolean;
-        /** Extract the key (e.g. [azureportal] from a string */
-        static extractKey(text: string): string;
-        /** Extract the key (e.g. [azureportal] from a string */
-        static isInKeys(debugLine: string): boolean;
-    }
-}
-declare namespace angularportalazure {
     class UserAccount {
         constructor(username: string, firstName?: string, lastName?: string);
         private _firstName;
@@ -36,6 +21,7 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class UserControlBase {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
         setupWindowResizeListener(callback: () => void): void;
     }
@@ -53,8 +39,6 @@ declare namespace angularportalazure {
         private watcherTitle;
         bladeContentHeight: number;
         bladeContentHeightInner: number;
-        private _path;
-        path: string;
         title: string;
         subTitle: string;
         width: {
@@ -67,6 +51,8 @@ declare namespace angularportalazure {
         statusBar: string;
         statusBarClass: string;
         formblade: any;
+        private _path;
+        path: string;
         isCommandBrowse: boolean;
         commandBrowse: () => void;
         commandBrowseText: string;
@@ -118,10 +104,8 @@ declare namespace angularportalazure {
         isCommandSwap: boolean;
         commandSwap: () => void;
         commandSwapText: string;
-        /** Obsolete */
-        /** Obsolete */
-        /** Obsolete */
         activate(): void;
+        /** Override */
         onActivate(): void;
         onActivated(): void;
         navigateTo(path: any): void;
@@ -150,7 +134,6 @@ declare namespace angularportalazure {
         onCommandStart(): void;
         onCommandStop(): void;
         onCommandSwap(): void;
-        /** Obsolete */
         setTitle(watchExpression: string, func: () => void): void;
         private setBladeHeights();
     }
@@ -330,8 +313,6 @@ declare namespace angularportalazure {
         areaBlades: angularportalazure.AreaBlades;
         areaNotification: angularportalazure.AreaNotification;
         ngDialog: any;
-        /** obsolete - $scope is different in any view. do have one instance in a shared service is not the right approach. */
-        $scope: angular.IScope;
         $injector: angular.auto.IInjectorService;
         $http: angular.IHttpService;
         $httpBackend: angular.IHttpBackendService;
@@ -341,6 +322,12 @@ declare namespace angularportalazure {
         $timeout: angular.ITimeoutService;
         $translate: angular.translate.ITranslateService;
     }
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
 }
@@ -365,6 +352,21 @@ declare namespace angularportalazure {
         onLoadItems(): void;
         onLoadedItems(): void;
         onFilter(actual: Object, expected: string): boolean;
+    }
+}
+declare namespace angularportalazure {
+    class Debug {
+        constructor();
+        static isEnabled: boolean;
+        static isWithObjects: boolean;
+        static keys: Array<string>;
+        static enable(key?: string): void;
+        static disable(key?: string): void;
+        static write(debugLine: string, objects?: Array<any>): boolean;
+        /** Extract the key (e.g. [azureportal] from a string */
+        static extractKey(text: string): string;
+        /** Extract the key (e.g. [azureportal] from a string */
+        static isInKeys(debugLine: string): boolean;
     }
 }
 declare namespace angularportalazure {
@@ -400,10 +402,4 @@ declare namespace angularportalazure {
         constructor($http: angular.IHttpService, $q: angular.IQService);
         getData(url: string): any;
     }
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
 }

@@ -1,5 +1,4 @@
-﻿/// <reference path="debug.ts" />
-/// <reference path="tile.ts" />
+﻿/// <reference path="tile.ts" />
 /// <reference path="tilesize.ts" />
 /// <reference path="tilesizes.ts" />
 
@@ -21,7 +20,7 @@ namespace angularportalazure {
         //#region Methods
 
         addTile(tile: Tile): Tile {
-            var tileSize = this.tileSizes[tile.tileSize];
+            let tileSize = this.tileSizes[tile.tileSize];
             tile.size = TileSizes[tile.tileSize];  // Get CSS Name
 
             tile.top = this.nextTop + 'px';

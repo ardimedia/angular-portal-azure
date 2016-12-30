@@ -12,7 +12,7 @@ namespace angularportalazure {
         //#region Methods
 
         getData(url: string): any { // any should be: angular.IHttpPromise<any[]>
-            var that = this;
+            let that = this;
 
             return that.$http({ method: 'GET', url: url })
                 .then(function (response: angular.IHttpResponseTransformer) {

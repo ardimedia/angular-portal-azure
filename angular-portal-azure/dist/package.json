@@ -2,12 +2,12 @@
   "name": "@ardimedia/angular-portal-azure",
   "description": "Angular Portal Azure - GUI Framework.",
   "author": "Ardimedia Anstalt <info@ardimedia.com> (http://www.ardimedia.com)",
-  "version": "0.2.150",
+  "version": "0.2.155",
   "main": "index.js",
   "typings": "apn.d.ts",
   "dependencies": {
-    "angular": "^1.6.0",
-    "angular-resource": "^1.6.0",
+    "angular": "^1.6.1",
+    "angular-resource": "^1.6.1",
     "angular-translate": "^2.13.1",
     "angular-translate-storage-cookie": "^2.13.1",
     "angulartics": "^1.3.0",
@@ -15,12 +15,13 @@
     "ng-dialog": "^0.6.4"
   },
   "devDependencies": {
-    "@types/angular": "^1.5.21",
+    "@types/angular": "^1.5.22",
     "@types/angular-resource": "^1.5.8",
     "@types/angular-translate": "^2.4.34",
-    "@types/angulartics": "^1.3.0",
+    "@types/angulartics": "^1.3.1",
     "@types/ng-dialog": "^0.6.0",
-    "@types/node": "^6.0.52",
+    "@types/node": "^6.0.55",
+    "tslint": "^4.2.0",
     "typescript": "^2.1.4"
   }
 }

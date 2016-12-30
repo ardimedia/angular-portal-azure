@@ -1,27 +1,24 @@
-﻿/// <reference path="debug.ts" />
-/// <reference path="portalservice.ts" />
+﻿/// <reference path="portalservice.ts" />
 
 namespace angularportalazure {
     export class UserControlBase {
         //#region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
-            //this.$scope = $scope;
+            this.$scope = $scope;
             this.portalService = portalService;
-            this.portalService.$scope = $scope;
         }
 
         //#endregion
 
         //#region Properties
 
-        //$scope: angular.IScope;
+        $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
 
         //#endregion
 
         //#region Methods
-
 
         setupWindowResizeListener(callback: () => void) {
             // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing

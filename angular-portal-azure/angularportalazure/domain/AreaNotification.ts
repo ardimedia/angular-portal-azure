@@ -1,5 +1,4 @@
 ﻿/// <reference path="bladedata.ts" />
-/// <reference path="debug.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />
 
@@ -70,7 +69,7 @@ namespace angularportalazure {
             this.areaNotification.style.width = this.width + 'px';
             this.areaNotification.style.left = this.portalService.$window.innerWidth - this.width + 'px';
 
-            if (this.widthAreaUsed != 0) {
+            if (this.widthAreaUsed !== 0) {
                 this.widthAreaUsed = this.width;
             }
         }

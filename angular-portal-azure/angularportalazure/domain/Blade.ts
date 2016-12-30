@@ -1,5 +1,4 @@
 ﻿/// <reference types="angular" />
-/// <reference path="debug.ts" />
 /// <reference path="useraccount.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
@@ -12,15 +11,13 @@ namespace angularportalazure {
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super($scope, portalService);
-            var that = this;
+            let that = this;
 
             this.path = path;
             this.title = title;
             this.subTitle = subtitle;
             this.width.width = width + 'px';
             this.widthStackLayout.width = width - 50 + 'px';  // 50 = padding (left and right)
-
-            //this.navGrid.portalService = portalService;
 
             if (!portalService) { throw new Error('[angularportalazure.Blade] constructor parameter \'portalService\' must be provided.'); }
             if (!path) { throw new Error('[angularportalazure.Blade] constructor parameter \'path\' must be a string.'); }
@@ -29,25 +26,6 @@ namespace angularportalazure {
             if (!width && width !== 0) { throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be a number when provided.'); }
 
             if (width < 50) { throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be at least 50.'); }
-
-            //#region Add AreaBlades.AddBlade event listener
-
-            /** OBSOLETE: remove when all OBSOLETE code has been removed */
-            //if (portalService instanceof angularportalazure.PortalService == false) {
-            //    console.log('Blade.constructor: This code cannot be removed yet.')
-            //    return;
-            //}
-            /** OBSOLETE: end */
-
-            //// Register listener1
-            //this.listener1 = that.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event, args: angularportalazure.IAddBladeEventArgs) {
-            //    if (that.comparePaths(args.path, that.path)) {
-            //        console.log('listener1-AreaBlades.AddBlade - function call: that.activate() will probably not work since this/that is not pointing to the right object. - deactivated');
-            //        //that.activate();
-            //    }
-            //});
-
-            //#endregion
 
             // Set 'this.portalService.areaBlades.blades[index]' to 'this'
             // 'this.portalService.areaBlades.blades[index]' was generated during AddBlade
@@ -67,26 +45,8 @@ namespace angularportalazure {
 
         private watcherTitle: () => void;
 
-        //#region Properties
-
         bladeContentHeight: number;
         bladeContentHeightInner: number;
-
-        //#region path
-
-        private _path: string;
-
-        get path(): string {
-            return this._path;
-        }
-
-        // For the moment we do not distinguish between lower and upper case path name
-        set path(newPath: string) {
-            if (newPath == null) { return; }
-            this._path = newPath.toLowerCase();
-        }
-
-        //#endregion
 
         title: string = '';
         subTitle: string = '';
@@ -99,6 +59,20 @@ namespace angularportalazure {
         statusBarClass: string = '';
 
         formblade: any; // angular.IFormController; // name of the ng-form directive
+
+        //#region path
+
+        private _path: string;
+        get path(): string {
+            return this._path;
+        }
+        // For the moment we do not distinguish between lower and upper case path name
+        set path(newPath: string) {
+            if (newPath == null) { return; }
+            this._path = newPath.toLowerCase();
+        }
+
+        //#endregion
 
         //#endregion
 
@@ -174,25 +148,6 @@ namespace angularportalazure {
 
         //#endregion
 
-        //#region OBSOLETE
-
-        /** Obsolete */
-        //blade: Blade;
-
-        /** Obsolete */
-        //isNavGrid: boolean;
-
-        /** Obsolete */
-        //navGrid = {
-        //    portalService: <angularportalazure.PortalService | null>null,
-        //    items: [],
-        //    navigateTo: function (path: string) { }
-        //};
-
-        //#endregion
-
-        //#endregion
-
         //#region Methods
 
         //#region Methods
@@ -202,8 +157,8 @@ namespace angularportalazure {
             this.onActivated();
         }
 
+        /** Override */
         onActivate(): void {
-            //throw new Error('[angularportalazure.Blade] \'onActivate\' is an abstract function. Define one in the derived class.');
         }
 
         onActivated(): void {
@@ -230,15 +185,12 @@ namespace angularportalazure {
 
         /** close blade. */
         close() {
-            //this.listener1(); // Unregister listener1
-
             if (this.portalService.areaBlades !== undefined) {
                 this.portalService.areaBlades.clearPath(this.path);
             } else {
                 throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.areaBlades\' available.');
             }
         }
-
 
         //#region Set StatusBar
 
@@ -258,7 +210,7 @@ namespace angularportalazure {
         }
 
         setStatusBarException(exception: angularportalazure.Exception) {
-            var that = this;
+            let that = this;
 
             if (exception.Message === undefined) {
                 that.statusBar = 'FEHLER: ' + exception;
@@ -266,7 +218,7 @@ namespace angularportalazure {
                 that.statusBar = 'FEHLER: ' + exception.Message;
             }
 
-            if (exception.Messages != undefined) {
+            if (exception.Messages !== undefined) {
                 exception.Messages.forEach(function (item) {
                     that.statusBar += ' - ' + item;
                 });
@@ -351,20 +303,10 @@ namespace angularportalazure {
 
         //#endregion
 
-        //#region OBSOLETE
-
-        /** Obsolete */
-        //bladeClose() {
-        //    this.close();
-        //}
-        //#endregion
-
-        //#endregion
-
         setTitle(watchExpression: string, func: () => void) {
             if (this.watcherTitle === undefined) {
-                this.watcherTitle = this.portalService.$scope.$watch(watchExpression, () => { func(); });
-                this.portalService.$scope.$on('$destroy', () => { this.watcherTitle(); });
+                this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
+                this.$scope.$on('$destroy', () => { this.watcherTitle(); });
             }
         }
 
@@ -373,16 +315,6 @@ namespace angularportalazure {
                 this.bladeContentHeight = this.portalService.$window.innerHeight - 125; // 125 = header
                 this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
             }, 50);
-
-            //// http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-            //var id: NodeJS.Timer;
-            //$(window).resize(function () {
-            //    clearTimeout(id);
-            //    id = setTimeout(() => {
-            //        that.bladeContentHeight = $('.fxs-blade-content').height();
-            //        that.bladeContentInnerHeight = that.bladeContentHeight - 20;
-            //    }, 500);
-            //});
         }
     }
 }

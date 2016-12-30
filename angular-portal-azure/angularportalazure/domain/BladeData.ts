@@ -1,5 +1,4 @@
 ﻿/// <reference path="areablades.ts" />
-/// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
 
 namespace angularportalazure {

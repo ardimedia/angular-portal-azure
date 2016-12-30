@@ -16,8 +16,8 @@ namespace Sample1 {
         //#region Methods
 
         onActivate(): angular.IHttpPromise<any> {
-            var customer: Sample1.Customer = this.portalService.parameter.item;
-            var customerId: number = this.portalService.parameter.itemId;
+            let customer: Sample1.Customer = this.portalService.parameter.item;
+            let customerId: number = this.portalService.parameter.itemId;
 
             if (customerId === 0) {
                 this.portalService.parameter.action = 'selected';

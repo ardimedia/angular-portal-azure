@@ -1,5 +1,4 @@
 ﻿/// <reference path="blade.ts" />
-/// <reference path="debug.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="tilesize.ts" />
 

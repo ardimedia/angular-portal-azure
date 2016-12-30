@@ -1,13 +1,4 @@
-﻿//#region Make sure console.log is working in any case, even IE9
-
-//if ($('html').hasClass('k-ie9')) {
-//    if (typeof console !== 'object') window.console = <any>{};
-//    if (typeof console.log !== 'object') window.console.log = function () { };
-//}
-
-//#endregion
-
-namespace angularportalazure {
+﻿namespace angularportalazure {
     export class Debug {
         //#region Constructor
 
@@ -37,7 +28,7 @@ namespace angularportalazure {
 
         static disable(key?: string) {
             if (key) {
-                var indexToDelete = Debug.keys.indexOf(key);
+                let indexToDelete = Debug.keys.indexOf(key);
                 Debug.keys.splice(indexToDelete, 1);
             }
 
@@ -63,12 +54,12 @@ namespace angularportalazure {
 
         /** Extract the key (e.g. [azureportal] from a string */
         static extractKey(text: string): string {
-            var extractKey: string = '';
+            let extractKey: string = '';
 
-            var firstCharacter: string = text.substring(0, 1);
+            let firstCharacter: string = text.substring(0, 1);
             if (firstCharacter === '[') {
                 // Find closing bracket
-                var closingPos: number = text.indexOf(']');
+                let closingPos: number = text.indexOf(']');
 
                 if (closingPos > 0) {
                     extractKey = text.substring(0, closingPos + 1);
@@ -80,9 +71,9 @@ namespace angularportalazure {
 
         /** Extract the key (e.g. [azureportal] from a string */
         static isInKeys(debugLine: string): boolean {
-            var key: string = Debug.extractKey(debugLine);
+            let key: string = Debug.extractKey(debugLine);
 
-            if (Debug.keys.indexOf(key) != -1) {
+            if (Debug.keys.indexOf(key) !== -1) {
                 return true;
             }
 
