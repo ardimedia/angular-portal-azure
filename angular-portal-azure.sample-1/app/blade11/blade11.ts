@@ -13,6 +13,8 @@ namespace Sample1 {
 
             this.statusBar = 'Blade 1-1...';
             this.vm = this;
+
+            this.isCommandExcel = true;
         }
 
         //#endregion

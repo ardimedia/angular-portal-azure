@@ -195,6 +195,9 @@ var angularportalazure;
             _this.isCommandSwap = false;
             _this.commandSwap = function () { this.onCommandSwap(); };
             _this.commandSwapText = '';
+            _this.isCommandExcel = false;
+            _this.commandExcel = function () { this.onCommandExcel(); };
+            _this.commandExcelText = '';
             var that = _this;
             _this.path = path;
             _this.title = title;
@@ -367,6 +370,9 @@ var angularportalazure;
         };
         Blade.prototype.onCommandSwap = function () {
             throw new Error('[angularportalazure.Blade] \'onCommandSwap\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandExcel = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandExcel\' is an abstract function. Define one in the derived class.');
         };
         //#endregion
         Blade.prototype.setTitle = function (watchExpression, func) {

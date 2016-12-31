@@ -146,6 +146,10 @@ namespace angularportalazure {
         commandSwap: () => void = function () { this.onCommandSwap(); };
         commandSwapText: string = '';
 
+        isCommandExcel: boolean = false;
+        commandExcel: () => void = function () { this.onCommandExcel(); };
+        commandExcelText: string = '';
+
         //#endregion
 
         //#region Methods
@@ -299,6 +303,10 @@ namespace angularportalazure {
 
         onCommandSwap(): void {
             throw new Error('[angularportalazure.Blade] \'onCommandSwap\' is an abstract function. Define one in the derived class.');
+        }
+
+        onCommandExcel(): void {
+            throw new Error('[angularportalazure.Blade] \'onCommandExcel\' is an abstract function. Define one in the derived class.');
         }
 
         //#endregion

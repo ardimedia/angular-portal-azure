@@ -64,6 +64,7 @@ var Sample1;
             _this.commandNewText = 'Blade 2';
             _this.statusBar = 'Blade 1-1...';
             _this.vm = _this;
+            _this.isCommandExcel = true;
             return _this;
         }
         //#endregion

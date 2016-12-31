@@ -163,6 +163,15 @@
                             </div>
                         </a>
                     </li>
+                    <!-- EXCEL -->
+                    <li ng-show="$ctrl.vm.isCommandExcel">
+                        <a data-ng-click="$ctrl.vm.commandExcel()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
+                            <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandExcelText  || 'Export Excel'}}</div>
+                            <div class="apa-commandbar-icon">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
                     <!-- DOCUMENT -->
                     <li ng-show="$ctrl.vm.isCommandDocument">
                         <a data-ng-click="$ctrl.vm.commandDocument()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>

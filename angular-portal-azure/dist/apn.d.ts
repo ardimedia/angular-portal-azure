@@ -104,6 +104,9 @@ declare namespace angularportalazure {
         isCommandSwap: boolean;
         commandSwap: () => void;
         commandSwapText: string;
+        isCommandExcel: boolean;
+        commandExcel: () => void;
+        commandExcelText: string;
         activate(): void;
         /** Override */
         onActivate(): void;
@@ -134,6 +137,7 @@ declare namespace angularportalazure {
         onCommandStart(): void;
         onCommandStop(): void;
         onCommandSwap(): void;
+        onCommandExcel(): void;
         setTitle(watchExpression: string, func: () => void): void;
         private setBladeHeights();
     }
