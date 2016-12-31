@@ -36,6 +36,11 @@ declare var $: JQueryStatic;
 declare namespace angularportalazure {
     class Blade extends angularportalazure.UserControlBase {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        /** HACK: 2016-11-06/hp
+        [angular-portal-blade] needs [this] as the controller.
+        We don't know how to provide [this] to the directive.
+        So we came up with this [vm] property.*/
+        vm: any;
         private watcherTitle;
         bladeContentHeight: number;
         bladeContentHeightInner: number;
@@ -112,7 +117,8 @@ declare namespace angularportalazure {
         onActivate(): void;
         onActivated(): void;
         navigateTo(path: any): void;
-        onNavigateTo(path: any): void;
+        /** Must be overridden. */
+        onNavigateTo(value: any): void;
         comparePaths(path1: string, path2: string): boolean;
         /** close blade. */
         close(): void;

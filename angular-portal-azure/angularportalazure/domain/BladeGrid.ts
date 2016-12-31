@@ -7,7 +7,6 @@ namespace angularportalazure {
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super($scope, portalService, path, title, subtitle, width);
-            this.commandNewText = 'neu';
         }
 
         //#endregion
@@ -20,15 +19,14 @@ namespace angularportalazure {
 
         //#region Methods
 
-        loadItems(func: () => angular.IPromise<any>) {
-            let that = this;
-            that.onLoadItems();
+        loadItems(func: () => angular.IPromise<any>): void {
+            this.onLoadItems();
 
-            func().then(function (data) {
-                that.items = data;
-                that.onLoadedItems();
-            }).catch(function (exception: angularportalazure.Exception) {
-                that.setStatusBarException(exception);
+            func().then((data) => {
+                this.items = data;
+                this.onLoadedItems();
+            }).catch((exception: angularportalazure.Exception) => {
+                this.setStatusBarException(exception);
             });
         }
 

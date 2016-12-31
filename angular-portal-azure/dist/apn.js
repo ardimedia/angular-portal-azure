@@ -105,9 +105,7 @@ var angularportalazure;
             var id;
             this.portalService.$window.addEventListener('resize', function () {
                 clearTimeout(id);
-                id = setTimeout(function () {
-                    callback();
-                }, 50);
+                id = setTimeout(function () { callback(); }, 50);
             });
         };
         return UserControlBase;
@@ -134,6 +132,13 @@ var angularportalazure;
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
             var _this = _super.call(this, $scope, portalService) || this;
+            //#endregion
+            //#region Properties
+            /** HACK: 2016-11-06/hp
+            [angular-portal-blade] needs [this] as the controller.
+            We don't know how to provide [this] to the directive.
+            So we came up with this [vm] property.*/
+            _this.vm = {};
             _this.title = '';
             _this.subTitle = '';
             _this.width = { 'width': '0' };
@@ -198,7 +203,7 @@ var angularportalazure;
             _this.isCommandExcel = false;
             _this.commandExcel = function () { this.onCommandExcel(); };
             _this.commandExcelText = '';
-            var that = _this;
+            _this.vm = _this;
             _this.path = path;
             _this.title = title;
             _this.subTitle = subtitle;
@@ -223,7 +228,7 @@ var angularportalazure;
                 throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be at least 50.');
             }
             // Set 'this.portalService.areaBlades.blades[index]' to 'this'
-            // 'this.portalService.areaBlades.blades[index]' was generated during AddBlade
+            //     'this.portalService.areaBlades.blades[index]' was generated during AddBlade
             _this.portalService.areaBlades.blades.forEach(function (blade, index) {
                 if (blade.path === _this.path) {
                     _this.portalService.areaBlades.blades[index] = _this;
@@ -262,7 +267,8 @@ var angularportalazure;
         Blade.prototype.navigateTo = function (path) {
             this.onNavigateTo(path);
         };
-        Blade.prototype.onNavigateTo = function (path) {
+        /** Must be overridden. */
+        Blade.prototype.onNavigateTo = function (value) {
             throw new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.');
         };
         // At the moment we do not distinguish between lower and upper case path name
@@ -303,19 +309,18 @@ var angularportalazure;
             this.statusBarClass = '';
         };
         Blade.prototype.setStatusBarException = function (exception) {
-            var that = this;
             if (exception.Message === undefined) {
-                that.statusBar = 'FEHLER: ' + exception;
+                this.statusBar = 'FEHLER: ' + exception;
             }
             else {
-                that.statusBar = 'FEHLER: ' + exception.Message;
+                this.statusBar = 'FEHLER: ' + exception.Message;
             }
             if (exception.Messages !== undefined) {
                 exception.Messages.forEach(function (item) {
-                    that.statusBar += ' - ' + item;
+                    this.statusBar += ' - ' + item;
                 });
             }
-            that.statusBarClass = 'message-error message-off';
+            this.statusBarClass = 'message-error message-off';
         };
         //#endregion
         //#endregion
@@ -383,11 +388,10 @@ var angularportalazure;
             }
         };
         Blade.prototype.setBladeHeights = function () {
-            var _this = this;
-            this.portalService.$timeout(function () {
-                _this.bladeContentHeight = _this.portalService.$window.innerHeight - 125; // 125 = header
-                _this.bladeContentHeightInner = _this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
-            }, 50);
+            this.bladeContentHeight = this.portalService.$window.innerHeight - 125; // 125 = header
+            this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
+            //this.portalService.$timeout(() => {
+            //}, 50);
         };
         return Blade;
     }(angularportalazure.UserControlBase));
@@ -1126,19 +1130,18 @@ var angularportalazure;
             //#endregion
             //#region Properties
             _this.items = [];
-            _this.commandNewText = 'neu';
             return _this;
         }
         //#endregion
         //#region Methods
         BladeGrid.prototype.loadItems = function (func) {
-            var that = this;
-            that.onLoadItems();
+            var _this = this;
+            this.onLoadItems();
             func().then(function (data) {
-                that.items = data;
-                that.onLoadedItems();
+                _this.items = data;
+                _this.onLoadedItems();
             }).catch(function (exception) {
-                that.setStatusBarException(exception);
+                _this.setStatusBarException(exception);
             });
         };
         BladeGrid.prototype.onLoadItems = function () {

@@ -26,9 +26,7 @@ namespace angularportalazure {
 
             this.portalService.$window.addEventListener('resize', () => {
                 clearTimeout(id);
-                id = setTimeout(() => {
-                    callback();
-                }, 50);
+                id = setTimeout(() => { callback(); }, 50);
             });
         }
 

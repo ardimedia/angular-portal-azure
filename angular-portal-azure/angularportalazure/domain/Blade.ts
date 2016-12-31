@@ -11,8 +11,8 @@ namespace angularportalazure {
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super($scope, portalService);
-            let that = this;
 
+            this.vm = this;
             this.path = path;
             this.title = title;
             this.subTitle = subtitle;
@@ -28,7 +28,7 @@ namespace angularportalazure {
             if (width < 50) { throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be at least 50.'); }
 
             // Set 'this.portalService.areaBlades.blades[index]' to 'this'
-            // 'this.portalService.areaBlades.blades[index]' was generated during AddBlade
+            //     'this.portalService.areaBlades.blades[index]' was generated during AddBlade
             this.portalService.areaBlades.blades.forEach((blade, index) => {
                 if (blade.path === this.path) {
                     this.portalService.areaBlades.blades[index] = this;
@@ -42,6 +42,12 @@ namespace angularportalazure {
         //#endregion
 
         //#region Properties
+
+        /** HACK: 2016-11-06/hp
+        [angular-portal-blade] needs [this] as the controller.
+        We don't know how to provide [this] to the directive.
+        So we came up with this [vm] property.*/
+        vm: any = {};
 
         private watcherTitle: () => void;
 
@@ -172,7 +178,8 @@ namespace angularportalazure {
             this.onNavigateTo(path);
         }
 
-        onNavigateTo(path: any): void {
+        /** Must be overridden. */
+        onNavigateTo(value: any): void {
             throw new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.');
         }
 
@@ -214,21 +221,19 @@ namespace angularportalazure {
         }
 
         setStatusBarException(exception: angularportalazure.Exception) {
-            let that = this;
-
             if (exception.Message === undefined) {
-                that.statusBar = 'FEHLER: ' + exception;
+                this.statusBar = 'FEHLER: ' + exception;
             } else {
-                that.statusBar = 'FEHLER: ' + exception.Message;
+                this.statusBar = 'FEHLER: ' + exception.Message;
             }
 
             if (exception.Messages !== undefined) {
                 exception.Messages.forEach(function (item) {
-                    that.statusBar += ' - ' + item;
+                    this.statusBar += ' - ' + item;
                 });
             }
 
-            that.statusBarClass = 'message-error message-off';
+            this.statusBarClass = 'message-error message-off';
         }
 
         //#endregion
@@ -319,10 +324,11 @@ namespace angularportalazure {
         }
 
         private setBladeHeights(): void {
-            this.portalService.$timeout(() => {
-                this.bladeContentHeight = this.portalService.$window.innerHeight - 125; // 125 = header
-                this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
-            }, 50);
+            this.bladeContentHeight = this.portalService.$window.innerHeight - 125; // 125 = header
+            this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
+
+            //this.portalService.$timeout(() => {
+            //}, 50);
         }
     }
 }
