@@ -324,7 +324,7 @@ namespace angularportalazure {
         }
 
         private setBladeHeights(): void {
-            this.bladeContentHeight = this.portalService.$window.innerHeight - 125; // 125 = header
+            this.bladeContentHeight = this.portalService.$window.innerHeight - 40 - 125; // 40 = topbar, 125 = blade header
             this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
 
             //this.portalService.$timeout(() => {

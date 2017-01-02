@@ -69,7 +69,7 @@
       <DependentUpon>apn.css</DependentUpon>
     </Content>
     <Content Include="design\design.css">
-      <DependentUpon>design.scss</DependentUpon>
+      <DependentUpon>apa-design.scss</DependentUpon>
     </Content>
     <Content Include="design\design.min.css">
       <DependentUpon>design.css</DependentUpon>
@@ -79,6 +79,18 @@
     </Content>
     <Content Include="design\libmixin.min.css">
       <DependentUpon>libmixin.css</DependentUpon>
+    </Content>
+    <Content Include="design\portallayout - Copy - Copy.css">
+      <DependentUpon>apa-layout.scss</DependentUpon>
+    </Content>
+    <Content Include="design\portallayout - Copy.css">
+      <DependentUpon>ms-azure-theme-blue.scss</DependentUpon>
+    </Content>
+    <Content Include="design\portallayout - Copy.min - Copy.css">
+      <DependentUpon>portallayout - Copy - Copy.css</DependentUpon>
+    </Content>
+    <Content Include="design\portallayout - Copy.min.css">
+      <DependentUpon>portallayout - Copy.css</DependentUpon>
     </Content>
     <Content Include="design\sample\fromMsPortal\style0.css" />
     <Content Include="design\sample\fromMsPortal\style1.css" />
@@ -108,7 +120,7 @@
     <Content Include="angularportalazure\directives\grid\grid.html" />
     <Content Include="angularportalazure\images\apn.png" />
     <Content Include="angularportalazure\images\avatar.jpg" />
-    <Content Include="design\design.scss" />
+    <Content Include="design\apa-design.scss" />
     <Content Include="angularportalazure\css\apn.scss" />
     <Content Include="design\portallayout.scss" />
     <Content Include="design\portallayout.css.map">
@@ -119,6 +131,14 @@
       <DependentUpon>themems.css</DependentUpon>
     </Content>
     <Content Include="design\libmixin.scss" />
+    <Content Include="design\ms-azure-theme-blue.scss" />
+    <Content Include="design\portallayout - Copy.css.map">
+      <DependentUpon>portallayout - Copy.css</DependentUpon>
+    </Content>
+    <Content Include="design\apa-layout.scss" />
+    <Content Include="design\portallayout - Copy.css - Copy.map">
+      <DependentUpon>portallayout - Copy - Copy.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
     <Content Include="TODO\general.txt" />
     <Content Include="TODO\css.txt" />

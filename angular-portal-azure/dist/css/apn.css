@@ -170,7 +170,7 @@ a {
 .fxs-avatarmenu .fxs-avatarmenu-dropdown {
   display: none;
   width: 100%;
-  background-color: #32383f;
+  background-color: #293644;
   border-top: 1px solid #3c454f;
   text-align: left; }
 
@@ -255,13 +255,13 @@ a {
   width: 100%;
   height: 100%;
   position: relative;
-  box-shadow: inset 1px 0 #dcdfe2;
+  /*box-shadow: inset 1px 0 #dcdfe2;*/
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: hidden;
   padding: 15px 15px 15px 15px;
-  box-shadow: inset 1px 0 #dcdfe2; }
+  /*box-shadow: inset 1px 0 #dcdfe2;*/ }
 
 .fxs-part .fxs-part-title {
   /*display: none;*/
@@ -274,7 +274,7 @@ a {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #32383f; }
+  color: #293644; }
 
 .fxs-part .fxs-part-title h3 {
   font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
@@ -378,7 +378,7 @@ a {
   min-height: 117px; }
 
 .fxs-blade .fxs-blade-statusbar-wrapper {
-  background-color: #32383f;
+  background-color: #293644;
   /*background-color: #c5cbd1;*/ }
 
 .fxs-blade .fxs-blade-statusbar::after {
@@ -458,7 +458,7 @@ a {
   font-size: 20px;
   line-height: 28px;
   color: #fff;
-  /*color: #32383f;*/
+  /*color: #293644;*/
   white-space: nowrap;
   overflow: hidden;
   -ms-text-overflow: ellipsis;
@@ -520,7 +520,7 @@ a {
   font-size: 10px;
   line-height: 10px;
   color: #fff;
-  /*color: #32383f;*/
+  /*color: #293644;*/
   text-transform: uppercase;
   display: block;
   position: relative;
@@ -642,15 +642,6 @@ a {
 
 .fxs-blade-locked.fxs-blade .fxs-part .fxs-part-title {
   /*height: 29px;*/ }
-
-.fxs-part .fxs-part-title h3 {
-  font-family: "Segoe UI Semibold","Segoe WP Semibold","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 10px;
-  color: #8f9ca8;
-  text-transform: uppercase;
-  margin-top: 3px; }
 
 .azc-grid {
   position: relative;
@@ -813,4 +804,53 @@ input.ng-invalid {
 .apa-commandbar-icon {
   font-size: 17px;
   padding-bottom: 3px; }
+
+body, html {
+  height: 100%; }
+
+body {
+  margin: 0;
+  padding: 0; }
+
+.fxs-topbar {
+  height: 40px;
+  font-size: 13px; }
+
+.fxs-topbar-home {
+  font-size: 20px;
+  line-height: 40px;
+  text-overflow: ellipsis; }
+
+.fxs-avatarmenu-tenant-container {
+  text-align: right; }
+
+a:focus, a:hover {
+  text-decoration: none;
+  color: #00bcf2; }
+
+.fxs-theme-blue {
+  background-color: #2e80ab;
+  background-image: linear-gradient(to bottom, #2e80ab 0%, #61b7da 100%);
+  background-repeat: no-repeat;
+  font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+  font-weight: 400;
+  font-size: small; }
+
+.fxs-theme-blue .fxs-topbar .fxs-has-hover:hover {
+  background-color: #3d4247; }
+
+.fxs-theme-blue a.fxs-topbar-home {
+  color: #00bcf2; }
+
+.fxs-theme-blue .fxs-topbar {
+  background-color: #202428;
+  background-image: none;
+  color: #fff;
+  border-color: #3d4247; }
+
+.fxs-theme-blue .fxs-topbar .fxs-has-hover:hover {
+  background-color: #3d4247; }
+
+.fxs-avatarmenu-tenant-container a {
+  color: #fff; }
 

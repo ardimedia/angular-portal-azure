@@ -100,10 +100,16 @@ var angularportalazure;
         }
         //#endregion
         //#region Methods
+        /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
+        UserControlBase.prototype.$onDestroy = function () {
+            if (this.windowResizeHandler !== undefined) {
+                this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
+            }
+        };
         UserControlBase.prototype.setupWindowResizeListener = function (callback) {
             // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
             var id;
-            this.portalService.$window.addEventListener('resize', function () {
+            this.portalService.$window.addEventListener('resize', this.windowResizeHandler = function () {
                 clearTimeout(id);
                 id = setTimeout(function () { callback(); }, 50);
             });
@@ -388,7 +394,7 @@ var angularportalazure;
             }
         };
         Blade.prototype.setBladeHeights = function () {
-            this.bladeContentHeight = this.portalService.$window.innerHeight - 125; // 125 = header
+            this.bladeContentHeight = this.portalService.$window.innerHeight - 40 - 125; // 40 = topbar, 125 = blade header
             this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
             //this.portalService.$timeout(() => {
             //}, 50);
@@ -411,7 +417,7 @@ var angularportalazure;
             var _this = _super.call(this, $scope, portalService) || this;
             _this.blades = new Array();
             var that = _this;
-            _this.areaBlades = _this.portalService.$window.document.getElementById('apa-blade-area');
+            //this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
             _this.portalScroll = _this.portalService.$window.document.getElementById('apa-portal-scroll');
             _this.setupAddBladeListener();
             _this.setupShowHideNotificationAreaListener();
@@ -931,19 +937,22 @@ var angularportalazure;
 "use strict";
 var angularportalazure;
 (function (angularportalazure) {
-    var PortalShell = (function (_super) {
-        __extends(PortalShell, _super);
+    var PortalShell = (function () {
         //#region Constructor
         function PortalShell(portalService, title) {
-            var _this = _super.call(this, null, portalService) || this;
-            _this.portalService = portalService;
-            _this.portalService.portalShell = _this;
-            _this.portalService.panorama = new angularportalazure.Panorama(_this.$scope, title, _this.portalService);
-            _this.portalService.panorama.title = title;
-            return _this;
+            if (title === void 0) { title = null; }
+            this.portalService = portalService;
+            this.portalService = portalService;
+            this.portalService.panorama = new angularportalazure.Panorama(null, title, this.portalService);
+            if (title === '' || title === null || title === undefined) {
+                this.portalService.panorama.title = this.portalService.$window.location.hostname.toLowerCase();
+            }
+            else {
+                this.portalService.panorama.title = title;
+            }
         }
         return PortalShell;
-    }(angularportalazure.UserControlBase));
+    }());
     angularportalazure.PortalShell = PortalShell;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />

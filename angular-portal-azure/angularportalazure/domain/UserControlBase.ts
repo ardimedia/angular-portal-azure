@@ -16,15 +16,24 @@ namespace angularportalazure {
         $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
 
+        windowResizeHandler: () => void;
+
         //#endregion
 
         //#region Methods
+
+        /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
+        $onDestroy() {
+            if (this.windowResizeHandler !== undefined) {
+                this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
+            }
+        }
 
         setupWindowResizeListener(callback: () => void) {
             // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
             let id: NodeJS.Timer;
 
-            this.portalService.$window.addEventListener('resize', () => {
+            this.portalService.$window.addEventListener('resize', this.windowResizeHandler = () => {
                 clearTimeout(id);
                 id = setTimeout(() => { callback(); }, 50);
             });

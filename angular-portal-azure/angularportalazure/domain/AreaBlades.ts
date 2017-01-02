@@ -13,7 +13,7 @@ namespace angularportalazure {
             super($scope, portalService);
             let that = this;
 
-            this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
+            //this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
             this.portalScroll = this.portalService.$window.document.getElementById('apa-portal-scroll');
 
             this.setupAddBladeListener();
@@ -25,7 +25,7 @@ namespace angularportalazure {
 
         //#region Properties
 
-        private areaBlades: HTMLElement;
+        //private areaBlades: HTMLElement;
         private portalScroll: HTMLElement;
 
         private addBladeListener;

@@ -23,6 +23,9 @@ declare namespace angularportalazure {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
         $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
+        windowResizeHandler: () => void;
+        /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
+        $onDestroy(): void;
         setupWindowResizeListener(callback: () => void): void;
     }
 }
@@ -152,7 +155,6 @@ declare namespace angularportalazure {
     class AreaBlades extends angularportalazure.UserControlBase {
         static $inject: string[];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        private areaBlades;
         private portalScroll;
         private addBladeListener;
         private areaNotificationShowListener;
@@ -292,8 +294,9 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-    class PortalShell extends angularportalazure.UserControlBase {
-        constructor(portalService: angularportalazure.PortalService, title: string);
+    class PortalShell {
+        portalService: angularportalazure.PortalService;
+        constructor(portalService: angularportalazure.PortalService, title?: string);
     }
 }
 declare namespace angularportalazure {

@@ -5,17 +5,19 @@
 /// <reference path="tiles.ts" />
 
 namespace angularportalazure {
-    export class PortalShell extends angularportalazure.UserControlBase {
+    export class PortalShell {
         //#region Constructor
 
-        constructor(portalService: angularportalazure.PortalService, title: string) {
-            super(null, portalService);
+        constructor(public portalService: angularportalazure.PortalService, title: string = null) {
 
             this.portalService = portalService;
-            this.portalService.portalShell = this;
-            this.portalService.panorama = new angularportalazure.Panorama(this.$scope, title, this.portalService);
+            this.portalService.panorama = new angularportalazure.Panorama(null, title, this.portalService);
 
-            this.portalService.panorama.title = title;
+            if (title === '' || title === null || title === undefined) {
+                this.portalService.panorama.title = this.portalService.$window.location.hostname.toLowerCase();
+            } else {
+                this.portalService.panorama.title = title;
+            }
         }
 
         //#endregion

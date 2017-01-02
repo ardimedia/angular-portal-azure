@@ -269,7 +269,7 @@ var Sample1;
     var Sample1Shell = (function (_super) {
         __extends(Sample1Shell, _super);
         function Sample1Shell(portalService) {
-            var _this = _super.call(this, portalService, 'SAMPLE TypeScript') || this;
+            var _this = _super.call(this, portalService, 'Angular Portal Azure - Sample1') || this;
             _this.portalService.panorama.startboard.tiles.showTiles = true;
             _this.portalService.panorama.avatarMenu.userAccount = new angularportalazure.UserAccount('useraccount@mail.com', 'first', 'last');
             {

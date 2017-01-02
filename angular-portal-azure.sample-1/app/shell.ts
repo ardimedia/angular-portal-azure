@@ -4,7 +4,7 @@
 
         static $inject = ['angularportalazure.portalService'];
         constructor(portalService: angularportalazure.PortalService) {
-            super(portalService, 'SAMPLE TypeScript');
+            super(portalService, 'Angular Portal Azure - Sample1');
             this.portalService.panorama.startboard.tiles.showTiles = true;
 
             this.portalService.panorama.avatarMenu.userAccount = new angularportalazure.UserAccount('useraccount@mail.com', 'first', 'last');

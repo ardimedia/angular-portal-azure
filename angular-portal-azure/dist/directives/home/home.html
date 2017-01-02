@@ -1,18 +1,33 @@
-﻿<div id="apa-portal" class="fxs-portal">
-    <div class="fxs-portal-top-bar fxs-portal-appbar"></div>
-    <div id="apa-portal-scroll" class="fxs-portal-content fxs-panorama">
-        <div class="fxs-panorama-homearea" ng-class="{collapsed: !$ctrl.vm.portalService.panorama.startboard.tiles.showTiles}" ng-show="$ctrl.vm.portalService.panorama.isVisible">
-            <header class="fxs-pannable" ng-class="{collapsed: !$ctrl.vm.portalService.panorama.startboard.tiles.showTiles}">
-                <h1 class="fxs-panorama-title fxs-pannable">{{$ctrl.vm.portalService.panorama.title}}</h1>
-                <div class="fxs-avatarmenu-target fxs-avatarmenu" ng-class="{collapsed: !$ctrl.vm.portalService.panorama.startboard.tiles.showTiles}">
-                    <a class="fxs-avatarmenu-header" href="/Account/Manage">
-                        <img alt="" src="/node_modules/@ardimedia/angular-portal-azure/images/avatar.jpg" />
-                        <div class="fxs-avatarmenu-username">{{$ctrl.vm.portalService.panorama.avatarMenu.userAccount.name}}</div>
-                        <div class="fxs-avatarmenu-emailaddresse">{{$ctrl.vm.portalService.panorama.avatarMenu.userAccount.userName}}</div>
-                    </a>
-                </div>
-            </header>
+﻿<div class="fxs-portal fxs-theme-blue">
+    <!-- fxs-topbar -->
+    <div class="fxs-topbar container-fluid row">
+        <div class="col-xs-6">
+            <a href="#" class="fxs-topbar-home fxs-has-hover">{{$ctrl.vm.portalService.panorama.title}}</a>
+        </div>
+        <div class="col-xs-6 fxs-avatarmenu-tenant-container">
+            <a class="fxs-has-hover" href="/Account/Manage">
+                <span>{{$ctrl.vm.portalService.panorama.avatarMenu.userAccount.name}}</span><br />
+                <span>{{$ctrl.vm.portalService.panorama.avatarMenu.userAccount.userName}}</span>
+            </a>
+        </div>
+    </div>
+    <div id="apa-portal-scroll" class="fxs-portal-content fxs-panorama" style="height:calc(100% - 40px)">
+        <!-- fxs-panorama-homearea -->
+        <div class="fxs-panorama-homearea" ng-class="{collapsed: !$ctrl.vm.portalService.panorama.startboard.tiles.showTiles}" ng-show="$ctrl.vm.portalService.panorama.isVisible" style="padding-top:45px;">
             <div class="fxs-startboard-target fxs-startboard fx-rightClick" ng-class="{collapsed: !$ctrl.vm.portalService.panorama.startboard.tiles.showTiles}">
+                <div class="xfxs-part fxs-part-clickable" ng-click="tile.clicked();" style="background-color:#293644; padding:25px; height:220px;width: 535px;">
+                    <header class="xfxs-part-title" style="color:white">
+                        <h3 class="xmsportalfx-tooltip-overflow">Redesign</h3>
+                        <p class="xmsportalfx-tooltip-overflow">
+                            Zur Zeit stehen nicht alle Applikation in PREVIEW zur Verfügung. <b>Falls Ihre Applikation unten nicht aufgelistet wird,
+                            entfernen sie in der URL [.preview]. Damit können Sie in der Standard Umgebung weiterarbeiten.</b>
+                            Im Januar und Februar 2017 werden alle Applikationen auf ein neues Layout umgestellt.
+                            <br /><br />Bei Fragen stehen wir gerne zur Verfügung.
+                            <br />Ihr Ardimedia Team
+                        </p>
+                    </header>
+                    <section class="fxs-part-content css-scope-HubsExtension"></section>
+                </div>
                 <div class="fxs-startboard-layout fxs-flowlayout">
                     <div class="fxs-flowlayout-childcontainer">
                         <section data-ng-repeat="tile in $ctrl.vm.portalService.panorama.startboard.tiles.tiles track by $index" class="fxs-tile fx-rightClick fxs-flowlayout-element" data-ng-class="{'fxs-tilesize-normal':tile.size=='normal', 'fxs-tilesize-mini':tile.size=='mini', 'fxs-tilesize-herowide':tile.size=='herowide'}" data-ng-style="{'left': tile.left, 'top': tile.top}">
@@ -29,11 +44,13 @@
                 </div>
             </div>
         </div>
+        <!-- apa-blade-area -->
         <div id="apa-blade-area" class="fxs-journey-target fxs-journey">
             <div class="fxs-journey-layout fxs-stacklayout fxs-stacklayout-horizontal">
                 <div data-ng-repeat="blade in $ctrl.vm.portalService.areaBlades.blades track by $index" class="azureportalblade fxs-stacklayout-child" ng-include="blade.path"></div>
             </div>
         </div>
+        <!--apa-notification-area-->
         <div id="apa-notification-area" style="display: none;">
             <button ng-click="$ctrl.vm.portalService.areaNotification.hide();">CLOSE</button>
         </div>
