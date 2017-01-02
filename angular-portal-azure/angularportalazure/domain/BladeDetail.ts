@@ -52,7 +52,7 @@ namespace angularportalazure {
             // Is form valid
             if (!that.formblade.$valid) {
                 that.statusBar = 'Speichern nicht möglich!';
-                that.statusBarClass = 'message-error message-off';
+                that.statusBarClass = 'apa-statusbar-error';
                 console.log(that.formblade);
                 return;
             }

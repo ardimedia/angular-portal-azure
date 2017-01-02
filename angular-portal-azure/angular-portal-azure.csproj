@@ -140,8 +140,6 @@
       <DependentUpon>portallayout - Copy - Copy.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
-    <Content Include="TODO\general.txt" />
-    <Content Include="TODO\css.txt" />
     <Content Include="TODO\translate.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="publish.bat" />

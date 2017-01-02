@@ -24,6 +24,15 @@ namespace angularportalazure {
 
         /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
         $onDestroy() {
+            this.removeWindowResizeListener();
+        }
+
+        /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
+        ngOnDestroy() {
+            this.removeWindowResizeListener();
+        }
+
+        private removeWindowResizeListener() {
             if (this.windowResizeHandler !== undefined) {
                 this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
             }

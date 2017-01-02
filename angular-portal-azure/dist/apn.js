@@ -102,6 +102,13 @@ var angularportalazure;
         //#region Methods
         /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
         UserControlBase.prototype.$onDestroy = function () {
+            this.removeWindowResizeListener();
+        };
+        /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
+        UserControlBase.prototype.ngOnDestroy = function () {
+            this.removeWindowResizeListener();
+        };
+        UserControlBase.prototype.removeWindowResizeListener = function () {
             if (this.windowResizeHandler !== undefined) {
                 this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
             }
@@ -308,25 +315,27 @@ var angularportalazure;
         };
         Blade.prototype.setStatusBarLoadData = function () {
             this.statusBar = 'Daten laden...';
-            this.statusBarClass = '';
+            this.statusBarClass = 'apa-statusbar-info';
         };
         Blade.prototype.setStatusBarSaveData = function () {
             this.statusBar = 'Daten speichern...';
-            this.statusBarClass = '';
+            this.statusBarClass = 'apa-statusbar-info';
         };
         Blade.prototype.setStatusBarException = function (exception) {
             if (exception.Message === undefined) {
                 this.statusBar = 'FEHLER: ' + exception;
+                this.statusBarClass = 'apa-statusbar-error';
             }
             else {
                 this.statusBar = 'FEHLER: ' + exception.Message;
+                this.statusBarClass = 'apa-statusbar-error';
             }
             if (exception.Messages !== undefined) {
                 exception.Messages.forEach(function (item) {
                     this.statusBar += ' - ' + item;
+                    this.statusBarClass = 'apa-statusbar-error';
                 });
             }
-            this.statusBarClass = 'message-error message-off';
         };
         //#endregion
         //#endregion
@@ -1100,7 +1109,7 @@ var angularportalazure;
             // Is form valid
             if (!that.formblade.$valid) {
                 that.statusBar = 'Speichern nicht möglich!';
-                that.statusBarClass = 'message-error message-off';
+                that.statusBarClass = 'apa-statusbar-error';
                 console.log(that.formblade);
                 return;
             }

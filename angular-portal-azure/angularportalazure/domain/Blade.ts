@@ -212,28 +212,29 @@ namespace angularportalazure {
 
         setStatusBarLoadData() {
             this.statusBar = 'Daten laden...';
-            this.statusBarClass = '';
+            this.statusBarClass = 'apa-statusbar-info';
         }
 
         setStatusBarSaveData() {
             this.statusBar = 'Daten speichern...';
-            this.statusBarClass = '';
+            this.statusBarClass = 'apa-statusbar-info';
         }
 
         setStatusBarException(exception: angularportalazure.Exception) {
             if (exception.Message === undefined) {
                 this.statusBar = 'FEHLER: ' + exception;
+                this.statusBarClass = 'apa-statusbar-error';
             } else {
                 this.statusBar = 'FEHLER: ' + exception.Message;
+                this.statusBarClass = 'apa-statusbar-error';
             }
 
             if (exception.Messages !== undefined) {
                 exception.Messages.forEach(function (item) {
                     this.statusBar += ' - ' + item;
+                    this.statusBarClass = 'apa-statusbar-error';
                 });
             }
-
-            this.statusBarClass = 'message-error message-off';
         }
 
         //#endregion
