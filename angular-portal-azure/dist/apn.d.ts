@@ -47,6 +47,7 @@ declare namespace angularportalazure {
         We don't know how to provide [this] to the directive.
         So we came up with this [vm] property.*/
         vm: any;
+        visibility: string;
         private watcherTitle;
         bladeContentHeight: number;
         bladeContentHeightInner: number;
@@ -183,6 +184,10 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class BladeData extends angularportalazure.Blade {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        onLoadItem(): void;
+        onLoadItems(): void;
+        onLoadedItem(): void;
+        onLoadedItems(): void;
     }
 }
 declare namespace angularportalazure {
@@ -351,10 +356,7 @@ declare namespace angularportalazure {
     class BladeDetail<T> extends angularportalazure.BladeData {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         item: T;
-        visibility: string;
         loadItem(func: () => angular.IPromise<any>): void;
-        onLoadItem(): void;
-        onLoadedItem(): void;
         saveItem(func: () => any): void;
         onSaveItem(): void;
         onSavedItem(): void;
@@ -366,8 +368,6 @@ declare namespace angularportalazure {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         items: any[];
         loadItems(func: () => angular.IPromise<any>): void;
-        onLoadItems(): void;
-        onLoadedItems(): void;
         onFilter(actual: Object, expected: string): boolean;
     }
 }

@@ -10,5 +10,25 @@ namespace angularportalazure {
         }
 
         //#endregion
+
+        onLoadItem() {
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+        }
+
+        onLoadItems() {
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+        }
+
+        onLoadedItem() {
+            this.visibility = 'visible';
+            this.clearStatusBar();
+        }
+
+        onLoadedItems() {
+            this.visibility = 'visible';
+            this.clearStatusBar();
+        }
     }
 }

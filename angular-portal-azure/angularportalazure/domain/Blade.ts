@@ -49,6 +49,8 @@ namespace angularportalazure {
         So we came up with this [vm] property.*/
         vm: any = {};
 
+        visibility: string = 'collapse';
+
         private watcherTitle: () => void;
 
         bladeContentHeight: number;

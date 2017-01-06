@@ -20,8 +20,6 @@ namespace angularportalazure {
 
         item: T = <T>{};
 
-        visibility: string = 'collapse';
-
         //#endregion
 
         //#region Methods
@@ -35,16 +33,6 @@ namespace angularportalazure {
             }).catch((exception: angularportalazure.Exception) => {
                 this.setStatusBarException(exception);
             });
-        }
-
-        onLoadItem() {
-            this.visibility = 'collapse';
-            this.setStatusBarLoadData();
-        }
-
-        onLoadedItem() {
-            this.visibility = 'visible';
-            this.clearStatusBar();
         }
 
         saveItem(func: () => any) {

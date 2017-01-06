@@ -152,6 +152,7 @@ var angularportalazure;
             We don't know how to provide [this] to the directive.
             So we came up with this [vm] property.*/
             _this.vm = {};
+            _this.visibility = 'collapse';
             _this.title = '';
             _this.subTitle = '';
             _this.width = { 'width': '0' };
@@ -632,6 +633,23 @@ var angularportalazure;
             if (width === void 0) { width = 300; }
             return _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
         }
+        //#endregion
+        BladeData.prototype.onLoadItem = function () {
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+        };
+        BladeData.prototype.onLoadItems = function () {
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+        };
+        BladeData.prototype.onLoadedItem = function () {
+            this.visibility = 'visible';
+            this.clearStatusBar();
+        };
+        BladeData.prototype.onLoadedItems = function () {
+            this.visibility = 'visible';
+            this.clearStatusBar();
+        };
         return BladeData;
     }(angularportalazure.Blade));
     angularportalazure.BladeData = BladeData;
@@ -1087,7 +1105,6 @@ var angularportalazure;
             //#endregion
             //#region Properties
             _this.item = {};
-            _this.visibility = 'collapse';
             _this.commandNewText = 'neu';
             _this.commandSaveText = 'speichern';
             _this.commandDeleteText = 'löschen';
@@ -1105,14 +1122,6 @@ var angularportalazure;
             }).catch(function (exception) {
                 _this.setStatusBarException(exception);
             });
-        };
-        BladeDetail.prototype.onLoadItem = function () {
-            this.visibility = 'collapse';
-            this.setStatusBarLoadData();
-        };
-        BladeDetail.prototype.onLoadedItem = function () {
-            this.visibility = 'visible';
-            this.clearStatusBar();
         };
         BladeDetail.prototype.saveItem = function (func) {
             var _this = this;
@@ -1172,12 +1181,6 @@ var angularportalazure;
             }).catch(function (exception) {
                 _this.setStatusBarException(exception);
             });
-        };
-        BladeGrid.prototype.onLoadItems = function () {
-            this.setStatusBarLoadData();
-        };
-        BladeGrid.prototype.onLoadedItems = function () {
-            this.clearStatusBar();
         };
         //#region Filter
         BladeGrid.prototype.onFilter = function (actual, expected) {

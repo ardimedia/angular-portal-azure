@@ -30,14 +30,6 @@ namespace angularportalazure {
             });
         }
 
-        onLoadItems() {
-            this.setStatusBarLoadData();
-        }
-
-        onLoadedItems() {
-            this.clearStatusBar();
-        }
-
         //#region Filter
 
         onFilter(actual: Object, expected: string): boolean {
