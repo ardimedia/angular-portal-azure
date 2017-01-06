@@ -18,24 +18,22 @@
         //#endregion
 
         processException(response: angular.IHttpPromiseCallbackArg<any>) {
-            let that = this;
-
             this.convertFromWebApiException(response.data);
 
-            that.ExceptionType = response.data.ExceptionType;
-            that.Type = response.data.Type;
-            that.Message = response.data.Message;
-            that.MessageDetail = response.data.MessageDetail;
-            that.Messages = response.data.Messages;
+            this.ExceptionType = response.data.ExceptionType;
+            this.Type = response.data.Type;
+            this.Message = response.data.Message;
+            this.MessageDetail = response.data.MessageDetail;
+            this.Messages = response.data.Messages;
 
-            that.Url = response.config.url;
-            that.Status = response.status;
-            that.StatusText = response.statusText;
+            this.Url = response.config.url;
+            this.Status = response.status;
+            this.StatusText = response.statusText;
 
             // Find a better way to log information, maybe to the database or to Google Analytics.
             console.log('processException:');
             console.log(response);
-            console.log(that);
+            console.log(this);
         }
 
         convertFromWebApiException(ex: angularportalazure.IExceptionDotNet): void {

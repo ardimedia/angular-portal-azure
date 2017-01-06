@@ -43,7 +43,7 @@
                 console.log(debugLine);
 
                 if (objects !== undefined && Debug.isWithObjects) {
-                    objects.forEach(function (item) {
+                    objects.forEach((item) => {
                         console.log(item);
                     });
                 }

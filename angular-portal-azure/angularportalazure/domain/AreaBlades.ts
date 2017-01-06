@@ -11,7 +11,6 @@ namespace angularportalazure {
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
-            let that = this;
 
             //this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
             this.portalScroll = this.portalService.$window.document.getElementById('apa-portal-scroll');
@@ -64,7 +63,6 @@ namespace angularportalazure {
         addBlade(path: string, senderPath: string = ''): angularportalazure.Blade | void {
             if (path == null) { return; }
             if (senderPath == null) { return; }
-            let that = this;
             let portalcontent = null;
             this.portalService.$analytics.pageTrack(path);
 
@@ -75,12 +73,12 @@ namespace angularportalazure {
 
             if (path === undefined || path === '') { return; }
 
-            if (that.portalService.$window !== undefined) {
-                if (that.portalService.$window.document === undefined) {
+            if (this.portalService.$window !== undefined) {
+                if (this.portalService.$window.document === undefined) {
                     throw new Error('[angularportalazure.AreaBlades] \'this.$window.document\' undefined.');
                 }
 
-                portalcontent = that.portalService.$window.document.getElementById('apa-portal-scroll');
+                portalcontent = this.portalService.$window.document.getElementById('apa-portal-scroll');
                 if (portalcontent === null) {
                     throw new Error('[angularportalazure.AreaBlades] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
                 }
@@ -96,7 +94,7 @@ namespace angularportalazure {
 
             //#region Make sure the blade is not yet show
 
-            this.blades.forEach(function (blade) {
+            this.blades.forEach((blade) => {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
                     throw new Error('[angularportalazure.AreaBlades] path: \'' + path + '\' will not be added. It is already added.');
@@ -107,18 +105,18 @@ namespace angularportalazure {
 
             //#region Show the blade
 
-            let blade = new angularportalazure.Blade(this.$scope, that.portalService, path, '');
-            that.blades.push(blade);
+            let blade = new angularportalazure.Blade(this.$scope, this.portalService, path, '');
+            this.blades.push(blade);
 
             //#endregion
 
             //#region Position the blade
 
-            if (that.portalService.$window !== undefined) {
-                that.portalService.$window.setTimeout(function () {
-                    let azureportalblades = that.portalService.$window.document.getElementsByClassName('azureportalblade');
+            if (this.portalService.$window !== undefined) {
+                this.portalService.$window.setTimeout(() => {
+                    let azureportalblades = this.portalService.$window.document.getElementsByClassName('azureportalblade');
 
-                    let i = that.blades.length - 1;
+                    let i = this.blades.length - 1;
 
                     // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
                     //       So now if it is, the user has to scroll on its own.
@@ -140,13 +138,12 @@ namespace angularportalazure {
         }
 
         clearPath(path: string): void {
-            let that = this;
             // we do not distinguish between lower and upper case path name
             path = path.toLowerCase();
 
-            let isremoved = that.blades.some(function (blade, index) {
+            let isremoved = this.blades.some((blade, index) => {
                 if (blade.comparePaths(blade.path, path)) {
-                    that.blades.length = index;
+                    this.blades.length = index;
                     return true;
                 }
             });
@@ -172,17 +169,15 @@ namespace angularportalazure {
         }
 
         clearChild(path: string): void {
-            let that = this;
-
             path = path.toLowerCase();
 
             if (path === '') {
                 return;
             }
-            let isremoved = that.blades.some(function (blade, index) {
+            let isremoved = this.blades.some((blade, index) => {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
-                    that.blades.length = index + 1;
+                    this.blades.length = index + 1;
                     return true;
                 }
             });
@@ -232,9 +227,8 @@ namespace angularportalazure {
         }
 
         private setupAddBladeListener() {
-            let that = this;
-            that.addBladeListener = that.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event: ng.IAngularEvent, args: angularportalazure.IAddBladeEventArgs) {
-                that.addBlade(args.path, args.pathSender);
+            this.addBladeListener = this.portalService.$rootScope.$on('AreaBlades.AddBlade', (event: ng.IAngularEvent, args: angularportalazure.IAddBladeEventArgs) => {
+                this.addBlade(args.path, args.pathSender);
             });
         }
     }

@@ -3,13 +3,6 @@
 
 namespace angularportalazure {
     export class BladeDetail<T> extends angularportalazure.BladeData {
-
-        //#region Properties
-
-        item: T | null = null;
-
-        //#endregion
-
         //#region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
@@ -23,45 +16,53 @@ namespace angularportalazure {
 
         //#endregion
 
+        //#region Properties
+
+        item: T = <T>{};
+
+        visibility: string = 'collapse';
+
+        //#endregion
+
         //#region Methods
 
-        loadItem(func: () => any) {
-            let that = this;
-            that.onLoadItem();
+        loadItem(func: () => angular.IPromise<any>): void {
+            this.onLoadItem();
 
-            func().then(function (data) {
-                that.item = data;
-                that.clearStatusBar();
-                that.onLoadedItem();
-            }).catch(function (exception: angularportalazure.Exception) {
-                that.setStatusBarException(exception);
+            func().then((data) => {
+                this.item = data;
+                this.onLoadedItem();
+            }).catch((exception: angularportalazure.Exception) => {
+                this.setStatusBarException(exception);
             });
         }
 
         onLoadItem() {
+            this.visibility = 'collapse';
             this.setStatusBarLoadData();
         }
 
         onLoadedItem() {
+            this.visibility = 'visible';
+            this.clearStatusBar();
         }
 
         saveItem(func: () => any) {
-            let that = this;
-            that.onSaveItem();
+            this.onSaveItem();
 
             // Is form valid
-            if (!that.formblade.$valid) {
-                that.statusBar = 'Speichern nicht möglich!';
-                that.statusBarClass = 'apa-statusbar-error';
-                console.log(that.formblade);
+            if (!this.formblade.$valid) {
+                this.statusBar = 'Speichern nicht möglich!';
+                this.statusBarClass = 'apa-statusbar-error';
+                console.log(this.formblade);
                 return;
             }
 
-            func().then(function (data) {
-                that.item = data;
-                that.onSavedItem();
-            }).catch(function (exception: angularportalazure.Exception) {
-                that.setStatusBarException(exception);
+            func().then((data) => {
+                this.item = data;
+                this.onSavedItem();
+            }).catch((exception: angularportalazure.Exception) => {
+                this.setStatusBarException(exception);
             });
         }
 

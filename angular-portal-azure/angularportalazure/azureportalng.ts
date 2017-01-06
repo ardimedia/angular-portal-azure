@@ -13,16 +13,16 @@ namespace angularportalazure {
 
     /** Configure Angular: $translateProvider */
     angularModule.config(['$translateProvider',
-        function ($translateProvider: angular.translate.ITranslateProvider) {
+        ($translateProvider: angular.translate.ITranslateProvider) => {
             $translateProvider.useSanitizeValueStrategy('escape');
             $translateProvider.fallbackLanguage('de');
             $translateProvider.use(readCookie('SAMPLE_TRANSLATE_LANG_KEY'));
         }]);
 
-    angularModule.config([function (): void {
+    angularModule.config([(): void => {
     }]);
 
-    angularModule.run(function () {
+    angularModule.run(() => {
     });
 
 

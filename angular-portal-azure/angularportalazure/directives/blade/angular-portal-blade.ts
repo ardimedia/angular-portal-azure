@@ -4,9 +4,8 @@
 namespace angularportalazure {
     AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
     function AngularPortalBladeController(portalService: angularportalazure.PortalService) {
-        this.$onInit = function () {
-            this.close = function () {
-            };
+        this.$onInit = () => {
+            this.close = () => { };
         };
     }
 

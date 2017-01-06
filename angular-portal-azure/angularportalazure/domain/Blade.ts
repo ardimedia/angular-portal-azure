@@ -85,75 +85,75 @@ namespace angularportalazure {
         //#region Commands
 
         isCommandBrowse: boolean = false;
-        commandBrowse: () => void = function () { this.onCommandBrowse(); };
+        commandBrowse: () => void = () => { this.onCommandBrowse(); };
         commandBrowseText: string = '';
 
         isCommandCancel: boolean = false;
-        commandCancel: () => void = function () { this.onCommandCancel(); };
+        commandCancel: () => void = () => { this.onCommandCancel(); };
         commandCancelText: string = '';
 
         isCommandCopy: boolean = false;
-        commandCopy: () => void = function () { this.onCommandCopy(); };
+        commandCopy: () => void = () => { this.onCommandCopy(); };
         commandCopyText: string = '';
 
         isCommandDelete: boolean = false;
-        commandDelete: () => void = function () { this.onCommandDelete(); };
+        commandDelete: () => void = () => { this.onCommandDelete(); };
         commandDeleteText: string = '';
 
         isCommandDocument: boolean = false;
-        commandDocument: () => void = function () { this.onCommandDocument(); };
+        commandDocument: () => void = () => { this.onCommandDocument(); };
         commandDocumentText: string = '';
 
         isCommandDocument2: boolean = false;
-        commandDocument2: () => void = function () { this.onCommandDocument2(); };
+        commandDocument2: () => void = () => { this.onCommandDocument2(); };
         commandDocument2Text: string = '';
 
         isCommandDocument3: boolean = false;
-        commandDocument3: () => void = function () { this.onCommandDocument3(); };
+        commandDocument3: () => void = () => { this.onCommandDocument3(); };
         commandDocument3Text: string = '';
 
         isCommandDocument4: boolean = false;
-        commandDocument4: () => void = function () { this.onCommandDocument4(); };
+        commandDocument4: () => void = () => { this.onCommandDocument4(); };
         commandDocument4Text: string = '';
 
         isCommandDocument5: boolean = false;
-        commandDocument5: () => void = function () { this.onCommandDocument5(); };
+        commandDocument5: () => void = () => { this.onCommandDocument5(); };
         commandDocument5Text: string = '';
 
         isCommandNew: boolean = false;
-        commandNew: () => void = function () { this.onCommandNew(); };
+        commandNew: () => void = () => { this.onCommandNew(); };
         commandNewText: string = '';
 
         isCommandOrder: boolean = false;
-        commandOrder: () => void = function () { this.onCommandOrder(); };
+        commandOrder: () => void = () => { this.onCommandOrder(); };
         commandOrderText: string = '';
 
         isCommandRestart: boolean = false;
-        commandRestart: () => void = function () { this.onCommandRestart(); };
+        commandRestart: () => void = () => { this.onCommandRestart(); };
         commandRestartText: string = '';
 
         isCommandSave: boolean = false;
-        commandSave: () => void = function () { this.onCommandSave(); };
+        commandSave: () => void = () => { this.onCommandSave(); };
         commandSaveText: string = '';
 
         isCommandSearch: boolean = false;
-        commandSearch: () => void = function () { this.onCommandSearch(); };
+        commandSearch: () => void = () => { this.onCommandSearch(); };
         commandSearchText: string = '';
 
         isCommandStart: boolean = false;
-        commandStart: () => void = function () { this.onCommandStart(); };
+        commandStart: () => void = () => { this.onCommandStart(); };
         commandStartText: string = '';
 
         isCommandStop: boolean = false;
-        commandStop: () => void = function () { this.onCommandStop(); };
+        commandStop: () => void = () => { this.onCommandStop(); };
         commandStopText: string = '';
 
         isCommandSwap: boolean = false;
-        commandSwap: () => void = function () { this.onCommandSwap(); };
+        commandSwap: () => void = () => { this.onCommandSwap(); };
         commandSwapText: string = '';
 
         isCommandExcel: boolean = false;
-        commandExcel: () => void = function () { this.onCommandExcel(); };
+        commandExcel: () => void = () => { this.onCommandExcel(); };
         commandExcelText: string = '';
 
         //#endregion
@@ -230,7 +230,7 @@ namespace angularportalazure {
             }
 
             if (exception.Messages !== undefined) {
-                exception.Messages.forEach(function (item) {
+                exception.Messages.forEach((item) => {
                     this.statusBar += ' - ' + item;
                     this.statusBarClass = 'apa-statusbar-error';
                 });
@@ -317,10 +317,17 @@ namespace angularportalazure {
 
         //#endregion
 
+        //** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expresssion, e.g. [name1 + name2] */
         setTitle(watchExpression: string, func: () => void) {
             if (this.watcherTitle === undefined) {
-                this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
-                this.$scope.$on('$destroy', () => { this.watcherTitle(); });
+                if (this.$scope !== null) {
+                    // angular1
+                    this.watcherTitle = this.$scope.$watch(watchExpression, () => { func(); });
+                    this.$scope.$on('$destroy', () => { this.watcherTitle(); });
+                } else {
+                    // angular2
+                    console.log('[Blade.setTitle()] not supported for angular2. use [ngOnChanges] instead.');
+                }
             }
         }
 

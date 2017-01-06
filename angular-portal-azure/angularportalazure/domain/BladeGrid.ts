@@ -56,14 +56,14 @@ namespace angularportalazure {
             // > We implemented the following functions with in-line-functions, since onFilter is not called within the scope of a class (this. not working).
 
             // Function to convert 'number' to 'string'
-            let convertToString = function (value: number): string {
+            let convertToString = (value: number): string => {
                 return value + '';   // convert to string, so the next statements will process the value as a string
             };
 
             // Function which figures out, if the 'expected' value is found in the 'actual' value
-            let valueFound = function (actual: string, expected: string): void {
+            let valueFound = (actual: string, expected: string): void => {
 
-                expectedSplitted.forEach(function (expectedItem, index): void {
+                expectedSplitted.forEach((expectedItem, index): void => {
                     if (actual.toLowerCase().indexOf(expectedItem) > -1) {
                         expectedSplitted[index] = '';  // expected has been found, initialize it now
                     }
@@ -71,7 +71,7 @@ namespace angularportalazure {
             };
 
             // Function to process an object
-            let processObject = function (actual: Object): void {
+            let processObject = (actual: Object): void => {
                 for (let actualProperty in actual) {
                     if (actual.hasOwnProperty(actualProperty)) {
                         let actualValue = actual[actualProperty];
@@ -126,7 +126,7 @@ namespace angularportalazure {
 
             let foundCount = 0;
 
-            expectedSplitted.forEach(function (expectedItem): void {
+            expectedSplitted.forEach((expectedItem): void => {
                 if (expectedItem === '') {  // all expectedSplitted.items which have been found, are initialized to '' (see above)
                     foundCount++;
                 }

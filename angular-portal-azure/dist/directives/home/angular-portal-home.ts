@@ -1,7 +1,7 @@
 ﻿namespace angularportalazure {
     AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
     function AngularPortalHomeController($scope: angular.IScope, portalService: angularportalazure.PortalService) {
-        this.$onInit = function () {
+        this.$onInit = () => {
             portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
             portalService.areaBlades = new angularportalazure.AreaBlades($scope, portalService);
         };
