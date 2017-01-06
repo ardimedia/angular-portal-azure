@@ -4,7 +4,7 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "@ardimedia/angular-portal-azure": "^0.2.190",
+    "@ardimedia/angular-portal-azure": "^0.2.191",
     "angular": "^1.6.1",
     "angular-resource": "^1.6.1",
     "angular-translate": "^2.13.1",
