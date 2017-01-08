@@ -121,6 +121,14 @@ var angularportalazure;
                 id = setTimeout(function () { callback(); }, 50);
             });
         };
+        UserControlBase.prototype.IsStringNullOrEmpty = function (value) {
+            if (value && value.replace(' ', '').length > 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        };
         return UserControlBase;
     }());
     angularportalazure.UserControlBase = UserControlBase;

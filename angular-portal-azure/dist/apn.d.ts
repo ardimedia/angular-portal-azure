@@ -30,6 +30,7 @@ declare namespace angularportalazure {
         ngOnDestroy(): void;
         private removeWindowResizeListener();
         setupWindowResizeListener(callback: () => void): void;
+        IsStringNullOrEmpty(value: string): boolean;
     }
 }
 declare namespace angularportalazure {

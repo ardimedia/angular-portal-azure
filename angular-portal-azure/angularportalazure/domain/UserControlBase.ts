@@ -48,6 +48,15 @@ namespace angularportalazure {
             });
         }
 
+        IsStringNullOrEmpty(value: string): boolean {
+            if (value && value.replace(' ', '').length > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+
         //#endregion
     }
 }
