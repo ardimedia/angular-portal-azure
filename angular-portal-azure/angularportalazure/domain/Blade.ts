@@ -223,20 +223,8 @@ namespace angularportalazure {
         }
 
         setStatusBarException(exception: angularportalazure.Exception) {
-            if (exception.Message === undefined) {
-                this.statusBar = 'FEHLER: ' + exception;
-                this.statusBarClass = 'apa-statusbar-error';
-            } else {
-                this.statusBar = 'FEHLER: ' + exception.Message;
-                this.statusBarClass = 'apa-statusbar-error';
-            }
-
-            if (exception.Messages !== undefined) {
-                exception.Messages.forEach((item) => {
-                    this.statusBar += ' - ' + item;
-                    this.statusBarClass = 'apa-statusbar-error';
-                });
-            }
+            this.statusBar = Exception.getOneLineMessage(exception);
+            this.statusBarClass = 'apa-statusbar-error';
         }
 
         //#endregion

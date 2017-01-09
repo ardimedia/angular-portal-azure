@@ -1,77 +1,159 @@
-﻿namespace angularportalazure {
-    export class Exception implements angularportalazure.IExceptionDotNet {
+﻿/// <reference path="exceptiondotnet.ts" />
+namespace angularportalazure {
+    export class Exception extends angularportalazure.ValidationsExceptionDotNet {
         //#region Properites
 
-        ExceptionType: string;              // provided by the server
-        ClassName: string;                  // provided by the server - .NET exception class name
-        Data: Object;                       // provided by the server - object having trouble
-        Type: string;                       // provided by the server
-        Messages: string[];                 // provided by the server
+        // IExceptionDotNet
+        ExceptionMessage: string;
+        ExceptionType: string;
+        Message: string;
+        StackTrace: string;
 
-        Message: string;                    // provided by the server or filled by the client if empty - .NET exception messages or user defined
+        // HTTP Server
+        Type: string;
+        MessageDetail: string;
+        Messages: string[];
+        Status: number | undefined;
+        StatusText: string | undefined;
+        Url: string;
 
-        MessageDetail: string;              // Filled by the client - .NET exception detail message
-        Status: number | undefined;         // Filled by the client - http error code
-        StatusText: string | undefined;     // Filled by the client - http message
-        Url: string;                        // Filled by the client - http URL
 
         //#endregion
 
-        processException(response: angular.IHttpPromiseCallbackArg<any>) {
-            this.convertFromWebApiException(response.data);
+        //#region Static Methods
 
-            this.ExceptionType = response.data.ExceptionType;
-            this.Type = response.data.Type;
-            this.Message = response.data.Message;
-            this.MessageDetail = response.data.MessageDetail;
-            this.Messages = response.data.Messages;
+        // TODO:2017-01-09/hp: [any] will be [Response] in angular2
+        static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception {
+            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in [Responsee] and [Exception] below. [Exception] does contain data from [Response.]')
+            let exception: angularportalazure.Exception = new angularportalazure.Exception();
 
-            this.Url = response.config.url;
-            this.Status = response.status;
-            this.StatusText = response.statusText;
+            if (response.headers === undefined) {
+                exception = Exception.processDotNetException1(response);
 
-            // Find a better way to log information, maybe to the database or to Google Analytics.
-            console.log('processException:');
-            console.log(response);
-            console.log(this);
+                exception.ExceptionMessage = response.data.ExceptionMessage;
+                exception.StackTrace = response.data.StackTrace;
+
+                Exception.setExceptionType1(response, exception);
+                exception.Type = response.data.Type;
+                exception.Message = response.data.Message;
+                exception.MessageDetail = response.data.MessageDetail;
+                exception.Messages = response.data.Messages;
+
+                exception.Url = response.config.url;
+                exception.Status = response.status;
+                exception.StatusText = response.statusText;
+            } else {
+                exception = Exception.processDotNetException2(response);
+
+                exception.ExceptionMessage = response.json().ExceptionMessage;
+                exception.StackTrace = response.json().StackTrace;
+
+                Exception.setExceptionType2(response, exception);
+                exception.Type = response.json().Type;
+                exception.Message = response.json().Message;
+                exception.MessageDetail = response.json().MessageDetail;
+                exception.Messages = response.json().Messages;
+
+                exception.Url = response.url;
+                exception.Status = response.status;
+                exception.StatusText = response.statusText;
+            }
+
+            //// Find a better way to log information, maybe to the database or to Google Analytics.
+            console.log(response)
+            console.log(exception)
+
+            return exception;
         }
 
-        convertFromWebApiException(ex: angularportalazure.IExceptionDotNet): void {
-            //#region Process data to Messages
+        static getOneLineMessage(exception: angularportalazure.Exception): string {
+            let message: string = 'FEHLER ';
 
-            ex.Messages = [];
+            if (exception.Message !== undefined) {
+                message = message + ': ' + exception.Message + ' ';
+            }
+
+            if (exception.ExceptionMessage !== undefined) {
+                message = message + ': ' + exception.ExceptionMessage + ' ';
+            }
+
+            if (exception.Messages !== undefined) {
+                exception.Messages.forEach((item) => {
+                    message = message + '- ' + item + ' ';
+                });
+            }
+
+            return message;
+        }
+
+        private static processDotNetException1(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception>): angularportalazure.Exception {
+            let exception: angularportalazure.Exception = new angularportalazure.Exception();
+
+            //#region Convert data to Messages
+
+            exception.Messages = [];
             let i = 1;
-            while (ex.Data[i + ''] !== undefined) {
-                ex.Messages.push(ex.Data[i + '']);
+            while (response.data.Data[i + ''] !== undefined) {
+                exception.Messages.push(response.data.Data[i + '']);
                 i++;
             }
 
             //#endregion
 
-            //#region Process DbEntityValidationException
+            return exception;
+        }
 
-            if (ex.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
-                ex.Type = 'DbEntityValidationException';
+        // TODO:2017-01-09/hp: Implement this function for angular2
+        private static processDotNetException2(response: any): angularportalazure.Exception {
+            let exception: angularportalazure.Exception = new angularportalazure.Exception();
+
+            if (response.json().data !== undefined) {
+                console.log('[angularportalazure.Exception.processDotNetException2] not yet implemented. Implement it to get proper exception data.');
             }
 
-            //#endregion
+            return exception;
+        }
 
-            //#region Process DbUpdateConcurrencyException
-
-            if (ex.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
-                ex.Type = 'DbUpdateConcurrencyException';
+        private static setExceptionType1(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception>, exception: angularportalazure.Exception): void {
+            if (response.data.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
+                exception.ExceptionType = 'DbEntityValidationException';
+                return;
+            } else if (response.data.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
+                exception.ExceptionType = 'DbUpdateConcurrencyException';
+                return;
+            } else if (response.data.ClassName.indexOf('ValidationsException') > 0) {
+                // ClassName should by ExceptionType
+                exception.ExceptionType = 'ValidationsException';
+                return;
             }
 
-            //#endregion
+            exception.ExceptionType = response.data.ExceptionType;
+        }
 
-            //#region Process ValidationsException
+        // TODO:2017-01-09/hp: Implement this function for angular2
+        private static setExceptionType2(response: any, exception: angularportalazure.Exception): void {
+            if (response.json().ExceptionType === undefined) {
+                return;
+            }
+
+            if (response.json().ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
+                exception.ExceptionType = 'DbEntityValidationException';
+                return;
+            } else if (response.json().ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
+                exception.ExceptionType = 'DbUpdateConcurrencyException';
+                return;
+            }
 
             // ClassName should by ExceptionType
-            if (ex.ClassName.indexOf('ValidationsException') > 0) {
-                ex.Type = 'ValidationsException';
+            if (response.json().ClassName !== undefined && response.json().ClassName.indexOf('ValidationsException') > 0) {
+                console.log('[angularportalazure.Exception.setExceptionType2] Why is this in ClassName? Can this be changed?');
+                exception.ExceptionType = 'ValidationsException';
+                return;
             }
 
-            //#endregion
+            exception.ExceptionType = response.json().ExceptionType;
         }
+
+        //#endregion
     }
 }

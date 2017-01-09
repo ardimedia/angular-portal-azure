@@ -388,29 +388,43 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-    class Exception implements angularportalazure.IExceptionDotNet {
+    class ExceptionDotNet {
+        ExceptionMessage: string;
         ExceptionType: string;
-        ClassName: string;
-        Data: Object;
-        Type: string;
-        Messages: string[];
         Message: string;
-        MessageDetail: string;
-        Status: number | undefined;
-        StatusText: string | undefined;
-        Url: string;
-        processException(response: angular.IHttpPromiseCallbackArg<any>): void;
-        convertFromWebApiException(ex: angularportalazure.IExceptionDotNet): void;
+        StackTrace: string;
+    }
+    class ValidationResultDotNet {
+        ErrorMessage: string;
+        MemberNames: string[];
+    }
+    class ValidationsExceptionDotNet extends ExceptionDotNet {
+        ClassName: string;
+        Data: {
+            key: number;
+            value: string;
+        }[];
+        ValidationResults: ValidationResultDotNet[];
     }
 }
 declare namespace angularportalazure {
-    class IExceptionDotNet {
+    class Exception extends angularportalazure.ValidationsExceptionDotNet {
+        ExceptionMessage: string;
         ExceptionType: string;
-        ClassName: string;
-        Data: Object;
-        Type: string;
         Message: string;
+        StackTrace: string;
+        Type: string;
+        MessageDetail: string;
         Messages: string[];
+        Status: number | undefined;
+        StatusText: string | undefined;
+        Url: string;
+        static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception;
+        static getOneLineMessage(exception: angularportalazure.Exception): string;
+        private static processDotNetException1(response);
+        private static processDotNetException2(response);
+        private static setExceptionType1(response, exception);
+        private static setExceptionType2(response, exception);
     }
 }
 declare namespace angularportalazure {

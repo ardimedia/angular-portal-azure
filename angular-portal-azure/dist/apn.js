@@ -331,21 +331,8 @@ var angularportalazure;
             this.statusBarClass = 'apa-statusbar-info';
         };
         Blade.prototype.setStatusBarException = function (exception) {
-            var _this = this;
-            if (exception.Message === undefined) {
-                this.statusBar = 'FEHLER: ' + exception;
-                this.statusBarClass = 'apa-statusbar-error';
-            }
-            else {
-                this.statusBar = 'FEHLER: ' + exception.Message;
-                this.statusBarClass = 'apa-statusbar-error';
-            }
-            if (exception.Messages !== undefined) {
-                exception.Messages.forEach(function (item) {
-                    _this.statusBar += ' - ' + item;
-                    _this.statusBarClass = 'apa-statusbar-error';
-                });
-            }
+            this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
+            this.statusBarClass = 'apa-statusbar-error';
         };
         //#endregion
         //#endregion
@@ -1347,64 +1334,148 @@ var angularportalazure;
 "use strict";
 var angularportalazure;
 (function (angularportalazure) {
-    var Exception = (function () {
+    var ExceptionDotNet = (function () {
+        function ExceptionDotNet() {
+        }
+        return ExceptionDotNet;
+    }());
+    angularportalazure.ExceptionDotNet = ExceptionDotNet;
+    var ValidationResultDotNet = (function () {
+        function ValidationResultDotNet() {
+        }
+        return ValidationResultDotNet;
+    }());
+    angularportalazure.ValidationResultDotNet = ValidationResultDotNet;
+    var ValidationsExceptionDotNet = (function (_super) {
+        __extends(ValidationsExceptionDotNet, _super);
+        function ValidationsExceptionDotNet() {
+            return _super.apply(this, arguments) || this;
+        }
+        return ValidationsExceptionDotNet;
+    }(ExceptionDotNet));
+    angularportalazure.ValidationsExceptionDotNet = ValidationsExceptionDotNet;
+})(angularportalazure || (angularportalazure = {}));
+"use strict";
+/// <reference path="exceptiondotnet.ts" />
+var angularportalazure;
+(function (angularportalazure) {
+    var Exception = (function (_super) {
+        __extends(Exception, _super);
         function Exception() {
+            return _super.apply(this, arguments) || this;
         }
         //#endregion
-        Exception.prototype.processException = function (response) {
-            this.convertFromWebApiException(response.data);
-            this.ExceptionType = response.data.ExceptionType;
-            this.Type = response.data.Type;
-            this.Message = response.data.Message;
-            this.MessageDetail = response.data.MessageDetail;
-            this.Messages = response.data.Messages;
-            this.Url = response.config.url;
-            this.Status = response.status;
-            this.StatusText = response.statusText;
-            // Find a better way to log information, maybe to the database or to Google Analytics.
-            console.log('processException:');
+        //#region Static Methods
+        // TODO:2017-01-09/hp: [any] will be [Response] in angular2
+        Exception.prepareException = function (response) {
+            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in [Responsee] and [Exception] below. [Exception] does contain data from [Response.]');
+            var exception = new angularportalazure.Exception();
+            if (response.headers === undefined) {
+                exception = Exception.processDotNetException1(response);
+                exception.ExceptionMessage = response.data.ExceptionMessage;
+                exception.StackTrace = response.data.StackTrace;
+                Exception.setExceptionType1(response, exception);
+                exception.Type = response.data.Type;
+                exception.Message = response.data.Message;
+                exception.MessageDetail = response.data.MessageDetail;
+                exception.Messages = response.data.Messages;
+                exception.Url = response.config.url;
+                exception.Status = response.status;
+                exception.StatusText = response.statusText;
+            }
+            else {
+                exception = Exception.processDotNetException2(response);
+                exception.ExceptionMessage = response.json().ExceptionMessage;
+                exception.StackTrace = response.json().StackTrace;
+                Exception.setExceptionType2(response, exception);
+                exception.Type = response.json().Type;
+                exception.Message = response.json().Message;
+                exception.MessageDetail = response.json().MessageDetail;
+                exception.Messages = response.json().Messages;
+                exception.Url = response.url;
+                exception.Status = response.status;
+                exception.StatusText = response.statusText;
+            }
+            //// Find a better way to log information, maybe to the database or to Google Analytics.
             console.log(response);
-            console.log(this);
+            console.log(exception);
+            return exception;
         };
-        Exception.prototype.convertFromWebApiException = function (ex) {
-            //#region Process data to Messages
-            ex.Messages = [];
+        Exception.getOneLineMessage = function (exception) {
+            var message = 'FEHLER ';
+            if (exception.Message !== undefined) {
+                message = message + ': ' + exception.Message + ' ';
+            }
+            if (exception.ExceptionMessage !== undefined) {
+                message = message + ': ' + exception.ExceptionMessage + ' ';
+            }
+            if (exception.Messages !== undefined) {
+                exception.Messages.forEach(function (item) {
+                    message = message + '- ' + item + ' ';
+                });
+            }
+            return message;
+        };
+        Exception.processDotNetException1 = function (response) {
+            var exception = new angularportalazure.Exception();
+            //#region Convert data to Messages
+            exception.Messages = [];
             var i = 1;
-            while (ex.Data[i + ''] !== undefined) {
-                ex.Messages.push(ex.Data[i + '']);
+            while (response.data.Data[i + ''] !== undefined) {
+                exception.Messages.push(response.data.Data[i + '']);
                 i++;
             }
             //#endregion
-            //#region Process DbEntityValidationException
-            if (ex.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
-                ex.Type = 'DbEntityValidationException';
+            return exception;
+        };
+        // TODO:2017-01-09/hp: Implement this function for angular2
+        Exception.processDotNetException2 = function (response) {
+            var exception = new angularportalazure.Exception();
+            if (response.json().data !== undefined) {
+                console.log('[angularportalazure.Exception.processDotNetException2] not yet implemented. Implement it to get proper exception data.');
             }
-            //#endregion
-            //#region Process DbUpdateConcurrencyException
-            if (ex.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
-                ex.Type = 'DbUpdateConcurrencyException';
+            return exception;
+        };
+        Exception.setExceptionType1 = function (response, exception) {
+            if (response.data.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
+                exception.ExceptionType = 'DbEntityValidationException';
+                return;
             }
-            //#endregion
-            //#region Process ValidationsException
+            else if (response.data.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
+                exception.ExceptionType = 'DbUpdateConcurrencyException';
+                return;
+            }
+            else if (response.data.ClassName.indexOf('ValidationsException') > 0) {
+                // ClassName should by ExceptionType
+                exception.ExceptionType = 'ValidationsException';
+                return;
+            }
+            exception.ExceptionType = response.data.ExceptionType;
+        };
+        // TODO:2017-01-09/hp: Implement this function for angular2
+        Exception.setExceptionType2 = function (response, exception) {
+            if (response.json().ExceptionType === undefined) {
+                return;
+            }
+            if (response.json().ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
+                exception.ExceptionType = 'DbEntityValidationException';
+                return;
+            }
+            else if (response.json().ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
+                exception.ExceptionType = 'DbUpdateConcurrencyException';
+                return;
+            }
             // ClassName should by ExceptionType
-            if (ex.ClassName.indexOf('ValidationsException') > 0) {
-                ex.Type = 'ValidationsException';
+            if (response.json().ClassName !== undefined && response.json().ClassName.indexOf('ValidationsException') > 0) {
+                console.log('[angularportalazure.Exception.setExceptionType2] Why is this in ClassName? Can this be changed?');
+                exception.ExceptionType = 'ValidationsException';
+                return;
             }
-            //#endregion
+            exception.ExceptionType = response.json().ExceptionType;
         };
         return Exception;
-    }());
+    }(angularportalazure.ValidationsExceptionDotNet));
     angularportalazure.Exception = Exception;
-})(angularportalazure || (angularportalazure = {}));
-"use strict";
-var angularportalazure;
-(function (angularportalazure) {
-    var IExceptionDotNet = (function () {
-        function IExceptionDotNet() {
-        }
-        return IExceptionDotNet;
-    }());
-    angularportalazure.IExceptionDotNet = IExceptionDotNet;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
 "use strict";
