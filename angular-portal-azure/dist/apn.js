@@ -1349,8 +1349,50 @@ var angularportalazure;
     var ValidationsExceptionDotNet = (function (_super) {
         __extends(ValidationsExceptionDotNet, _super);
         function ValidationsExceptionDotNet() {
-            return _super.apply(this, arguments) || this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
+        ValidationsExceptionDotNet.prototype.convertResponse = function (response) {
+            if (response.headers === undefined) {
+                ValidationsExceptionDotNet.convertResponse(this, response.data);
+                ValidationsExceptionDotNet.convertExceptionType(this, response.data);
+            }
+            else {
+                ValidationsExceptionDotNet.convertResponse(this, response.json());
+                ValidationsExceptionDotNet.convertExceptionType(this, response.json());
+            }
+        };
+        ValidationsExceptionDotNet.convertResponse = function (exception, responseData) {
+            // ExceptionDotNet
+            exception.ExceptionMessage = responseData.ExceptionMessage;
+            exception.Message = responseData.Message;
+            exception.StackTrace = responseData.StackTrace;
+            exception.InnerException = responseData.InnerException;
+            // ValidationsExceptionDotNet
+            //exception.ClassName = 'Not yet implemented';
+            //exception.Data = [{ key: 0, value: 'Not yet implemented' }];
+            // ValidationResultDotNet
+            //exception.ValidationResults = [{ ErrorMessage: 'Not yet implemented', MemberNames: [] }];
+        };
+        ValidationsExceptionDotNet.convertExceptionType = function (exception, responseData) {
+            if (responseData.ExceptionType === undefined) {
+                return;
+            }
+            if (responseData.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
+                exception.ExceptionType = 'DbEntityValidationException';
+                return;
+            }
+            else if (responseData.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
+                exception.ExceptionType = 'DbUpdateConcurrencyException';
+                return;
+            }
+            // ClassName should by ExceptionType
+            if (responseData.ClassName !== undefined && responseData.ClassName.indexOf('ValidationsException') > 0) {
+                console.log('[angularportalazure.Exception.setExceptionType2] Why is this in ClassName? Can this be changed?');
+                exception.ExceptionType = 'ValidationsException';
+                return;
+            }
+            exception.ExceptionType = responseData.ExceptionType;
+        };
         return ValidationsExceptionDotNet;
     }(ExceptionDotNet));
     angularportalazure.ValidationsExceptionDotNet = ValidationsExceptionDotNet;
@@ -1362,40 +1404,26 @@ var angularportalazure;
     var Exception = (function (_super) {
         __extends(Exception, _super);
         function Exception() {
-            return _super.apply(this, arguments) || this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         //#endregion
         //#region Static Methods
         // TODO:2017-01-09/hp: [any] will be [Response] in angular2
         Exception.prepareException = function (response) {
-            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in [Responsee] and [Exception] below. [Exception] does contain data from [Response.]');
+            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in following [Responsee] and [Exception].');
             var exception = new angularportalazure.Exception();
             if (response.headers === undefined) {
+                console.log('> Get information from [.data].');
                 exception = Exception.processDotNetException1(response);
-                exception.ExceptionMessage = response.data.ExceptionMessage;
-                exception.StackTrace = response.data.StackTrace;
-                Exception.setExceptionType1(response, exception);
-                exception.Type = response.data.Type;
-                exception.Message = response.data.Message;
-                exception.MessageDetail = response.data.MessageDetail;
-                exception.Messages = response.data.Messages;
-                exception.Url = response.config.url;
-                exception.Status = response.status;
-                exception.StatusText = response.statusText;
             }
             else {
+                console.log('> Get information from [.json()].');
                 exception = Exception.processDotNetException2(response);
-                exception.ExceptionMessage = response.json().ExceptionMessage;
-                exception.StackTrace = response.json().StackTrace;
-                Exception.setExceptionType2(response, exception);
-                exception.Type = response.json().Type;
-                exception.Message = response.json().Message;
-                exception.MessageDetail = response.json().MessageDetail;
-                exception.Messages = response.json().Messages;
-                exception.Url = response.url;
-                exception.Status = response.status;
-                exception.StatusText = response.statusText;
             }
+            exception.convertResponse(response);
+            exception.Url = response.url;
+            exception.Status = response.status;
+            exception.StatusText = response.statusText;
             //// Find a better way to log information, maybe to the database or to Google Analytics.
             console.log(response);
             console.log(exception);
@@ -1406,8 +1434,13 @@ var angularportalazure;
             if (exception.Message !== undefined) {
                 message = message + ': ' + exception.Message + ' ';
             }
-            if (exception.ExceptionMessage !== undefined) {
+            if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') === 0) {
                 message = message + ': ' + exception.ExceptionMessage + ' ';
+            }
+            if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') > 0) {
+                if (exception.InnerException !== undefined) {
+                    message = message + ': ' + exception.InnerException.ExceptionMessage + ' ';
+                }
             }
             if (exception.Messages !== undefined) {
                 exception.Messages.forEach(function (item) {
@@ -1435,43 +1468,6 @@ var angularportalazure;
                 console.log('[angularportalazure.Exception.processDotNetException2] not yet implemented. Implement it to get proper exception data.');
             }
             return exception;
-        };
-        Exception.setExceptionType1 = function (response, exception) {
-            if (response.data.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
-                exception.ExceptionType = 'DbEntityValidationException';
-                return;
-            }
-            else if (response.data.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
-                exception.ExceptionType = 'DbUpdateConcurrencyException';
-                return;
-            }
-            else if (response.data.ClassName.indexOf('ValidationsException') > 0) {
-                // ClassName should by ExceptionType
-                exception.ExceptionType = 'ValidationsException';
-                return;
-            }
-            exception.ExceptionType = response.data.ExceptionType;
-        };
-        // TODO:2017-01-09/hp: Implement this function for angular2
-        Exception.setExceptionType2 = function (response, exception) {
-            if (response.json().ExceptionType === undefined) {
-                return;
-            }
-            if (response.json().ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
-                exception.ExceptionType = 'DbEntityValidationException';
-                return;
-            }
-            else if (response.json().ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
-                exception.ExceptionType = 'DbUpdateConcurrencyException';
-                return;
-            }
-            // ClassName should by ExceptionType
-            if (response.json().ClassName !== undefined && response.json().ClassName.indexOf('ValidationsException') > 0) {
-                console.log('[angularportalazure.Exception.setExceptionType2] Why is this in ClassName? Can this be changed?');
-                exception.ExceptionType = 'ValidationsException';
-                return;
-            }
-            exception.ExceptionType = response.json().ExceptionType;
         };
         return Exception;
     }(angularportalazure.ValidationsExceptionDotNet));

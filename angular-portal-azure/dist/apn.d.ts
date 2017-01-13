@@ -391,6 +391,7 @@ declare namespace angularportalazure {
     class ExceptionDotNet {
         ExceptionMessage: string;
         ExceptionType: string;
+        InnerException: ExceptionDotNet;
         Message: string;
         StackTrace: string;
     }
@@ -405,14 +406,13 @@ declare namespace angularportalazure {
             value: string;
         }[];
         ValidationResults: ValidationResultDotNet[];
+        convertResponse(response: any): void;
+        private static convertResponse(exception, responseData);
+        private static convertExceptionType(exception, responseData);
     }
 }
 declare namespace angularportalazure {
     class Exception extends angularportalazure.ValidationsExceptionDotNet {
-        ExceptionMessage: string;
-        ExceptionType: string;
-        Message: string;
-        StackTrace: string;
         Type: string;
         MessageDetail: string;
         Messages: string[];
@@ -423,8 +423,6 @@ declare namespace angularportalazure {
         static getOneLineMessage(exception: angularportalazure.Exception): string;
         private static processDotNetException1(response);
         private static processDotNetException2(response);
-        private static setExceptionType1(response, exception);
-        private static setExceptionType2(response, exception);
     }
 }
 declare namespace angularportalazure {
