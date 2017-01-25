@@ -121,13 +121,17 @@ var angularportalazure;
                 id = setTimeout(function () { callback(); }, 50);
             });
         };
-        UserControlBase.prototype.IsStringNullOrEmpty = function (value) {
+        UserControlBase.prototype.isStringNullOrEmpty = function (value) {
             if (value && value.replace(' ', '').length > 0) {
                 return false;
             }
             else {
                 return true;
             }
+        };
+        UserControlBase.prototype.getRandomString = function (length) {
+            if (length === void 0) { length = 20; }
+            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
         };
         return UserControlBase;
     }());

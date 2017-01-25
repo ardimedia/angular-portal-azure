@@ -48,7 +48,7 @@ namespace angularportalazure {
             });
         }
 
-        IsStringNullOrEmpty(value: string): boolean {
+        isStringNullOrEmpty(value: string): boolean {
             if (value && value.replace(' ', '').length > 0) {
                 return false;
             } else {
@@ -56,6 +56,9 @@ namespace angularportalazure {
             }
         }
 
+        getRandomString(length: number = 20) {
+            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+        }
 
         //#endregion
     }
