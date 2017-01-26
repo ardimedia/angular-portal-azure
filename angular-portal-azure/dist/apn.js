@@ -1417,12 +1417,16 @@ var angularportalazure;
             console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in following [Responsee] and [Exception].');
             var exception = new angularportalazure.Exception();
             if (response.headers === undefined) {
-                console.log('> Get information from [.data].');
+                console.log('> Get information from [processDotNetException1.data].');
+                console.log(response);
                 exception = Exception.processDotNetException1(response);
+                console.log(exception);
             }
             else {
-                console.log('> Get information from [.json()].');
+                console.log('> Get information from [processDotNetException2.json()].');
+                console.log(response);
                 exception = Exception.processDotNetException2(response);
+                console.log(exception);
             }
             exception.convertResponse(response);
             exception.Url = response.url;
@@ -1450,6 +1454,9 @@ var angularportalazure;
                 exception.Messages.forEach(function (item) {
                     message = message + '- ' + item + ' ';
                 });
+            }
+            if (message === 'FEHLER ') {
+                message = message + ' : Ihre Internet-Sitzung wurde unterbrochen. Bitte neu anmelden!';
             }
             return message;
         };
