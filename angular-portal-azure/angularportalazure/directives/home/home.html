@@ -15,7 +15,7 @@
         <!-- fxs-panorama-homearea -->
         <div class="fxs-panorama-homearea" ng-class="{collapsed: !$ctrl.vm.portalService.panorama.startboard.tiles.showTiles}" ng-show="$ctrl.vm.portalService.panorama.isVisible" style="padding-top:45px;">
             <div class="fxs-startboard-target fxs-startboard fx-rightClick" ng-class="{collapsed: !$ctrl.vm.portalService.panorama.startboard.tiles.showTiles}">
-                <div class="xfxs-part fxs-part-clickable" ng-click="tile.clicked();" style="background-color:#293644; padding:25px; max-width: 800px;margin-bottom:15px;">
+                <div class="xfxs-part fxs-part-clickable" style="background-color:#293644; padding:25px; max-width: 800px;margin-bottom:15px;">
                     <header class="xfxs-part-title" style="color:white">
                         <h3 class="xmsportalfx-tooltip-overflow">Redesign</h3>
                         <p class="xmsportalfx-tooltip-overflow" style="margin:0;padding:0">
@@ -30,6 +30,15 @@
                         </p>
                     </header>
                     <section class="fxs-part-content css-scope-HubsExtension"></section>
+                </div>
+                <div class="xfxs-part fxs-part-clickable" style="background-color:#293644; padding:25px; max-width: 800px;margin-bottom:15px;">
+                    <header ng-if="$ctrl.vm.portalService.panorama.startboard.tiles.tiles.length === 0" class="xfxs-part-title" style="color:white">
+                        <h3 class="xmsportalfx-tooltip-overflow">Keine Applikationen zugeordnet</h3>
+                        <p class="xmsportalfx-tooltip-overflow" style="margin:0;padding:0">
+                            Wenden Sie sich bitte an den Administrator damit die entsprechenden Applikationen zugeordnet werden können.
+                            <br />Ihr Ardimedia Team
+                        </p>
+                    </header>
                 </div>
                 <div class="fxs-startboard-layout fxs-flowlayout">
                     <div class="fxs-flowlayout-childcontainer">
