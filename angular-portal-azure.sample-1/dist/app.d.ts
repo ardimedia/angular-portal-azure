@@ -31,3 +31,5 @@ declare namespace Sample1 {
 }
 declare namespace Sample1 {
 }
+declare namespace Sample1 {
+}

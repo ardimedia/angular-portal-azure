@@ -860,3 +860,6 @@ a:focus, a:hover {
 .apa-statusbar-error {
   background-color: #d86f02; }
 
+#apa-notification-area .fxs-blade {
+  border-left-width: 0; }
+

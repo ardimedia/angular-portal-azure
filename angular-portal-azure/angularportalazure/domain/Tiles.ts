@@ -8,6 +8,7 @@ namespace angularportalazure {
 
         showTiles: boolean = true;
         tiles: Array<any> = new Array<any>();
+        isTilesLoaded: boolean = false;
         hideTileIfOnlyOne: boolean = true;  // not yet evaluated in HTML, but this is the standard behavior
 
         private tileSizes = TileSize.getTileSizes();
@@ -20,6 +21,7 @@ namespace angularportalazure {
         //#region Methods
 
         addTile(tile: Tile): Tile {
+            this.isTilesLoaded = true;
             let tileSize = this.tileSizes[tile.tileSize];
             tile.size = TileSizes[tile.tileSize];  // Get CSS Name
 

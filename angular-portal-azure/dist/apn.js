@@ -732,6 +732,9 @@ var angularportalazure;
         //#region Constructor
         function AreaNotification($scope, portalService) {
             var _this = _super.call(this, $scope, portalService) || this;
+            //#endregion
+            //#region Properties
+            _this.path = '';
             _this.widthAreaUsed = 0;
             _this._width = 250;
             _this._backgroundColor = '#32383f';
@@ -769,7 +772,9 @@ var angularportalazure;
             this.areaNotification.style.display = 'none';
             this.portalService.$rootScope.$broadcast('AreaNotification.Hide');
         };
-        AreaNotification.prototype.show = function () {
+        AreaNotification.prototype.show = function (width) {
+            if (width === void 0) { width = 250; }
+            this.width = width;
             this.widthAreaUsed = 1; // Indicate to the calcualteCssStyles function, that we need to set this value
             this.calcualteCssStyles();
             this.areaNotification.style.display = 'inline-block';
@@ -891,6 +896,7 @@ var angularportalazure;
             //#region Properties
             this.showTiles = true;
             this.tiles = new Array();
+            this.isTilesLoaded = false;
             this.hideTileIfOnlyOne = true; // not yet evaluated in HTML, but this is the standard behavior
             this.tileSizes = angularportalazure.TileSize.getTileSizes();
             this.nextLeft = 0;
@@ -901,6 +907,7 @@ var angularportalazure;
         //#endregion
         //#region Methods
         Tiles.prototype.addTile = function (tile) {
+            this.isTilesLoaded = true;
             var tileSize = this.tileSizes[tile.tileSize];
             tile.size = angularportalazure.TileSizes[tile.tileSize]; // Get CSS Name
             tile.top = this.nextTop + 'px';

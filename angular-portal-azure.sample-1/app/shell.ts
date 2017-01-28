@@ -27,6 +27,9 @@
             } {
                 let tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
                 tile.subTitle = 'TypeScript based';
+            } {
+                let tile = this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1 Notification', '/app/detail1notification/detail1notification.html', portalService));
+                tile.subTitle = 'Notification Area';
             }
 
             this.httpTestData();

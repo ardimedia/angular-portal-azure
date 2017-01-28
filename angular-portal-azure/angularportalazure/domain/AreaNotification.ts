@@ -19,9 +19,10 @@ namespace angularportalazure {
 
         //#region Properties
 
-        private areaNotification: HTMLElement;
-
+        path: string = '';
         widthAreaUsed: number = 0;
+
+        private areaNotification: HTMLElement;
 
         private _width: number = 250;
         get width(): number {
@@ -52,7 +53,8 @@ namespace angularportalazure {
             this.portalService.$rootScope.$broadcast('AreaNotification.Hide');
         }
 
-        show() {
+        show(width: number = 250) {
+            this.width = width;
             this.widthAreaUsed = 1; // Indicate to the calcualteCssStyles function, that we need to set this value
             this.calcualteCssStyles();
             this.areaNotification.style.display = 'inline-block';

@@ -217,14 +217,15 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class AreaNotification extends angularportalazure.UserControlBase {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        private areaNotification;
+        path: string;
         widthAreaUsed: number;
+        private areaNotification;
         private _width;
         width: number;
         private _backgroundColor;
         backgroundColor: string;
         hide(): void;
-        show(): void;
+        show(width?: number): void;
         private calcualteCssStyles();
     }
 }
@@ -280,6 +281,7 @@ declare namespace angularportalazure {
     class Tiles {
         showTiles: boolean;
         tiles: Array<any>;
+        isTilesLoaded: boolean;
         hideTileIfOnlyOne: boolean;
         private tileSizes;
         private nextLeft;

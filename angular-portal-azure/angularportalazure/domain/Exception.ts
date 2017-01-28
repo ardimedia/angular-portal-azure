@@ -37,21 +37,21 @@ namespace angularportalazure {
                 });
             }
 
-            if (message === 'FEHLER ') { message = message + ' : Ihre Internet-Sitzung wurde ev. unterbrochen. Bitte neu anmelden! ' + exception }
+            if (message === 'FEHLER ') { message = message + ' : Ihre Internet-Sitzung wurde ev. unterbrochen. Bitte neu anmelden! ' + exception; }
 
             return message;
         }
 
         // TODO:2017-01-09/hp: [any] will be [Response] in angular2
         static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception {
-            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in the following console messages for [Responsee] and [Exception].')
+            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in the following console messages for [Responsee] and [Exception].');
             let exception: angularportalazure.Exception = new angularportalazure.Exception();
 
             if (response.headers === undefined) {
-                console.log('> Get information from [processDotNetException1.data].')
+                console.log('> Get information from [processDotNetException1.data].');
                 exception = Exception.processDotNetException1(response);
             } else {
-                console.log('> Get information from [processDotNetException2.json()].')
+                console.log('> Get information from [processDotNetException2.json()].');
                 exception = Exception.processDotNetException2(response);
             }
             exception.convertResponse(response);
@@ -61,8 +61,8 @@ namespace angularportalazure {
             exception.StatusText = response.statusText;
 
             //// Find a better way to log information, maybe to the database or to Google Analytics.
-            console.log(response)
-            console.log(exception)
+            console.log(response);
+            console.log(exception);
 
             return exception;
         }

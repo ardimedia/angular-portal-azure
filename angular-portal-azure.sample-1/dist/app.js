@@ -188,6 +188,33 @@ var Sample1;
     Detail1.$inject = ['$scope', 'angularportalazure.portalService'];
     angular.module('sample1App').controller('detail1', Detail1);
 })(Sample1 || (Sample1 = {}));
+/// <reference types="angular" />
+var Sample1;
+(function (Sample1) {
+    var Detail1Notification = (function (_super) {
+        __extends(Detail1Notification, _super);
+        function Detail1Notification($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService, '/app/detail1notification/detail1notification.html', 'Detail-1-Notification', 'TypeScript based', 500) || this;
+            _this.activate();
+            return _this;
+        }
+        //#endregion
+        //#region Methods
+        Detail1Notification.prototype.onActivate = function () {
+            this.commandDocumentText = 'Show Notification';
+            this.isCommandDocument = true;
+            return;
+        };
+        Detail1Notification.prototype.onCommandDocument = function () {
+            this.portalService.areaNotification.path = '/app/grid1/grid1.html';
+            this.portalService.areaNotification.show(400);
+        };
+        return Detail1Notification;
+    }(angularportalazure.BladeDetail));
+    //#region Constructor
+    Detail1Notification.$inject = ['$scope', 'angularportalazure.portalService'];
+    angular.module('sample1App').controller('detail1', Detail1Notification);
+})(Sample1 || (Sample1 = {}));
 /// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
 var Sample1;
@@ -295,6 +322,10 @@ var Sample1;
             {
                 var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1', '/app/detail1/detail1.html', portalService));
                 tile.subTitle = 'TypeScript based';
+            }
+            {
+                var tile = _this.portalService.panorama.startboard.tiles.addTile(new angularportalazure.Tile('Detail 1 Notification', '/app/detail1notification/detail1notification.html', portalService));
+                tile.subTitle = 'Notification Area';
             }
             _this.httpTestData();
             return _this;
