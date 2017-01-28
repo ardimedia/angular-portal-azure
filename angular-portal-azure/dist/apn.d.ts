@@ -420,8 +420,8 @@ declare namespace angularportalazure {
         Status: number | undefined;
         StatusText: string | undefined;
         Url: string;
-        static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception;
         static getOneLineMessage(exception: angularportalazure.Exception): string;
+        static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception;
         private static processDotNetException1(response);
         private static processDotNetException2(response);
     }

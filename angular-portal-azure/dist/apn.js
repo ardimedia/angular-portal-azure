@@ -1412,37 +1412,12 @@ var angularportalazure;
         }
         //#endregion
         //#region Static Methods
-        // TODO:2017-01-09/hp: [any] will be [Response] in angular2
-        Exception.prepareException = function (response) {
-            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in following [Responsee] and [Exception].');
-            var exception = new angularportalazure.Exception();
-            if (response.headers === undefined) {
-                console.log('> Get information from [processDotNetException1.data].');
-                console.log(response);
-                exception = Exception.processDotNetException1(response);
-                console.log(exception);
-            }
-            else {
-                console.log('> Get information from [processDotNetException2.json()].');
-                console.log(response);
-                exception = Exception.processDotNetException2(response);
-                console.log(exception);
-            }
-            exception.convertResponse(response);
-            exception.Url = response.url;
-            exception.Status = response.status;
-            exception.StatusText = response.statusText;
-            //// Find a better way to log information, maybe to the database or to Google Analytics.
-            console.log(response);
-            console.log(exception);
-            return exception;
-        };
         Exception.getOneLineMessage = function (exception) {
             var message = 'FEHLER ';
             if (exception.Message !== undefined) {
                 message = message + ': ' + exception.Message + ' ';
             }
-            if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') === 0) {
+            if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') === -1) {
                 message = message + ': ' + exception.ExceptionMessage + ' ';
             }
             if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') > 0) {
@@ -1460,6 +1435,27 @@ var angularportalazure;
             }
             return message;
         };
+        // TODO:2017-01-09/hp: [any] will be [Response] in angular2
+        Exception.prepareException = function (response) {
+            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in the following console messages for [Responsee] and [Exception].');
+            var exception = new angularportalazure.Exception();
+            if (response.headers === undefined) {
+                console.log('> Get information from [processDotNetException1.data].');
+                exception = Exception.processDotNetException1(response);
+            }
+            else {
+                console.log('> Get information from [processDotNetException2.json()].');
+                exception = Exception.processDotNetException2(response);
+            }
+            exception.convertResponse(response);
+            exception.Url = response.url;
+            exception.Status = response.status;
+            exception.StatusText = response.statusText;
+            //// Find a better way to log information, maybe to the database or to Google Analytics.
+            console.log(response);
+            console.log(exception);
+            return exception;
+        };
         Exception.processDotNetException1 = function (response) {
             var exception = new angularportalazure.Exception();
             //#region Convert data to Messages
@@ -1476,7 +1472,7 @@ var angularportalazure;
         Exception.processDotNetException2 = function (response) {
             var exception = new angularportalazure.Exception();
             if (response.json().data !== undefined) {
-                console.log('[angularportalazure.Exception.processDotNetException2] not yet implemented. Implement it to get proper exception data.');
+                console.log('[angularportalazure.Exception.processDotNetException2] not implemented. Implement it to get proper exception data.');
             }
             return exception;
         };
