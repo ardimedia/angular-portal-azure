@@ -1456,7 +1456,7 @@ var angularportalazure;
                 });
             }
             if (message === 'FEHLER ') {
-                message = message + ' : Ihre Internet-Sitzung wurde unterbrochen. Bitte neu anmelden!';
+                message = message + ' : Ihre Internet-Sitzung wurde ev. unterbrochen. Bitte neu anmelden! ' + exception;
             }
             return message;
         };
