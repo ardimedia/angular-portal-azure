@@ -26,5 +26,9 @@
   {
     "outputFile": "angularportalazure/css/apn.css",
     "inputFile": "angularportalazure/css/apn.scss"
+  },
+  {
+    "outputFile": "design/apa-design.css",
+    "inputFile": "design/apa-design.scss"
   }
 ]

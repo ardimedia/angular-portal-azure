@@ -68,6 +68,12 @@
     <Content Include="angularportalazure\css\apn.min.css">
       <DependentUpon>apn.css</DependentUpon>
     </Content>
+    <Content Include="design\apa-design.css">
+      <DependentUpon>apa-design.scss</DependentUpon>
+    </Content>
+    <Content Include="design\apa-design.min.css">
+      <DependentUpon>apa-design.css</DependentUpon>
+    </Content>
     <Content Include="design\design.css">
       <DependentUpon>apa-design.scss</DependentUpon>
     </Content>

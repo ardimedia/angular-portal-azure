@@ -772,6 +772,7 @@ var angularportalazure;
         //#endregion
         //#region Methods
         AreaNotification.prototype.hide = function () {
+            this.path = '';
             this.widthAreaUsed = 0;
             this.areaNotification.style.display = 'none';
             this.portalService.$rootScope.$broadcast('AreaNotification.Hide');
@@ -1138,7 +1139,7 @@ var angularportalazure;
             this.onSaveItem();
             // Is form valid
             if (!this.formblade.$valid) {
-                this.statusBar = 'Speichern nicht möglich!';
+                this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
                 this.statusBarClass = 'apa-statusbar-error';
                 console.log(this.formblade);
                 return;
@@ -1471,10 +1472,15 @@ var angularportalazure;
             var exception = new angularportalazure.Exception();
             //#region Convert data to Messages
             exception.Messages = [];
-            var i = 1;
-            while (response.data.Data[i + ''] !== undefined) {
-                exception.Messages.push(response.data.Data[i + '']);
-                i++;
+            if (response.data.Data === undefined) {
+                exception.Messages.push('No further information found in [response.data.Data].');
+            }
+            else {
+                var i = 1;
+                while (response.data.Data[i + ''] !== undefined) {
+                    exception.Messages.push(response.data.Data[i + '']);
+                    i++;
+                }
             }
             //#endregion
             return exception;

@@ -47,6 +47,7 @@ namespace angularportalazure {
         //#region Methods
 
         hide() {
+            this.path = '';
             this.widthAreaUsed = 0;
             this.areaNotification.style.display = 'none';
 

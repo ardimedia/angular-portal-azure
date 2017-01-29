@@ -73,10 +73,16 @@ namespace angularportalazure {
             //#region Convert data to Messages
 
             exception.Messages = [];
-            let i = 1;
-            while (response.data.Data[i + ''] !== undefined) {
-                exception.Messages.push(response.data.Data[i + '']);
-                i++;
+
+            if (response.data.Data === undefined) {
+                exception.Messages.push('No further information found in [response.data.Data].');
+            } else {
+
+                let i = 1;
+                while (response.data.Data[i + ''] !== undefined) {
+                    exception.Messages.push(response.data.Data[i + '']);
+                    i++;
+                }
             }
 
             //#endregion
