@@ -147,9 +147,16 @@ namespace angularportalazure {
                     return true;
                 }
             });
+
+            if (!isremoved && this.portalService.areaNotification.path === path) {
+                this.portalService.areaNotification.hide();
+                isremoved = true;
+            }
+
             if (!isremoved) {
                 throw new Error('[angularportalazure.AreaBlades.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
             }
+
             this.showPanoramaIfNoBlades();
         }
 

@@ -207,7 +207,7 @@ var Sample1;
         };
         Detail1Notification.prototype.onCommandDocument = function () {
             this.portalService.areaNotification.path = '/app/grid1/grid1.html';
-            this.portalService.areaNotification.show(400);
+            this.portalService.areaNotification.show(500);
         };
         return Detail1Notification;
     }(angularportalazure.BladeDetail));

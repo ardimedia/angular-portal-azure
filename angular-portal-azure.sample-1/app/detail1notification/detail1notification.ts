@@ -23,7 +23,7 @@ namespace Sample1 {
 
         onCommandDocument() {
             this.portalService.areaNotification.path = '/app/grid1/grid1.html';
-            this.portalService.areaNotification.show(400);
+            this.portalService.areaNotification.show(500);
         }
 
         //#endregion
