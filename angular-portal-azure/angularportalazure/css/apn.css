@@ -864,6 +864,10 @@ a:focus, a:hover {
 .apa-statusbar-error {
   background-color: #d86f02; }
 
+/*BOOTSTRAP OVERRIDE*/
+input[type=checkbox].form-control {
+  width: initial; }
+
 #apa-notification-area .fxs-blade {
   border-left-width: 0; }
 

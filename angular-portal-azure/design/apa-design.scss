@@ -26,3 +26,8 @@ html, body {
 
 @import 'apa-layout.scss';
 @import 'ms-azure-theme-blue.scss';
+
+/*BOOTSTRAP OVERRIDE*/
+input[type=checkbox].form-control {
+    width: initial;
+}
