@@ -37,7 +37,10 @@ namespace angularportalazure {
                 });
             }
 
-            if (message === 'FEHLER ') { message = message + ' : Ihre Internet-Sitzung wurde ev. unterbrochen. Bitte neu anmelden! ' + exception; }
+            if (message === 'FEHLER ') {
+                message = message + ' : JavaScript-Fehler oder Probleme mit der Internetverbindung. Ggf. weitere Informationen im Log. ' + exception;
+                console.log(exception);
+            }
 
             return message;
         }
