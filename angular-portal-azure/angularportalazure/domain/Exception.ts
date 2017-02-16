@@ -27,7 +27,11 @@ namespace angularportalazure {
             }
             if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') > 0) {
                 if (exception.InnerException !== undefined) {
-                    message = message + ': ' + exception.InnerException.ExceptionMessage + ' ';
+                    if (exception.InnerException.InnerException !== undefined) {
+                        message = message + ': ' + exception.InnerException.InnerException.ExceptionMessage + ' ';
+                    } else {
+                        message = message + ': ' + exception.InnerException.ExceptionMessage + ' ';
+                    }
                 }
             }
 

@@ -134,6 +134,7 @@ declare namespace angularportalazure {
         clearStatusBar(): void;
         setStatusBarLoadData(): void;
         setStatusBarSaveData(): void;
+        setStatusBarNoDataFound(): void;
         setStatusBarException(exception: angularportalazure.Exception): void;
         onCommandBrowse(): void;
         onCommandCancel(): void;

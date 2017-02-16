@@ -334,6 +334,10 @@ var angularportalazure;
             this.statusBar = 'Daten speichern...';
             this.statusBarClass = 'apa-statusbar-info';
         };
+        Blade.prototype.setStatusBarNoDataFound = function () {
+            this.statusBar = 'Keine Daten gefunden!';
+            this.statusBarClass = 'apa-statusbar-error';
+        };
         Blade.prototype.setStatusBarException = function (exception) {
             this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
             this.statusBarClass = 'apa-statusbar-error';
@@ -1434,7 +1438,12 @@ var angularportalazure;
             }
             if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') > 0) {
                 if (exception.InnerException !== undefined) {
-                    message = message + ': ' + exception.InnerException.ExceptionMessage + ' ';
+                    if (exception.InnerException.InnerException !== undefined) {
+                        message = message + ': ' + exception.InnerException.InnerException.ExceptionMessage + ' ';
+                    }
+                    else {
+                        message = message + ': ' + exception.InnerException.ExceptionMessage + ' ';
+                    }
                 }
             }
             if (exception.Messages !== undefined) {

@@ -222,6 +222,11 @@ namespace angularportalazure {
             this.statusBarClass = 'apa-statusbar-info';
         }
 
+        setStatusBarNoDataFound() {
+            this.statusBar = 'Keine Daten gefunden!';
+            this.statusBarClass = 'apa-statusbar-error';
+        }
+
         setStatusBarException(exception: angularportalazure.Exception) {
             this.statusBar = Exception.getOneLineMessage(exception);
             this.statusBarClass = 'apa-statusbar-error';
