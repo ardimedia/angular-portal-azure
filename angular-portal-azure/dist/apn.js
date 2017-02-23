@@ -334,6 +334,22 @@ var angularportalazure;
             this.statusBar = 'Daten speichern...';
             this.statusBarClass = 'apa-statusbar-info';
         };
+        Blade.prototype.setStatusBarDeleteData = function () {
+            this.statusBar = 'Daten löschen...';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        Blade.prototype.setStatusBarDeleteDataCanceled = function () {
+            this.statusBar = 'Löschen abgebrochen.';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        Blade.prototype.setStatusBarInfo = function (text) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        Blade.prototype.setStatusBarError = function (text) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-error';
+        };
         Blade.prototype.setStatusBarNoDataFound = function () {
             this.statusBar = 'Keine Daten gefunden!';
             this.statusBarClass = 'apa-statusbar-error';

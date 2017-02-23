@@ -222,6 +222,26 @@ namespace angularportalazure {
             this.statusBarClass = 'apa-statusbar-info';
         }
 
+        setStatusBarDeleteData() {
+            this.statusBar = 'Daten löschen...';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarDeleteDataCanceled() {
+            this.statusBar = 'Löschen abgebrochen.';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarInfo(text: string) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarError(text: string) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-error';
+        }
+
         setStatusBarNoDataFound() {
             this.statusBar = 'Keine Daten gefunden!';
             this.statusBarClass = 'apa-statusbar-error';
