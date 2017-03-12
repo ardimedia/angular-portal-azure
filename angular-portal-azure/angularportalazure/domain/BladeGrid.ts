@@ -19,7 +19,7 @@ namespace angularportalazure {
 
         //#region Methods
 
-        loadItems(func: () => angular.IPromise<any>): void {
+        loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void {
             this.onLoadItems();
 
             func().then((data) => {

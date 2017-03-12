@@ -365,7 +365,7 @@ declare namespace angularportalazure {
     class BladeDetail<T> extends angularportalazure.BladeData {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         item: T;
-        loadItem(func: () => angular.IPromise<any>): void;
+        loadItem(func: () => any | angular.IPromise<any> | Promise<any>): void;
         saveItem(func: () => any): void;
         onSaveItem(): void;
         onSavedItem(): void;
@@ -376,7 +376,7 @@ declare namespace angularportalazure {
     class BladeGrid extends angularportalazure.BladeData {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         items: any[];
-        loadItems(func: () => angular.IPromise<any>): void;
+        loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void;
         onFilter(actual: Object, expected: string): boolean;
     }
 }

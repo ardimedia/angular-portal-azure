@@ -12,7 +12,8 @@
     "removeComments": false,
     "noImplicitAny": false, //should be true
     "alwaysStrict": true,
-    "strictNullChecks": false //should be true
+    "strictNullChecks": false, //should be true,
+    "lib": [ "dom", "es6", "scripthost", "es2015.promise" ]
   },
   "exclude": [
     "dist",
