@@ -31,7 +31,8 @@
                     </header>
                     <section class="fxs-part-content css-scope-HubsExtension"></section>
                 </div>
-                <div ng-if="$ctrl.vm.portalService.panorama.startboard.tiles.isTilesLoaded && $ctrl.vm.portalService.panorama.startboard.tiles.tiles.length === 0" class="xfxs-part fxs-part-clickable" style="background-color:#293644; padding:25px; max-width: 800px;margin-bottom:15px;">
+                <!-- !$ctrl.vm.portalService.panorama.startboard.tiles.isTilesLoaded -->
+                <div ng-if="$ctrl.vm.portalService.panorama.startboard.tiles.tiles.length === 0" class="xfxs-part fxs-part-clickable" style="background-color:#293644; padding:25px; max-width: 800px;margin-bottom:15px;height:auto;">
                     <header class="xfxs-part-title" style="color:white">
                         <h3 class="xmsportalfx-tooltip-overflow">Keine Applikationen zugeordnet</h3>
                         <p class="xmsportalfx-tooltip-overflow" style="margin:0;padding:0">
