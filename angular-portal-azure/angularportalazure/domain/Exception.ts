@@ -1,7 +1,7 @@
 ﻿/// <reference path="exceptiondotnet.ts" />
 namespace angularportalazure {
     export class Exception extends angularportalazure.ValidationsExceptionDotNet {
-        //#region Properites
+        // #region Properites
 
         // HTTP Server
         Type: string;
@@ -11,9 +11,9 @@ namespace angularportalazure {
         StatusText: string | undefined;
         Url: string;
 
-        //#endregion
+        // #endregion
 
-        //#region Static Methods
+        // #region Static Methods
 
         static getOneLineMessage(exception: angularportalazure.Exception): string {
             let message: string = 'FEHLER ';
@@ -77,7 +77,7 @@ namespace angularportalazure {
         private static processDotNetException1(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception>): angularportalazure.Exception {
             let exception: angularportalazure.Exception = new angularportalazure.Exception();
 
-            //#region Convert data to Messages
+            // #region Convert data to Messages
 
             exception.Messages = [];
 
@@ -92,7 +92,7 @@ namespace angularportalazure {
                 }
             }
 
-            //#endregion
+            // #endregion
 
             return exception;
         }
@@ -108,6 +108,6 @@ namespace angularportalazure {
             return exception;
         }
 
-        //#endregion
+        // #endregion
     }
 }

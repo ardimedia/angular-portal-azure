@@ -4,7 +4,7 @@
 
 namespace angularportalazure {
     export class AreaNotification extends angularportalazure.UserControlBase {
-        //#region Constructor
+        // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
@@ -15,9 +15,9 @@ namespace angularportalazure {
             this.setupWindowResizeListener(() => { this.calcualteCssStyles(); });
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         path: string = '';
         widthAreaUsed: number = 0;
@@ -42,9 +42,9 @@ namespace angularportalazure {
             this.calcualteCssStyles();
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         hide() {
             this.path = '';
@@ -77,6 +77,6 @@ namespace angularportalazure {
             }
         }
 
-        //#endregion
+        // #endregion
     }
 }

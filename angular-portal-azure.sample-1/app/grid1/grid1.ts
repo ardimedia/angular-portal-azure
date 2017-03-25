@@ -3,7 +3,7 @@
 
 namespace Sample1 {
     class Grid1 extends angularportalazure.BladeGrid {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
@@ -12,9 +12,9 @@ namespace Sample1 {
             this.activate();
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         onActivate() {
             angularportalazure.Debug.write('[sample1-debug] \'Grid1.onActivate\' called.', [this]);
@@ -40,7 +40,7 @@ namespace Sample1 {
             this.portalService.areaBlades.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
         }
 
-        //#endregion
+        // #endregion
     }
 
     angular.module('sample1App').controller('grid1', Grid1);

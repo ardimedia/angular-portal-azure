@@ -6,13 +6,13 @@
 
 namespace angularportalazure {
     export class AreaBlades extends angularportalazure.UserControlBase {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
 
-            //this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
+            // this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
             this.portalScroll = this.portalService.$window.document.getElementById('apa-portal-scroll');
 
             this.setupAddBladeListener();
@@ -20,11 +20,11 @@ namespace angularportalazure {
             this.setupWindowResizeListener(() => { this.setPortalScrollCss(); });
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
-        //private areaBlades: HTMLElement;
+        // private areaBlades: HTMLElement;
         private portalScroll: HTMLElement;
 
         private addBladeListener;
@@ -33,9 +33,9 @@ namespace angularportalazure {
 
         blades: Array<angularportalazure.Blade> = new Array<angularportalazure.Blade>();
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs) {
             let isBladeAlreadyShown: boolean = false;
@@ -69,7 +69,7 @@ namespace angularportalazure {
             path = path.toLowerCase();
             senderPath = senderPath.toLowerCase();
 
-            //#region Verify
+            // #region Verify
 
             if (path === undefined || path === '') { return; }
 
@@ -84,15 +84,15 @@ namespace angularportalazure {
                 }
             }
 
-            //#endregion
+            // #endregion
 
-            //#region Clear all children of the parent path
+            // #region Clear all children of the parent path
 
             this.clearChild(senderPath);
 
-            //#endregion
+            // #endregion
 
-            //#region Make sure the blade is not yet show
+            // #region Make sure the blade is not yet show
 
             this.blades.forEach((blade) => {
                 // we do not distinguish between lower and upper case path name
@@ -101,16 +101,16 @@ namespace angularportalazure {
                 };
             });
 
-            //#endregion
+            // #endregion
 
-            //#region Show the blade
+            // #region Show the blade
 
             let blade = new angularportalazure.Blade(this.$scope, this.portalService, path, '');
             this.blades.push(blade);
 
-            //#endregion
+            // #endregion
 
-            //#region Position the blade
+            // #region Position the blade
 
             if (this.portalService.$window !== undefined) {
                 this.portalService.$window.setTimeout(() => {
@@ -127,7 +127,7 @@ namespace angularportalazure {
                 }, 250);
             }
 
-            //#endregion
+            // #endregion
 
             return blade;
         }
@@ -217,7 +217,7 @@ namespace angularportalazure {
             this.areaNotificationHideListener();
         }
 
-        //#endregion
+        // #endregion
 
         private setPortalScrollCss() {
             this.portalScroll.style.marginRight = this.portalService.areaNotification.widthAreaUsed + 'px';

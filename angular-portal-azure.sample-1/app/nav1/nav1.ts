@@ -3,7 +3,7 @@
 
 namespace Sample1 {
     class Nav1 extends angularportalazure.BladeNav {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
@@ -24,9 +24,9 @@ namespace Sample1 {
             this.statusBar = 'Nav 1 loaded.';
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         onNavigateTo(path: string) {
             angularportalazure.Debug.write('[sample1-debug] \'Nav1.onNavigateTo\' called.', [this, path]);
@@ -38,7 +38,7 @@ namespace Sample1 {
         callback1() {
         }
 
-        //#endregion
+        // #endregion
     }
 
     angular.module('sample1App').controller('nav1', Nav1);

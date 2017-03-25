@@ -2,10 +2,11 @@
   "name": "@ardimedia/angular-portal-azure",
   "description": "Angular Portal Azure - GUI Framework.",
   "author": "Ardimedia Anstalt <info@ardimedia.com> (http://www.ardimedia.com)",
-  "version": "0.2.262",
+  "version": "0.2.265",
   "main": "index.js",
   "typings": "apn.d.ts",
   "dependencies": {
+    "@angular/animations": "^4.0.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
@@ -23,7 +24,9 @@
     "angulartics": "^1.4.0",
     "angulartics-google-analytics": "^0.4.0",
     "bootstrap": "^4.0.0-alpha.6",
-    "ng-dialog": "^1.0.1"
+    "ng-dialog": "^1.0.1",
+    "rxjs": "^5.0.1",
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^4.0.0",

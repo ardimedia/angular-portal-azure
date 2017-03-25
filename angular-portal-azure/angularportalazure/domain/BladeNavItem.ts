@@ -2,14 +2,14 @@
 
 namespace angularportalazure {
     export class BladeNavItem {
-        //#region Constructor
+        // #region Constructor
 
         constructor(public title: string = '', public cssClass: string = '', public bladePath: string = '', public hrefPath: string = '', public roles: string = '', public isVisible: boolean = true, public callback: () => any = null, public bladeNav: angularportalazure.BladeNav | null = null) {
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         onNavItemClick() {
             if (this.callback != null) {
@@ -17,6 +17,6 @@ namespace angularportalazure {
             }
         }
 
-        //#endregion
+        // #endregion
     }
 }

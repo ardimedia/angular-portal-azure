@@ -3,14 +3,14 @@
 namespace angularportalazure {
     export class TileSize {
 
-        //#region Constructor
+        // #region Constructor
 
         constructor(public tileSizes: angularportalazure.TileSizes, public width: number, public height: number) {
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         static getTileSizes(): Array<TileSize> {
             let tileSizes = Array<TileSize>();
@@ -23,6 +23,6 @@ namespace angularportalazure {
             return tileSizes;
         }
 
-        //#endregion
+        // #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Sample1 {
     class Sample1Shell extends angularportalazure.PortalShell {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['angularportalazure.portalService'];
         constructor(portalService: angularportalazure.PortalService) {
@@ -35,9 +35,9 @@
             this.httpTestData();
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         httpTestData() {
             let customers: Array<Sample1.Customer> = new Array<Sample1.Customer>();
@@ -47,7 +47,7 @@
             customers.push(new Sample1.Customer(1004, 'Julia', 'Singer'));
         }
 
-        //#endregion
+        // #endregion
     }
 
     angular.module('sample1App').controller('sampleShell1', Sample1Shell);

@@ -4,7 +4,7 @@
 
 namespace angularportalazure {
     export class Tiles {
-        //#region Properties
+        // #region Properties
 
         showTiles: boolean = true;
         tiles: Array<any> = new Array<any>();
@@ -16,9 +16,9 @@ namespace angularportalazure {
         private nextTop: number = 0;
         private columnHeightMax: number = 0;
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         addTile(tile: Tile): Tile {
             this.isTilesLoaded = true;
@@ -45,6 +45,6 @@ namespace angularportalazure {
             return tile;
         }
 
-        //#endregion
+        // #endregion
     }
 }

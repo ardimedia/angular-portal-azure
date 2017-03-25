@@ -3,7 +3,7 @@
 
 namespace Sample1 {
     class Blade21 extends angularportalazure.BladeDetail<any> {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
@@ -15,9 +15,9 @@ namespace Sample1 {
             this.statusBar = 'Blade 2-1...';
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods - Overrides for Blade
+        // #region Methods - Overrides for Blade
 
         onCommandNew(): void {
             this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
@@ -27,15 +27,15 @@ namespace Sample1 {
             console.log('Blade21.onActivate');
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Data Access
+        // #region Data Access
 
         onGetDataList(): angular.IHttpPromise<any> {
             return this.portalService.$http({ method: 'GET', url: '/customers' });
         }
 
-        //#endregion
+        // #endregion
     }
 
     angular.module('sample1App').controller('blade21', Blade21);

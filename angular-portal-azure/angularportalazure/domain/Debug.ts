@@ -1,22 +1,22 @@
 ﻿namespace angularportalazure {
     export class Debug {
-        //#region Constructor
+        // #region Constructor
 
         constructor() {
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         static isEnabled: boolean = false;
         static isWithObjects: boolean = false;
 
         static keys: Array<string> = new Array<string>();
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         static enable(key?: string) {
             Debug.isEnabled = true;
@@ -80,6 +80,6 @@
             return false;
         }
 
-        //#endregion
+        // #endregion
     }
 }

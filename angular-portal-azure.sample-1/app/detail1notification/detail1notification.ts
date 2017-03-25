@@ -2,7 +2,7 @@
 
 namespace Sample1 {
     class Detail1Notification extends angularportalazure.BladeDetail<any> {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
@@ -11,9 +11,9 @@ namespace Sample1 {
             this.activate();
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         onActivate(): angular.IHttpPromise<any> {
             this.commandDocumentText = 'Show Notification';
@@ -26,7 +26,7 @@ namespace Sample1 {
             this.portalService.areaNotification.show(500);
         }
 
-        //#endregion
+        // #endregion
     }
 
     angular.module('sample1App').controller('detail1', Detail1Notification);

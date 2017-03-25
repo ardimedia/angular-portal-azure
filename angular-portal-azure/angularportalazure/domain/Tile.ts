@@ -4,7 +4,7 @@
 
 namespace angularportalazure {
     export class Tile {
-        //#region Constructor
+        // #region Constructor
 
         constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService) {
             this.portalService = portalService;
@@ -14,16 +14,16 @@ namespace angularportalazure {
             this.tileSize = angularportalazure.TileSizes.normal;
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         portalService: angularportalazure.PortalService;
 
         title: string;
         subTitle: string;
 
-        //#region bladePath
+        // #region bladePath
 
         get bladePath(): string {
             return this._bladePath;
@@ -34,7 +34,7 @@ namespace angularportalazure {
         }
         private _bladePath: string;
 
-        //#endregion
+        // #endregion
 
         tileSize: angularportalazure.TileSizes;
         size: string; // CSS style class name - refactoring: rename to cssClass
@@ -44,14 +44,14 @@ namespace angularportalazure {
         leftN: string; // left position (CSS) - during refactoring, rename to left
         topN: string; // top position (CSS) - during refactoring, rename to top
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         clicked() {
             this.portalService.areaBlades.setFirstBlade(this.bladePath);
         }
 
-        //#endregion
+        // #endregion
     }
 }

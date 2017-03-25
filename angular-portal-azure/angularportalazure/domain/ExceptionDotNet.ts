@@ -8,11 +8,11 @@
         StackTrace: string;
 
         // This .NET Exception fields are not transmitted and shouldn't be used on the client
-        //Data: { key: number, value: string }[];
-        //HelpLink: string;
-        //HResult: number;
-        //Source: string;
-        //ClassName: string;
+        // Data: { key: number, value: string }[];
+        // HelpLink: string;
+        // HResult: number;
+        // Source: string;
+        // ClassName: string;
     }
 
     export class ValidationResultDotNet {
@@ -43,11 +43,11 @@
             exception.InnerException = responseData.InnerException;
 
             // ValidationsExceptionDotNet
-            //exception.ClassName = 'Not yet implemented';
-            //exception.Data = [{ key: 0, value: 'Not yet implemented' }];
+            // exception.ClassName = 'Not yet implemented';
+            // exception.Data = [{ key: 0, value: 'Not yet implemented' }];
 
             // ValidationResultDotNet
-            //exception.ValidationResults = [{ ErrorMessage: 'Not yet implemented', MemberNames: [] }];
+            // exception.ValidationResults = [{ ErrorMessage: 'Not yet implemented', MemberNames: [] }];
         }
 
         private static convertExceptionType(exception: ValidationsExceptionDotNet, responseData: any): void {

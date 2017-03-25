@@ -7,7 +7,7 @@ declare var $: JQueryStatic;
 
 namespace angularportalazure {
     export class Blade extends angularportalazure.UserControlBase {
-        //#region Constructor
+        // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super($scope, portalService);
@@ -39,9 +39,9 @@ namespace angularportalazure {
             this.setBladeHeights();
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         /** HACK: 2016-11-06/hp
         [angular-portal-blade] needs [this] as the controller.
@@ -68,7 +68,7 @@ namespace angularportalazure {
 
         formblade: any; // angular.IFormController; // name of the ng-form directive
 
-        //#region path
+        // #region path
 
         private _path: string;
         get path(): string {
@@ -80,11 +80,11 @@ namespace angularportalazure {
             this._path = newPath.toLowerCase();
         }
 
-        //#endregion
+        // #endregion
 
-        //#endregion
+        // #endregion
 
-        //#region Commands
+        // #region Commands
 
         isCommandBrowse: boolean = false;
         commandBrowse: () => void = () => { this.onCommandBrowse(); };
@@ -158,11 +158,11 @@ namespace angularportalazure {
         commandExcel: () => void = () => { this.onCommandExcel(); };
         commandExcelText: string = '';
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
-        //#region Methods
+        // #region Methods
 
         activate(): void {
             this.onActivate();
@@ -205,7 +205,7 @@ namespace angularportalazure {
             }
         }
 
-        //#region Set StatusBar
+        // #region Set StatusBar
 
         clearStatusBar() {
             this.statusBar = '';
@@ -252,11 +252,11 @@ namespace angularportalazure {
             this.statusBarClass = 'apa-statusbar-error';
         }
 
-        //#endregion
+        // #endregion
 
-        //#endregion
+        // #endregion
 
-        //#region Commands
+        // #region Commands
 
         onCommandBrowse(): void {
             throw new Error('[angularportalazure.Blade] \'onCommandBrowse\' is an abstract function. Define one in the derived class.');
@@ -330,9 +330,9 @@ namespace angularportalazure {
             throw new Error('[angularportalazure.Blade] \'onCommandExcel\' is an abstract function. Define one in the derived class.');
         }
 
-        //#endregion
+        // #endregion
 
-        //** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expresssion, e.g. [name1 + name2] */
+        /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         setTitle(watchExpression: string, func: () => void) {
             if (this.watcherTitle === undefined) {
                 if (this.$scope !== null) {
@@ -350,8 +350,8 @@ namespace angularportalazure {
             this.bladeContentHeight = this.portalService.$window.innerHeight - 40 - 125; // 40 = topbar, 125 = blade header
             this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
 
-            //this.portalService.$timeout(() => {
-            //}, 50);
+            // this.portalService.$timeout(() => {
+            // }, 50);
         }
     }
 }

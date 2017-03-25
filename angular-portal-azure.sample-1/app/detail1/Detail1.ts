@@ -2,7 +2,7 @@
 
 namespace Sample1 {
     class Detail1 extends angularportalazure.BladeDetail<any> {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['$scope', 'angularportalazure.portalService'];
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
@@ -11,9 +11,9 @@ namespace Sample1 {
             this.activate();
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         onActivate(): angular.IHttpPromise<any> {
             let customer: Sample1.Customer = this.portalService.parameter.item;
@@ -33,7 +33,7 @@ namespace Sample1 {
             }
         }
 
-        //#endregion
+        // #endregion
     }
 
     angular.module('sample1App').controller('detail1', Detail1);

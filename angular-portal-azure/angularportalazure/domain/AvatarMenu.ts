@@ -4,18 +4,18 @@
 
 namespace angularportalazure {
     export class AvatarMenu extends angularportalazure.UserControlBase {
-        //#region Constructor
+        // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         userAccount: angularportalazure.UserAccount | null;
 
-        //#endregion
+        // #endregion
     }
 }

@@ -6,7 +6,7 @@
 namespace angularportalazure {
     export class Panorama extends angularportalazure.UserControlBase {
 
-        //#region Properties
+        // #region Properties
 
         title: string;
         isVisible: boolean = true;
@@ -14,9 +14,9 @@ namespace angularportalazure {
         avatarMenu: angularportalazure.AvatarMenu;
         startboard: angularportalazure.Startboard;
 
-        //#endregion
+        // #endregion
 
-        //#region Constructor
+        // #region Constructor
 
         constructor($scope: angular.IScope, title: string, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
@@ -27,6 +27,6 @@ namespace angularportalazure {
             this.startboard = new angularportalazure.Startboard(this.$scope, this.portalService);
         }
 
-        //#endregion
+        // #endregion
     }
 }

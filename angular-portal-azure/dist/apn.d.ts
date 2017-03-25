@@ -158,6 +158,7 @@ declare namespace angularportalazure {
         onCommandStop(): void;
         onCommandSwap(): void;
         onCommandExcel(): void;
+        /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         setTitle(watchExpression: string, func: () => void): void;
         private setBladeHeights();
     }

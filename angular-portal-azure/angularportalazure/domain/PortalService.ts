@@ -8,7 +8,7 @@
 
 namespace angularportalazure {
     export class PortalService {
-        //#region Constructor
+        // #region Constructor
 
         static $inject = ['$injector'];
         constructor($injector: angular.auto.IInjectorService) {
@@ -26,14 +26,14 @@ namespace angularportalazure {
             this.ngDialog = <any>$injector.get('ngDialog');
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         parameter: angularportalazure.BladeParameter = { action: 'none', itemId: 0 };
         $analytics: angulartics.IAnalyticsService;
 
-        //#region ng.IModule properties
+        // #region ng.IModule properties
 
         animate;
         animation;
@@ -52,24 +52,24 @@ namespace angularportalazure {
         name;
         requires;
 
-        //#endregion
+        // #endregion
 
-        //#region Visual components
+        // #region Visual components
 
         portalShell: angularportalazure.PortalShell;
         panorama: angularportalazure.Panorama;
         areaBlades: angularportalazure.AreaBlades;
         areaNotification: angularportalazure.AreaNotification; // is created and set in 'home' directive
 
-        //#endregion
+        // #endregion
 
-        //#region NgDialogs
+        // #region NgDialogs
 
         ngDialog: any; // any should be: angular.dialog.IDialogService;
 
-        //#endregion
+        // #endregion
 
-        //#region Angular Services
+        // #region Angular Services
 
         $injector: angular.auto.IInjectorService;
         $http: angular.IHttpService;
@@ -80,9 +80,9 @@ namespace angularportalazure {
         $timeout: angular.ITimeoutService;
         $translate: angular.translate.ITranslateService;
 
-        //#endregion
+        // #endregion
 
-        //#endregion
+        // #endregion
     }
 
     angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);

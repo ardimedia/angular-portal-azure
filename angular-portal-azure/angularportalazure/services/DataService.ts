@@ -2,14 +2,14 @@
 
 namespace angularportalazure {
     export class DataService {
-        //#region Constructor
+        // #region Constructor
 
         constructor(public $http: angular.IHttpService, public $q: angular.IQService) { // parameter list should be [public $http: angular.IHttpService, public $q: angular.IQService]
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         getData(url: string): any { // any should be: angular.IHttpPromise<any[]>
             return this.$http({ method: 'GET', url: url })
@@ -17,6 +17,6 @@ namespace angularportalazure {
                 .catch((response: angular.IHttpResponseTransformer) => { });
         }
 
-        //#endregion
+        // #endregion
     }
 }

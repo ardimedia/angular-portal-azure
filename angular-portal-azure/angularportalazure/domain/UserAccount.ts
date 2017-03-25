@@ -1,6 +1,6 @@
 ﻿namespace angularportalazure {
     export class UserAccount {
-        //#region Constructor
+        // #region Constructor
 
         constructor(username: string, firstName: string = '', lastName: string = '') {
             this.userName = username;
@@ -8,11 +8,11 @@
             this.lastName = lastName;
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
-        //#region firstName
+        // #region firstName
 
         private _firstName: string;
         get firstName(): string {
@@ -22,9 +22,9 @@
             this._firstName = value;
             this._name = (this._firstName || '') + ' ' + (this._lastName || '');
         }
-        //#endregion
+        // #endregion
 
-        //#region lastName
+        // #region lastName
         private _lastName: string;
         get lastName(): string {
             return this._lastName;
@@ -33,9 +33,9 @@
             this._lastName = value;
             this._name = (this._firstName || '') + ' ' + (this._lastName || '');
         }
-        //#endregion
+        // #endregion
 
-        //#region name
+        // #region name
         private _name: string;
         get name(): string {
             return this._name;
@@ -43,11 +43,11 @@
         set name(value: string) {
             throw new Error('[angularportalazure.UserAccount] \'name\' is a calculated value from \'firsName\' and \'lastName\'. Assignment not allowed.');
         }
-        //#endregion
+        // #endregion
 
         userName: string;
         emailAddress: string;
 
-        //#endregion
+        // #endregion
     }
 }

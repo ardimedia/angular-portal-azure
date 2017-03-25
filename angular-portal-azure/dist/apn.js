@@ -44,7 +44,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var UserAccount = (function () {
-        //#region Constructor
+        // #region Constructor
         function UserAccount(username, firstName, lastName) {
             if (firstName === void 0) { firstName = ''; }
             if (lastName === void 0) { lastName = ''; }
@@ -93,13 +93,13 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var UserControlBase = (function () {
-        //#region Constructor
+        // #region Constructor
         function UserControlBase($scope, portalService) {
             this.$scope = $scope;
             this.portalService = portalService;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
         UserControlBase.prototype.$onDestroy = function () {
             this.removeWindowResizeListener();
@@ -157,13 +157,13 @@ var angularportalazure;
 (function (angularportalazure) {
     var Blade = (function (_super) {
         __extends(Blade, _super);
-        //#region Constructor
+        // #region Constructor
         function Blade($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
             var _this = _super.call(this, $scope, portalService) || this;
-            //#endregion
-            //#region Properties
+            // #endregion
+            // #region Properties
             /** HACK: 2016-11-06/hp
             [angular-portal-blade] needs [this] as the controller.
             We don't know how to provide [this] to the directive.
@@ -177,9 +177,9 @@ var angularportalazure;
             _this.isInnerHtml = true;
             _this.statusBar = '';
             _this.statusBarClass = '';
-            //#endregion
-            //#endregion
-            //#region Commands
+            // #endregion
+            // #endregion
+            // #region Commands
             _this.isCommandBrowse = false;
             _this.commandBrowse = function () { _this.onCommandBrowse(); };
             _this.commandBrowseText = '';
@@ -283,9 +283,9 @@ var angularportalazure;
             enumerable: true,
             configurable: true
         });
-        //#endregion
-        //#region Methods
-        //#region Methods
+        // #endregion
+        // #region Methods
+        // #region Methods
         Blade.prototype.activate = function () {
             this.onActivate();
             this.onActivated();
@@ -326,7 +326,7 @@ var angularportalazure;
                 throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.areaBlades\' available.');
             }
         };
-        //#region Set StatusBar
+        // #region Set StatusBar
         Blade.prototype.clearStatusBar = function () {
             this.statusBar = '';
             this.statusBarClass = '';
@@ -363,9 +363,9 @@ var angularportalazure;
             this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
             this.statusBarClass = 'apa-statusbar-error';
         };
-        //#endregion
-        //#endregion
-        //#region Commands
+        // #endregion
+        // #endregion
+        // #region Commands
         Blade.prototype.onCommandBrowse = function () {
             throw new Error('[angularportalazure.Blade] \'onCommandBrowse\' is an abstract function. Define one in the derived class.');
         };
@@ -420,8 +420,8 @@ var angularportalazure;
         Blade.prototype.onCommandExcel = function () {
             throw new Error('[angularportalazure.Blade] \'onCommandExcel\' is an abstract function. Define one in the derived class.');
         };
-        //#endregion
-        //** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expresssion, e.g. [name1 + name2] */
+        // #endregion
+        /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         Blade.prototype.setTitle = function (watchExpression, func) {
             var _this = this;
             if (this.watcherTitle === undefined) {
@@ -439,8 +439,8 @@ var angularportalazure;
         Blade.prototype.setBladeHeights = function () {
             this.bladeContentHeight = this.portalService.$window.innerHeight - 40 - 125; // 40 = topbar, 125 = blade header
             this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
-            //this.portalService.$timeout(() => {
-            //}, 50);
+            // this.portalService.$timeout(() => {
+            // }, 50);
         };
         return Blade;
     }(angularportalazure.UserControlBase));
@@ -459,15 +459,15 @@ var angularportalazure;
         function AreaBlades($scope, portalService) {
             var _this = _super.call(this, $scope, portalService) || this;
             _this.blades = new Array();
-            //this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
+            // this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
             _this.portalScroll = _this.portalService.$window.document.getElementById('apa-portal-scroll');
             _this.setupAddBladeListener();
             _this.setupShowHideNotificationAreaListener();
             _this.setupWindowResizeListener(function () { _this.setPortalScrollCss(); });
             return _this;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         AreaBlades.prototype.raiseAddBladeEvent = function (args) {
             var isBladeAlreadyShown = false;
             this.blades.forEach(function (blade) {
@@ -501,7 +501,7 @@ var angularportalazure;
             this.portalService.$analytics.pageTrack(path);
             path = path.toLowerCase();
             senderPath = senderPath.toLowerCase();
-            //#region Verify
+            // #region Verify
             if (path === undefined || path === '') {
                 return;
             }
@@ -514,11 +514,11 @@ var angularportalazure;
                     throw new Error('[angularportalazure.AreaBlades] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
                 }
             }
-            //#endregion
-            //#region Clear all children of the parent path
+            // #endregion
+            // #region Clear all children of the parent path
             this.clearChild(senderPath);
-            //#endregion
-            //#region Make sure the blade is not yet show
+            // #endregion
+            // #region Make sure the blade is not yet show
             this.blades.forEach(function (blade) {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
@@ -526,12 +526,12 @@ var angularportalazure;
                 }
                 ;
             });
-            //#endregion
-            //#region Show the blade
+            // #endregion
+            // #region Show the blade
             var blade = new angularportalazure.Blade(this.$scope, this.portalService, path, '');
             this.blades.push(blade);
-            //#endregion
-            //#region Position the blade
+            // #endregion
+            // #region Position the blade
             if (this.portalService.$window !== undefined) {
                 this.portalService.$window.setTimeout(function () {
                     var azureportalblades = _this.portalService.$window.document.getElementsByClassName('azureportalblade');
@@ -544,7 +544,7 @@ var angularportalazure;
                     }
                 }, 250);
             }
-            //#endregion
+            // #endregion
             return blade;
         };
         AreaBlades.prototype.clearAll = function () {
@@ -622,7 +622,7 @@ var angularportalazure;
             this.areaNotificationShowListener();
             this.areaNotificationHideListener();
         };
-        //#endregion
+        // #endregion
         AreaBlades.prototype.setPortalScrollCss = function () {
             this.portalScroll.style.marginRight = this.portalService.areaNotification.widthAreaUsed + 'px';
         };
@@ -643,7 +643,7 @@ var angularportalazure;
         };
         return AreaBlades;
     }(angularportalazure.UserControlBase));
-    //#region Constructor
+    // #region Constructor
     AreaBlades.$inject = ['$scope', 'angularportalazure.portalService'];
     angularportalazure.AreaBlades = AreaBlades;
     angular.module('angularportalazure').service('angularportalazure.areaBlades', AreaBlades);
@@ -655,13 +655,13 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeData = (function (_super) {
         __extends(BladeData, _super);
-        //#region Constructor
+        // #region Constructor
         function BladeData($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 300; }
             return _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
         }
-        //#endregion
+        // #endregion
         BladeData.prototype.onLoadItem = function () {
             this.visibility = 'collapse';
             this.setStatusBarLoadData();
@@ -690,21 +690,21 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeNav = (function (_super) {
         __extends(BladeNav, _super);
-        //#region Constructor
+        // #region Constructor
         function BladeNav($scope, portalService, path, title, subtitle, width) {
             if (title === void 0) { title = ''; }
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 315; }
             var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
-            //#endregion
-            //#region Properties
+            // #endregion
+            // #region Properties
             _this.items = new Array();
             _this.isNav = true;
             _this.isInnerHtml = false;
             return _this;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         BladeNav.prototype.onNavigateTo = function (path) {
             if (path === '') {
                 return;
@@ -720,7 +720,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var BladeNavItem = (function () {
-        //#region Constructor
+        // #region Constructor
         function BladeNavItem(title, cssClass, bladePath, hrefPath, roles, isVisible, callback, bladeNav) {
             if (title === void 0) { title = ''; }
             if (cssClass === void 0) { cssClass = ''; }
@@ -739,8 +739,8 @@ var angularportalazure;
             this.callback = callback;
             this.bladeNav = bladeNav;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         BladeNavItem.prototype.onNavItemClick = function () {
             if (this.callback != null) {
                 this.callback();
@@ -758,11 +758,11 @@ var angularportalazure;
 (function (angularportalazure) {
     var AreaNotification = (function (_super) {
         __extends(AreaNotification, _super);
-        //#region Constructor
+        // #region Constructor
         function AreaNotification($scope, portalService) {
             var _this = _super.call(this, $scope, portalService) || this;
-            //#endregion
-            //#region Properties
+            // #endregion
+            // #region Properties
             _this.path = '';
             _this.widthAreaUsed = 0;
             _this._width = 250;
@@ -794,8 +794,8 @@ var angularportalazure;
             enumerable: true,
             configurable: true
         });
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         AreaNotification.prototype.hide = function () {
             this.path = '';
             this.widthAreaUsed = 0;
@@ -835,7 +835,7 @@ var angularportalazure;
 (function (angularportalazure) {
     var AvatarMenu = (function (_super) {
         __extends(AvatarMenu, _super);
-        //#region Constructor
+        // #region Constructor
         function AvatarMenu($scope, portalService) {
             return _super.call(this, $scope, portalService) || this;
         }
@@ -860,14 +860,14 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var TileSize = (function () {
-        //#region Constructor
+        // #region Constructor
         function TileSize(tileSizes, width, height) {
             this.tileSizes = tileSizes;
             this.width = width;
             this.height = height;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         TileSize.getTileSizes = function () {
             var tileSizes = Array();
             tileSizes.push(new TileSize(angularportalazure.TileSizes.small, 90, 90));
@@ -887,7 +887,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var Tile = (function () {
-        //#region Constructor
+        // #region Constructor
         function Tile(title, bladePath, portalService) {
             this.portalService = portalService;
             this.title = title;
@@ -895,7 +895,7 @@ var angularportalazure;
             this.tileSize = angularportalazure.TileSizes.normal;
         }
         Object.defineProperty(Tile.prototype, "bladePath", {
-            //#region bladePath
+            // #region bladePath
             get: function () {
                 return this._bladePath;
             },
@@ -906,8 +906,8 @@ var angularportalazure;
             enumerable: true,
             configurable: true
         });
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         Tile.prototype.clicked = function () {
             this.portalService.areaBlades.setFirstBlade(this.bladePath);
         };
@@ -923,7 +923,7 @@ var angularportalazure;
 (function (angularportalazure) {
     var Tiles = (function () {
         function Tiles() {
-            //#region Properties
+            // #region Properties
             this.showTiles = true;
             this.tiles = new Array();
             this.isTilesLoaded = false;
@@ -932,10 +932,10 @@ var angularportalazure;
             this.nextLeft = 0;
             this.nextTop = 0;
             this.columnHeightMax = 0;
-            //#endregion
+            // #endregion
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         Tiles.prototype.addTile = function (tile) {
             this.isTilesLoaded = true;
             var tileSize = this.tileSizes[tile.tileSize];
@@ -966,7 +966,7 @@ var angularportalazure;
 (function (angularportalazure) {
     var Startboard = (function (_super) {
         __extends(Startboard, _super);
-        //#region Constructor
+        // #region Constructor
         function Startboard($scope, portalService) {
             var _this = _super.call(this, $scope, portalService) || this;
             _this.tiles = new angularportalazure.Tiles();
@@ -985,8 +985,8 @@ var angularportalazure;
 (function (angularportalazure) {
     var Panorama = (function (_super) {
         __extends(Panorama, _super);
-        //#endregion
-        //#region Constructor
+        // #endregion
+        // #region Constructor
         function Panorama($scope, title, portalService) {
             var _this = _super.call(this, $scope, portalService) || this;
             _this.isVisible = true;
@@ -1009,7 +1009,7 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var PortalShell = (function () {
-        //#region Constructor
+        // #region Constructor
         function PortalShell(portalService, title) {
             if (title === void 0) { title = null; }
             this.portalService = portalService;
@@ -1038,8 +1038,8 @@ var angularportalazure;
 (function (angularportalazure) {
     var PortalService = (function () {
         function PortalService($injector) {
-            //#endregion
-            //#region Properties
+            // #endregion
+            // #region Properties
             this.parameter = { action: 'none', itemId: 0 };
             this.$injector = $injector;
             this.$http = $injector.get('$http');
@@ -1054,7 +1054,7 @@ var angularportalazure;
         }
         return PortalService;
     }());
-    //#region Constructor
+    // #region Constructor
     PortalService.$inject = ['$injector'];
     angularportalazure.PortalService = PortalService;
     angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);
@@ -1133,13 +1133,13 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeDetail = (function (_super) {
         __extends(BladeDetail, _super);
-        //#region Constructor
+        // #region Constructor
         function BladeDetail($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
             var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
-            //#endregion
-            //#region Properties
+            // #endregion
+            // #region Properties
             _this.item = {};
             _this.commandNewText = 'neu';
             _this.commandSaveText = 'speichern';
@@ -1147,8 +1147,8 @@ var angularportalazure;
             _this.commandCancelText = 'abbrechen';
             return _this;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         BladeDetail.prototype.loadItem = function (func) {
             var _this = this;
             this.onLoadItem();
@@ -1196,18 +1196,18 @@ var angularportalazure;
 (function (angularportalazure) {
     var BladeGrid = (function (_super) {
         __extends(BladeGrid, _super);
-        //#region Constructor
+        // #region Constructor
         function BladeGrid($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
             var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
-            //#endregion
-            //#region Properties
+            // #endregion
+            // #region Properties
             _this.items = [];
             return _this;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         BladeGrid.prototype.loadItems = function (func) {
             var _this = this;
             this.onLoadItems();
@@ -1218,15 +1218,15 @@ var angularportalazure;
                 _this.setStatusBarException(exception);
             });
         };
-        //#region Filter
+        // #region Filter
         BladeGrid.prototype.onFilter = function (actual, expected) {
-            //#region Documentation
+            // #region Documentation
             // > onFilter will be called for each item in an array
             // > If the item is an native type (string, number), the filter will be called with the native type in the parameter 'actual'
             // > If the item is an object, the filter will be called with each property of the object in the parameter 'actual'
             // > If the item is an object, the filter will also be called with the object in the parameter 'actual'
-            //#endregion
-            //#region Helper functions
+            // #endregion
+            // #region Helper functions
             // Implemenation detail:
             // > We implemented the following functions with in-line-functions, since onFilter is not called within the scope of a class (this. not working).
             // Function to convert 'number' to 'string'
@@ -1262,14 +1262,14 @@ var angularportalazure;
                     }
                 }
             };
-            //#endregion
-            //#region Initialize
+            // #endregion
+            // #region Initialize
             // Prepare 'expected' value
             expected = expected.toLowerCase();
             // Split the search string into its parts if separated by blanks
             var expectedSplitted = expected.split(' ');
-            //#endregion
-            //#region Process depending on type
+            // #endregion
+            // #region Process depending on type
             // Process property, typeof 'object'
             if (typeof actual === 'object') {
                 processObject(actual);
@@ -1282,16 +1282,16 @@ var angularportalazure;
             if (typeof actual === 'string') {
                 valueFound(actual, expected);
             }
-            //#endregion
-            //#region Verify if all expected has been found
+            // #endregion
+            // #region Verify if all expected has been found
             var foundCount = 0;
             expectedSplitted.forEach(function (expectedItem) {
                 if (expectedItem === '') {
                     foundCount++;
                 }
             });
-            //#endregion
-            //#region Return result
+            // #endregion
+            // #region Return result
             if (foundCount === expectedSplitted.length) {
                 return true;
             }
@@ -1299,7 +1299,7 @@ var angularportalazure;
                 return false;
             }
             ;
-            //#endregion
+            // #endregion
         };
         return BladeGrid;
     }(angularportalazure.BladeData));
@@ -1309,11 +1309,11 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var Debug = (function () {
-        //#region Constructor
+        // #region Constructor
         function Debug() {
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         Debug.enable = function (key) {
             Debug.isEnabled = true;
             if (key) {
@@ -1365,8 +1365,8 @@ var angularportalazure;
         };
         return Debug;
     }());
-    //#endregion
-    //#region Properties
+    // #endregion
+    // #region Properties
     Debug.isEnabled = false;
     Debug.isWithObjects = false;
     Debug.keys = new Array();
@@ -1409,10 +1409,10 @@ var angularportalazure;
             exception.StackTrace = responseData.StackTrace;
             exception.InnerException = responseData.InnerException;
             // ValidationsExceptionDotNet
-            //exception.ClassName = 'Not yet implemented';
-            //exception.Data = [{ key: 0, value: 'Not yet implemented' }];
+            // exception.ClassName = 'Not yet implemented';
+            // exception.Data = [{ key: 0, value: 'Not yet implemented' }];
             // ValidationResultDotNet
-            //exception.ValidationResults = [{ ErrorMessage: 'Not yet implemented', MemberNames: [] }];
+            // exception.ValidationResults = [{ ErrorMessage: 'Not yet implemented', MemberNames: [] }];
         };
         ValidationsExceptionDotNet.convertExceptionType = function (exception, responseData) {
             if (responseData.ExceptionType === undefined) {
@@ -1447,8 +1447,8 @@ var angularportalazure;
         function Exception() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        //#endregion
-        //#region Static Methods
+        // #endregion
+        // #region Static Methods
         Exception.getOneLineMessage = function (exception) {
             var message = 'FEHLER ';
             if (exception.Message !== undefined) {
@@ -1501,7 +1501,7 @@ var angularportalazure;
         };
         Exception.processDotNetException1 = function (response) {
             var exception = new angularportalazure.Exception();
-            //#region Convert data to Messages
+            // #region Convert data to Messages
             exception.Messages = [];
             if (response.data.Data === undefined) {
                 exception.Messages.push('No further information found in [response.data.Data].');
@@ -1513,7 +1513,7 @@ var angularportalazure;
                     i++;
                 }
             }
-            //#endregion
+            // #endregion
             return exception;
         };
         // TODO:2017-01-09/hp: Implement this function for angular2
@@ -1533,13 +1533,13 @@ var angularportalazure;
 var angularportalazure;
 (function (angularportalazure) {
     var DataService = (function () {
-        //#region Constructor
+        // #region Constructor
         function DataService($http, $q) {
             this.$http = $http;
             this.$q = $q;
         }
-        //#endregion
-        //#region Methods
+        // #endregion
+        // #region Methods
         DataService.prototype.getData = function (url) {
             return this.$http({ method: 'GET', url: url })
                 .then(function (response) { })

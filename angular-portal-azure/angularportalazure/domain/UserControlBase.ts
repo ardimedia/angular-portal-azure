@@ -2,25 +2,25 @@
 
 namespace angularportalazure {
     export class UserControlBase {
-        //#region Constructor
+        // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             this.$scope = $scope;
             this.portalService = portalService;
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
 
         windowResizeHandler: () => void;
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
         $onDestroy() {
@@ -57,10 +57,9 @@ namespace angularportalazure {
         }
 
         getRandomString(length: number = 20) {
-            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+','').replace(')','').slice(1);
-
+            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+', '').replace(')', '').slice(1);
         }
 
-        //#endregion
+        // #endregion
     }
 }

@@ -3,21 +3,21 @@
 
 namespace angularportalazure {
     export class BladeGrid extends angularportalazure.BladeData {
-        //#region Constructor
+        // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super($scope, portalService, path, title, subtitle, width);
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         items: any[] = [];
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void {
             this.onLoadItems();
@@ -30,19 +30,19 @@ namespace angularportalazure {
             });
         }
 
-        //#region Filter
+        // #region Filter
 
         onFilter(actual: Object, expected: string): boolean {
-            //#region Documentation
+            // #region Documentation
 
             // > onFilter will be called for each item in an array
             // > If the item is an native type (string, number), the filter will be called with the native type in the parameter 'actual'
             // > If the item is an object, the filter will be called with each property of the object in the parameter 'actual'
             // > If the item is an object, the filter will also be called with the object in the parameter 'actual'
 
-            //#endregion
+            // #endregion
 
-            //#region Helper functions
+            // #region Helper functions
 
             // Implemenation detail:
             // > We implemented the following functions with in-line-functions, since onFilter is not called within the scope of a class (this. not working).
@@ -83,9 +83,9 @@ namespace angularportalazure {
                 }
             };
 
-            //#endregion
+            // #endregion
 
-            //#region Initialize
+            // #region Initialize
 
             // Prepare 'expected' value
             expected = expected.toLowerCase();
@@ -93,9 +93,9 @@ namespace angularportalazure {
             // Split the search string into its parts if separated by blanks
             let expectedSplitted = expected.split(' ');
 
-            //#endregion
+            // #endregion
 
-            //#region Process depending on type
+            // #region Process depending on type
 
             // Process property, typeof 'object'
             if (typeof actual === 'object') {
@@ -112,9 +112,9 @@ namespace angularportalazure {
                 valueFound(<string>actual, expected);
             }
 
-            //#endregion
+            // #endregion
 
-            //#region Verify if all expected has been found
+            // #region Verify if all expected has been found
 
             let foundCount = 0;
 
@@ -124,9 +124,9 @@ namespace angularportalazure {
                 }
             });
 
-            //#endregion
+            // #endregion
 
-            //#region Return result
+            // #region Return result
 
             if (foundCount === expectedSplitted.length) {
                 return true;
@@ -134,11 +134,11 @@ namespace angularportalazure {
                 return false;
             };
 
-            //#endregion
+            // #endregion
         }
 
-        //#endregion
+        // #endregion
 
-        //#endregion
+        // #endregion
     }
 }

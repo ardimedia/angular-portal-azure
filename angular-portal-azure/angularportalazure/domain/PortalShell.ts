@@ -6,7 +6,7 @@
 
 namespace angularportalazure {
     export class PortalShell {
-        //#region Constructor
+        // #region Constructor
 
         constructor(public portalService: angularportalazure.PortalService, title: string = null) {
 
@@ -20,6 +20,6 @@ namespace angularportalazure {
             }
         }
 
-        //#endregion
+        // #endregion
     }
 }

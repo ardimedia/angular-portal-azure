@@ -3,7 +3,7 @@
 
 namespace angularportalazure {
     export class BladeDetail<T> extends angularportalazure.BladeData {
-        //#region Constructor
+        // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
             super($scope, portalService, path, title, subtitle, width);
@@ -14,15 +14,15 @@ namespace angularportalazure {
             this.commandCancelText = 'abbrechen';
         }
 
-        //#endregion
+        // #endregion
 
-        //#region Properties
+        // #region Properties
 
         item: T = <T>{};
 
-        //#endregion
+        // #endregion
 
-        //#region Methods
+        // #region Methods
 
         loadItem(func: () => any | angular.IPromise<any> | Promise<any>): void {
             this.onLoadItem();
@@ -66,6 +66,6 @@ namespace angularportalazure {
             this.close();
         }
 
-        //#endregion
+        // #endregion
     }
 }
