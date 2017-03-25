@@ -34,7 +34,7 @@ namespace angularportalazure {
                 this.columnHeightMax = tileSize.height;
             }
 
-            if (this.nextLeft > 360) {
+            if (this.nextLeft > 540) {
                 this.nextLeft = 0;
                 this.nextTop += this.columnHeightMax;
                 this.columnHeightMax = 0;
