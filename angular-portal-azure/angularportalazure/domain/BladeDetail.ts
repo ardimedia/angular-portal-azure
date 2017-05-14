@@ -24,7 +24,7 @@ namespace angularportalazure {
 
         // #region Methods
 
-        loadItem(func: () => any | angular.IPromise<any> | Promise<any>): void {
+        loadItem(func: () => Promise<any>): void { // angular.IPromise<any> |
             this.onLoadItem();
 
             func().then((data) => {
@@ -33,38 +33,38 @@ namespace angularportalazure {
             }).catch((exception: angularportalazure.Exception) => {
                 this.setStatusBarException(exception);
             });
-        }
+}
 
-        saveItem(func: () => any) {
-            this.onSaveItem();
+saveItem(func: () => any) {
+    this.onSaveItem();
 
-            // Is form valid
-            if (!this.formblade.$valid) {
-                this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
-                this.statusBarClass = 'apa-statusbar-error';
-                console.log(this.formblade);
-                return;
-            }
+    // Is form valid
+    if (!this.formblade.$valid) {
+        this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
+        this.statusBarClass = 'apa-statusbar-error';
+        console.log(this.formblade);
+        return;
+    }
 
-            func().then((data) => {
-                this.item = data;
-                this.onSavedItem();
-            }).catch((exception: angularportalazure.Exception) => {
-                this.setStatusBarException(exception);
-            });
-        }
+    func().then((data) => {
+        this.item = data;
+        this.onSavedItem();
+    }).catch((exception: angularportalazure.Exception) => {
+        this.setStatusBarException(exception);
+    });
+}
 
-        onSaveItem() {
-            this.setStatusBarSaveData();
-        }
+onSaveItem() {
+    this.setStatusBarSaveData();
+}
 
-        onSavedItem() {
-            this.clearStatusBar();
-        }
+onSavedItem() {
+    this.clearStatusBar();
+}
 
-        onCommandCancel(): void {
-            this.close();
-        }
+onCommandCancel(): void {
+    this.close();
+}
 
         // #endregion
     }

@@ -368,7 +368,7 @@ declare namespace angularportalazure {
     class BladeDetail<T> extends angularportalazure.BladeData {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         item: T;
-        loadItem(func: () => any | angular.IPromise<any> | Promise<any>): void;
+        loadItem(func: () => Promise<any>): void;
         saveItem(func: () => any): void;
         onSaveItem(): void;
         onSavedItem(): void;
