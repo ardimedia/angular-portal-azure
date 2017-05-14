@@ -132,6 +132,8 @@ declare namespace angularportalazure {
         /** close blade. */
         close(): void;
         clearStatusBar(): void;
+        setStatusBar(text?: string, style?: string): void;
+        setStatusBarCopyData(): void;
         setStatusBarLoadData(): void;
         setStatusBarSaveData(): void;
         setStatusBarDeleteData(): void;

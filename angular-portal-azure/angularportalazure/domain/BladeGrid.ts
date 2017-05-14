@@ -132,7 +132,7 @@ namespace angularportalazure {
                 return true;
             } else {
                 return false;
-            };
+            }
 
             // #endregion
         }

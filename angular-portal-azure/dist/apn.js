@@ -1,5 +1,5 @@
-/// <reference types="angular" />
 "use strict";
+/// <reference types="angular" />
 var angularportalazure;
 (function (angularportalazure) {
     /** Define Angular module and its dependencies */
@@ -31,16 +31,13 @@ var angularportalazure;
             while (cookie.charAt(0) === ' ') {
                 cookie = cookie.substring(1, cookie.length);
             }
-            ;
             if (cookie.indexOf(cookieNameEQ) === 0) {
                 return cookie.substring(cookieNameEQ.length, cookie.length);
             }
-            ;
         }
         return null;
     }
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var UserAccount = (function () {
@@ -89,7 +86,6 @@ var angularportalazure;
     angularportalazure.UserAccount = UserAccount;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="portalservice.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var UserControlBase = (function () {
@@ -137,8 +133,6 @@ var angularportalazure;
     }());
     angularportalazure.UserControlBase = UserControlBase;
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
-"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -285,7 +279,6 @@ var angularportalazure;
         });
         // #endregion
         // #region Methods
-        // #region Methods
         Blade.prototype.activate = function () {
             this.onActivate();
             this.onActivated();
@@ -331,6 +324,14 @@ var angularportalazure;
             this.statusBar = '';
             this.statusBarClass = '';
         };
+        Blade.prototype.setStatusBar = function (text, style) {
+            this.statusBar = text ? text : '';
+            this.statusBarClass = style ? style : '';
+        };
+        Blade.prototype.setStatusBarCopyData = function () {
+            this.statusBar = 'Daten kopieren...';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
         Blade.prototype.setStatusBarLoadData = function () {
             this.statusBar = 'Daten laden...';
             this.statusBarClass = 'apa-statusbar-info';
@@ -363,7 +364,6 @@ var angularportalazure;
             this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
             this.statusBarClass = 'apa-statusbar-error';
         };
-        // #endregion
         // #endregion
         // #region Commands
         Blade.prototype.onCommandBrowse = function () {
@@ -421,6 +421,7 @@ var angularportalazure;
             throw new Error('[angularportalazure.Blade] \'onCommandExcel\' is an abstract function. Define one in the derived class.');
         };
         // #endregion
+        //#endregion
         /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         Blade.prototype.setTitle = function (watchExpression, func) {
             var _this = this;
@@ -451,7 +452,6 @@ var angularportalazure;
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="iaddbladeeventargs.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var AreaBlades = (function (_super) {
@@ -524,7 +524,6 @@ var angularportalazure;
                 if (blade.comparePaths(blade.path, path)) {
                     throw new Error('[angularportalazure.AreaBlades] path: \'' + path + '\' will not be added. It is already added.');
                 }
-                ;
             });
             // #endregion
             // #region Show the blade
@@ -650,7 +649,6 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="areablades.ts" />
 /// <reference path="portalservice.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeData = (function (_super) {
@@ -685,7 +683,6 @@ var angularportalazure;
 /// <reference path="bladedata.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeNav = (function (_super) {
@@ -716,7 +713,6 @@ var angularportalazure;
     angularportalazure.BladeNav = BladeNav;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="bladenav.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeNavItem = (function () {
@@ -753,7 +749,6 @@ var angularportalazure;
 /// <reference path="bladedata.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var AreaNotification = (function (_super) {
@@ -826,11 +821,9 @@ var angularportalazure;
     }(angularportalazure.UserControlBase));
     angularportalazure.AreaNotification = AreaNotification;
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 /// <reference path="portalservice.ts" />
 /// <reference path="useraccount.ts" />
 /// <reference path="usercontrolbase.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var AvatarMenu = (function (_super) {
@@ -843,7 +836,6 @@ var angularportalazure;
     }(angularportalazure.UserControlBase));
     angularportalazure.AvatarMenu = AvatarMenu;
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     /** The names are used in CSS for layouting, e.g. style='mini' */
@@ -856,7 +848,6 @@ var angularportalazure;
     })(TileSizes = angularportalazure.TileSizes || (angularportalazure.TileSizes = {}));
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="tilesizes.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var TileSize = (function () {
@@ -883,7 +874,6 @@ var angularportalazure;
 /// <reference path="blade.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="tilesize.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Tile = (function () {
@@ -918,7 +908,6 @@ var angularportalazure;
 /// <reference path="tile.ts" />
 /// <reference path="tilesize.ts" />
 /// <reference path="tilesizes.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Tiles = (function () {
@@ -961,7 +950,6 @@ var angularportalazure;
 /// <reference path="portalservice.ts" />
 /// <reference path="tiles.ts" />
 /// <reference path="usercontrolbase.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Startboard = (function (_super) {
@@ -980,7 +968,6 @@ var angularportalazure;
 /// <reference path="startboard.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Panorama = (function (_super) {
@@ -1005,7 +992,6 @@ var angularportalazure;
 /// <reference path="panorama.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="tiles.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var PortalShell = (function () {
@@ -1033,7 +1019,6 @@ var angularportalazure;
 /// <reference path="panorama.ts" />
 /// <reference path="portalshell.ts" />
 /// <reference types="angulartics" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var PortalService = (function () {
@@ -1061,7 +1046,6 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
 /// <reference path="../../domain/portalservice.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
@@ -1081,7 +1065,6 @@ var angularportalazure;
     };
     angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var angularPortalGrid = {
@@ -1094,7 +1077,6 @@ var angularportalazure;
     };
     angular.module('angularportalazure').component('angularPortalGrid', angularPortalGrid);
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
@@ -1113,7 +1095,6 @@ var angularportalazure;
     };
     angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var angularPortalNav = {
@@ -1128,7 +1109,6 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="bladedata.ts" />
 /// <reference path="portalservice.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeDetail = (function (_super) {
@@ -1191,7 +1171,6 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference path="bladedata.ts" />
 /// <reference path="portalservice.ts" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var BladeGrid = (function (_super) {
@@ -1298,14 +1277,12 @@ var angularportalazure;
             else {
                 return false;
             }
-            ;
             // #endregion
         };
         return BladeGrid;
     }(angularportalazure.BladeData));
     angularportalazure.BladeGrid = BladeGrid;
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var Debug = (function () {
@@ -1372,7 +1349,6 @@ var angularportalazure;
     Debug.keys = new Array();
     angularportalazure.Debug = Debug;
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var ExceptionDotNet = (function () {
@@ -1438,7 +1414,6 @@ var angularportalazure;
     }(ExceptionDotNet));
     angularportalazure.ValidationsExceptionDotNet = ValidationsExceptionDotNet;
 })(angularportalazure || (angularportalazure = {}));
-"use strict";
 /// <reference path="exceptiondotnet.ts" />
 var angularportalazure;
 (function (angularportalazure) {
@@ -1529,7 +1504,6 @@ var angularportalazure;
     angularportalazure.Exception = Exception;
 })(angularportalazure || (angularportalazure = {}));
 /// <reference types="angular" />
-"use strict";
 var angularportalazure;
 (function (angularportalazure) {
     var DataService = (function () {

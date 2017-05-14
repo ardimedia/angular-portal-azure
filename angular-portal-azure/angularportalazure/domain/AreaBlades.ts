@@ -98,7 +98,7 @@ namespace angularportalazure {
                 // we do not distinguish between lower and upper case path name
                 if (blade.comparePaths(blade.path, path)) {
                     throw new Error('[angularportalazure.AreaBlades] path: \'' + path + '\' will not be added. It is already added.');
-                };
+                }
             });
 
             // #endregion

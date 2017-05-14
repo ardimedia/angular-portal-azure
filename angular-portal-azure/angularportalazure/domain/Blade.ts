@@ -6,6 +6,7 @@
 declare var $: JQueryStatic;
 
 namespace angularportalazure {
+
     export class Blade extends angularportalazure.UserControlBase {
         // #region Constructor
 
@@ -162,8 +163,6 @@ namespace angularportalazure {
 
         // #region Methods
 
-        // #region Methods
-
         activate(): void {
             this.onActivate();
             this.onActivated();
@@ -212,6 +211,16 @@ namespace angularportalazure {
             this.statusBarClass = '';
         }
 
+        setStatusBar(text?: string, style?: string) {
+            this.statusBar = text ? text : '';
+            this.statusBarClass = style ? style : '';
+        }
+
+        setStatusBarCopyData() {
+            this.statusBar = 'Daten kopieren...';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
         setStatusBarLoadData() {
             this.statusBar = 'Daten laden...';
             this.statusBarClass = 'apa-statusbar-info';
@@ -251,8 +260,6 @@ namespace angularportalazure {
             this.statusBar = Exception.getOneLineMessage(exception);
             this.statusBarClass = 'apa-statusbar-error';
         }
-
-        // #endregion
 
         // #endregion
 
@@ -331,6 +338,8 @@ namespace angularportalazure {
         }
 
         // #endregion
+
+        //#endregion
 
         /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         setTitle(watchExpression: string, func: () => void) {
