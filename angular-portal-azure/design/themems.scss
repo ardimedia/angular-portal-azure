@@ -21,7 +21,7 @@ img, a img, :link img, :visited img {
 }
 
 
-input.ng-invalid {
+input.ng-invalid, select.ng-invalid {
     border: 1px solid red;
 }
 

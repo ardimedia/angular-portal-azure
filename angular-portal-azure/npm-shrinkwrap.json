@@ -1,6 +1,6 @@
 {
   "name": "@ardimedia/angular-portal-azure",
-  "version": "0.2.268",
+  "version": "0.2.270",
   "dependencies": {
     "@angular/animations": {
       "version": "4.1.2",
