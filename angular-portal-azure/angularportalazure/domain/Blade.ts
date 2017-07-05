@@ -1,9 +1,12 @@
-﻿/// <reference types="angular" />
+﻿// #region Declarations
+
+/// <reference types="angular" />
 /// <reference path="useraccount.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="iaddbladeeventargs.ts" />
-declare var $: JQueryStatic;
+
+// #endregion
 
 namespace angularportalazure {
 
@@ -172,6 +175,7 @@ namespace angularportalazure {
         onActivate(): void {
         }
 
+        /** Override */
         onActivated(): void {
         }
 
@@ -197,11 +201,20 @@ namespace angularportalazure {
 
         /** close blade. */
         close() {
+            if (!this.onClose) {
+                return; // do not close blade
+            }
+
             if (this.portalService.areaBlades !== undefined) {
                 this.portalService.areaBlades.clearPath(this.path);
             } else {
                 throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.areaBlades\' available.');
             }
+        }
+
+        /** Override */
+        onClose(): boolean {
+            return true;
         }
 
         // #region Set StatusBar

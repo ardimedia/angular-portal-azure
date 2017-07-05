@@ -1,6 +1,11 @@
-﻿/// <reference path="bladedata.ts" />
+﻿// #region Declarations
+
+/// <reference path="bladedata.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />
+/// <reference path="usercontrolbase.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class AreaNotification extends angularportalazure.UserControlBase {
@@ -47,6 +52,11 @@ namespace angularportalazure {
         // #region Methods
 
         hide() {
+            // Do not hide on false
+            if (!this.onHide) {
+                return;
+            }
+
             this.path = '';
             this.widthAreaUsed = 0;
             this.areaNotification.style.display = 'none';
@@ -55,12 +65,27 @@ namespace angularportalazure {
         }
 
         show(width: number = 250) {
+            this.onShow();
             this.width = width;
             this.widthAreaUsed = 1; // Indicate to the calcualteCssStyles function, that we need to set this value
             this.calcualteCssStyles();
             this.areaNotification.style.display = 'inline-block';
 
             this.portalService.$rootScope.$broadcast('AreaNotification.Show');
+            this.onShowed();
+        }
+
+        /* Override */
+        onHide(): boolean {
+            return true;
+        }
+
+        /* Override */
+        onShow() {
+        }
+
+        /* Override */
+        onShowed() {
         }
 
         private calcualteCssStyles() {

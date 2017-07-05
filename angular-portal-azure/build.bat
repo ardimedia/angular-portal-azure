@@ -1,6 +1,7 @@
+CLS
 ECHO "DELETE DIRECTORY DIST"                & RMDIR /S /Q dist
 
-ECHO "TSLINT"                               & CALL tslint .\angularportalazure\**\*.ts
+REM ECHO "TSLINT"                               & CALL tslint .\angularportalazure\**\*.ts
 
 ECHO "COPY angularportalazure IMAGES"       & XCOPY angularportalazure\images     dist\images      /E/I/Q/R/Y
 ECHO "COPY angularportalazure HTML"         & XCOPY angularportalazure\directives dist\directives  /E/I/Q/R/Y

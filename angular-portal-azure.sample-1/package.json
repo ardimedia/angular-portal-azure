@@ -4,24 +4,23 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "@ardimedia/angular-portal-azure": "^0.2.192",
-    "angular": "^1.6.1",
-    "angular-resource": "^1.6.1",
-    "angular-translate": "^2.13.1",
-    "angulartics": "^1.3.0",
+    "angular": "^1.6.5",
+    "angular-resource": "^1.6.5",
+    "angular-translate": "^2.15.2",
+    "angulartics": "^1.4.0",
     "angulartics-google-analytics": "^0.4.0",
     "bootstrap": "^4.0.0-alpha.6",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.1.1",
-    "ng-dialog": "^0.6.6"
+    "jquery": "^3.2.1",
+    "ng-dialog": "^1.3.0"
   },
   "devDependencies": {
-    "@ardimedia/angular-portal-azure": "^0.2.52",
-    "@types/angular": "^1.6.2",
-    "@types/angular-resource": "^1.5.6",
-    "@types/angular-translate": "^2.4.34",
-    "@types/angulartics": "^1.3.1",
-    "tslint": "^4.3.1",
-    "typescript": "^2.1.5"
+    "@ardimedia/angular-portal-azure": "^0.2.274",
+    "@types/angular": "^1.6.25",
+    "@types/angular-resource": "^1.5.9",
+    "@types/angular-translate": "^2.15.1",
+    "@types/angulartics": "^1.3.2",
+    "tslint": "^5.4.3",
+    "typescript": "^2.4.1"
   }
 }
