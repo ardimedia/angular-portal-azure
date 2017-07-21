@@ -5,14 +5,6 @@
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
-    class DataService {
-        $http: angular.IHttpService;
-        $q: angular.IQService;
-        constructor($http: angular.IHttpService, $q: angular.IQService);
-        getData(url: string): any;
-    }
-}
-declare namespace angularportalazure {
     class UserAccount {
         constructor(username: string, firstName?: string, lastName?: string);
         private _firstName;
@@ -39,6 +31,165 @@ declare namespace angularportalazure {
         setupWindowResizeListener(callback: () => void): void;
         isStringNullOrEmpty(value: string): boolean;
         getRandomString(length?: number): string;
+    }
+}
+declare namespace angularportalazure {
+    interface IAddBladeEventArgs {
+        path: string;
+        pathSender: string;
+    }
+}
+declare namespace angularportalazure {
+    class Blade extends angularportalazure.UserControlBase {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        /** HACK: 2016-11-06/hp
+        [angular-portal-blade] needs [this] as the controller.
+        We don't know how to provide [this] to the directive.
+        So we came up with this [vm] property.*/
+        vm: any;
+        visibility: string;
+        private watcherTitle;
+        bladeContentHeight: number;
+        bladeContentHeightInner: number;
+        title: string;
+        subTitle: string;
+        width: {
+            'width': string;
+        };
+        widthStackLayout: {
+            'width': string;
+        };
+        isInnerHtml: boolean;
+        statusBar: string;
+        statusBarClass: string;
+        formblade: any;
+        private _path;
+        path: string;
+        isCommandBrowse: boolean;
+        commandBrowse: () => void;
+        commandBrowseText: string;
+        isCommandCancel: boolean;
+        commandCancel: () => void;
+        commandCancelText: string;
+        isCommandCopy: boolean;
+        commandCopy: () => void;
+        commandCopyText: string;
+        isCommandDelete: boolean;
+        commandDelete: () => void;
+        commandDeleteText: string;
+        isCommandDocument: boolean;
+        commandDocument: () => void;
+        commandDocumentText: string;
+        isCommandDocument2: boolean;
+        commandDocument2: () => void;
+        commandDocument2Text: string;
+        isCommandDocument3: boolean;
+        commandDocument3: () => void;
+        commandDocument3Text: string;
+        isCommandDocument4: boolean;
+        commandDocument4: () => void;
+        commandDocument4Text: string;
+        isCommandDocument5: boolean;
+        commandDocument5: () => void;
+        commandDocument5Text: string;
+        isCommandNew: boolean;
+        commandNew: () => void;
+        commandNewText: string;
+        isCommandOrder: boolean;
+        commandOrder: () => void;
+        commandOrderText: string;
+        isCommandRestart: boolean;
+        commandRestart: () => void;
+        commandRestartText: string;
+        isCommandSave: boolean;
+        commandSave: () => void;
+        commandSaveText: string;
+        isCommandSearch: boolean;
+        commandSearch: () => void;
+        commandSearchText: string;
+        isCommandStart: boolean;
+        commandStart: () => void;
+        commandStartText: string;
+        isCommandStop: boolean;
+        commandStop: () => void;
+        commandStopText: string;
+        isCommandSwap: boolean;
+        commandSwap: () => void;
+        commandSwapText: string;
+        isCommandExcel: boolean;
+        commandExcel: () => void;
+        commandExcelText: string;
+        activate(): void;
+        /** Override */
+        onActivate(): void;
+        /** Override */
+        onActivated(): void;
+        navigateTo(path: any): void;
+        /** Must be overridden. */
+        onNavigateTo(value: any): void;
+        comparePaths(path1: string, path2: string): boolean;
+        /** close blade. */
+        close(): void;
+        /** Override */
+        onClose(): boolean;
+        clearStatusBar(): void;
+        setStatusBar(text?: string, style?: string): void;
+        setStatusBarCopyData(): void;
+        setStatusBarLoadData(): void;
+        setStatusBarSaveData(): void;
+        setStatusBarDeleteData(): void;
+        setStatusBarDeleteDataCanceled(): void;
+        setStatusBarInfo(text: string): void;
+        setStatusBarError(text: string): void;
+        setStatusBarNoDataFound(): void;
+        setStatusBarException(exception: angularportalazure.Exception): void;
+        onCommandBrowse(): void;
+        onCommandCancel(): void;
+        onCommandCopy(): void;
+        onCommandDelete(): void;
+        onCommandDocument(): void;
+        onCommandDocument2(): void;
+        onCommandDocument3(): void;
+        onCommandDocument4(): void;
+        onCommandDocument5(): void;
+        onCommandNew(): void;
+        onCommandOrder(): void;
+        onCommandRestart(): void;
+        onCommandSave(): void;
+        onCommandSearch(): void;
+        onCommandStart(): void;
+        onCommandStop(): void;
+        onCommandSwap(): void;
+        onCommandExcel(): void;
+        /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
+        setTitle(watchExpression: string, func: () => void): void;
+        private setBladeHeights();
+    }
+}
+declare namespace angularportalazure {
+    class AreaBlades extends angularportalazure.UserControlBase {
+        static $inject: string[];
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        private portalScroll;
+        private addBladeListener;
+        private areaNotificationShowListener;
+        private areaNotificationHideListener;
+        blades: Array<angularportalazure.Blade>;
+        raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
+        setFirstBlade(path: string): angularportalazure.Blade | void;
+        addBlade(path: string, senderPath?: string): angularportalazure.Blade | void;
+        clearAll(): void;
+        clearPath(path: string): void;
+        clearLevel(level: number): void;
+        clearLastLevel(): void;
+        clearChild(path: string): void;
+        showPanoramaIfNoBlades(): void;
+        hidePanorama(): void;
+        /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
+        close(): void;
+        private setPortalScrollCss();
+        private setupShowHideNotificationAreaListener();
+        private setupAddBladeListener();
     }
 }
 declare namespace angularportalazure {
@@ -210,163 +361,12 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-    interface IAddBladeEventArgs {
-        path: string;
-        pathSender: string;
-    }
 }
 declare namespace angularportalazure {
-    class Blade extends angularportalazure.UserControlBase {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        /** HACK: 2016-11-06/hp
-        [angular-portal-blade] needs [this] as the controller.
-        We don't know how to provide [this] to the directive.
-        So we came up with this [vm] property.*/
-        vm: any;
-        visibility: string;
-        private watcherTitle;
-        bladeContentHeight: number;
-        bladeContentHeightInner: number;
-        title: string;
-        subTitle: string;
-        width: {
-            'width': string;
-        };
-        widthStackLayout: {
-            'width': string;
-        };
-        isInnerHtml: boolean;
-        statusBar: string;
-        statusBarClass: string;
-        formblade: any;
-        private _path;
-        path: string;
-        isCommandBrowse: boolean;
-        commandBrowse: () => void;
-        commandBrowseText: string;
-        isCommandCancel: boolean;
-        commandCancel: () => void;
-        commandCancelText: string;
-        isCommandCopy: boolean;
-        commandCopy: () => void;
-        commandCopyText: string;
-        isCommandDelete: boolean;
-        commandDelete: () => void;
-        commandDeleteText: string;
-        isCommandDocument: boolean;
-        commandDocument: () => void;
-        commandDocumentText: string;
-        isCommandDocument2: boolean;
-        commandDocument2: () => void;
-        commandDocument2Text: string;
-        isCommandDocument3: boolean;
-        commandDocument3: () => void;
-        commandDocument3Text: string;
-        isCommandDocument4: boolean;
-        commandDocument4: () => void;
-        commandDocument4Text: string;
-        isCommandDocument5: boolean;
-        commandDocument5: () => void;
-        commandDocument5Text: string;
-        isCommandNew: boolean;
-        commandNew: () => void;
-        commandNewText: string;
-        isCommandOrder: boolean;
-        commandOrder: () => void;
-        commandOrderText: string;
-        isCommandRestart: boolean;
-        commandRestart: () => void;
-        commandRestartText: string;
-        isCommandSave: boolean;
-        commandSave: () => void;
-        commandSaveText: string;
-        isCommandSearch: boolean;
-        commandSearch: () => void;
-        commandSearchText: string;
-        isCommandStart: boolean;
-        commandStart: () => void;
-        commandStartText: string;
-        isCommandStop: boolean;
-        commandStop: () => void;
-        commandStopText: string;
-        isCommandSwap: boolean;
-        commandSwap: () => void;
-        commandSwapText: string;
-        isCommandExcel: boolean;
-        commandExcel: () => void;
-        commandExcelText: string;
-        activate(): void;
-        /** Override */
-        onActivate(): void;
-        /** Override */
-        onActivated(): void;
-        navigateTo(path: any): void;
-        /** Must be overridden. */
-        onNavigateTo(value: any): void;
-        comparePaths(path1: string, path2: string): boolean;
-        /** close blade. */
-        close(): void;
-        /** Override */
-        onClose(): boolean;
-        clearStatusBar(): void;
-        setStatusBar(text?: string, style?: string): void;
-        setStatusBarCopyData(): void;
-        setStatusBarLoadData(): void;
-        setStatusBarSaveData(): void;
-        setStatusBarDeleteData(): void;
-        setStatusBarDeleteDataCanceled(): void;
-        setStatusBarInfo(text: string): void;
-        setStatusBarError(text: string): void;
-        setStatusBarNoDataFound(): void;
-        setStatusBarException(exception: angularportalazure.Exception): void;
-        onCommandBrowse(): void;
-        onCommandCancel(): void;
-        onCommandCopy(): void;
-        onCommandDelete(): void;
-        onCommandDocument(): void;
-        onCommandDocument2(): void;
-        onCommandDocument3(): void;
-        onCommandDocument4(): void;
-        onCommandDocument5(): void;
-        onCommandNew(): void;
-        onCommandOrder(): void;
-        onCommandRestart(): void;
-        onCommandSave(): void;
-        onCommandSearch(): void;
-        onCommandStart(): void;
-        onCommandStop(): void;
-        onCommandSwap(): void;
-        onCommandExcel(): void;
-        /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
-        setTitle(watchExpression: string, func: () => void): void;
-        private setBladeHeights();
-    }
 }
 declare namespace angularportalazure {
-    class AreaBlades extends angularportalazure.UserControlBase {
-        static $inject: string[];
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        private portalScroll;
-        private addBladeListener;
-        private areaNotificationShowListener;
-        private areaNotificationHideListener;
-        blades: Array<angularportalazure.Blade>;
-        raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
-        setFirstBlade(path: string): angularportalazure.Blade | void;
-        addBlade(path: string, senderPath?: string): angularportalazure.Blade | void;
-        clearAll(): void;
-        clearPath(path: string): void;
-        clearLevel(level: number): void;
-        clearLastLevel(): void;
-        clearChild(path: string): void;
-        showPanoramaIfNoBlades(): void;
-        hidePanorama(): void;
-        /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
-        close(): void;
-        private setPortalScrollCss();
-        private setupShowHideNotificationAreaListener();
-        private setupAddBladeListener();
-    }
+}
+declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class BladeDetail<T> extends angularportalazure.BladeData {
@@ -441,10 +441,10 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
+    class DataService {
+        $http: angular.IHttpService;
+        $q: angular.IQService;
+        constructor($http: angular.IHttpService, $q: angular.IQService);
+        getData(url: string): any;
+    }
 }

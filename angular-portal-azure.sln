@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26014.0
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D998292-AC86-419F-B2E0-B037328717C9}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		CONTRIBUTE = CONTRIBUTE
 		LICENSE = LICENSE
 		README.md = README.md
+		SUPPORT = SUPPORT
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular-portal-azure", "angular-portal-azure\angular-portal-azure.csproj", "{25F41A47-257C-441E-AADD-8FF4D60F7691}"
