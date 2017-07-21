@@ -1,8 +1,8 @@
 ﻿import * as angular from 'angular';
 
-import { PortalService } from './PortalService';
-import { Tiles } from './Tiles';
-import { UserControlBase } from './UserControlBase';
+import { PortalService } from './portalservice';
+import { Tiles } from './tiles';
+import { UserControlBase } from './usercontrolbase';
 
     export class Startboard extends UserControlBase {
         // #region Constructor

@@ -1,8 +1,8 @@
 ﻿import * as angular from 'angular';
 
-import { AreaBlades } from './AreaBlades';
-import { BladeData } from './BladeData';
-import { BladeNavItem } from './BladeNavItem';
+import { AreaBlades } from './areablades';
+import { BladeData } from './bladedata';
+import { BladeNavItem } from './bladenavitem';
 import { Exception } from './exception';
 import { PortalService } from './portalservice';
 

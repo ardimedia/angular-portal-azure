@@ -1,11 +1,11 @@
 ﻿import * as angular from 'angular';
 import * as angulartics from 'angulartics';
 
-import { BladeParameter } from './BladeParameter';
-import { PortalShell } from './PortalShell';
-import { Panorama } from './Panorama';
-import { AreaBlades } from './AreaBlades';
-import { AreaNotification } from './AreaNotification';
+import { BladeParameter } from './bladeparameter';
+import { PortalShell } from './portalshell';
+import { Panorama } from './panorama';
+import { AreaBlades } from './areablades';
+import { AreaNotification } from './areanotification';
 
 export class PortalService {
     // #region Constructor

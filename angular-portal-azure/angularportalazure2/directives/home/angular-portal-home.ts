@@ -1,8 +1,8 @@
 ﻿import * as angular from 'angular';
 
-import { AreaBlades } from '../../domain/AreaBlades';
-import { AreaNotification } from '../../domain/AreaNotification';
-import { PortalService } from '../../domain/PortalService';
+import { AreaBlades } from '../../domain/areablades';
+import { AreaNotification } from '../../domain/areanotification';
+import { PortalService } from '../../domain/portalservice';
 
 AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
 function AngularPortalHomeController($scope: angular.IScope, portalService: PortalService) {

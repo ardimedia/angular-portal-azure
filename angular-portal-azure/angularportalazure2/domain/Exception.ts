@@ -1,9 +1,9 @@
 ﻿import * as angular from 'angular';
 
-import { ValidationsExceptionDotNet } from './ValidationsExceptionDotNet';
+import { ValidationsExceptionDotNet } from './validationsexceptiondotnet';
 
 export class Exception extends ValidationsExceptionDotNet {
-    // #region Properites
+    // #region Properties
 
     // HTTP Server
     Type: string;
@@ -27,7 +27,7 @@ export class Exception extends ValidationsExceptionDotNet {
         if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') === -1) {
             message = message + ': ' + exception.ExceptionMessage + ' ';
         }
-        
+
         if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') > 0) {
             if (exception.InnerException !== undefined) {
                 if (exception.InnerException.InnerException !== undefined) {

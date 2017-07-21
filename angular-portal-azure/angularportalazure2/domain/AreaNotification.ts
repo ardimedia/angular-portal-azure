@@ -1,6 +1,7 @@
 ﻿import * as angular from 'angular';
+
 import { PortalService } from './portalservice';
-import { UserControlBase } from './UserControlBase';
+import { UserControlBase } from './usercontrolbase';
 
 export class AreaNotification extends UserControlBase {
     // #region Constructor

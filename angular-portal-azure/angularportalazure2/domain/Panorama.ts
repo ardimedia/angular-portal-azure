@@ -1,9 +1,9 @@
 ﻿import * as angular from 'angular';
 
-import { UserControlBase } from './UserControlBase';
-import { AvatarMenu } from './AvatarMenu';
-import { Startboard } from './Startboard';
-import { PortalService } from './PortalService';
+import { UserControlBase } from './usercontrolbase';
+import { AvatarMenu } from './avatarmenu';
+import { Startboard } from './startboard';
+import { PortalService } from './portalservice';
 
 export class Panorama extends UserControlBase {
 

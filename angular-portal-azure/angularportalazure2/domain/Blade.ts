@@ -1,7 +1,8 @@
 ﻿import * as angular from 'angular';
+
 import { Exception } from './exception';
 import { PortalService } from './portalservice';
-import { UserControlBase } from './UserControlBase';
+import { UserControlBase } from './usercontrolbase';
 
 export class Blade extends UserControlBase {
     // #region Constructor

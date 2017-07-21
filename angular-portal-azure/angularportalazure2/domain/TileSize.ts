@@ -1,6 +1,6 @@
 ﻿import * as angular from 'angular';
 
-import { TileSizes } from './TileSizes';
+import { TileSizes } from './tilesizes';
 
 export class TileSize {
 

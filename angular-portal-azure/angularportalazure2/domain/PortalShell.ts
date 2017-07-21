@@ -1,7 +1,7 @@
 ﻿import * as angular from 'angular';
 
-import { Panorama } from './Panorama';
-import { PortalService } from './PortalService';
+import { Panorama } from './panorama';
+import { PortalService } from './portalservice';
 
 export class PortalShell {
     // #region Constructor

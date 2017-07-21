@@ -1,5 +1,6 @@
 ﻿import * as angular from 'angular';
-import { Blade } from './Blade';
+
+import { Blade } from './blade';
 import { PortalService } from './portalservice';
 
 export class BladeData extends Blade {

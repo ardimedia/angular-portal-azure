@@ -1,7 +1,7 @@
 ﻿import * as angular from 'angular';
 
-import { PortalService } from './PortalService';
-import { TileSizes } from './TileSizes';
+import { PortalService } from './portalservice';
+import { TileSizes } from './tilesizes';
 
 export class Tile {
     // #region Constructor

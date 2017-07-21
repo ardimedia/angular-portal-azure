@@ -1,8 +1,8 @@
 ﻿import * as angular from 'angular';
 
-import { Tile } from './Tile';
-import { TileSize } from './TileSize';
-import { TileSizes } from './TileSizes';
+import { Tile } from './tile';
+import { TileSize } from './tilesize';
+import { TileSizes } from './tilesizes';
 
 export class Tiles {
     // #region Properties

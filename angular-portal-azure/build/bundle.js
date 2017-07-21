@@ -134,7 +134,7 @@ var PortalService_1 = __webpack_require__(7);
 var angular_portal_blade_1 = __webpack_require__(8);
 var angular_portal_grid_1 = __webpack_require__(9);
 var angular_portal_home_1 = __webpack_require__(10);
-var angular_portal_nav_1 = __webpack_require__(17);
+var angular_portal_nav_1 = __webpack_require__(18);
 /** Define Angular module and its dependencies */
 var angularModule = angular.module('angularportalazure', [
     ngResource,
@@ -38692,13 +38692,13 @@ exports.default = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var AreaBlades_1 = __webpack_require__(11);
-var AreaNotification_1 = __webpack_require__(16);
+var areablades_1 = __webpack_require__(11);
+var areanotification_1 = __webpack_require__(17);
 AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
 function AngularPortalHomeController($scope, portalService) {
     this.$onInit = function () {
-        portalService.areaNotification = new AreaNotification_1.AreaNotification($scope, portalService);
-        portalService.areaBlades = new AreaBlades_1.AreaBlades($scope, portalService);
+        portalService.areaNotification = new areanotification_1.AreaNotification($scope, portalService);
+        portalService.areaBlades = new areablades_1.AreaBlades($scope, portalService);
     };
 }
 exports.default = {
@@ -38728,9 +38728,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var blade_1 = __webpack_require__(12);
-var UserControlBase_1 = __webpack_require__(0);
-/// <reference path="portalservice.ts" />
-/// <reference path="iaddbladeeventargs.ts" />
+var UserControlBase_1 = __webpack_require__(16);
 var AreaBlades = (function (_super) {
     __extends(AreaBlades, _super);
     function AreaBlades($scope, portalService) {
@@ -38942,7 +38940,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var exception_1 = __webpack_require__(13);
-var UserControlBase_1 = __webpack_require__(0);
+var usercontrolbase_1 = __webpack_require__(0);
 var Blade = (function (_super) {
     __extends(Blade, _super);
     // #region Constructor
@@ -39246,7 +39244,7 @@ var Blade = (function (_super) {
         // }, 50);
     };
     return Blade;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.Blade = Blade;
 
 
@@ -39267,7 +39265,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ValidationsExceptionDotNet_1 = __webpack_require__(14);
+var validationsexceptiondotnet_1 = __webpack_require__(14);
 var Exception = (function (_super) {
     __extends(Exception, _super);
     function Exception() {
@@ -39351,7 +39349,7 @@ var Exception = (function (_super) {
         return exception;
     };
     return Exception;
-}(ValidationsExceptionDotNet_1.ValidationsExceptionDotNet));
+}(validationsexceptiondotnet_1.ValidationsExceptionDotNet));
 exports.Exception = Exception;
 
 
@@ -39372,7 +39370,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ExceptionDotNet_1 = __webpack_require__(15);
+var exceptiondotnet_1 = __webpack_require__(15);
 var ValidationsExceptionDotNet = (function (_super) {
     __extends(ValidationsExceptionDotNet, _super);
     function ValidationsExceptionDotNet() {
@@ -39421,7 +39419,7 @@ var ValidationsExceptionDotNet = (function (_super) {
         exception.ExceptionType = responseData.ExceptionType;
     };
     return ValidationsExceptionDotNet;
-}(ExceptionDotNet_1.ExceptionDotNet));
+}(exceptiondotnet_1.ExceptionDotNet));
 exports.ValidationsExceptionDotNet = ValidationsExceptionDotNet;
 
 
@@ -39446,6 +39444,59 @@ exports.ExceptionDotNet = ExceptionDotNet;
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var UserControlBase = (function () {
+    // #region Constructor
+    function UserControlBase($scope, portalService) {
+        this.$scope = $scope;
+        this.portalService = portalService;
+    }
+    // #endregion
+    // #region Methods
+    /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
+    UserControlBase.prototype.$onDestroy = function () {
+        this.removeWindowResizeListener();
+    };
+    /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
+    UserControlBase.prototype.ngOnDestroy = function () {
+        this.removeWindowResizeListener();
+    };
+    UserControlBase.prototype.removeWindowResizeListener = function () {
+        if (this.windowResizeHandler !== undefined) {
+            this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
+        }
+    };
+    UserControlBase.prototype.setupWindowResizeListener = function (callback) {
+        // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+        var id;
+        this.portalService.$window.addEventListener('resize', this.windowResizeHandler = function () {
+            window.clearTimeout(id);
+            id = setTimeout(function () { callback(); }, 50);
+        });
+    };
+    UserControlBase.prototype.isStringNullOrEmpty = function (value) {
+        if (value && value.replace(' ', '').length > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    UserControlBase.prototype.getRandomString = function (length) {
+        if (length === void 0) { length = 20; }
+        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+', '').replace(')', '').slice(1);
+    };
+    return UserControlBase;
+}());
+exports.UserControlBase = UserControlBase;
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -39457,7 +39508,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var UserControlBase_1 = __webpack_require__(0);
+var usercontrolbase_1 = __webpack_require__(0);
 var AreaNotification = (function (_super) {
     __extends(AreaNotification, _super);
     // #region Constructor
@@ -39541,12 +39592,12 @@ var AreaNotification = (function (_super) {
         }
     };
     return AreaNotification;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.AreaNotification = AreaNotification;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

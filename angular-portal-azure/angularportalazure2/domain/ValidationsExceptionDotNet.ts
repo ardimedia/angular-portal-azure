@@ -1,5 +1,5 @@
-﻿import { ExceptionDotNet } from './ExceptionDotNet';
-import { ValidationResultDotNet } from './ValidationResultDotNet';
+﻿import { ExceptionDotNet } from './exceptiondotnet';
+import { ValidationResultDotNet } from './validationresultdotnet';
 
 export class ValidationsExceptionDotNet extends ExceptionDotNet {
     ClassName: string;

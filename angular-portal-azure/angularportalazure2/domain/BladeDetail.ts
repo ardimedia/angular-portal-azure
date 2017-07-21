@@ -1,5 +1,6 @@
 ﻿import * as angular from 'angular';
-import { BladeData } from './BladeData';
+
+import { BladeData } from './bladedata';
 import { Exception } from './exception';
 import { PortalService } from './portalservice';
 

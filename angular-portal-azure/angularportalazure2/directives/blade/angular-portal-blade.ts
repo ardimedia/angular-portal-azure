@@ -1,6 +1,6 @@
 ﻿import * as angular from 'angular';
 
-import { PortalService } from '../../domain/PortalService';
+import { PortalService } from '../../domain/portalservice';
 
 AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
 function AngularPortalBladeController(portalService: PortalService) {
