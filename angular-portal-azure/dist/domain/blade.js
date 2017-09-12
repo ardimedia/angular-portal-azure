@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var exception_1 = require("./exception");
-var UserControlBase_1 = require("./UserControlBase");
+var usercontrolbase_1 = require("./usercontrolbase");
 var Blade = (function (_super) {
     __extends(Blade, _super);
     // #region Constructor
@@ -74,7 +74,7 @@ var Blade = (function (_super) {
         _this.commandRestart = function () { _this.onCommandRestart(); };
         _this.commandRestartText = '';
         _this.isCommandSave = false;
-        _this.commandSave = function () { _this.onCommandSave(); };
+        _this.commandSave = function () { _this.onCommandSaveBefore(); };
         _this.commandSaveText = '';
         _this.isCommandSearch = false;
         _this.commandSearch = function () { _this.onCommandSearch(); };
@@ -273,6 +273,17 @@ var Blade = (function (_super) {
     Blade.prototype.onCommandRestart = function () {
         throw new Error('[angularportalazure.Blade] \'onCommandRestart\' is an abstract function. Define one in the derived class.');
     };
+    Blade.prototype.onCommandSaveBefore = function () {
+        var _this = this;
+        if (this.isCommandSave) {
+            this.isCommandSave = false;
+            this.onCommandSave().then(function () {
+                _this.isCommandSave = true;
+            }).catch(function () {
+                _this.isCommandSave = true;
+            });
+        }
+    };
     Blade.prototype.onCommandSave = function () {
         throw new Error('[angularportalazure.Blade] \'onCommandSave\' is an abstract function. Define one in the derived class.');
     };
@@ -315,5 +326,5 @@ var Blade = (function (_super) {
         // }, 50);
     };
     return Blade;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.Blade = Blade;

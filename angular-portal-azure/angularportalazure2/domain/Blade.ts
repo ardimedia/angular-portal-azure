@@ -133,7 +133,7 @@ export class Blade extends UserControlBase {
     commandRestartText: string = '';
 
     isCommandSave: boolean = false;
-    commandSave: () => void = () => { this.onCommandSave(); };
+    commandSave: () => void = () => { this.onCommandSaveBefore(); };
     commandSaveText: string = '';
 
     isCommandSearch: boolean = false;
@@ -320,7 +320,18 @@ export class Blade extends UserControlBase {
         throw new Error('[angularportalazure.Blade] \'onCommandRestart\' is an abstract function. Define one in the derived class.');
     }
 
-    onCommandSave(): void {
+    onCommandSaveBefore(): void {
+        if (this.isCommandSave) {
+            this.isCommandSave = false;
+            this.onCommandSave().then(() => {
+                this.isCommandSave = true;
+            }).catch(() => {
+                this.isCommandSave = true;
+            });
+        }
+    }
+
+    onCommandSave(): Promise<void> {
         throw new Error('[angularportalazure.Blade] \'onCommandSave\' is an abstract function. Define one in the derived class.');
     }
 

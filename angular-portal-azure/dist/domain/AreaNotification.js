@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var UserControlBase_1 = require("./UserControlBase");
+var usercontrolbase_1 = require("./usercontrolbase");
 var AreaNotification = (function (_super) {
     __extends(AreaNotification, _super);
     // #region Constructor
@@ -94,5 +94,5 @@ var AreaNotification = (function (_super) {
         }
     };
     return AreaNotification;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.AreaNotification = AreaNotification;

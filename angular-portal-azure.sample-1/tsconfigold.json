@@ -1,0 +1,20 @@
+﻿{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "none",
+    "moduleResolution": "node",
+    "outFile": "dist/app.js",
+    "declaration": true,
+    "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false
+  },
+  "exclude": [
+    "angularportalazure",
+    "dist",
+    "node_modules"
+  ]
+}

@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var UserControlBase_1 = require("./UserControlBase");
+var usercontrolbase_1 = require("./usercontrolbase");
 var AvatarMenu = (function (_super) {
     __extends(AvatarMenu, _super);
     // #region Constructor
@@ -18,5 +18,5 @@ var AvatarMenu = (function (_super) {
         return _super.call(this, $scope, portalService) || this;
     }
     return AvatarMenu;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.AvatarMenu = AvatarMenu;

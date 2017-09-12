@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var BladeData_1 = require("./BladeData");
+var bladedata_1 = require("./bladedata");
 var BladeGrid = (function (_super) {
     __extends(BladeGrid, _super);
     // #region Constructor
@@ -118,5 +118,5 @@ var BladeGrid = (function (_super) {
         // #endregion
     };
     return BladeGrid;
-}(BladeData_1.BladeData));
+}(bladedata_1.BladeData));
 exports.BladeGrid = BladeGrid;

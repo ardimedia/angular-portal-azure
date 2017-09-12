@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var BladeData_1 = require("./BladeData");
+var bladedata_1 = require("./bladedata");
 var BladeNav = (function (_super) {
     __extends(BladeNav, _super);
     // #region Constructor
@@ -35,5 +35,5 @@ var BladeNav = (function (_super) {
         this.portalService.areaBlades.raiseAddBladeEvent({ path: path, pathSender: this.path });
     };
     return BladeNav;
-}(BladeData_1.BladeData));
+}(bladedata_1.BladeData));
 exports.BladeNav = BladeNav;

@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var blade_1 = require("./blade");
-var UserControlBase_1 = require("./UserControlBase");
+var usercontrolbase_1 = require("./usercontrolbase");
 var AreaBlades = (function (_super) {
     __extends(AreaBlades, _super);
     function AreaBlades($scope, portalService) {
@@ -198,8 +198,8 @@ var AreaBlades = (function (_super) {
             _this.addBlade(args.path, args.pathSender);
         });
     };
+    // #region Constructor
+    AreaBlades.$inject = ['$scope', 'angularportalazure.portalService'];
     return AreaBlades;
-}(UserControlBase_1.UserControlBase));
-// #region Constructor
-AreaBlades.$inject = ['$scope', 'angularportalazure.portalService'];
+}(usercontrolbase_1.UserControlBase));
 exports.AreaBlades = AreaBlades;

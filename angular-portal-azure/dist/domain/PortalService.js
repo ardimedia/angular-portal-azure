@@ -16,8 +16,8 @@ var PortalService = (function () {
         this.$translate = $injector.get('$translate');
         this.ngDialog = $injector.get('ngDialog');
     }
+    // #region Constructor
+    PortalService.$inject = ['$injector'];
     return PortalService;
 }());
-// #region Constructor
-PortalService.$inject = ['$injector'];
 exports.PortalService = PortalService;

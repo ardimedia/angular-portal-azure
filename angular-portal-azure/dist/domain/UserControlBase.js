@@ -26,7 +26,7 @@ var UserControlBase = (function () {
         var id;
         this.portalService.$window.addEventListener('resize', this.windowResizeHandler = function () {
             window.clearTimeout(id);
-            id = setTimeout(function () { callback(); }, 50);
+            id = window.setTimeout(function () { callback(); }, 50);
         });
     };
     UserControlBase.prototype.isStringNullOrEmpty = function (value) {

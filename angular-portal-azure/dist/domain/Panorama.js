@@ -11,9 +11,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var angular = require("angular");
-var UserControlBase_1 = require("./UserControlBase");
-var AvatarMenu_1 = require("./AvatarMenu");
-var Startboard_1 = require("./Startboard");
+var usercontrolbase_1 = require("./usercontrolbase");
+var avatarmenu_1 = require("./avatarmenu");
+var startboard_1 = require("./startboard");
 var Panorama = (function (_super) {
     __extends(Panorama, _super);
     // #endregion
@@ -23,12 +23,12 @@ var Panorama = (function (_super) {
         _this.isVisible = true;
         _this.title = title;
         _this.portalService.panorama = _this;
-        _this.avatarMenu = new AvatarMenu_1.AvatarMenu(_this.$scope, _this.portalService);
-        _this.startboard = new Startboard_1.Startboard(_this.$scope, _this.portalService);
+        _this.avatarMenu = new avatarmenu_1.AvatarMenu(_this.$scope, _this.portalService);
+        _this.startboard = new startboard_1.Startboard(_this.$scope, _this.portalService);
         return _this;
     }
     return Panorama;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.Panorama = Panorama;
 exports.default = angular.module('angularportalazure', [])
     .service('angularportalazure.panorama', Panorama)

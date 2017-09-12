@@ -64,6 +64,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angularportalazure2\directives\blade\blade.html" />
+    <Content Include="angularportalazure2\directives\grid\grid.html" />
+    <Content Include="angularportalazure2\directives\home\home.html" />
+    <Content Include="angularportalazure2\directives\nav\nav.html" />
     <Content Include="angularportalazure\css\apn.css">
       <DependentUpon>apn.scss</DependentUpon>
     </Content>
@@ -117,6 +121,9 @@
     <Content Include="package.json" />
     <Content Include="build.bat" />
     <Content Include="webpack.config.js" />
+    <Content Include="angularportalazure2\directives\dialog\README.md" />
+    <Content Include="angularportalazure2\directives\dirtyflag\README.md" />
+    <Content Include="angularportalazure2\css\apn.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -148,7 +155,6 @@
     <Content Include="design\portallayout - Copy.css - Copy.map">
       <DependentUpon>portallayout - Copy - Copy.css</DependentUpon>
     </Content>
-    <Content Include="npm-update.bat" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
     <Content Include="TODO\translate.txt" />
@@ -159,42 +165,48 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="angularportalazure\domain\AreaNotification.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeNavItem.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\ExceptionDotNet.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\Exception.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeParameter.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\Tiles.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\TileSize.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\TileSizes.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\IAddBladeEventArgs.ts" />
+    <TypeScriptCompile Include="angularportalazure2\directives\blade\angular-portal-blade.ts" />
+    <TypeScriptCompile Include="angularportalazure2\directives\grid\angular-portal-grid.ts" />
+    <TypeScriptCompile Include="angularportalazure2\directives\home\angular-portal-home.ts" />
+    <TypeScriptCompile Include="angularportalazure2\directives\nav\angular-portal-nav.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\areablades.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\areanotification.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\avatarmenu.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\blade.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\bladedata.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\bladedetail.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\bladegrid.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\bladenav.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\bladenavitem.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\bladeparameter.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\debug.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\exception.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\exceptiondotnet.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\iaddbladeeventargs.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\panorama.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\portalservice.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\portalshell.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\startboard.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\tile.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\tiles.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\tileSize.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\tilesizes.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\useraccount.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\usercontrolbase.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\validationresultdotnet.ts" />
+    <TypeScriptCompile Include="angularportalazure2\domain\validationsexceptiondotnet.ts" />
+    <TypeScriptCompile Include="angularportalazure2\index.ts" />
+    <TypeScriptCompile Include="angularportalazure2\services\DataService.ts" />
     <Content Include="angularportalazure\index.js" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeNav.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\UserControlBase.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\AreaBlades.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\Debug.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\nav\angular-portal-nav.ts" />
     <TypeScriptCompile Include="angularportalazure\services\DataService.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\PortalService.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\Startboard.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\UserAccount.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\Blade.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\AvatarMenu.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\Panorama.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\PortalShell.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\Tile.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeData.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeDetail.ts" />
-    <TypeScriptCompile Include="angularportalazure\domain\BladeGrid.ts" />
     <None Include="angularportalazure\directives\dirtyflag\README.md" />
     <TypeScriptCompile Include="angularportalazure\azureportalng.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\blade\angular-portal-blade.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\home\angular-portal-home.ts" />
     <TypeScriptCompile Include="angularportalazure\directives\grid\angular-portal-grid.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="angularportalazure2\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

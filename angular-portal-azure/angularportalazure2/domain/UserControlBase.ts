@@ -45,7 +45,7 @@ export class UserControlBase {
 
         this.portalService.$window.addEventListener('resize', this.windowResizeHandler = () => {
             window.clearTimeout(id);
-            id = setTimeout(() => { callback(); }, 50);
+            id = window.setTimeout(() => { callback(); }, 50);
         });
     }
 

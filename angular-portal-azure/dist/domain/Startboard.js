@@ -10,16 +10,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Tiles_1 = require("./Tiles");
-var UserControlBase_1 = require("./UserControlBase");
+var tiles_1 = require("./tiles");
+var usercontrolbase_1 = require("./usercontrolbase");
 var Startboard = (function (_super) {
     __extends(Startboard, _super);
     // #region Constructor
     function Startboard($scope, portalService) {
         var _this = _super.call(this, $scope, portalService) || this;
-        _this.tiles = new Tiles_1.Tiles();
+        _this.tiles = new tiles_1.Tiles();
         return _this;
     }
     return Startboard;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.Startboard = Startboard;

@@ -3,7 +3,7 @@
 import { Blade } from './blade';
 import { IAddBladeEventArgs } from './iaddbladeeventargs';
 import { PortalService } from './portalservice';
-import { UserControlBase } from './UserControlBase';
+import { UserControlBase } from './usercontrolbase';
 
 export class AreaBlades extends UserControlBase {
     // #region Constructor

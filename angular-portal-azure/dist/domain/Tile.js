@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var TileSizes_1 = require("./TileSizes");
+var tilesizes_1 = require("./tilesizes");
 var Tile = (function () {
     // #region Constructor
     function Tile(title, bladePath, portalService) {
         this.portalService = portalService;
         this.title = title;
         this.bladePath = bladePath;
-        this.tileSize = TileSizes_1.TileSizes.normal;
+        this.tileSize = tilesizes_1.TileSizes.normal;
     }
     Object.defineProperty(Tile.prototype, "bladePath", {
         // #region bladePath

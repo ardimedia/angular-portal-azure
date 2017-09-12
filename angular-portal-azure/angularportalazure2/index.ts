@@ -1,7 +1,8 @@
-﻿/// <reference path="directives/blade/angular-portal-blade.ts" />
-/* README:
+﻿/* README:
    - http://angular-tips.com/blog/2015/06/using-angular-1-dot-x-with-es6-and-webpack/
 */
+
+import './css/apn';
 
 import * as angular from 'angular';
 import * as ngResource from 'angular-resource'

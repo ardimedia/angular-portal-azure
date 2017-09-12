@@ -1,9 +1,9 @@
-/// <reference path="directives/blade/angular-portal-blade.ts" />
+"use strict";
 /* README:
    - http://angular-tips.com/blog/2015/06/using-angular-1-dot-x-with-es6-and-webpack/
 */
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+require("./css/apn");
 var angular = require("angular");
 var ngResource = require("angular-resource");
 var translate = require("angular-translate");

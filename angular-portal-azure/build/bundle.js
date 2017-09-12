@@ -96,7 +96,7 @@ var UserControlBase = (function () {
         var id;
         this.portalService.$window.addEventListener('resize', this.windowResizeHandler = function () {
             window.clearTimeout(id);
-            id = setTimeout(function () { callback(); }, 50);
+            id = window.setTimeout(function () { callback(); }, 50);
         });
     };
     UserControlBase.prototype.isStringNullOrEmpty = function (value) {
@@ -122,11 +122,11 @@ exports.UserControlBase = UserControlBase;
 
 "use strict";
 
-/// <reference path="directives/blade/angular-portal-blade.ts" />
 /* README:
    - http://angular-tips.com/blog/2015/06/using-angular-1-dot-x-with-es6-and-webpack/
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./css/apn\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 var angular = __webpack_require__(2);
 var ngResource = __webpack_require__(4);
 var translate = __webpack_require__(6);
@@ -134,7 +134,7 @@ var PortalService_1 = __webpack_require__(7);
 var angular_portal_blade_1 = __webpack_require__(8);
 var angular_portal_grid_1 = __webpack_require__(9);
 var angular_portal_home_1 = __webpack_require__(10);
-var angular_portal_nav_1 = __webpack_require__(18);
+var angular_portal_nav_1 = __webpack_require__(17);
 /** Define Angular module and its dependencies */
 var angularModule = angular.module('angularportalazure', [
     ngResource,
@@ -38693,7 +38693,7 @@ exports.default = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var areablades_1 = __webpack_require__(11);
-var areanotification_1 = __webpack_require__(17);
+var areanotification_1 = __webpack_require__(16);
 AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
 function AngularPortalHomeController($scope, portalService) {
     this.$onInit = function () {
@@ -38728,7 +38728,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var blade_1 = __webpack_require__(12);
-var UserControlBase_1 = __webpack_require__(16);
+var usercontrolbase_1 = __webpack_require__(0);
 var AreaBlades = (function (_super) {
     __extends(AreaBlades, _super);
     function AreaBlades($scope, portalService) {
@@ -38918,7 +38918,7 @@ var AreaBlades = (function (_super) {
     // #region Constructor
     AreaBlades.$inject = ['$scope', 'angularportalazure.portalService'];
     return AreaBlades;
-}(UserControlBase_1.UserControlBase));
+}(usercontrolbase_1.UserControlBase));
 exports.AreaBlades = AreaBlades;
 
 
@@ -39444,59 +39444,6 @@ exports.ExceptionDotNet = ExceptionDotNet;
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var UserControlBase = (function () {
-    // #region Constructor
-    function UserControlBase($scope, portalService) {
-        this.$scope = $scope;
-        this.portalService = portalService;
-    }
-    // #endregion
-    // #region Methods
-    /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
-    UserControlBase.prototype.$onDestroy = function () {
-        this.removeWindowResizeListener();
-    };
-    /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
-    UserControlBase.prototype.ngOnDestroy = function () {
-        this.removeWindowResizeListener();
-    };
-    UserControlBase.prototype.removeWindowResizeListener = function () {
-        if (this.windowResizeHandler !== undefined) {
-            this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
-        }
-    };
-    UserControlBase.prototype.setupWindowResizeListener = function (callback) {
-        // http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-        var id;
-        this.portalService.$window.addEventListener('resize', this.windowResizeHandler = function () {
-            window.clearTimeout(id);
-            id = setTimeout(function () { callback(); }, 50);
-        });
-    };
-    UserControlBase.prototype.isStringNullOrEmpty = function (value) {
-        if (value && value.replace(' ', '').length > 0) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    };
-    UserControlBase.prototype.getRandomString = function (length) {
-        if (length === void 0) { length = 20; }
-        return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+', '').replace(')', '').slice(1);
-    };
-    return UserControlBase;
-}());
-exports.UserControlBase = UserControlBase;
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -39597,7 +39544,7 @@ exports.AreaNotification = AreaNotification;
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
