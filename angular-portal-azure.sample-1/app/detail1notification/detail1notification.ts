@@ -15,7 +15,7 @@ namespace Sample1 {
 
         // #region Methods
 
-        onActivate(): angular.IHttpPromise<any> {
+        onActivate(): angular.IPromise<any> {
             this.commandDocumentText = 'Show Notification';
             this.isCommandDocument = true;
             return;

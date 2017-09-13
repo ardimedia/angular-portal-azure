@@ -27,7 +27,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Sample1;
 (function (Sample1) {
-    var Sample1Shell = (function (_super) {
+    var Sample1Shell = /** @class */ (function (_super) {
         __extends(Sample1Shell, _super);
         function Sample1Shell(portalService) {
             var _this = _super.call(this, portalService, 'Angular Portal Azure - Sample1') || this;
@@ -81,7 +81,19 @@ var Sample1;
 })(Sample1 || (Sample1 = {}));
 var Sample1;
 (function (Sample1) {
-    var CustomerService = (function () {
+    var Customer = /** @class */ (function () {
+        function Customer(customerPkId, firstName, lastName) {
+            this.customerPkId = customerPkId;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+        return Customer;
+    }());
+    Sample1.Customer = Customer;
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
+    var CustomerService = /** @class */ (function () {
         function CustomerService() {
         }
         CustomerService.prototype.getAll = function () {
@@ -99,23 +111,211 @@ var Sample1;
     }());
     Sample1.CustomerService = CustomerService;
 })(Sample1 || (Sample1 = {}));
+/// <reference types="@ardimedia/angular-portal-azure" />
+/// <reference types="angular" />
 var Sample1;
 (function (Sample1) {
-    var Customer = (function () {
-        function Customer(customerPkId, firstName, lastName) {
-            this.customerPkId = customerPkId;
-            this.firstName = firstName;
-            this.lastName = lastName;
+    var Blade11 = /** @class */ (function (_super) {
+        __extends(Blade11, _super);
+        function Blade11($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService, '/app/blade11/blade11.html', 'Blade 1-1', 'TypeScript based', 500) || this;
+            _this.isCommandNew = true;
+            _this.commandNewText = 'Blade 2';
+            _this.statusBar = 'Blade 1-1...';
+            _this.vm = _this;
+            _this.isCommandExcel = true;
+            return _this;
         }
-        return Customer;
-    }());
-    Sample1.Customer = Customer;
+        // #endregion
+        // #region Methods - Overrides for Blade
+        Blade11.prototype.onCommandNew = function () {
+            this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
+        };
+        Blade11.prototype.onActivate = function () {
+        };
+        // #endregion
+        // #region Data Access
+        Blade11.prototype.onGetDataList = function () {
+            return this.portalService.$http({ method: 'GET', url: '/customers' });
+        };
+        // #region Constructor
+        Blade11.$inject = ['$scope', 'angularportalazure.portalService'];
+        return Blade11;
+    }(angularportalazure.BladeDetail));
+    angular.module('sample1App').controller('blade11', Blade11);
 })(Sample1 || (Sample1 = {}));
 /// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
 /// <reference types="angular" />
 var Sample1;
 (function (Sample1) {
-    var Nav1 = (function (_super) {
+    var Blade2 = /** @class */ (function (_super) {
+        __extends(Blade2, _super);
+        function Blade2($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService, '/app/blade2/blade2.html', 'Blade 2', 'TypeScript based', 500) || this;
+            _this.isCommandNew = true;
+            _this.commandNewText = 'Blade 2-1';
+            _this.isCommandSave = true;
+            _this.commandSaveText = 'Blade 1';
+            _this.statusBar = 'Blade 2...';
+            return _this;
+        }
+        // #endregion
+        // #region Methods - Overrides for Blade
+        Blade2.prototype.onCommandNew = function () {
+            this.portalService.areaBlades.addBlade('/Sample1/blade21/blade21.html', this.path);
+        };
+        Blade2.prototype.onCommandSave = function () {
+            this.portalService.areaBlades.addBlade('/Sample1/blade1/blade1.html', this.path);
+        };
+        Blade2.prototype.onActivate = function () {
+            console.log('Blade2.onActivate');
+        };
+        // #endregion
+        // #region Data Access
+        Blade2.prototype.onGetDataList = function () {
+            return this.portalService.$http({ method: 'GET', url: '/customers' });
+        };
+        // #region Constructor
+        Blade2.$inject = ['$scope', 'angularportalazure.portalService'];
+        return Blade2;
+    }(angularportalazure.BladeDetail));
+    angular.module('sample1App').controller('blade2', Blade2);
+})(Sample1 || (Sample1 = {}));
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
+/// <reference types="angular" />
+var Sample1;
+(function (Sample1) {
+    var Blade21 = /** @class */ (function (_super) {
+        __extends(Blade21, _super);
+        function Blade21($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService, '/app/blade21/blade21.html', 'Blade 2-1', 'TypeScript based', 500) || this;
+            _this.isCommandNew = true;
+            _this.commandNewText = 'Blade 2';
+            _this.statusBar = 'Blade 2-1...';
+            return _this;
+        }
+        // #endregion
+        // #region Methods - Overrides for Blade
+        Blade21.prototype.onCommandNew = function () {
+            this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
+        };
+        Blade21.prototype.onActivate = function () {
+            console.log('Blade21.onActivate');
+        };
+        // #endregion
+        // #region Data Access
+        Blade21.prototype.onGetDataList = function () {
+            return this.portalService.$http({ method: 'GET', url: '/customers' });
+        };
+        // #region Constructor
+        Blade21.$inject = ['$scope', 'angularportalazure.portalService'];
+        return Blade21;
+    }(angularportalazure.BladeDetail));
+    angular.module('sample1App').controller('blade21', Blade21);
+})(Sample1 || (Sample1 = {}));
+/// <reference types="angular" />
+var Sample1;
+(function (Sample1) {
+    var Detail1 = /** @class */ (function (_super) {
+        __extends(Detail1, _super);
+        function Detail1($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService, '/app/detail1/detail1.html', 'Detail-1', 'TypeScript based', 500) || this;
+            _this.activate();
+            return _this;
+        }
+        // #endregion
+        // #region Methods
+        Detail1.prototype.onActivate = function () {
+            var customer = this.portalService.parameter.item;
+            var customerId = this.portalService.parameter.itemId;
+            if (customerId === 0) {
+                this.portalService.parameter.action = 'selected';
+                customerId = 1;
+            }
+            if (this.portalService.parameter.action === 'new') {
+                this.item = customer;
+                return null;
+            }
+            else if (this.portalService.parameter.action === 'selected') {
+                this.item = new Sample1.CustomerService().getById(customerId - 1);
+                return null;
+            }
+        };
+        // #region Constructor
+        Detail1.$inject = ['$scope', 'angularportalazure.portalService'];
+        return Detail1;
+    }(angularportalazure.BladeDetail));
+    angular.module('sample1App').controller('detail1', Detail1);
+})(Sample1 || (Sample1 = {}));
+/// <reference types="angular" />
+var Sample1;
+(function (Sample1) {
+    var Detail1Notification = /** @class */ (function (_super) {
+        __extends(Detail1Notification, _super);
+        function Detail1Notification($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService, '/app/detail1notification/detail1notification.html', 'Detail-1-Notification', 'TypeScript based', 500) || this;
+            _this.activate();
+            return _this;
+        }
+        // #endregion
+        // #region Methods
+        Detail1Notification.prototype.onActivate = function () {
+            this.commandDocumentText = 'Show Notification';
+            this.isCommandDocument = true;
+            return;
+        };
+        Detail1Notification.prototype.onCommandDocument = function () {
+            this.portalService.areaNotification.path = '/app/grid1/grid1.html';
+            this.portalService.areaNotification.show(500);
+        };
+        // #region Constructor
+        Detail1Notification.$inject = ['$scope', 'angularportalazure.portalService'];
+        return Detail1Notification;
+    }(angularportalazure.BladeDetail));
+    angular.module('sample1App').controller('detail1', Detail1Notification);
+})(Sample1 || (Sample1 = {}));
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
+/// <reference types="angular" />
+var Sample1;
+(function (Sample1) {
+    var Grid1 = /** @class */ (function (_super) {
+        __extends(Grid1, _super);
+        function Grid1($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService, '/app/grid1/grid1.html', 'Grid-1', 'TypeScript based', 500) || this;
+            _this.activate();
+            return _this;
+        }
+        // #endregion
+        // #region Methods
+        Grid1.prototype.onActivate = function () {
+            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onActivate\' called.', [this]);
+            this.items = new Sample1.CustomerService().getAll();
+            this.statusBar = '';
+        };
+        Grid1.prototype.onCommandNew = function () {
+            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onCommandNew\' called.', [this]);
+            this.portalService.parameter.action = 'new';
+            this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
+            this.portalService.areaBlades.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
+        };
+        Grid1.prototype.onNavigateTo = function (customer) {
+            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onNavigateTo\' called.', [this, customer]);
+            this.portalService.parameter.action = 'selected';
+            this.portalService.parameter.item = customer;
+            this.portalService.parameter.itemId = customer.customerPkId;
+            this.portalService.areaBlades.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
+        };
+        // #region Constructor
+        Grid1.$inject = ['$scope', 'angularportalazure.portalService'];
+        return Grid1;
+    }(angularportalazure.BladeGrid));
+    angular.module('sample1App').controller('grid1', Grid1);
+})(Sample1 || (Sample1 = {}));
+/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
+/// <reference types="angular" />
+var Sample1;
+(function (Sample1) {
+    var Nav1 = /** @class */ (function (_super) {
         __extends(Nav1, _super);
         function Nav1($scope, portalService) {
             var _this = _super.call(this, $scope, portalService, '/app/nav1/nav1.html', 'Navigation 1', 'TypeScript based', 315) || this;
@@ -149,204 +349,4 @@ var Sample1;
         return Nav1;
     }(angularportalazure.BladeNav));
     angular.module('sample1App').controller('nav1', Nav1);
-})(Sample1 || (Sample1 = {}));
-/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
-/// <reference types="angular" />
-var Sample1;
-(function (Sample1) {
-    var Grid1 = (function (_super) {
-        __extends(Grid1, _super);
-        function Grid1($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService, '/app/grid1/grid1.html', 'Grid-1', 'TypeScript based', 500) || this;
-            _this.activate();
-            return _this;
-        }
-        // #endregion
-        // #region Methods
-        Grid1.prototype.onActivate = function () {
-            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onActivate\' called.', [this]);
-            this.items = new Sample1.CustomerService().getAll();
-            this.statusBar = '';
-        };
-        Grid1.prototype.onCommandNew = function () {
-            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onCommandNew\' called.', [this]);
-            this.portalService.parameter.action = 'new';
-            this.portalService.parameter.item = new Sample1.Customer(0, 'firstName', 'lastName');
-            this.portalService.areaBlades.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
-        };
-        Grid1.prototype.onNavigateTo = function (customer) {
-            angularportalazure.Debug.write('[sample1-debug] \'Grid1.onNavigateTo\' called.', [this, customer]);
-            this.portalService.parameter.action = 'selected';
-            this.portalService.parameter.item = customer;
-            this.portalService.parameter.itemId = customer.customerPkId;
-            this.portalService.areaBlades.raiseAddBladeEvent({ path: '/app/detail1/detail1.html', pathSender: this.path });
-        };
-        // #region Constructor
-        Grid1.$inject = ['$scope', 'angularportalazure.portalService'];
-        return Grid1;
-    }(angularportalazure.BladeGrid));
-    angular.module('sample1App').controller('grid1', Grid1);
-})(Sample1 || (Sample1 = {}));
-/// <reference types="angular" />
-var Sample1;
-(function (Sample1) {
-    var Detail1Notification = (function (_super) {
-        __extends(Detail1Notification, _super);
-        function Detail1Notification($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService, '/app/detail1notification/detail1notification.html', 'Detail-1-Notification', 'TypeScript based', 500) || this;
-            _this.activate();
-            return _this;
-        }
-        // #endregion
-        // #region Methods
-        Detail1Notification.prototype.onActivate = function () {
-            this.commandDocumentText = 'Show Notification';
-            this.isCommandDocument = true;
-            return;
-        };
-        Detail1Notification.prototype.onCommandDocument = function () {
-            this.portalService.areaNotification.path = '/app/grid1/grid1.html';
-            this.portalService.areaNotification.show(500);
-        };
-        // #region Constructor
-        Detail1Notification.$inject = ['$scope', 'angularportalazure.portalService'];
-        return Detail1Notification;
-    }(angularportalazure.BladeDetail));
-    angular.module('sample1App').controller('detail1', Detail1Notification);
-})(Sample1 || (Sample1 = {}));
-/// <reference types="angular" />
-var Sample1;
-(function (Sample1) {
-    var Detail1 = (function (_super) {
-        __extends(Detail1, _super);
-        function Detail1($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService, '/app/detail1/detail1.html', 'Detail-1', 'TypeScript based', 500) || this;
-            _this.activate();
-            return _this;
-        }
-        // #endregion
-        // #region Methods
-        Detail1.prototype.onActivate = function () {
-            var customer = this.portalService.parameter.item;
-            var customerId = this.portalService.parameter.itemId;
-            if (customerId === 0) {
-                this.portalService.parameter.action = 'selected';
-                customerId = 1;
-            }
-            if (this.portalService.parameter.action === 'new') {
-                this.item = customer;
-                return null;
-            }
-            else if (this.portalService.parameter.action === 'selected') {
-                this.item = new Sample1.CustomerService().getById(customerId - 1);
-                return null;
-            }
-        };
-        // #region Constructor
-        Detail1.$inject = ['$scope', 'angularportalazure.portalService'];
-        return Detail1;
-    }(angularportalazure.BladeDetail));
-    angular.module('sample1App').controller('detail1', Detail1);
-})(Sample1 || (Sample1 = {}));
-/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
-/// <reference types="angular" />
-var Sample1;
-(function (Sample1) {
-    var Blade21 = (function (_super) {
-        __extends(Blade21, _super);
-        function Blade21($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService, '/app/blade21/blade21.html', 'Blade 2-1', 'TypeScript based', 500) || this;
-            _this.isCommandNew = true;
-            _this.commandNewText = 'Blade 2';
-            _this.statusBar = 'Blade 2-1...';
-            return _this;
-        }
-        // #endregion
-        // #region Methods - Overrides for Blade
-        Blade21.prototype.onCommandNew = function () {
-            this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
-        };
-        Blade21.prototype.onActivate = function () {
-            console.log('Blade21.onActivate');
-        };
-        // #endregion
-        // #region Data Access
-        Blade21.prototype.onGetDataList = function () {
-            return this.portalService.$http({ method: 'GET', url: '/customers' });
-        };
-        // #region Constructor
-        Blade21.$inject = ['$scope', 'angularportalazure.portalService'];
-        return Blade21;
-    }(angularportalazure.BladeDetail));
-    angular.module('sample1App').controller('blade21', Blade21);
-})(Sample1 || (Sample1 = {}));
-/// <reference path="../../node_modules/@ardimedia/angular-portal-azure/apn.d.ts" />
-/// <reference types="angular" />
-var Sample1;
-(function (Sample1) {
-    var Blade2 = (function (_super) {
-        __extends(Blade2, _super);
-        function Blade2($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService, '/app/blade2/blade2.html', 'Blade 2', 'TypeScript based', 500) || this;
-            _this.isCommandNew = true;
-            _this.commandNewText = 'Blade 2-1';
-            _this.isCommandSave = true;
-            _this.commandSaveText = 'Blade 1';
-            _this.statusBar = 'Blade 2...';
-            return _this;
-        }
-        // #endregion
-        // #region Methods - Overrides for Blade
-        Blade2.prototype.onCommandNew = function () {
-            this.portalService.areaBlades.addBlade('/Sample1/blade21/blade21.html', this.path);
-        };
-        Blade2.prototype.onCommandSave = function () {
-            this.portalService.areaBlades.addBlade('/Sample1/blade1/blade1.html', this.path);
-        };
-        Blade2.prototype.onActivate = function () {
-            console.log('Blade2.onActivate');
-        };
-        // #endregion
-        // #region Data Access
-        Blade2.prototype.onGetDataList = function () {
-            return this.portalService.$http({ method: 'GET', url: '/customers' });
-        };
-        // #region Constructor
-        Blade2.$inject = ['$scope', 'angularportalazure.portalService'];
-        return Blade2;
-    }(angularportalazure.BladeDetail));
-    angular.module('sample1App').controller('blade2', Blade2);
-})(Sample1 || (Sample1 = {}));
-/// <reference types="@ardimedia/angular-portal-azure" />
-/// <reference types="angular" />
-var Sample1;
-(function (Sample1) {
-    var Blade11 = (function (_super) {
-        __extends(Blade11, _super);
-        function Blade11($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService, '/app/blade11/blade11.html', 'Blade 1-1', 'TypeScript based', 500) || this;
-            _this.isCommandNew = true;
-            _this.commandNewText = 'Blade 2';
-            _this.statusBar = 'Blade 1-1...';
-            _this.vm = _this;
-            _this.isCommandExcel = true;
-            return _this;
-        }
-        // #endregion
-        // #region Methods - Overrides for Blade
-        Blade11.prototype.onCommandNew = function () {
-            this.portalService.areaBlades.addBlade('/Sample1/blade2/blade2.html', this.path);
-        };
-        Blade11.prototype.onActivate = function () {
-        };
-        // #endregion
-        // #region Data Access
-        Blade11.prototype.onGetDataList = function () {
-            return this.portalService.$http({ method: 'GET', url: '/customers' });
-        };
-        // #region Constructor
-        Blade11.$inject = ['$scope', 'angularportalazure.portalService'];
-        return Blade11;
-    }(angularportalazure.BladeDetail));
-    angular.module('sample1App').controller('blade11', Blade11);
 })(Sample1 || (Sample1 = {}));

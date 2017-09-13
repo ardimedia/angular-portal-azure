@@ -1,8 +1,12 @@
-﻿/// <reference path="areablades.ts" />
+﻿// #region Declarations
+
+/// <reference path="areablades.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="panorama.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="tiles.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class PortalShell {

@@ -1,6 +1,11 @@
-﻿/// <reference path="portalservice.ts" />
+﻿// #region Declarations
+
+/// <reference path="blade.ts" />
+/// <reference path="portalservice.ts" />
 /// <reference path="useraccount.ts" />
 /// <reference path="usercontrolbase.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class AvatarMenu extends angularportalazure.UserControlBase {

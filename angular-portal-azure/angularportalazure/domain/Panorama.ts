@@ -1,7 +1,11 @@
-﻿/// <reference path="avatarmenu.ts" />
+﻿// #region Declarations
+
+/// <reference path="avatarmenu.ts" />
 /// <reference path="startboard.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="usercontrolbase.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class Panorama extends angularportalazure.UserControlBase {

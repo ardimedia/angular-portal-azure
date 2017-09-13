@@ -1,4 +1,9 @@
-﻿/// <reference path="exceptiondotnet.ts" />
+﻿// #region Declarations
+
+/// <reference path="exceptiondotnet.ts" />
+
+// #endregion
+
 namespace angularportalazure {
     export class Exception extends angularportalazure.ValidationsExceptionDotNet {
         // #region Properites
@@ -56,10 +61,10 @@ namespace angularportalazure {
 
             if (response.headers === undefined) {
                 console.log('> Get information from [processDotNetException1.data].');
-                exception = Exception.processDotNetException1(response);
+                exception = angularportalazure.Exception.processDotNetException1(response);
             } else {
                 console.log('> Get information from [processDotNetException2.json()].');
-                exception = Exception.processDotNetException2(response);
+                exception = angularportalazure.Exception.processDotNetException2(response);
             }
             exception.convertResponse(response);
 

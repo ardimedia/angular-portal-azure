@@ -1,10 +1,15 @@
-﻿/// <reference types="angular" />
+﻿// #region Declarations
+
+/// <reference types="angular" />
+/// <reference types="angulartics" />
 /// <reference path="areanotification.ts" />
 /// <reference path="areablades.ts" />
+/// <reference path="blade.ts" />
 /// <reference path="bladeparameter.ts" />
 /// <reference path="panorama.ts" />
 /// <reference path="portalshell.ts" />
-/// <reference types="angulartics" />
+
+// #endregion
 
 namespace angularportalazure {
     export class PortalService {
@@ -35,22 +40,22 @@ namespace angularportalazure {
 
         // #region ng.IModule properties
 
-        animate;
-        animation;
-        component;
-        config;
-        constant;
-        controller;
-        directive;
-        factory;
-        filter;
-        provider;
-        run;
-        service;
-        value;
-        decorator;
-        name;
-        requires;
+        //animate;
+        //animation;
+        //component;
+        //config;
+        //constant;
+        //controller;
+        //directive;
+        //factory;
+        //filter;
+        //provider;
+        //run;
+        //service;
+        //value;
+        //decorator;
+        //name;
+        //requires;
 
         // #endregion
 

@@ -15,7 +15,7 @@ namespace Sample1 {
 
         // #region Methods
 
-        onActivate(): angular.IHttpPromise<any> {
+        onActivate(): angular.IPromise<any> {
             let customer: Sample1.Customer = this.portalService.parameter.item;
             let customerId: number = this.portalService.parameter.itemId;
 

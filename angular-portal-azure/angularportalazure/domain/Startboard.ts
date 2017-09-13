@@ -1,6 +1,10 @@
-﻿/// <reference path="portalservice.ts" />
+﻿// #region Declarations
+
+/// <reference path="portalservice.ts" />
 /// <reference path="tiles.ts" />
 /// <reference path="usercontrolbase.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class Startboard extends angularportalazure.UserControlBase {

@@ -1,5 +1,6 @@
 ﻿// #region Declarations
 
+/// <reference path="blade.ts" />
 /// <reference path="bladedata.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />

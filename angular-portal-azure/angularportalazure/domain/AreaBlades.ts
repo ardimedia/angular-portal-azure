@@ -1,8 +1,12 @@
-﻿/// <reference types="angular" />
+﻿// #region Declarations
+
+/// <reference types="angular" />
 /// <reference path="blade.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="portalservice.ts" />
 /// <reference path="iaddbladeeventargs.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class AreaBlades extends angularportalazure.UserControlBase {
@@ -12,7 +16,6 @@ namespace angularportalazure {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService) {
             super($scope, portalService);
 
-            // this.areaBlades = this.portalService.$window.document.getElementById('apa-blade-area');
             this.portalScroll = this.portalService.$window.document.getElementById('apa-portal-scroll');
 
             this.setupAddBladeListener();
@@ -24,12 +27,11 @@ namespace angularportalazure {
 
         // #region Properties
 
-        // private areaBlades: HTMLElement;
         private portalScroll: HTMLElement;
 
-        private addBladeListener;
-        private areaNotificationShowListener;
-        private areaNotificationHideListener;
+        private addBladeListener: () => void;
+        private areaNotificationShowListener: () => void;
+        private areaNotificationHideListener: () => void;
 
         blades: Array<angularportalazure.Blade> = new Array<angularportalazure.Blade>();
 
@@ -63,7 +65,7 @@ namespace angularportalazure {
         addBlade(path: string, senderPath: string = ''): angularportalazure.Blade | void {
             if (path == null) { return; }
             if (senderPath == null) { return; }
-            let portalcontent = null;
+            let portalcontent: HTMLElement = null;
             this.portalService.$analytics.pageTrack(path);
 
             path = path.toLowerCase();

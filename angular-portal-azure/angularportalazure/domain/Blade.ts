@@ -1,8 +1,8 @@
 ﻿// #region Declarations
 
 /// <reference types="angular" />
-/// <reference path="useraccount.ts" />
 /// <reference path="portalservice.ts" />
+/// <reference path="useraccount.ts" />
 /// <reference path="usercontrolbase.ts" />
 /// <reference path="iaddbladeeventargs.ts" />
 
@@ -272,7 +272,7 @@ namespace angularportalazure {
         }
 
         setStatusBarException(exception: angularportalazure.Exception) {
-            this.statusBar = Exception.getOneLineMessage(exception);
+            this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
             this.statusBarClass = 'apa-statusbar-error';
         }
 
@@ -354,7 +354,7 @@ namespace angularportalazure {
 
         // #endregion
 
-        //#endregion
+        // #endregion
 
         /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         setTitle(watchExpression: string, func: () => void) {

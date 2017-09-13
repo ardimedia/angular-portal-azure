@@ -1,4 +1,9 @@
-﻿/// <reference path="portalservice.ts" />
+﻿// #region Declarations
+
+/// <reference path="useraccount.ts" />
+/// <reference path="portalservice.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class UserControlBase {

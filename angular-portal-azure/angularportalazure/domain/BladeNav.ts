@@ -1,6 +1,10 @@
-﻿/// <reference path="bladedata.ts" />
+﻿// #region Declarations
+
+/// <reference path="bladedata.ts" />
 /// <reference path="bladenavitem.ts" />
 /// <reference path="portalservice.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class BladeNav extends angularportalazure.BladeData {

@@ -1,4 +1,8 @@
-﻿/// <reference path="bladenav.ts" />
+﻿// #region Declarations
+
+/// <reference path="bladenav.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class BladeNavItem {

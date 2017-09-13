@@ -1,5 +1,9 @@
-﻿/// <reference path="bladedata.ts" />
+﻿// #region Declarations
+
+/// <reference path="bladedata.ts" />
 /// <reference path="portalservice.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class BladeGrid extends angularportalazure.BladeData {
@@ -22,7 +26,7 @@ namespace angularportalazure {
         loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void {
             this.onLoadItems();
 
-            func().then((data) => {
+            func().then((data: any) => {
                 this.items = data;
                 this.onLoadedItems();
             }).catch((exception: angularportalazure.Exception) => {
@@ -63,7 +67,7 @@ namespace angularportalazure {
             };
 
             // Function to process an object
-            let processObject = (actual: Object): void => {
+            let processObject = (actual: object): void => {
                 for (let actualProperty in actual) {
                     if (actual.hasOwnProperty(actualProperty)) {
                         let actualValue = actual[actualProperty];

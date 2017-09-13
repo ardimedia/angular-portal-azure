@@ -37,7 +37,7 @@ namespace Sample1 {
 
         // #region Data Access
 
-        onGetDataList(): angular.IHttpPromise<any> {
+        onGetDataList(): angular.IPromise<any> {
             return this.portalService.$http({ method: 'GET', url: '/customers' });
         }
 

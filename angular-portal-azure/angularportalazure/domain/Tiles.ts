@@ -1,6 +1,10 @@
-﻿/// <reference path="tile.ts" />
+﻿// #region Declarations
+
+/// <reference path="tile.ts" />
 /// <reference path="tilesize.ts" />
 /// <reference path="tilesizes.ts" />
+
+// #endregion
 
 namespace angularportalazure {
     export class Tiles {
