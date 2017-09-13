@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <!-- COPY -->
-                    <li ng-show="$ctrl.vm.isCommandCopy">
+                    <li ng-show="$ctrl.vm.isCommandCopy" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandCopyEnabled}">
                         <a data-ng-click="$ctrl.vm.commandCopy()" class="fxs-commandBar-item" href="#"
                            data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandCopyText  || 'kopieren'}}</div>
@@ -80,7 +80,7 @@
                         </a>
                     </li>
                     <!-- SAVE -->
-                    <li ng-show="$ctrl.vm.isCommandSave">
+                    <li ng-show="$ctrl.vm.isCommandSave" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandSaveEnabled}">
                         <a data-ng-click="$ctrl.vm.commandSave()" class="fxs-commandBar-item" href="#"
                            data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandSaveText  || 'speichern'}}</div>
@@ -95,7 +95,7 @@
                         </a>
                     </li>
                     <!-- DELETE -->
-                    <li ng-show="$ctrl.vm.isCommandDelete">
+                    <li ng-show="$ctrl.vm.isCommandDelete" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandDeleteEnabled}">
                         <a data-ng-click="$ctrl.vm.commandDelete()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandDeleteText  || 'löschen'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">

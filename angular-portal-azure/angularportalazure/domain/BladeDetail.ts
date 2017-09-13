@@ -33,38 +33,42 @@ namespace angularportalazure {
             }).catch((exception: angularportalazure.Exception) => {
                 this.setStatusBarException(exception);
             });
-}
+        }
 
-saveItem(func: () => any) {
-    this.onSaveItem();
+        saveItem(func: () => any): (Promise<object> & angular.IHttpPromise<object>) {
+            this.onSaveItem();
 
-    // Is form valid
-    if (!this.formblade.$valid) {
-        this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
-        this.statusBarClass = 'apa-statusbar-error';
-        console.log(this.formblade);
-        return;
-    }
+            // Is form valid
+            if (!this.formblade.$valid) {
+                this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
+                this.statusBarClass = 'apa-statusbar-error';
+                console.log(this.formblade);
+                return;
+            }
 
-    func().then((data) => {
-        this.item = data;
-        this.onSavedItem();
-    }).catch((exception: angularportalazure.Exception) => {
-        this.setStatusBarException(exception);
-    });
-}
+            this.isCommandSaveEnabled = false;
 
-onSaveItem() {
-    this.setStatusBarSaveData();
-}
+            return func().then((data) => {
+                this.item = data;
+                this.isCommandSaveEnabled = true;
+                this.onSavedItem();
+            }).catch((exception: angularportalazure.Exception) => {
+                this.isCommandSaveEnabled = true;
+                this.setStatusBarException(exception);
+            });
+        }
 
-onSavedItem() {
-    this.clearStatusBar();
-}
+        onSaveItem() {
+            this.setStatusBarSaveData();
+        }
 
-onCommandCancel(): void {
-    this.close();
-}
+        onSavedItem() {
+            this.clearStatusBar();
+        }
+
+        onCommandCancel(): void {
+            this.close();
+        }
 
         // #endregion
     }

@@ -871,3 +871,7 @@ input[type=checkbox].form-control {
 #apa-notification-area .fxs-blade {
   border-left-width: 0; }
 
+.apa-disable-click {
+  pointer-events: none;
+  opacity: 0.4; }
+

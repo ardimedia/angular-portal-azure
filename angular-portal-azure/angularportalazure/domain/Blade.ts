@@ -9,7 +9,6 @@
 // #endregion
 
 namespace angularportalazure {
-
     export class Blade extends angularportalazure.UserControlBase {
         // #region Constructor
 
@@ -99,10 +98,12 @@ namespace angularportalazure {
         commandCancelText: string = '';
 
         isCommandCopy: boolean = false;
+        isCommandCopyEnabled: boolean = true;
         commandCopy: () => void = () => { this.onCommandCopy(); };
         commandCopyText: string = '';
 
         isCommandDelete: boolean = false;
+        isCommandDeleteEnabled: boolean = true;
         commandDelete: () => void = () => { this.onCommandDelete(); };
         commandDeleteText: string = '';
 
@@ -139,6 +140,7 @@ namespace angularportalazure {
         commandRestartText: string = '';
 
         isCommandSave: boolean = false;
+        isCommandSaveEnabled: boolean = true;
         commandSave: () => void = () => { this.onCommandSave(); };
         commandSaveText: string = '';
 

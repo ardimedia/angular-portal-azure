@@ -72,9 +72,11 @@ declare namespace angularportalazure {
         commandCancel: () => void;
         commandCancelText: string;
         isCommandCopy: boolean;
+        isCommandCopyEnabled: boolean;
         commandCopy: () => void;
         commandCopyText: string;
         isCommandDelete: boolean;
+        isCommandDeleteEnabled: boolean;
         commandDelete: () => void;
         commandDeleteText: string;
         isCommandDocument: boolean;
@@ -102,6 +104,7 @@ declare namespace angularportalazure {
         commandRestart: () => void;
         commandRestartText: string;
         isCommandSave: boolean;
+        isCommandSaveEnabled: boolean;
         commandSave: () => void;
         commandSaveText: string;
         isCommandSearch: boolean;
@@ -373,7 +376,7 @@ declare namespace angularportalazure {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         item: T;
         loadItem(func: () => Promise<any>): void;
-        saveItem(func: () => any): void;
+        saveItem(func: () => any): (Promise<object> & angular.IHttpPromise<object>);
         onSaveItem(): void;
         onSavedItem(): void;
         onCommandCancel(): void;
