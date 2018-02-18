@@ -5,6 +5,20 @@ declare namespace Sample1 {
 declare namespace Sample1 {
 }
 declare namespace Sample1 {
+}
+declare namespace Sample1 {
+}
+declare namespace Sample1 {
+}
+declare namespace Sample1 {
+}
+declare namespace Sample1 {
+}
+declare namespace Sample1 {
+}
+declare namespace Sample1 {
+}
+declare namespace Sample1 {
     class Customer {
         customerPkId: number;
         firstName: string;
@@ -18,18 +32,4 @@ declare namespace Sample1 {
         getAll(): Customer[];
         getById(id: any): Customer;
     }
-}
-declare namespace Sample1 {
-}
-declare namespace Sample1 {
-}
-declare namespace Sample1 {
-}
-declare namespace Sample1 {
-}
-declare namespace Sample1 {
-}
-declare namespace Sample1 {
-}
-declare namespace Sample1 {
 }
