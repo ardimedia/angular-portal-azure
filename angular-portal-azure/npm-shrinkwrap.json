@@ -108,10 +108,10 @@
     },
     "@types/angular": {
       "version": "https://registry.npmjs.org/@types/angular/-/angular-1.6.17.tgz",
-      "integrity": "sha1-W9WedzUJQ/+/+4u5jf5xisu27Sc=",
+      "integrity": "sha512-Mi0zvHVDe1gLKRsia//4dgaCMVp1hS/mmk1Y65/fLaBoAU9JuwUZiAQoDyhGv+FiHxzPw/YEjTQ+U5NlnMcakw==",
       "dev": true,
       "requires": {
-        "@types/jquery": "https://registry.npmjs.org/@types/jquery/-/jquery-2.0.43.tgz"
+        "@types/jquery": "3.3.1"
       }
     },
     "@types/angular-resource": {
@@ -142,8 +142,9 @@
       }
     },
     "@types/jquery": {
-      "version": "https://registry.npmjs.org/@types/jquery/-/jquery-2.0.43.tgz",
-      "integrity": "sha1-4w2XHVbc4ivw1i4CvUsop//boHY=",
+      "version": "3.3.1",
+      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-3.3.1.tgz",
+      "integrity": "sha512-N3h+rzN518yl2xKrW0o6KKdNmWZ+OwG6SoM5TBEQFF0tTv5wXPEsoOuYQ2Kt3/89XbcSZUJLdjiT/2c3BR/ApQ==",
       "dev": true
     },
     "@types/ng-dialog": {
