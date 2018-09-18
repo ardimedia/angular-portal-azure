@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular-portal-azure", "ang
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular-portal-azure.sample-1", "angular-portal-azure.sample-1\angular-portal-azure.sample-1.csproj", "{0D6F13EC-7B00-4FCE-8212-666814B57970}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "angular-portal-azure-2018A", "angular-portal-azure-2018A\angular-portal-azure-2018A.csproj", "{50962697-E20B-4172-B098-306C862F84C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{0D6F13EC-7B00-4FCE-8212-666814B57970}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6F13EC-7B00-4FCE-8212-666814B57970}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D6F13EC-7B00-4FCE-8212-666814B57970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50962697-E20B-4172-B098-306C862F84C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50962697-E20B-4172-B098-306C862F84C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50962697-E20B-4172-B098-306C862F84C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50962697-E20B-4172-B098-306C862F84C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
