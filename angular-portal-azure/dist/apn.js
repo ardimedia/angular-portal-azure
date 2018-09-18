@@ -130,7 +130,7 @@ var angularportalazure;
         };
         UserControlBase.prototype.getRandomString = function (length) {
             if (length === void 0) { length = 20; }
-            return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+', '').replace(')', '').slice(1);
+            return 'a' + Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+', '').replace(')', '').slice(1);
         };
         return UserControlBase;
     }());
