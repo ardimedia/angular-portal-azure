@@ -1406,7 +1406,7 @@ var angularportalazure;
             // #region Verify if all expected has been found
             var foundCount = 0;
             expectedSplitted.forEach(function (expectedItem) {
-                if (expectedItem === '') {
+                if (expectedItem === '') { // all expectedSplitted.items which have been found, are initialized to '' (see above)
                     foundCount++;
                 }
             });

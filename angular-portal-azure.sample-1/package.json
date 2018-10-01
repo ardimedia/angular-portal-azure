@@ -15,7 +15,7 @@
     "ng-dialog": "^1.4.0"
   },
   "devDependencies": {
-    "@ardimedia/angular-portal-azure": "^0.2.294",
+    "@ardimedia/angular-portal-azure": "^0.2.295",
     "@types/angular": "^1.6.51",
     "@types/angular-resource": "^1.5.14",
     "@types/angular-translate": "^2.16.0",

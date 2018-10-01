@@ -27,7 +27,7 @@ declare namespace angularportalazure {
         $onDestroy(): void;
         /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
         ngOnDestroy(): void;
-        private removeWindowResizeListener();
+        private removeWindowResizeListener;
         setupWindowResizeListener(callback: () => void): void;
         isStringNullOrEmpty(value: string): boolean;
         getRandomString(length?: number): string;
@@ -166,7 +166,7 @@ declare namespace angularportalazure {
         onCommandExcel(): void;
         /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         setTitle(watchExpression: string, func: () => void): void;
-        private setBladeHeights();
+        private setBladeHeights;
     }
 }
 declare namespace angularportalazure {
@@ -190,9 +190,9 @@ declare namespace angularportalazure {
         hidePanorama(): void;
         /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
         close(): void;
-        private setPortalScrollCss();
-        private setupShowHideNotificationAreaListener();
-        private setupAddBladeListener();
+        private setPortalScrollCss;
+        private setupShowHideNotificationAreaListener;
+        private setupAddBladeListener;
     }
 }
 declare namespace angularportalazure {
@@ -241,7 +241,7 @@ declare namespace angularportalazure {
         onHide(): boolean;
         onShow(): void;
         onShowed(): void;
-        private calcualteCssStyles();
+        private calcualteCssStyles;
     }
 }
 declare namespace angularportalazure {
@@ -263,7 +263,7 @@ declare namespace angularportalazure {
         small = 0,
         mini = 1,
         normal = 2,
-        herowide = 3,
+        herowide = 3
     }
 }
 declare namespace angularportalazure {
@@ -442,8 +442,8 @@ declare namespace angularportalazure {
         }[];
         ValidationResults: ValidationResultDotNet[];
         convertResponse(response: any): void;
-        private static convertResponse(exception, responseData);
-        private static convertExceptionType(exception, responseData);
+        private static convertResponse;
+        private static convertExceptionType;
     }
 }
 declare namespace angularportalazure {
@@ -456,7 +456,7 @@ declare namespace angularportalazure {
         Url: string;
         static getOneLineMessage(exception: angularportalazure.Exception): string;
         static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception;
-        private static processDotNetException1(response);
-        private static processDotNetException2(response);
+        private static processDotNetException1;
+        private static processDotNetException2;
     }
 }
