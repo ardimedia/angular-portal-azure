@@ -27,162 +27,11 @@ declare namespace angularportalazure {
         $onDestroy(): void;
         /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
         ngOnDestroy(): void;
-        private removeWindowResizeListener();
+        private removeWindowResizeListener;
         setupWindowResizeListener(callback: () => void): void;
+        isNumberUndefinedNullOr0(value: number): boolean;
         isStringNullOrEmpty(value: string): boolean;
         getRandomString(length?: number): string;
-    }
-}
-declare namespace angularportalazure {
-    class BladeData extends angularportalazure.Blade {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        onLoadItem(): void;
-        onLoadItems(): void;
-        onLoadedItem(): void;
-        onLoadedItems(): void;
-    }
-}
-declare namespace angularportalazure {
-    class BladeNav extends angularportalazure.BladeData {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
-        items: Array<angularportalazure.BladeNavItem>;
-        isNav: boolean;
-        onNavigateTo(path: string): void;
-    }
-}
-declare namespace angularportalazure {
-    class BladeNavItem {
-        title: string;
-        cssClass: string;
-        bladePath: string;
-        hrefPath: string;
-        roles: string;
-        isVisible: boolean;
-        callback: () => any;
-        bladeNav: angularportalazure.BladeNav | null;
-        constructor(title?: string, cssClass?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav | null);
-        onNavItemClick(): void;
-    }
-}
-declare namespace angularportalazure {
-    class AreaNotification extends angularportalazure.UserControlBase {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        path: string;
-        widthAreaUsed: number;
-        private areaNotification;
-        private _width;
-        width: number;
-        private _backgroundColor;
-        backgroundColor: string;
-        hide(): void;
-        show(width?: number): void;
-        onHide(): boolean;
-        onShow(): void;
-        onShowed(): void;
-        private calcualteCssStyles();
-    }
-}
-declare namespace angularportalazure {
-    interface BladeParameter {
-        action: string;
-        item?: any;
-        itemId: number;
-    }
-}
-declare namespace angularportalazure {
-    class AvatarMenu extends angularportalazure.UserControlBase {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        userAccount: angularportalazure.UserAccount | null;
-    }
-}
-declare namespace angularportalazure {
-    /** The names are used in CSS for layouting, e.g. style='mini' */
-    enum TileSizes {
-        small = 0,
-        mini = 1,
-        normal = 2,
-        herowide = 3,
-    }
-}
-declare namespace angularportalazure {
-    class TileSize {
-        tileSizes: angularportalazure.TileSizes;
-        width: number;
-        height: number;
-        constructor(tileSizes: angularportalazure.TileSizes, width: number, height: number);
-        static getTileSizes(): Array<TileSize>;
-    }
-}
-declare namespace angularportalazure {
-    class Tile {
-        constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService);
-        portalService: angularportalazure.PortalService;
-        title: string;
-        subTitle: string;
-        bladePath: string;
-        private _bladePath;
-        tileSize: angularportalazure.TileSizes;
-        size: string;
-        left: string;
-        top: string;
-        leftN: string;
-        topN: string;
-        clicked(): void;
-    }
-}
-declare namespace angularportalazure {
-    class Tiles {
-        showTiles: boolean;
-        tiles: Array<any>;
-        isTilesLoaded: boolean;
-        hideTileIfOnlyOne: boolean;
-        private tileSizes;
-        private nextLeft;
-        private nextTop;
-        private columnHeightMax;
-        addTile(tile: Tile): Tile;
-    }
-}
-declare namespace angularportalazure {
-    class Startboard extends angularportalazure.UserControlBase {
-        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
-        tiles: angularportalazure.Tiles;
-    }
-}
-declare namespace angularportalazure {
-    class Panorama extends angularportalazure.UserControlBase {
-        title: string;
-        isVisible: boolean;
-        avatarMenu: angularportalazure.AvatarMenu;
-        startboard: angularportalazure.Startboard;
-        constructor($scope: angular.IScope, title: string, portalService: angularportalazure.PortalService);
-    }
-}
-declare namespace angularportalazure {
-    class PortalShell {
-        portalService: angularportalazure.PortalService;
-        constructor(portalService: angularportalazure.PortalService, title?: string);
-    }
-}
-declare namespace angularportalazure {
-    class PortalService {
-        static $inject: string[];
-        constructor($injector: angular.auto.IInjectorService);
-        parameter: angularportalazure.BladeParameter;
-        $analytics: angulartics.IAnalyticsService;
-        portalShell: angularportalazure.PortalShell;
-        panorama: angularportalazure.Panorama;
-        areaBlades: angularportalazure.AreaBlades;
-        areaNotification: angularportalazure.AreaNotification;
-        ngDialog: any;
-        $injector: angular.auto.IInjectorService;
-        $http: angular.IHttpService;
-        $httpBackend: angular.IHttpBackendService;
-        $q: angular.IQService;
-        $rootScope: angular.IRootScopeService;
-        $window: angular.IWindowService;
-        $timeout: angular.ITimeoutService;
-        $translate: angular.translate.ITranslateService;
     }
 }
 declare namespace angularportalazure {
@@ -318,7 +167,7 @@ declare namespace angularportalazure {
         onCommandExcel(): void;
         /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
         setTitle(watchExpression: string, func: () => void): void;
-        private setBladeHeights();
+        private setBladeHeights;
     }
 }
 declare namespace angularportalazure {
@@ -342,10 +191,170 @@ declare namespace angularportalazure {
         hidePanorama(): void;
         /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
         close(): void;
-        private setPortalScrollCss();
-        private setupShowHideNotificationAreaListener();
-        private setupAddBladeListener();
+        private setPortalScrollCss;
+        private setupShowHideNotificationAreaListener;
+        private setupAddBladeListener;
     }
+}
+declare namespace angularportalazure {
+    class BladeData extends angularportalazure.Blade {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        onLoadItem(): void;
+        onLoadItems(): void;
+        onLoadedItem(): void;
+        onLoadedItems(): void;
+    }
+}
+declare namespace angularportalazure {
+    class BladeNav extends angularportalazure.BladeData {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
+        items: Array<angularportalazure.BladeNavItem>;
+        isNav: boolean;
+        onNavigateTo(path: string): void;
+    }
+}
+declare namespace angularportalazure {
+    class BladeNavItem {
+        title: string;
+        cssClass: string;
+        bladePath: string;
+        hrefPath: string;
+        roles: string;
+        isVisible: boolean;
+        callback: () => any;
+        bladeNav: angularportalazure.BladeNav | null;
+        constructor(title?: string, cssClass?: string, bladePath?: string, hrefPath?: string, roles?: string, isVisible?: boolean, callback?: () => any, bladeNav?: angularportalazure.BladeNav | null);
+        onNavItemClick(): void;
+    }
+}
+declare namespace angularportalazure {
+    class AreaNotification extends angularportalazure.UserControlBase {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        path: string;
+        widthAreaUsed: number;
+        private areaNotification;
+        private _width;
+        width: number;
+        private _backgroundColor;
+        backgroundColor: string;
+        hide(): void;
+        show(width?: number): void;
+        onHide(): boolean;
+        onShow(): void;
+        onShowed(): void;
+        private calcualteCssStyles;
+    }
+}
+declare namespace angularportalazure {
+    interface BladeParameter {
+        action: string;
+        item?: any;
+        itemId: number;
+    }
+}
+declare namespace angularportalazure {
+    class AvatarMenu extends angularportalazure.UserControlBase {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        userAccount: angularportalazure.UserAccount | null;
+    }
+}
+declare namespace angularportalazure {
+    /** The names are used in CSS for layouting, e.g. style='mini' */
+    enum TileSizes {
+        small = 0,
+        mini = 1,
+        normal = 2,
+        herowide = 3
+    }
+}
+declare namespace angularportalazure {
+    class TileSize {
+        tileSizes: angularportalazure.TileSizes;
+        width: number;
+        height: number;
+        constructor(tileSizes: angularportalazure.TileSizes, width: number, height: number);
+        static getTileSizes(): Array<TileSize>;
+    }
+}
+declare namespace angularportalazure {
+    class Tile {
+        constructor(title: string, bladePath: string, portalService: angularportalazure.PortalService);
+        portalService: angularportalazure.PortalService;
+        title: string;
+        subTitle: string;
+        bladePath: string;
+        private _bladePath;
+        tileSize: angularportalazure.TileSizes;
+        size: string;
+        left: string;
+        top: string;
+        leftN: string;
+        topN: string;
+        clicked(): void;
+    }
+}
+declare namespace angularportalazure {
+    class Tiles {
+        showTiles: boolean;
+        tiles: Array<any>;
+        isTilesLoaded: boolean;
+        hideTileIfOnlyOne: boolean;
+        private tileSizes;
+        private nextLeft;
+        private nextTop;
+        private columnHeightMax;
+        addTile(tile: Tile): Tile;
+    }
+}
+declare namespace angularportalazure {
+    class Startboard extends angularportalazure.UserControlBase {
+        constructor($scope: angular.IScope, portalService: angularportalazure.PortalService);
+        tiles: angularportalazure.Tiles;
+    }
+}
+declare namespace angularportalazure {
+    class Panorama extends angularportalazure.UserControlBase {
+        title: string;
+        isVisible: boolean;
+        avatarMenu: angularportalazure.AvatarMenu;
+        startboard: angularportalazure.Startboard;
+        constructor($scope: angular.IScope, title: string, portalService: angularportalazure.PortalService);
+    }
+}
+declare namespace angularportalazure {
+    class PortalShell {
+        portalService: angularportalazure.PortalService;
+        constructor(portalService: angularportalazure.PortalService, title?: string);
+    }
+}
+declare namespace angularportalazure {
+    class PortalService {
+        static $inject: string[];
+        constructor($injector: angular.auto.IInjectorService);
+        parameter: angularportalazure.BladeParameter;
+        $analytics: angulartics.IAnalyticsService;
+        portalShell: angularportalazure.PortalShell;
+        panorama: angularportalazure.Panorama;
+        areaBlades: angularportalazure.AreaBlades;
+        areaNotification: angularportalazure.AreaNotification;
+        ngDialog: any;
+        $injector: angular.auto.IInjectorService;
+        $http: angular.IHttpService;
+        $httpBackend: angular.IHttpBackendService;
+        $q: angular.IQService;
+        $rootScope: angular.IRootScopeService;
+        $window: angular.IWindowService;
+        $timeout: angular.ITimeoutService;
+        $translate: angular.translate.ITranslateService;
+    }
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
+}
+declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
     class BladeDetail<T> extends angularportalazure.BladeData {
@@ -434,8 +443,8 @@ declare namespace angularportalazure {
         }[];
         ValidationResults: ValidationResultDotNet[];
         convertResponse(response: any): void;
-        private static convertResponse(exception, responseData);
-        private static convertExceptionType(exception, responseData);
+        private static convertResponse;
+        private static convertExceptionType;
     }
 }
 declare namespace angularportalazure {
@@ -448,15 +457,7 @@ declare namespace angularportalazure {
         Url: string;
         static getOneLineMessage(exception: angularportalazure.Exception): string;
         static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception;
-        private static processDotNetException1(response);
-        private static processDotNetException2(response);
+        private static processDotNetException1;
+        private static processDotNetException2;
     }
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
-}
-declare namespace angularportalazure {
 }

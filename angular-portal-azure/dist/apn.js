@@ -120,6 +120,21 @@ var angularportalazure;
                 id = setTimeout(function () { callback(); }, 50);
             });
         };
+        UserControlBase.prototype.isNumberUndefinedNullOr0 = function (value) {
+            //if ((typeof value == 'undefined')
+            //    || (value == null)
+            //    || (value == 0)) {
+            //    return true;
+            //} else {
+            //    return false;
+            //}
+            if (value && value > 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        };
         UserControlBase.prototype.isStringNullOrEmpty = function (value) {
             if (value && value.replace(' ', '').length > 0) {
                 return false;
@@ -147,449 +162,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/// <reference path="blade.ts" />
-/// <reference path="areablades.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="usercontrolbase.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var BladeData = /** @class */ (function (_super) {
-        __extends(BladeData, _super);
-        // #region Constructor
-        function BladeData($scope, portalService, path, title, subtitle, width) {
-            if (subtitle === void 0) { subtitle = ''; }
-            if (width === void 0) { width = 300; }
-            return _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
-        }
-        // #endregion
-        BladeData.prototype.onLoadItem = function () {
-            this.visibility = 'collapse';
-            this.setStatusBarLoadData();
-        };
-        BladeData.prototype.onLoadItems = function () {
-            this.visibility = 'collapse';
-            this.setStatusBarLoadData();
-        };
-        BladeData.prototype.onLoadedItem = function () {
-            this.visibility = 'visible';
-            this.clearStatusBar();
-        };
-        BladeData.prototype.onLoadedItems = function () {
-            this.visibility = 'visible';
-            this.clearStatusBar();
-        };
-        return BladeData;
-    }(angularportalazure.Blade));
-    angularportalazure.BladeData = BladeData;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="bladedata.ts" />
-/// <reference path="bladenavitem.ts" />
-/// <reference path="portalservice.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var BladeNav = /** @class */ (function (_super) {
-        __extends(BladeNav, _super);
-        // #region Constructor
-        function BladeNav($scope, portalService, path, title, subtitle, width) {
-            if (title === void 0) { title = ''; }
-            if (subtitle === void 0) { subtitle = ''; }
-            if (width === void 0) { width = 315; }
-            var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
-            // #endregion
-            // #region Properties
-            _this.items = new Array();
-            _this.isNav = true;
-            _this.isInnerHtml = false;
-            return _this;
-        }
-        // #endregion
-        // #region Methods
-        BladeNav.prototype.onNavigateTo = function (path) {
-            if (path === '') {
-                return;
-            }
-            this.portalService.areaBlades.raiseAddBladeEvent({ path: path, pathSender: this.path });
-        };
-        return BladeNav;
-    }(angularportalazure.BladeData));
-    angularportalazure.BladeNav = BladeNav;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="bladenav.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var BladeNavItem = /** @class */ (function () {
-        // #region Constructor
-        function BladeNavItem(title, cssClass, bladePath, hrefPath, roles, isVisible, callback, bladeNav) {
-            if (title === void 0) { title = ''; }
-            if (cssClass === void 0) { cssClass = ''; }
-            if (bladePath === void 0) { bladePath = ''; }
-            if (hrefPath === void 0) { hrefPath = ''; }
-            if (roles === void 0) { roles = ''; }
-            if (isVisible === void 0) { isVisible = true; }
-            if (callback === void 0) { callback = null; }
-            if (bladeNav === void 0) { bladeNav = null; }
-            this.title = title;
-            this.cssClass = cssClass;
-            this.bladePath = bladePath;
-            this.hrefPath = hrefPath;
-            this.roles = roles;
-            this.isVisible = isVisible;
-            this.callback = callback;
-            this.bladeNav = bladeNav;
-        }
-        // #endregion
-        // #region Methods
-        BladeNavItem.prototype.onNavItemClick = function () {
-            if (this.callback != null) {
-                this.callback();
-            }
-        };
-        return BladeNavItem;
-    }());
-    angularportalazure.BladeNavItem = BladeNavItem;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="blade.ts" />
-/// <reference path="bladedata.ts" />
-/// <reference path="bladenavitem.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="usercontrolbase.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var AreaNotification = /** @class */ (function (_super) {
-        __extends(AreaNotification, _super);
-        // #region Constructor
-        function AreaNotification($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService) || this;
-            // #endregion
-            // #region Properties
-            _this.path = '';
-            _this.widthAreaUsed = 0;
-            _this._width = 250;
-            _this._backgroundColor = '#32383f';
-            _this.areaNotification = _this.portalService.$window.document.getElementById('apa-notification-area');
-            _this.hide();
-            _this.setupWindowResizeListener(function () { _this.calcualteCssStyles(); });
-            return _this;
-        }
-        Object.defineProperty(AreaNotification.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            set: function (value) {
-                this._width = value;
-                this.calcualteCssStyles();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AreaNotification.prototype, "backgroundColor", {
-            get: function () {
-                return this._backgroundColor;
-            },
-            set: function (value) {
-                this._backgroundColor = value;
-                this.calcualteCssStyles();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        // #endregion
-        // #region Methods
-        AreaNotification.prototype.hide = function () {
-            // Do not hide on false
-            if (!this.onHide) {
-                return;
-            }
-            this.path = '';
-            this.widthAreaUsed = 0;
-            this.areaNotification.style.display = 'none';
-            this.portalService.$rootScope.$broadcast('AreaNotification.Hide');
-        };
-        AreaNotification.prototype.show = function (width) {
-            if (width === void 0) { width = 250; }
-            this.onShow();
-            this.width = width;
-            this.widthAreaUsed = 1; // Indicate to the calcualteCssStyles function, that we need to set this value
-            this.calcualteCssStyles();
-            this.areaNotification.style.display = 'inline-block';
-            this.portalService.$rootScope.$broadcast('AreaNotification.Show');
-            this.onShowed();
-        };
-        /* Override */
-        AreaNotification.prototype.onHide = function () {
-            return true;
-        };
-        /* Override */
-        AreaNotification.prototype.onShow = function () {
-        };
-        /* Override */
-        AreaNotification.prototype.onShowed = function () {
-        };
-        AreaNotification.prototype.calcualteCssStyles = function () {
-            this.areaNotification.style.position = 'absolute';
-            this.areaNotification.style.top = '0';
-            this.areaNotification.style.height = '100%';
-            this.areaNotification.style.backgroundColor = this.backgroundColor;
-            this.areaNotification.style.borderLeft = '2px solid gray';
-            this.areaNotification.style.width = this.width + 'px';
-            this.areaNotification.style.left = this.portalService.$window.innerWidth - this.width + 'px';
-            if (this.widthAreaUsed !== 0) {
-                this.widthAreaUsed = this.width;
-            }
-        };
-        return AreaNotification;
-    }(angularportalazure.UserControlBase));
-    angularportalazure.AreaNotification = AreaNotification;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="blade.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="useraccount.ts" />
-/// <reference path="usercontrolbase.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var AvatarMenu = /** @class */ (function (_super) {
-        __extends(AvatarMenu, _super);
-        // #region Constructor
-        function AvatarMenu($scope, portalService) {
-            return _super.call(this, $scope, portalService) || this;
-        }
-        return AvatarMenu;
-    }(angularportalazure.UserControlBase));
-    angularportalazure.AvatarMenu = AvatarMenu;
-})(angularportalazure || (angularportalazure = {}));
-var angularportalazure;
-(function (angularportalazure) {
-    /** The names are used in CSS for layouting, e.g. style='mini' */
-    var TileSizes;
-    (function (TileSizes) {
-        TileSizes[TileSizes["small"] = 0] = "small";
-        TileSizes[TileSizes["mini"] = 1] = "mini";
-        TileSizes[TileSizes["normal"] = 2] = "normal";
-        TileSizes[TileSizes["herowide"] = 3] = "herowide";
-    })(TileSizes = angularportalazure.TileSizes || (angularportalazure.TileSizes = {}));
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="tilesizes.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var TileSize = /** @class */ (function () {
-        // #region Constructor
-        function TileSize(tileSizes, width, height) {
-            this.tileSizes = tileSizes;
-            this.width = width;
-            this.height = height;
-        }
-        // #endregion
-        // #region Methods
-        TileSize.getTileSizes = function () {
-            var tileSizes = Array();
-            tileSizes.push(new TileSize(angularportalazure.TileSizes.small, 90, 90));
-            tileSizes.push(new TileSize(angularportalazure.TileSizes.mini, 180, 90));
-            tileSizes.push(new TileSize(angularportalazure.TileSizes.normal, 180, 180));
-            tileSizes.push(new TileSize(angularportalazure.TileSizes.herowide, 540, 360));
-            return tileSizes;
-        };
-        return TileSize;
-    }());
-    angularportalazure.TileSize = TileSize;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="blade.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="tilesize.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var Tile = /** @class */ (function () {
-        // #region Constructor
-        function Tile(title, bladePath, portalService) {
-            this.portalService = portalService;
-            this.title = title;
-            this.bladePath = bladePath;
-            this.tileSize = angularportalazure.TileSizes.normal;
-        }
-        Object.defineProperty(Tile.prototype, "bladePath", {
-            // #region bladePath
-            get: function () {
-                return this._bladePath;
-            },
-            // For the moment we do not distinguish between lower and upper case path name
-            set: function (newBladePath) {
-                this._bladePath = newBladePath.toLowerCase();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        // #endregion
-        // #region Methods
-        Tile.prototype.clicked = function () {
-            this.portalService.areaBlades.setFirstBlade(this.bladePath);
-        };
-        return Tile;
-    }());
-    angularportalazure.Tile = Tile;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="tile.ts" />
-/// <reference path="tilesize.ts" />
-/// <reference path="tilesizes.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var Tiles = /** @class */ (function () {
-        function Tiles() {
-            // #region Properties
-            this.showTiles = true;
-            this.tiles = new Array();
-            this.isTilesLoaded = false;
-            this.hideTileIfOnlyOne = true; // not yet evaluated in HTML, but this is the standard behavior
-            this.tileSizes = angularportalazure.TileSize.getTileSizes();
-            this.nextLeft = 0;
-            this.nextTop = 0;
-            this.columnHeightMax = 0;
-            // #endregion
-        }
-        // #endregion
-        // #region Methods
-        Tiles.prototype.addTile = function (tile) {
-            this.isTilesLoaded = true;
-            var tileSize = this.tileSizes[tile.tileSize];
-            tile.size = angularportalazure.TileSizes[tile.tileSize]; // Get CSS Name
-            tile.top = this.nextTop + 'px';
-            tile.left = this.nextLeft + 'px';
-            this.nextLeft += tileSize.width;
-            if (tileSize.height > this.columnHeightMax) {
-                this.columnHeightMax = tileSize.height;
-            }
-            if (this.nextLeft > 540) {
-                this.nextLeft = 0;
-                this.nextTop += this.columnHeightMax;
-                this.columnHeightMax = 0;
-            }
-            this.tiles.push(tile);
-            return tile;
-        };
-        return Tiles;
-    }());
-    angularportalazure.Tiles = Tiles;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="portalservice.ts" />
-/// <reference path="tiles.ts" />
-/// <reference path="usercontrolbase.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var Startboard = /** @class */ (function (_super) {
-        __extends(Startboard, _super);
-        // #region Constructor
-        function Startboard($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService) || this;
-            _this.tiles = new angularportalazure.Tiles();
-            return _this;
-        }
-        return Startboard;
-    }(angularportalazure.UserControlBase));
-    angularportalazure.Startboard = Startboard;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="avatarmenu.ts" />
-/// <reference path="startboard.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="usercontrolbase.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var Panorama = /** @class */ (function (_super) {
-        __extends(Panorama, _super);
-        // #endregion
-        // #region Constructor
-        function Panorama($scope, title, portalService) {
-            var _this = _super.call(this, $scope, portalService) || this;
-            _this.isVisible = true;
-            _this.title = title;
-            _this.portalService.panorama = _this;
-            _this.avatarMenu = new angularportalazure.AvatarMenu(_this.$scope, _this.portalService);
-            _this.startboard = new angularportalazure.Startboard(_this.$scope, _this.portalService);
-            return _this;
-        }
-        return Panorama;
-    }(angularportalazure.UserControlBase));
-    angularportalazure.Panorama = Panorama;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference path="areablades.ts" />
-/// <reference path="usercontrolbase.ts" />
-/// <reference path="panorama.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="tiles.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var PortalShell = /** @class */ (function () {
-        // #region Constructor
-        function PortalShell(portalService, title) {
-            if (title === void 0) { title = null; }
-            this.portalService = portalService;
-            this.portalService = portalService;
-            this.portalService.panorama = new angularportalazure.Panorama(null, title, this.portalService);
-            if (title === '' || title === null || title === undefined) {
-                this.portalService.panorama.title = this.portalService.$window.location.hostname.toLowerCase();
-            }
-            else {
-                this.portalService.panorama.title = title;
-            }
-        }
-        return PortalShell;
-    }());
-    angularportalazure.PortalShell = PortalShell;
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
-/// <reference types="angular" />
-/// <reference types="angulartics" />
-/// <reference path="areanotification.ts" />
-/// <reference path="areablades.ts" />
-/// <reference path="blade.ts" />
-/// <reference path="bladeparameter.ts" />
-/// <reference path="panorama.ts" />
-/// <reference path="portalshell.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var PortalService = /** @class */ (function () {
-        function PortalService($injector) {
-            // #endregion
-            // #region Properties
-            this.parameter = { action: 'none', itemId: 0 };
-            this.$injector = $injector;
-            this.$http = $injector.get('$http');
-            this.$httpBackend = $injector.get('$httpBackend');
-            this.$q = $injector.get('$q');
-            this.$rootScope = $injector.get('$rootScope');
-            this.$window = $injector.get('$window');
-            this.$analytics = $injector.get('$analytics');
-            this.$timeout = $injector.get('$timeout');
-            this.$translate = $injector.get('$translate');
-            this.ngDialog = $injector.get('ngDialog');
-        }
-        // #region Constructor
-        PortalService.$inject = ['$injector'];
-        return PortalService;
-    }());
-    angularportalazure.PortalService = PortalService;
-    angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
 /// <reference types="angular" />
 /// <reference path="portalservice.ts" />
 /// <reference path="useraccount.ts" />
@@ -1109,6 +681,512 @@ var angularportalazure;
     angular.module('angularportalazure').service('angularportalazure.areaBlades', AreaBlades);
 })(angularportalazure || (angularportalazure = {}));
 // #region Declarations
+/// <reference path="blade.ts" />
+/// <reference path="areablades.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="usercontrolbase.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var BladeData = /** @class */ (function (_super) {
+        __extends(BladeData, _super);
+        // #region Constructor
+        function BladeData($scope, portalService, path, title, subtitle, width) {
+            if (subtitle === void 0) { subtitle = ''; }
+            if (width === void 0) { width = 300; }
+            return _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
+        }
+        // #endregion
+        BladeData.prototype.onLoadItem = function () {
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+        };
+        BladeData.prototype.onLoadItems = function () {
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+        };
+        BladeData.prototype.onLoadedItem = function () {
+            this.visibility = 'visible';
+            this.clearStatusBar();
+        };
+        BladeData.prototype.onLoadedItems = function () {
+            this.visibility = 'visible';
+            this.clearStatusBar();
+        };
+        return BladeData;
+    }(angularportalazure.Blade));
+    angularportalazure.BladeData = BladeData;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="bladedata.ts" />
+/// <reference path="bladenavitem.ts" />
+/// <reference path="portalservice.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var BladeNav = /** @class */ (function (_super) {
+        __extends(BladeNav, _super);
+        // #region Constructor
+        function BladeNav($scope, portalService, path, title, subtitle, width) {
+            if (title === void 0) { title = ''; }
+            if (subtitle === void 0) { subtitle = ''; }
+            if (width === void 0) { width = 315; }
+            var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
+            // #endregion
+            // #region Properties
+            _this.items = new Array();
+            _this.isNav = true;
+            _this.isInnerHtml = false;
+            return _this;
+        }
+        // #endregion
+        // #region Methods
+        BladeNav.prototype.onNavigateTo = function (path) {
+            if (path === '') {
+                return;
+            }
+            this.portalService.areaBlades.raiseAddBladeEvent({ path: path, pathSender: this.path });
+        };
+        return BladeNav;
+    }(angularportalazure.BladeData));
+    angularportalazure.BladeNav = BladeNav;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="bladenav.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var BladeNavItem = /** @class */ (function () {
+        // #region Constructor
+        function BladeNavItem(title, cssClass, bladePath, hrefPath, roles, isVisible, callback, bladeNav) {
+            if (title === void 0) { title = ''; }
+            if (cssClass === void 0) { cssClass = ''; }
+            if (bladePath === void 0) { bladePath = ''; }
+            if (hrefPath === void 0) { hrefPath = ''; }
+            if (roles === void 0) { roles = ''; }
+            if (isVisible === void 0) { isVisible = true; }
+            if (callback === void 0) { callback = null; }
+            if (bladeNav === void 0) { bladeNav = null; }
+            this.title = title;
+            this.cssClass = cssClass;
+            this.bladePath = bladePath;
+            this.hrefPath = hrefPath;
+            this.roles = roles;
+            this.isVisible = isVisible;
+            this.callback = callback;
+            this.bladeNav = bladeNav;
+        }
+        // #endregion
+        // #region Methods
+        BladeNavItem.prototype.onNavItemClick = function () {
+            if (this.callback != null) {
+                this.callback();
+            }
+        };
+        return BladeNavItem;
+    }());
+    angularportalazure.BladeNavItem = BladeNavItem;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="blade.ts" />
+/// <reference path="bladedata.ts" />
+/// <reference path="bladenavitem.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="usercontrolbase.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var AreaNotification = /** @class */ (function (_super) {
+        __extends(AreaNotification, _super);
+        // #region Constructor
+        function AreaNotification($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService) || this;
+            // #endregion
+            // #region Properties
+            _this.path = '';
+            _this.widthAreaUsed = 0;
+            _this._width = 250;
+            _this._backgroundColor = '#32383f';
+            _this.areaNotification = _this.portalService.$window.document.getElementById('apa-notification-area');
+            _this.hide();
+            _this.setupWindowResizeListener(function () { _this.calcualteCssStyles(); });
+            return _this;
+        }
+        Object.defineProperty(AreaNotification.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            set: function (value) {
+                this._width = value;
+                this.calcualteCssStyles();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AreaNotification.prototype, "backgroundColor", {
+            get: function () {
+                return this._backgroundColor;
+            },
+            set: function (value) {
+                this._backgroundColor = value;
+                this.calcualteCssStyles();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        // #endregion
+        // #region Methods
+        AreaNotification.prototype.hide = function () {
+            // Do not hide on false
+            if (!this.onHide) {
+                return;
+            }
+            this.path = '';
+            this.widthAreaUsed = 0;
+            this.areaNotification.style.display = 'none';
+            this.portalService.$rootScope.$broadcast('AreaNotification.Hide');
+        };
+        AreaNotification.prototype.show = function (width) {
+            if (width === void 0) { width = 250; }
+            this.onShow();
+            this.width = width;
+            this.widthAreaUsed = 1; // Indicate to the calcualteCssStyles function, that we need to set this value
+            this.calcualteCssStyles();
+            this.areaNotification.style.display = 'inline-block';
+            this.portalService.$rootScope.$broadcast('AreaNotification.Show');
+            this.onShowed();
+        };
+        /* Override */
+        AreaNotification.prototype.onHide = function () {
+            return true;
+        };
+        /* Override */
+        AreaNotification.prototype.onShow = function () {
+        };
+        /* Override */
+        AreaNotification.prototype.onShowed = function () {
+        };
+        AreaNotification.prototype.calcualteCssStyles = function () {
+            this.areaNotification.style.position = 'absolute';
+            this.areaNotification.style.top = '0';
+            this.areaNotification.style.height = '100%';
+            this.areaNotification.style.backgroundColor = this.backgroundColor;
+            this.areaNotification.style.borderLeft = '2px solid gray';
+            this.areaNotification.style.width = this.width + 'px';
+            this.areaNotification.style.left = this.portalService.$window.innerWidth - this.width + 'px';
+            if (this.widthAreaUsed !== 0) {
+                this.widthAreaUsed = this.width;
+            }
+        };
+        return AreaNotification;
+    }(angularportalazure.UserControlBase));
+    angularportalazure.AreaNotification = AreaNotification;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="blade.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="useraccount.ts" />
+/// <reference path="usercontrolbase.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var AvatarMenu = /** @class */ (function (_super) {
+        __extends(AvatarMenu, _super);
+        // #region Constructor
+        function AvatarMenu($scope, portalService) {
+            return _super.call(this, $scope, portalService) || this;
+        }
+        return AvatarMenu;
+    }(angularportalazure.UserControlBase));
+    angularportalazure.AvatarMenu = AvatarMenu;
+})(angularportalazure || (angularportalazure = {}));
+var angularportalazure;
+(function (angularportalazure) {
+    /** The names are used in CSS for layouting, e.g. style='mini' */
+    var TileSizes;
+    (function (TileSizes) {
+        TileSizes[TileSizes["small"] = 0] = "small";
+        TileSizes[TileSizes["mini"] = 1] = "mini";
+        TileSizes[TileSizes["normal"] = 2] = "normal";
+        TileSizes[TileSizes["herowide"] = 3] = "herowide";
+    })(TileSizes = angularportalazure.TileSizes || (angularportalazure.TileSizes = {}));
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="tilesizes.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var TileSize = /** @class */ (function () {
+        // #region Constructor
+        function TileSize(tileSizes, width, height) {
+            this.tileSizes = tileSizes;
+            this.width = width;
+            this.height = height;
+        }
+        // #endregion
+        // #region Methods
+        TileSize.getTileSizes = function () {
+            var tileSizes = Array();
+            tileSizes.push(new TileSize(angularportalazure.TileSizes.small, 90, 90));
+            tileSizes.push(new TileSize(angularportalazure.TileSizes.mini, 180, 90));
+            tileSizes.push(new TileSize(angularportalazure.TileSizes.normal, 180, 180));
+            tileSizes.push(new TileSize(angularportalazure.TileSizes.herowide, 540, 360));
+            return tileSizes;
+        };
+        return TileSize;
+    }());
+    angularportalazure.TileSize = TileSize;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="blade.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="tilesize.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var Tile = /** @class */ (function () {
+        // #region Constructor
+        function Tile(title, bladePath, portalService) {
+            this.portalService = portalService;
+            this.title = title;
+            this.bladePath = bladePath;
+            this.tileSize = angularportalazure.TileSizes.normal;
+        }
+        Object.defineProperty(Tile.prototype, "bladePath", {
+            // #region bladePath
+            get: function () {
+                return this._bladePath;
+            },
+            // For the moment we do not distinguish between lower and upper case path name
+            set: function (newBladePath) {
+                this._bladePath = newBladePath.toLowerCase();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        // #endregion
+        // #region Methods
+        Tile.prototype.clicked = function () {
+            this.portalService.areaBlades.setFirstBlade(this.bladePath);
+        };
+        return Tile;
+    }());
+    angularportalazure.Tile = Tile;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="tile.ts" />
+/// <reference path="tilesize.ts" />
+/// <reference path="tilesizes.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var Tiles = /** @class */ (function () {
+        function Tiles() {
+            // #region Properties
+            this.showTiles = true;
+            this.tiles = new Array();
+            this.isTilesLoaded = false;
+            this.hideTileIfOnlyOne = true; // not yet evaluated in HTML, but this is the standard behavior
+            this.tileSizes = angularportalazure.TileSize.getTileSizes();
+            this.nextLeft = 0;
+            this.nextTop = 0;
+            this.columnHeightMax = 0;
+            // #endregion
+        }
+        // #endregion
+        // #region Methods
+        Tiles.prototype.addTile = function (tile) {
+            this.isTilesLoaded = true;
+            var tileSize = this.tileSizes[tile.tileSize];
+            tile.size = angularportalazure.TileSizes[tile.tileSize]; // Get CSS Name
+            tile.top = this.nextTop + 'px';
+            tile.left = this.nextLeft + 'px';
+            this.nextLeft += tileSize.width;
+            if (tileSize.height > this.columnHeightMax) {
+                this.columnHeightMax = tileSize.height;
+            }
+            if (this.nextLeft > 540) {
+                this.nextLeft = 0;
+                this.nextTop += this.columnHeightMax;
+                this.columnHeightMax = 0;
+            }
+            this.tiles.push(tile);
+            return tile;
+        };
+        return Tiles;
+    }());
+    angularportalazure.Tiles = Tiles;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="portalservice.ts" />
+/// <reference path="tiles.ts" />
+/// <reference path="usercontrolbase.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var Startboard = /** @class */ (function (_super) {
+        __extends(Startboard, _super);
+        // #region Constructor
+        function Startboard($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService) || this;
+            _this.tiles = new angularportalazure.Tiles();
+            return _this;
+        }
+        return Startboard;
+    }(angularportalazure.UserControlBase));
+    angularportalazure.Startboard = Startboard;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="avatarmenu.ts" />
+/// <reference path="startboard.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="usercontrolbase.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var Panorama = /** @class */ (function (_super) {
+        __extends(Panorama, _super);
+        // #endregion
+        // #region Constructor
+        function Panorama($scope, title, portalService) {
+            var _this = _super.call(this, $scope, portalService) || this;
+            _this.isVisible = true;
+            _this.title = title;
+            _this.portalService.panorama = _this;
+            _this.avatarMenu = new angularportalazure.AvatarMenu(_this.$scope, _this.portalService);
+            _this.startboard = new angularportalazure.Startboard(_this.$scope, _this.portalService);
+            return _this;
+        }
+        return Panorama;
+    }(angularportalazure.UserControlBase));
+    angularportalazure.Panorama = Panorama;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference path="areablades.ts" />
+/// <reference path="usercontrolbase.ts" />
+/// <reference path="panorama.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="tiles.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var PortalShell = /** @class */ (function () {
+        // #region Constructor
+        function PortalShell(portalService, title) {
+            if (title === void 0) { title = null; }
+            this.portalService = portalService;
+            this.portalService = portalService;
+            this.portalService.panorama = new angularportalazure.Panorama(null, title, this.portalService);
+            if (title === '' || title === null || title === undefined) {
+                this.portalService.panorama.title = this.portalService.$window.location.hostname.toLowerCase();
+            }
+            else {
+                this.portalService.panorama.title = title;
+            }
+        }
+        return PortalShell;
+    }());
+    angularportalazure.PortalShell = PortalShell;
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
+/// <reference types="angular" />
+/// <reference types="angulartics" />
+/// <reference path="areanotification.ts" />
+/// <reference path="areablades.ts" />
+/// <reference path="blade.ts" />
+/// <reference path="bladeparameter.ts" />
+/// <reference path="panorama.ts" />
+/// <reference path="portalshell.ts" />
+// #endregion
+var angularportalazure;
+(function (angularportalazure) {
+    var PortalService = /** @class */ (function () {
+        function PortalService($injector) {
+            // #endregion
+            // #region Properties
+            this.parameter = { action: 'none', itemId: 0 };
+            this.$injector = $injector;
+            this.$http = $injector.get('$http');
+            this.$httpBackend = $injector.get('$httpBackend');
+            this.$q = $injector.get('$q');
+            this.$rootScope = $injector.get('$rootScope');
+            this.$window = $injector.get('$window');
+            this.$analytics = $injector.get('$analytics');
+            this.$timeout = $injector.get('$timeout');
+            this.$translate = $injector.get('$translate');
+            this.ngDialog = $injector.get('ngDialog');
+        }
+        // #region Constructor
+        PortalService.$inject = ['$injector'];
+        return PortalService;
+    }());
+    angularportalazure.PortalService = PortalService;
+    angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);
+})(angularportalazure || (angularportalazure = {}));
+/// <reference types="angular" />
+/// <reference path="../../domain/portalservice.ts" />
+var angularportalazure;
+(function (angularportalazure) {
+    AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
+    function AngularPortalBladeController(portalService) {
+        var _this = this;
+        this.$onInit = function () {
+            _this.close = function () { };
+        };
+    }
+    var angularPortalBlade = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+        controller: AngularPortalBladeController,
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
+})(angularportalazure || (angularportalazure = {}));
+var angularportalazure;
+(function (angularportalazure) {
+    var angularPortalGrid = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/bladegrid/bladegrid.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalGrid', angularPortalGrid);
+})(angularportalazure || (angularportalazure = {}));
+var angularportalazure;
+(function (angularportalazure) {
+    AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
+    function AngularPortalHomeController($scope, portalService) {
+        this.$onInit = function () {
+            portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
+            portalService.areaBlades = new angularportalazure.AreaBlades($scope, portalService);
+        };
+    }
+    var angularPortalHome = {
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
+        controller: AngularPortalHomeController,
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
+})(angularportalazure || (angularportalazure = {}));
+var angularportalazure;
+(function (angularportalazure) {
+    var angularPortalNav = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalNav', angularPortalNav);
+})(angularportalazure || (angularportalazure = {}));
+// #region Declarations
 /// <reference path="bladedata.ts" />
 /// <reference path="portalservice.ts" />
 // #endregion
@@ -1343,7 +1421,7 @@ var angularportalazure;
             // #region Verify if all expected has been found
             var foundCount = 0;
             expectedSplitted.forEach(function (expectedItem) {
-                if (expectedItem === '') {
+                if (expectedItem === '') { // all expectedSplitted.items which have been found, are initialized to '' (see above)
                     foundCount++;
                 }
             });
@@ -1597,66 +1675,3 @@ var angularportalazure;
 //        // #endregion
 //    }
 //}
-/// <reference types="angular" />
-/// <reference path="../../domain/portalservice.ts" />
-var angularportalazure;
-(function (angularportalazure) {
-    AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
-    function AngularPortalBladeController(portalService) {
-        var _this = this;
-        this.$onInit = function () {
-            _this.close = function () { };
-        };
-    }
-    var angularPortalBlade = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-        controller: AngularPortalBladeController,
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
-})(angularportalazure || (angularportalazure = {}));
-var angularportalazure;
-(function (angularportalazure) {
-    var angularPortalGrid = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/bladegrid/bladegrid.html',
-        controller: function () { },
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalGrid', angularPortalGrid);
-})(angularportalazure || (angularportalazure = {}));
-var angularportalazure;
-(function (angularportalazure) {
-    AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
-    function AngularPortalHomeController($scope, portalService) {
-        this.$onInit = function () {
-            portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
-            portalService.areaBlades = new angularportalazure.AreaBlades($scope, portalService);
-        };
-    }
-    var angularPortalHome = {
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-        controller: AngularPortalHomeController,
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
-})(angularportalazure || (angularportalazure = {}));
-var angularportalazure;
-(function (angularportalazure) {
-    var angularPortalNav = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
-        controller: function () { },
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalNav', angularPortalNav);
-})(angularportalazure || (angularportalazure = {}));
