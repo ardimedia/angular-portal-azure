@@ -21,7 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
