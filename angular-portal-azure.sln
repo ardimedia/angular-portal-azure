@@ -18,7 +18,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular-portal-azure", "ang
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular-portal-azure.sample-1", "angular-portal-azure.sample-1\angular-portal-azure.sample-1.csproj", "{0D6F13EC-7B00-4FCE-8212-666814B57970}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "angular-portal-azure-2018A", "angular-portal-azure-2018A\angular-portal-azure-2018A.csproj", "{50962697-E20B-4172-B098-306C862F84C4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2018-03", "2018-03", "{C005CED3-40FA-4BAD-B9F3-AEDEFE43AF6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2018-10", "2018-10", "{776300EA-7429-40C8-8C60-76EA18B812E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Current", "Current", "{02C13513-8126-46ED-AC86-E41A998A1570}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "angular-portal-azure-2018-03", "angular-portal-azure-2018-03\angular-portal-azure-2018-03.csproj", "{5F7EC341-474C-4D08-B72D-293F81883888}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular-portal-azure-2018-10", "angular-portal-azure-2018-10\angular-portal-azure-2018-10.csproj", "{61017D29-DF20-41E1-9350-24F44ED5D9E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,13 +42,23 @@ Global
 		{0D6F13EC-7B00-4FCE-8212-666814B57970}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6F13EC-7B00-4FCE-8212-666814B57970}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D6F13EC-7B00-4FCE-8212-666814B57970}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50962697-E20B-4172-B098-306C862F84C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50962697-E20B-4172-B098-306C862F84C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50962697-E20B-4172-B098-306C862F84C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50962697-E20B-4172-B098-306C862F84C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F7EC341-474C-4D08-B72D-293F81883888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F7EC341-474C-4D08-B72D-293F81883888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F7EC341-474C-4D08-B72D-293F81883888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F7EC341-474C-4D08-B72D-293F81883888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61017D29-DF20-41E1-9350-24F44ED5D9E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61017D29-DF20-41E1-9350-24F44ED5D9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61017D29-DF20-41E1-9350-24F44ED5D9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61017D29-DF20-41E1-9350-24F44ED5D9E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{25F41A47-257C-441E-AADD-8FF4D60F7691} = {02C13513-8126-46ED-AC86-E41A998A1570}
+		{0D6F13EC-7B00-4FCE-8212-666814B57970} = {02C13513-8126-46ED-AC86-E41A998A1570}
+		{5F7EC341-474C-4D08-B72D-293F81883888} = {C005CED3-40FA-4BAD-B9F3-AEDEFE43AF6C}
+		{61017D29-DF20-41E1-9350-24F44ED5D9E6} = {776300EA-7429-40C8-8C60-76EA18B812E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00D17A87-9500-4F30-9160-072C8BC04A7B}
