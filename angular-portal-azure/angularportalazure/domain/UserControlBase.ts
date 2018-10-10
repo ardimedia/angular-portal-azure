@@ -23,6 +23,9 @@ namespace angularportalazure {
 
         windowResizeHandler: () => void;
 
+        statusBar: string = '';
+        statusBarClass: string = '';
+
         // #endregion
 
         // #region Methods
@@ -72,6 +75,66 @@ namespace angularportalazure {
         getRandomString(length: number = 20) {
             return 'a' + Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+', '').replace(')', '').slice(1);
         }
+
+
+        // #region Set StatusBar
+
+        clearStatusBar() {
+            this.statusBar = '';
+            this.statusBarClass = '';
+        }
+
+        setStatusBar(text?: string, style?: string) {
+            this.statusBar = text ? text : '';
+            this.statusBarClass = style ? style : '';
+        }
+
+        setStatusBarCopyData() {
+            this.statusBar = 'Daten kopieren...';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarLoadData() {
+            this.statusBar = 'Daten laden...';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarSaveData() {
+            this.statusBar = 'Daten speichern...';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarDeleteData() {
+            this.statusBar = 'Daten löschen...';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarDeleteDataCanceled() {
+            this.statusBar = 'Löschen abgebrochen.';
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarInfo(text: string) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-info';
+        }
+
+        setStatusBarError(text: string) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-error';
+        }
+
+        setStatusBarNoDataFound() {
+            this.statusBar = 'Keine Daten gefunden!';
+            this.statusBarClass = 'apa-statusbar-error';
+        }
+
+        setStatusBarException(exception: angularportalazure.Exception) {
+            this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
+            this.statusBarClass = 'apa-statusbar-error';
+        }
+
+        // #endregion
 
         // #endregion
     }

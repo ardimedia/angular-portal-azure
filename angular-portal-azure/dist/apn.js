@@ -94,6 +94,8 @@ var angularportalazure;
     var UserControlBase = /** @class */ (function () {
         // #region Constructor
         function UserControlBase($scope, portalService) {
+            this.statusBar = '';
+            this.statusBarClass = '';
             this.$scope = $scope;
             this.portalService = portalService;
         }
@@ -140,18 +142,60 @@ var angularportalazure;
             if (length === void 0) { length = 20; }
             return 'a' + Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).replace('.', '').replace('(e+', '').replace(')', '').slice(1);
         };
+        // #region Set StatusBar
+        UserControlBase.prototype.clearStatusBar = function () {
+            this.statusBar = '';
+            this.statusBarClass = '';
+        };
+        UserControlBase.prototype.setStatusBar = function (text, style) {
+            this.statusBar = text ? text : '';
+            this.statusBarClass = style ? style : '';
+        };
+        UserControlBase.prototype.setStatusBarCopyData = function () {
+            this.statusBar = 'Daten kopieren...';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        UserControlBase.prototype.setStatusBarLoadData = function () {
+            this.statusBar = 'Daten laden...';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        UserControlBase.prototype.setStatusBarSaveData = function () {
+            this.statusBar = 'Daten speichern...';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        UserControlBase.prototype.setStatusBarDeleteData = function () {
+            this.statusBar = 'Daten löschen...';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        UserControlBase.prototype.setStatusBarDeleteDataCanceled = function () {
+            this.statusBar = 'Löschen abgebrochen.';
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        UserControlBase.prototype.setStatusBarInfo = function (text) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-info';
+        };
+        UserControlBase.prototype.setStatusBarError = function (text) {
+            this.statusBar = text;
+            this.statusBarClass = 'apa-statusbar-error';
+        };
+        UserControlBase.prototype.setStatusBarNoDataFound = function () {
+            this.statusBar = 'Keine Daten gefunden!';
+            this.statusBarClass = 'apa-statusbar-error';
+        };
+        UserControlBase.prototype.setStatusBarException = function (exception) {
+            this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
+            this.statusBarClass = 'apa-statusbar-error';
+        };
         return UserControlBase;
     }());
     angularportalazure.UserControlBase = UserControlBase;
 })(angularportalazure || (angularportalazure = {}));
 // #region Declarations
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -186,8 +230,6 @@ var angularportalazure;
             _this.width = { 'width': '0' };
             _this.widthStackLayout = { 'width': '50px' };
             _this.isInnerHtml = true;
-            _this.statusBar = '';
-            _this.statusBarClass = '';
             // #endregion
             // #endregion
             // #region Commands
@@ -347,52 +389,6 @@ var angularportalazure;
         Blade.prototype.onClose = function () {
             return true;
         };
-        // #region Set StatusBar
-        Blade.prototype.clearStatusBar = function () {
-            this.statusBar = '';
-            this.statusBarClass = '';
-        };
-        Blade.prototype.setStatusBar = function (text, style) {
-            this.statusBar = text ? text : '';
-            this.statusBarClass = style ? style : '';
-        };
-        Blade.prototype.setStatusBarCopyData = function () {
-            this.statusBar = 'Daten kopieren...';
-            this.statusBarClass = 'apa-statusbar-info';
-        };
-        Blade.prototype.setStatusBarLoadData = function () {
-            this.statusBar = 'Daten laden...';
-            this.statusBarClass = 'apa-statusbar-info';
-        };
-        Blade.prototype.setStatusBarSaveData = function () {
-            this.statusBar = 'Daten speichern...';
-            this.statusBarClass = 'apa-statusbar-info';
-        };
-        Blade.prototype.setStatusBarDeleteData = function () {
-            this.statusBar = 'Daten löschen...';
-            this.statusBarClass = 'apa-statusbar-info';
-        };
-        Blade.prototype.setStatusBarDeleteDataCanceled = function () {
-            this.statusBar = 'Löschen abgebrochen.';
-            this.statusBarClass = 'apa-statusbar-info';
-        };
-        Blade.prototype.setStatusBarInfo = function (text) {
-            this.statusBar = text;
-            this.statusBarClass = 'apa-statusbar-info';
-        };
-        Blade.prototype.setStatusBarError = function (text) {
-            this.statusBar = text;
-            this.statusBarClass = 'apa-statusbar-error';
-        };
-        Blade.prototype.setStatusBarNoDataFound = function () {
-            this.statusBar = 'Keine Daten gefunden!';
-            this.statusBarClass = 'apa-statusbar-error';
-        };
-        Blade.prototype.setStatusBarException = function (exception) {
-            this.statusBar = angularportalazure.Exception.getOneLineMessage(exception);
-            this.statusBarClass = 'apa-statusbar-error';
-        };
-        // #endregion
         // #region Commands
         Blade.prototype.onCommandBrowse = function () {
             throw new Error('[angularportalazure.Blade] \'onCommandBrowse\' is an abstract function. Define one in the derived class.');

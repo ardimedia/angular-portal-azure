@@ -23,6 +23,8 @@ declare namespace angularportalazure {
         $scope: angular.IScope;
         portalService: angularportalazure.PortalService;
         windowResizeHandler: () => void;
+        statusBar: string;
+        statusBarClass: string;
         /** angular1: $onInit(), $onChanges(changesObj), $doCheck(), $onDestroy(), $postLink() */
         $onDestroy(): void;
         /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
@@ -32,6 +34,17 @@ declare namespace angularportalazure {
         isNumberUndefinedNullOr0(value: number): boolean;
         isStringNullOrEmpty(value: string): boolean;
         getRandomString(length?: number): string;
+        clearStatusBar(): void;
+        setStatusBar(text?: string, style?: string): void;
+        setStatusBarCopyData(): void;
+        setStatusBarLoadData(): void;
+        setStatusBarSaveData(): void;
+        setStatusBarDeleteData(): void;
+        setStatusBarDeleteDataCanceled(): void;
+        setStatusBarInfo(text: string): void;
+        setStatusBarError(text: string): void;
+        setStatusBarNoDataFound(): void;
+        setStatusBarException(exception: angularportalazure.Exception): void;
     }
 }
 declare namespace angularportalazure {
@@ -61,8 +74,6 @@ declare namespace angularportalazure {
             'width': string;
         };
         isInnerHtml: boolean;
-        statusBar: string;
-        statusBarClass: string;
         formblade: any;
         private _path;
         path: string;
@@ -136,17 +147,6 @@ declare namespace angularportalazure {
         close(): void;
         /** Override */
         onClose(): boolean;
-        clearStatusBar(): void;
-        setStatusBar(text?: string, style?: string): void;
-        setStatusBarCopyData(): void;
-        setStatusBarLoadData(): void;
-        setStatusBarSaveData(): void;
-        setStatusBarDeleteData(): void;
-        setStatusBarDeleteDataCanceled(): void;
-        setStatusBarInfo(text: string): void;
-        setStatusBarError(text: string): void;
-        setStatusBarNoDataFound(): void;
-        setStatusBarException(exception: angularportalazure.Exception): void;
         onCommandBrowse(): void;
         onCommandCancel(): void;
         onCommandCopy(): void;
