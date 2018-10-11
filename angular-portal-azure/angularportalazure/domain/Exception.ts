@@ -23,8 +23,14 @@ namespace angularportalazure {
         static getOneLineMessage(exception: angularportalazure.Exception): string {
             let message: string = '';
 
+            if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
+                || exception.Message.toLowerCase().indexOf('the duplicate key value is') >= 0) {
+                console.debug(exception.Message);
+                return 'Datensatz mit gleichem Key (Schlüssel) bereits vorhanden!';
+            }
+
             // Add Messages, if available
-            if (exception.Messages !== undefined) {
+            if (exception.Messages !== undefined && exception.Messages.length > 0) {
                 exception.Messages.forEach((item, index) => {
                     if (index > 0) {
                         message = message + ' - ';
@@ -76,6 +82,14 @@ namespace angularportalazure {
 
             else if (response.json !== undefined && response.json().Data != undefined) {
                 exception = angularportalazure.Exception.processResponseData(exception, response.json().Data);
+            }
+
+            // #endregion
+
+            // #region Process (Angular 2) response.InnerException.InnerException.Message
+
+            else if (response.json !== undefined && response.json().InnerException !== undefined && response.json().InnerException.InnerException !== undefined) {
+                exception.Message = response.json().InnerException.InnerException.Message;
             }
 
             // #endregion

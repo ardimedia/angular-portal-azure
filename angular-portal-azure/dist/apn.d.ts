@@ -393,10 +393,15 @@ declare namespace angularportalazure {
          * - call this.setStatusBarException
          */
         saveObject(func: () => Promise<any | angularportalazure.Exception> | angular.IPromise<any | angularportalazure.Exception>, ngForm?: any): (Promise<any | void> | angular.IPromise<any | void>);
+        deleteItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
         /** Extension point */
         onSaveItem(): void;
         /** Extension point */
         onSavedItem(): void;
+        /** Extension point */
+        onDeleteItem(): void;
+        /** Extension point */
+        onDeletedItem(): void;
         onCommandCancel(): void;
     }
 }

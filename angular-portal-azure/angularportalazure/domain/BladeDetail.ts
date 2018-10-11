@@ -138,12 +138,57 @@ namespace angularportalazure {
             });
         }
 
+        deleteItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm: any = undefined): (Promise<T | void> | angular.IPromise<T | void>) {
+            this.setStatusBarDeleteData();
+            this.onDeleteItem();
+
+            // #region form valid?
+
+            // angularjs: if form valid
+            if (!this.formblade.$valid) {
+                this.statusBar = 'Löschen nicht möglich! [Console] enthält weitere Informationen.';
+                this.statusBarClass = 'apa-statusbar-error';
+                //console.log(this.formblade);
+                return;
+            }
+
+            // angular: if form valid
+            if (ngForm !== undefined) {
+                if (!ngForm.valid) {
+                    return;
+                }
+            }
+
+            // #endregion
+
+            this.isCommandDeleteEnabled = false;
+
+            return (<Promise<T> & angular.IPromise<T>>func()).then((data) => {
+                this.clearStatusBar();
+                this.isCommandDeleteEnabled = true;
+                this.item = data;
+                this.onDeletedItem();
+                return data;
+            }).catch((exception: angularportalazure.Exception) => {
+                this.isCommandDeleteEnabled = true;
+                this.setStatusBarException(exception);
+            });
+        }
+
         /** Extension point */
         onSaveItem() {
         }
 
         /** Extension point */
         onSavedItem() {
+        }
+
+        /** Extension point */
+        onDeleteItem() {
+        }
+
+        /** Extension point */
+        onDeletedItem() {
         }
 
         onCommandCancel(): void {

@@ -193,9 +193,12 @@ var angularportalazure;
 })(angularportalazure || (angularportalazure = {}));
 // #region Declarations
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -1302,11 +1305,49 @@ var angularportalazure;
                 _this.setStatusBarException(exception);
             });
         };
+        BladeDetail.prototype.deleteItem = function (func, ngForm) {
+            var _this = this;
+            if (ngForm === void 0) { ngForm = undefined; }
+            this.setStatusBarDeleteData();
+            this.onDeleteItem();
+            // #region form valid?
+            // angularjs: if form valid
+            if (!this.formblade.$valid) {
+                this.statusBar = 'Löschen nicht möglich! [Console] enthält weitere Informationen.';
+                this.statusBarClass = 'apa-statusbar-error';
+                //console.log(this.formblade);
+                return;
+            }
+            // angular: if form valid
+            if (ngForm !== undefined) {
+                if (!ngForm.valid) {
+                    return;
+                }
+            }
+            // #endregion
+            this.isCommandDeleteEnabled = false;
+            return func().then(function (data) {
+                _this.clearStatusBar();
+                _this.isCommandDeleteEnabled = true;
+                _this.item = data;
+                _this.onDeletedItem();
+                return data;
+            }).catch(function (exception) {
+                _this.isCommandDeleteEnabled = true;
+                _this.setStatusBarException(exception);
+            });
+        };
         /** Extension point */
         BladeDetail.prototype.onSaveItem = function () {
         };
         /** Extension point */
         BladeDetail.prototype.onSavedItem = function () {
+        };
+        /** Extension point */
+        BladeDetail.prototype.onDeleteItem = function () {
+        };
+        /** Extension point */
+        BladeDetail.prototype.onDeletedItem = function () {
         };
         BladeDetail.prototype.onCommandCancel = function () {
             this.close();
@@ -1553,8 +1594,13 @@ var angularportalazure;
         // #region Static Methods
         Exception.getOneLineMessage = function (exception) {
             var message = '';
+            if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
+                || exception.Message.toLowerCase().indexOf('the duplicate key value is') >= 0) {
+                console.debug(exception.Message);
+                return 'Datensatz mit gleichem Key (Schlüssel) bereits vorhanden!';
+            }
             // Add Messages, if available
-            if (exception.Messages !== undefined) {
+            if (exception.Messages !== undefined && exception.Messages.length > 0) {
                 exception.Messages.forEach(function (item, index) {
                     if (index > 0) {
                         message = message + ' - ';
@@ -1597,6 +1643,11 @@ var angularportalazure;
             // #region Process (Angular 2) response.json().Data (EntityValidationException, etc.)
             else if (response.json !== undefined && response.json().Data != undefined) {
                 exception = angularportalazure.Exception.processResponseData(exception, response.json().Data);
+            }
+            // #endregion
+            // #region Process (Angular 2) response.InnerException.InnerException.Message
+            else if (response.json !== undefined && response.json().InnerException !== undefined && response.json().InnerException.InnerException !== undefined) {
+                exception.Message = response.json().InnerException.InnerException.Message;
             }
             // #endregion
             //exception.convertResponse(response);
