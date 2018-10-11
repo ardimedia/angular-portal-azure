@@ -66,7 +66,7 @@ namespace angularportalazure {
             if (!this.formblade.$valid) {
                 this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
                 this.statusBarClass = 'apa-statusbar-error';
-                console.log(this.formblade);
+                //console.log(this.formblade);
                 return;
             }
 
@@ -116,7 +116,7 @@ namespace angularportalazure {
             if (!this.formblade.$valid) {
                 this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
                 this.statusBarClass = 'apa-statusbar-error';
-                console.log(this.formblade);
+                //console.log(this.formblade);
                 return;
             }
 

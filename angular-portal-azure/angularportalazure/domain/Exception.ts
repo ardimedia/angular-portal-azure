@@ -6,7 +6,7 @@
 
 namespace angularportalazure {
     export class Exception extends angularportalazure.ValidationsExceptionDotNet {
-        // #region Properites
+        // #region Properties
 
         // HTTP Server
         Type: string;
@@ -21,16 +21,29 @@ namespace angularportalazure {
         // #region Static Methods
 
         static getOneLineMessage(exception: angularportalazure.Exception): string {
-            let message: string = 'FEHLER ';
+            let message: string = '';
+
+            // Add Messages, if available
+            if (exception.Messages !== undefined) {
+                exception.Messages.forEach((item, index) => {
+                    if (index > 0) {
+                        message = message + ' - ';
+                    }
+                    message = message + item;
+                });
+            } else {
+                message = 'FEHLER ';
+            }
 
             if (exception.Message !== undefined) {
                 message = message + ': ' + exception.Message + ' ';
             }
 
-            if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') === -1) {
+            if (exception.ExceptionMessage !== undefined && (<string>exception.ExceptionMessage).toLowerCase().indexOf('see the inner exception for details') < 0) {
                 message = message + ': ' + exception.ExceptionMessage + ' ';
             }
-            if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') > 0) {
+
+            if (exception.ExceptionMessage !== undefined && (<string>exception.ExceptionMessage).toLowerCase().indexOf('see the inner exception for details') >= 0) {
                 if (exception.InnerException !== undefined) {
                     if (exception.InnerException.InnerException !== undefined) {
                         message = message + ': ' + exception.InnerException.InnerException.ExceptionMessage + ' ';
@@ -40,78 +53,90 @@ namespace angularportalazure {
                 }
             }
 
-            if (exception.Messages !== undefined) {
-                exception.Messages.forEach((item) => {
-                    message = message + '- ' + item + ' ';
-                });
-            }
-
             if (message === 'FEHLER ') {
-                message = message + ' : JavaScript-Fehler oder Probleme mit der Internetverbindung. Ggf. weitere Informationen im Log. ' + exception;
-                console.log(exception);
+                message = message + ': JavaScript-Fehler oder Probleme mit der Internetverbindung. Weitere Informationen im Log. ' + exception;
             }
 
             return message;
         }
 
-        // TODO:2017-01-09/hp: [any] will be [Response] in angular2
+        // TODO:2018-10-10/hp: [angular.IHttpPromiseCallbackArg<angularportalazure.Exception>] should be Response
         static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception {
-            console.log('angularportalazure.Exception.prepareException - Logging Exception: Find more information in the following console messages for [Responsee] and [Exception].');
-            let exception: angularportalazure.Exception = new angularportalazure.Exception();
+            let exception = angularportalazure.Exception.createException();
 
-            if (response.headers === undefined) {
-                console.log('> Get information from [processDotNetException1.data].');
-                exception = angularportalazure.Exception.processDotNetException1(response);
-            } else {
-                console.log('> Get information from [processDotNetException2.json()].');
-                exception = angularportalazure.Exception.processDotNetException2(response);
+            // #region Process (Angular 1) response.data.Data
+
+            if (response.data !== undefined && response.data.Data !== undefined) {
+                exception = angularportalazure.Exception.processResponseData(exception, response.data.Data);
             }
-            exception.convertResponse(response);
+
+            // #endregion
+
+            // #region Process (Angular 2) response.json().Data (EntityValidationException, etc.)
+
+            else if (response.json !== undefined && response.json().Data != undefined) {
+                exception = angularportalazure.Exception.processResponseData(exception, response.json().Data);
+            }
+
+            // #endregion
+
+            //exception.convertResponse(response);
 
             exception.Url = response.url;
             exception.Status = response.status;
             exception.StatusText = response.statusText;
 
-            //// Find a better way to log information, maybe to the database or to Google Analytics.
-            console.log(response);
-            console.log(exception);
-
             return exception;
         }
 
-        private static processDotNetException1(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception>): angularportalazure.Exception {
+        private static createException(): angularportalazure.Exception {
             let exception: angularportalazure.Exception = new angularportalazure.Exception();
-
-            // #region Convert data to Messages
-
             exception.Messages = [];
+            return exception;
+        }
 
-            if (response.data.Data === undefined) {
-                exception.Messages.push('No further information found in [response.data.Data].');
-            } else {
+        //private static processResponseWithData(exception: angularportalazure.Exception, response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception>): angularportalazure.Exception {
+        //    console.debug('angularportalazure.Exception.processResponseWithData');
+        //    // #region Convert data to Messages
 
-                let i = 1;
-                while (response.data.Data[i + ''] !== undefined) {
-                    exception.Messages.push(response.data.Data[i + '']);
-                    i++;
-                }
+        //    if (response.data.Data === undefined) {
+        //        exception.Messages.push('No further information found in [response.data.Data].');
+        //        exception.Messages.push('No further information found in [response.data.Data].');
+        //    } else {
+
+        //        let i = 1;
+        //        while (response.data.Data[i + ''] !== undefined) {
+        //            console.debug('Add to exception.Messages : ' + response.data.Data[i + '']);
+        //            exception.Messages.push(response.data.Data[i + '']);
+        //            i++;
+        //        }
+        //    }
+
+        //    // #endregion
+
+        //    return exception;
+        //}
+
+        private static processResponseData(exception: angularportalazure.Exception, data: any[]): angularportalazure.Exception {
+            let i = 1;
+            while (data[i + ''] !== undefined) {
+                exception.Messages.push(data[i + '']);
+                i++;
             }
-
-            // #endregion
 
             return exception;
         }
 
         // TODO:2017-01-09/hp: Implement this function for angular2
-        private static processDotNetException2(response: any): angularportalazure.Exception {
-            let exception: angularportalazure.Exception = new angularportalazure.Exception();
+        //private static processDotNetException2(exception: angularportalazure.Exception, response: any): angularportalazure.Exception {
+        //    console.debug('angularportalazure.Exception.processDotNetException2');
 
-            if (response.json().data !== undefined) {
-                console.log('[angularportalazure.Exception.processDotNetException2] not implemented. Implement it to get proper exception data.');
-            }
+        //    if (response.json().data !== undefined) {
+        //        console.debug('[angularportalazure.Exception.processDotNetException2] not implemented. Implement it to get proper exception data.');
+        //    }
 
-            return exception;
-        }
+        //    return exception;
+        //}
 
         // #endregion
     }

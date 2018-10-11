@@ -1,76 +1,94 @@
 ﻿namespace angularportalazure {
-    export class ExceptionDotNet {
-        // .NET Exception (the following fields are transmitted over the wire)
-        ExceptionMessage: string;
-        ExceptionType: string;
-        InnerException: ExceptionDotNet;
-        Message: string;
-        StackTrace: string;
-
-        // This .NET Exception fields are not transmitted and shouldn't be used on the client
-        // Data: { key: number, value: string }[];
-        // HelpLink: string;
-        // HResult: number;
-        // Source: string;
-        // ClassName: string;
-    }
-
     export class ValidationResultDotNet {
         ErrorMessage: string;
         MemberNames: string[];
     }
 
-    export class ValidationsExceptionDotNet extends ExceptionDotNet {
-        ClassName: string;
+    export class ExceptionDotNet {
+        // .NET Exception (the following fields are transmitted over the wire)
+        ClassName: string | void;
+        Data: { key: number, value: string }[] | null;
+        ExceptionMethod: string | void;
+        HelpURL: string | null | void;
+        HelpLink: string | null | void;
+        HResult: number;
+        InnerException: ExceptionDotNet | null;
+        Message: string | null;
+        RemoteStackIndex: number | void;
+        RemoteStackTraceString: string | null | void;
+        Source: string;
+        StackTrace: string;
+        WatsonBuckets: string | null | void;
+
+        /**
+         *  @deprecated ExceptionMessage is obsolete
+         */
+        ExceptionMessage: string | void;
+        /**
+         *  @deprecated ExceptionType is obsolete
+         */
+        ExceptionType: string | void;
+    }
+
+    export class ArgumentNullException extends ExceptionDotNet {
+        ParamName: string;
+    }
+
+    export class EntityValidationException extends ExceptionDotNet {
         Data: { key: number, value: string }[];
         ValidationResults: ValidationResultDotNet[];
 
-        public convertResponse(response: any) {
-            if (response.headers === undefined) {
-                ValidationsExceptionDotNet.convertResponse(this, response.data);
-                ValidationsExceptionDotNet.convertExceptionType(this, response.data);
-            } else {
-                ValidationsExceptionDotNet.convertResponse(this, response.json());
-                ValidationsExceptionDotNet.convertExceptionType(this, response.json());
-            }
-        }
+        //public convertResponse(response: any) {
+        //    if (response.headers === undefined) {
+        //        console.debug('angularportalazure.EntityValidationException.convertResponse - response.data');
+        //        ValidationsExceptionDotNet.convertResponse(this, response.data);
+        //        ValidationsExceptionDotNet.convertExceptionType(this, response.data);
+        //    } else {
+        //        console.debug('angularportalazure.EntityValidationException.convertResponse - response.json()');
+        //        ValidationsExceptionDotNet.convertResponse(this, response.json());
+        //        ValidationsExceptionDotNet.convertExceptionType(this, response.json());
+        //    }
+        //}
 
-        private static convertResponse(exception: ValidationsExceptionDotNet, responseData: ExceptionDotNet) {
-            // ExceptionDotNet
-            exception.ExceptionMessage = responseData.ExceptionMessage;
-            exception.Message = responseData.Message;
-            exception.StackTrace = responseData.StackTrace;
-            exception.InnerException = responseData.InnerException;
+        //protected static convertResponse(exceptionTo: EntityValidationException | ValidationsExceptionDotNet, responseDataFrom: ExceptionDotNet): void {
+        //    console.debug('angularportalazure.EntityValidationException.convertResponse');
 
-            // ValidationsExceptionDotNet
-            // exception.ClassName = 'Not yet implemented';
-            // exception.Data = [{ key: 0, value: 'Not yet implemented' }];
+        //    exceptionTo.ExceptionMessage = responseDataFrom.ExceptionMessage;
+        //    exceptionTo.Message = responseDataFrom.Message;
+        //    exceptionTo.StackTrace = responseDataFrom.StackTrace;
+        //    exceptionTo.InnerException = responseDataFrom.InnerException;
+        //}
 
-            // ValidationResultDotNet
-            // exception.ValidationResults = [{ ErrorMessage: 'Not yet implemented', MemberNames: [] }];
-        }
+        //protected static convertExceptionType(exception: EntityValidationException | ValidationsExceptionDotNet, responseData: any): void {
+        //    if (responseData.ExceptionType === undefined) {
+        //        console.debug('angularportalazure.EntityValidationException.convertExceptionType - undefined');
+        //        return;
+        //    }
+        //    else if (responseData.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
+        //        console.debug('angularportalazure.EntityValidationException.convertExceptionType - DbEntityValidationException');
+        //        exception.ExceptionType = 'DbEntityValidationException';
+        //        return;
+        //    }
+        //    else if (responseData.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
+        //        console.debug('angularportalazure.EntityValidationException.convertExceptionType - DbUpdateConcurrencyException');
+        //        exception.ExceptionType = 'DbUpdateConcurrencyException';
+        //        return;
+        //    }
+        //    else if (responseData.ClassName !== undefined && responseData.ClassName.indexOf('ValidationsException') > 0) {
+        //        console.debug('angularportalazure.EntityValidationException.convertExceptionType - ValidationsException');
+        //        exception.ExceptionType = 'ValidationsException';
+        //        return;
+        //    }
+        //    else {
+        //        console.debug('angularportalazure.EntityValidationException.convertExceptionType - else');
+        //        exception.ExceptionType = responseData.ExceptionType;
+        //    }
+        //}
+    }
 
-        private static convertExceptionType(exception: ValidationsExceptionDotNet, responseData: any): void {
-            if (responseData.ExceptionType === undefined) {
-                return;
-            }
-
-            if (responseData.ExceptionType === 'System.Data.Entity.Validation.DbEntityValidationException') {
-                exception.ExceptionType = 'DbEntityValidationException';
-                return;
-            } else if (responseData.ExceptionType === 'System.Data.Entity.Infrastructure.DbUpdateConcurrencyException') {
-                exception.ExceptionType = 'DbUpdateConcurrencyException';
-                return;
-            }
-
-            // ClassName should by ExceptionType
-            if (responseData.ClassName !== undefined && responseData.ClassName.indexOf('ValidationsException') > 0) {
-                console.log('[angularportalazure.Exception.setExceptionType2] Why is this in ClassName? Can this be changed?');
-                exception.ExceptionType = 'ValidationsException';
-                return;
-            }
-
-            exception.ExceptionType = responseData.ExceptionType;
-        }
+    /**
+     *  @deprecated ValidationsExceptionDotNet should be replaced by EntityValidationException
+     */
+    export class ValidationsExceptionDotNet extends EntityValidationException {
     }
 }

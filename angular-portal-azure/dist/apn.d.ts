@@ -424,27 +424,50 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-    class ExceptionDotNet {
-        ExceptionMessage: string;
-        ExceptionType: string;
-        InnerException: ExceptionDotNet;
-        Message: string;
-        StackTrace: string;
-    }
     class ValidationResultDotNet {
         ErrorMessage: string;
         MemberNames: string[];
     }
-    class ValidationsExceptionDotNet extends ExceptionDotNet {
-        ClassName: string;
+    class ExceptionDotNet {
+        ClassName: string | void;
+        Data: {
+            key: number;
+            value: string;
+        }[] | null;
+        ExceptionMethod: string | void;
+        HelpURL: string | null | void;
+        HelpLink: string | null | void;
+        HResult: number;
+        InnerException: ExceptionDotNet | null;
+        Message: string | null;
+        RemoteStackIndex: number | void;
+        RemoteStackTraceString: string | null | void;
+        Source: string;
+        StackTrace: string;
+        WatsonBuckets: string | null | void;
+        /**
+         *  @deprecated ExceptionMessage is obsolete
+         */
+        ExceptionMessage: string | void;
+        /**
+         *  @deprecated ExceptionType is obsolete
+         */
+        ExceptionType: string | void;
+    }
+    class ArgumentNullException extends ExceptionDotNet {
+        ParamName: string;
+    }
+    class EntityValidationException extends ExceptionDotNet {
         Data: {
             key: number;
             value: string;
         }[];
         ValidationResults: ValidationResultDotNet[];
-        convertResponse(response: any): void;
-        private static convertResponse;
-        private static convertExceptionType;
+    }
+    /**
+     *  @deprecated ValidationsExceptionDotNet should be replaced by EntityValidationException
+     */
+    class ValidationsExceptionDotNet extends EntityValidationException {
     }
 }
 declare namespace angularportalazure {
@@ -457,7 +480,7 @@ declare namespace angularportalazure {
         Url: string;
         static getOneLineMessage(exception: angularportalazure.Exception): string;
         static prepareException(response: angular.IHttpPromiseCallbackArg<angularportalazure.Exception> | any): angularportalazure.Exception;
-        private static processDotNetException1;
-        private static processDotNetException2;
+        private static createException;
+        private static processResponseData;
     }
 }
