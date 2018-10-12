@@ -7,7 +7,7 @@
 // #endregion
 
 namespace angularportalazure {
-    export class BladeNav extends angularportalazure.BladeData {
+    export class BladeNav extends angularportalazure.BladeData<BladeNavItem> {
         // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string = '', subtitle: string = '', width: number = 315) {
@@ -19,7 +19,7 @@ namespace angularportalazure {
 
         // #region Properties
 
-        items: Array<angularportalazure.BladeNavItem> = new Array<angularportalazure.BladeNavItem>();
+        //items: Array<angularportalazure.BladeNavItem> = new Array<angularportalazure.BladeNavItem>();
         isNav: boolean = true;
 
         // #endregion

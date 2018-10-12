@@ -686,24 +686,248 @@ var angularportalazure;
         function BladeData($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 300; }
-            return _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
+            var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
+            // #endregion
+            // #region Properties
+            _this.item = {};
+            _this.items = [];
+            return _this;
         }
         // #endregion
+        // #region newItem
+        BladeData.prototype.newItem = function (func) {
+            var _this = this;
+            this.onNewItem();
+            func().then(function (data) {
+                _this.isCommandDeleteEnabled = false;
+                _this.item = data;
+                _this.onNewedItem();
+            }).catch(function (ex) {
+                _this.setStatusBarException(ex);
+                _this.onNewItemException(ex);
+            });
+        };
+        /** Extension point */
+        BladeData.prototype.onNewItem = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onNewedItem = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onNewItemException = function (ex) {
+        };
+        // #endregion
+        // #region loadItem
+        BladeData.prototype.loadItem = function (func) {
+            var _this = this;
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+            this.onLoadItem();
+            func().then(function (data) {
+                _this.visibility = 'visible';
+                _this.clearStatusBar();
+                _this.item = data;
+                _this.onLoadedItem();
+            }).catch(function (ex) {
+                _this.setStatusBarException(ex);
+                _this.onLoadItemException(ex);
+            });
+        };
+        /** Extension point */
         BladeData.prototype.onLoadItem = function () {
-            this.visibility = 'collapse';
-            this.setStatusBarLoadData();
         };
-        BladeData.prototype.onLoadItems = function () {
-            this.visibility = 'collapse';
-            this.setStatusBarLoadData();
-        };
+        /** Extension point */
         BladeData.prototype.onLoadedItem = function () {
-            this.visibility = 'visible';
-            this.clearStatusBar();
         };
+        /** Extension point */
+        BladeData.prototype.onLoadItemException = function (ex) {
+        };
+        // #endregion
+        // #region loadItems
+        BladeData.prototype.loadItems = function (func) {
+            var _this = this;
+            this.visibility = 'collapse';
+            this.setStatusBarLoadData();
+            this.onLoadItems();
+            func().then(function (data) {
+                _this.visibility = 'visible';
+                _this.clearStatusBar();
+                _this.item = data;
+                _this.onLoadedItems();
+            }).catch(function (ex) {
+                _this.setStatusBarException(ex);
+                _this.onLoadItemsException(ex);
+            });
+        };
+        /** Extension point */
+        BladeData.prototype.onLoadItems = function () {
+        };
+        /** Extension point */
         BladeData.prototype.onLoadedItems = function () {
-            this.visibility = 'visible';
-            this.clearStatusBar();
+        };
+        /** Extension point */
+        BladeData.prototype.onLoadItemsException = function (ex) {
+        };
+        // #endregion
+        // #region saveItem
+        /**
+         * Default behavior for saving an entity.
+         * - call this.setStatusBarSaveData();
+         * - call this.onSaveItem()
+         * - validates this.formblade. if not valid, returns without saving
+         * - set this.isCommandSaveEnabled = false
+         * - call the provided function
+         * THEN
+         * - call this.clearStatusBar()
+         * - set this.isCommandSaveEnabled = true
+         * - set this.item to the saved data
+         * - call this.onSavedItem()
+         * - returns the saved data
+         * CATCH
+         * - set this.isCommandSaveEnabled = true
+         * - call this.setStatusBarException
+         */
+        BladeData.prototype.saveItem = function (func, ngForm) {
+            var _this = this;
+            if (ngForm === void 0) { ngForm = undefined; }
+            if (!this.isFormValid(ngForm) && this.onSaveItemFormValidation()) {
+                return;
+            }
+            this.setStatusBarSaveData();
+            this.isCommandSaveEnabled = false;
+            this.onSaveItem();
+            return func().then(function (data) {
+                _this.clearStatusBar();
+                _this.isCommandSaveEnabled = true;
+                _this.isCommandDeleteEnabled = true;
+                _this.item = data;
+                _this.onSavedItem();
+                return data;
+            }).catch(function (ex) {
+                _this.isCommandSaveEnabled = true;
+                _this.setStatusBarException(ex);
+                _this.onLoadItemsException(ex);
+            });
+        };
+        /** Extension point */
+        BladeData.prototype.onSaveItem = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onSavedItem = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onSaveItemException = function (ex) {
+        };
+        // #endregion
+        // #region saveObject
+        /**
+         * Default behavior for saving any object.
+         * - call this.setStatusBarSaveData();
+         * - call this.onSaveItem()
+         * - validates this.formblade. if not valid, returns without saving
+         * - call the provided function
+         * THEN
+         * - call this.clearStatusBar()
+         * - call this.onSavedItem()
+         * - returns the saved data
+         * CATCH
+         * - call this.setStatusBarException
+         */
+        BladeData.prototype.saveObject = function (func, ngForm) {
+            var _this = this;
+            if (ngForm === void 0) { ngForm = undefined; }
+            if (!this.isFormValid(ngForm) && this.onSaveObjectFormValidation()) {
+                return;
+            }
+            this.setStatusBarSaveData();
+            this.isCommandSaveEnabled = false;
+            this.onSaveObject();
+            return func().then(function (data) {
+                _this.clearStatusBar();
+                _this.isCommandSaveEnabled = true;
+                _this.isCommandDeleteEnabled = true;
+                _this.onSavedObject();
+                return data;
+            }).catch(function (ex) {
+                _this.isCommandSaveEnabled = true;
+                _this.setStatusBarException(ex);
+                _this.onLoadItemsException(ex);
+            });
+        };
+        /** Extension point */
+        BladeData.prototype.onSaveObject = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onSavedObject = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onSaveObjectException = function (ex) {
+        };
+        // #endregion
+        // #region deleteItem
+        BladeData.prototype.deleteItem = function (func, ngForm) {
+            var _this = this;
+            if (ngForm === void 0) { ngForm = undefined; }
+            if (!this.isFormValid(ngForm) && this.onDeleteItemFormValidation()) {
+                return;
+            }
+            this.setStatusBarDeleteData();
+            this.isCommandDeleteEnabled = false;
+            this.onDeleteItem();
+            return func().then(function (data) {
+                _this.clearStatusBar();
+                _this.isCommandDeleteEnabled = true;
+                _this.item = data;
+                if (_this.onDeletedItem()) {
+                    _this.close();
+                }
+                ;
+                return data;
+            }).catch(function (ex) {
+                _this.isCommandDeleteEnabled = true;
+                _this.setStatusBarException(ex);
+                _this.onLoadItemsException(ex);
+            });
+        };
+        /** Extension point */
+        BladeData.prototype.onDeleteItem = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onDeletedItem = function () {
+            return true; // close the current blade
+        };
+        /** Extension point */
+        BladeData.prototype.onDeletedObjectException = function (ex) {
+        };
+        // #endregion
+        // #region Form Validation
+        BladeData.prototype.isFormValid = function (ngForm) {
+            if (ngForm === void 0) { ngForm = undefined; }
+            // angularjs
+            if (!this.formblade.$valid) {
+                this.setStatusBarError('Formular nicht gültig.');
+                //console.log(this.formblade);
+                return false;
+            }
+            // angular (2+)
+            if (ngForm !== undefined) {
+                if (!ngForm.valid) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        /** Extension point */
+        BladeData.prototype.onSaveItemFormValidation = function () {
+            return true;
+        };
+        /** Extension point */
+        BladeData.prototype.onSaveObjectFormValidation = function () {
+            return true;
+        };
+        /** Extension point */
+        BladeData.prototype.onDeleteItemFormValidation = function () {
+            return true;
         };
         return BladeData;
     }(angularportalazure.Blade));
@@ -726,7 +950,7 @@ var angularportalazure;
             var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
             // #endregion
             // #region Properties
-            _this.items = new Array();
+            //items: Array<angularportalazure.BladeNavItem> = new Array<angularportalazure.BladeNavItem>();
             _this.isNav = true;
             _this.isInnerHtml = false;
             return _this;
@@ -1202,150 +1426,6 @@ var angularportalazure;
         }
         // #endregion
         // #region Methods
-        BladeDetail.prototype.loadItem = function (func) {
-            var _this = this;
-            this.onLoadItem();
-            func().then(function (data) {
-                _this.item = data;
-                _this.onLoadedItem();
-            }).catch(function (ex) {
-                _this.setStatusBarException(ex);
-            });
-        };
-        /**
-         * Default behavior for saving an entity.
-         * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
-         * - set this.isCommandSaveEnabled = false
-         * - call the provided function
-         * THEN
-         * - call this.clearStatusBar()
-         * - set this.isCommandSaveEnabled = true
-         * - set this.item to the saved data
-         * - call this.onSavedItem()
-         * - returns the saved data
-         * CATCH
-         * - set this.isCommandSaveEnabled = true
-         * - call this.setStatusBarException
-         */
-        BladeDetail.prototype.saveItem = function (func, ngForm) {
-            var _this = this;
-            if (ngForm === void 0) { ngForm = undefined; }
-            this.setStatusBarSaveData();
-            this.onSaveItem();
-            // #region form valid?
-            // angularjs: if form valid
-            if (!this.formblade.$valid) {
-                this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
-                this.statusBarClass = 'apa-statusbar-error';
-                //console.log(this.formblade);
-                return;
-            }
-            // angular: if form valid
-            if (ngForm !== undefined) {
-                if (!ngForm.valid) {
-                    return;
-                }
-            }
-            // #endregion
-            this.isCommandSaveEnabled = false;
-            return func().then(function (data) {
-                _this.clearStatusBar();
-                _this.isCommandSaveEnabled = true;
-                _this.item = data;
-                _this.onSavedItem();
-                return data;
-            }).catch(function (exception) {
-                _this.isCommandSaveEnabled = true;
-                _this.setStatusBarException(exception);
-            });
-        };
-        /**
-         * Default behavior for saving any object.
-         * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
-         * - call the provided function
-         * THEN
-         * - call this.clearStatusBar()
-         * - call this.onSavedItem()
-         * - returns the saved data
-         * CATCH
-         * - call this.setStatusBarException
-         */
-        BladeDetail.prototype.saveObject = function (func, ngForm) {
-            var _this = this;
-            if (ngForm === void 0) { ngForm = undefined; }
-            this.setStatusBarSaveData();
-            this.onSaveItem();
-            // #region form valid?
-            // angularjs: if form valid
-            if (!this.formblade.$valid) {
-                this.statusBar = 'Speichern nicht möglich! [Console] enthält weitere Informationen.';
-                this.statusBarClass = 'apa-statusbar-error';
-                //console.log(this.formblade);
-                return;
-            }
-            // angular: if form valid
-            if (ngForm !== undefined) {
-                if (!ngForm.valid) {
-                    return;
-                }
-            }
-            // #endregion
-            return func().then(function (data) {
-                _this.clearStatusBar();
-                _this.onSavedItem();
-                return data;
-            }).catch(function (exception) {
-                _this.setStatusBarException(exception);
-            });
-        };
-        BladeDetail.prototype.deleteItem = function (func, ngForm) {
-            var _this = this;
-            if (ngForm === void 0) { ngForm = undefined; }
-            this.setStatusBarDeleteData();
-            this.onDeleteItem();
-            // #region form valid?
-            // angularjs: if form valid
-            if (!this.formblade.$valid) {
-                this.statusBar = 'Löschen nicht möglich! [Console] enthält weitere Informationen.';
-                this.statusBarClass = 'apa-statusbar-error';
-                //console.log(this.formblade);
-                return;
-            }
-            // angular: if form valid
-            if (ngForm !== undefined) {
-                if (!ngForm.valid) {
-                    return;
-                }
-            }
-            // #endregion
-            this.isCommandDeleteEnabled = false;
-            return func().then(function (data) {
-                _this.clearStatusBar();
-                _this.isCommandDeleteEnabled = true;
-                _this.item = data;
-                _this.onDeletedItem();
-                return data;
-            }).catch(function (exception) {
-                _this.isCommandDeleteEnabled = true;
-                _this.setStatusBarException(exception);
-            });
-        };
-        /** Extension point */
-        BladeDetail.prototype.onSaveItem = function () {
-        };
-        /** Extension point */
-        BladeDetail.prototype.onSavedItem = function () {
-        };
-        /** Extension point */
-        BladeDetail.prototype.onDeleteItem = function () {
-        };
-        /** Extension point */
-        BladeDetail.prototype.onDeletedItem = function () {
-        };
         BladeDetail.prototype.onCommandCancel = function () {
             this.close();
         };
@@ -1365,12 +1445,11 @@ var angularportalazure;
         function BladeGrid($scope, portalService, path, title, subtitle, width) {
             if (subtitle === void 0) { subtitle = ''; }
             if (width === void 0) { width = 200; }
-            var _this = _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
-            // #endregion
-            // #region Properties
-            _this.items = [];
-            return _this;
+            return _super.call(this, $scope, portalService, path, title, subtitle, width) || this;
         }
+        // #endregion
+        // #region Properties
+        //items: T[] = [];
         // #endregion
         // #region Methods
         BladeGrid.prototype.loadItems = function (func) {
@@ -1590,26 +1669,29 @@ var angularportalazure;
         // #endregion
         // #region Static Methods
         Exception.getOneLineMessage = function (exception) {
-            var message = '';
-            if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
-                || exception.Message.toLowerCase().indexOf('the duplicate key value is') >= 0) {
-                console.debug(exception.Message);
-                return 'Datensatz mit gleichem Key (Schlüssel) bereits vorhanden!';
-            }
-            // Add Messages, if available
-            if (exception.Messages !== undefined && exception.Messages.length > 0) {
-                exception.Messages.forEach(function (item, index) {
-                    if (index > 0) {
-                        message = message + ' - ';
-                    }
-                    message = message + item;
-                });
-            }
-            else {
-                message = 'FEHLER ';
-            }
+            var message = 'FEHLER ';
             if (exception.Message !== undefined) {
-                message = message + ': ' + exception.Message + ' ';
+                if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
+                    || exception.Message.toLowerCase().indexOf('the duplicate key value is') >= 0) {
+                    console.debug(exception.Message);
+                    return 'Datensatz mit gleichem Key (Schlüssel) bereits vorhanden!';
+                }
+                if (exception.Message.toLowerCase().indexOf('the delete statement conflicted with the reference constraint') >= 0) {
+                    console.debug(exception.Message);
+                    return 'Datensatz kann nicht gelöscht werden, da noch abhängige Daten vorhanden sind!';
+                }
+                message = message + exception.Message + ' ';
+            }
+            if (exception.Messages !== undefined) {
+                if (exception.Messages.length > 0) {
+                    message = '';
+                    exception.Messages.forEach(function (item, index) {
+                        if (index > 0) {
+                            message = message + ' - ';
+                        }
+                        message = message + item;
+                    });
+                }
             }
             if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') < 0) {
                 message = message + ': ' + exception.ExceptionMessage + ' ';

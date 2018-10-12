@@ -6,7 +6,7 @@
 // #endregion
 
 namespace angularportalazure {
-    export class BladeGrid extends angularportalazure.BladeData {
+    export class BladeGrid extends angularportalazure.BladeData<any> {
         // #region Constructor
 
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle: string = '', width: number = 200) {
@@ -17,7 +17,7 @@ namespace angularportalazure {
 
         // #region Properties
 
-        items: any[] = [];
+        //items: T[] = [];
 
         // #endregion
 

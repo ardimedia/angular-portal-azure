@@ -197,18 +197,94 @@ declare namespace angularportalazure {
     }
 }
 declare namespace angularportalazure {
-    class BladeData extends angularportalazure.Blade {
+    class BladeData<T> extends angularportalazure.Blade {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
+        item: T;
+        items: T[];
+        newItem(func: () => Promise<any | angularportalazure.Exception>): void;
+        /** Extension point */
+        onNewItem(): void;
+        /** Extension point */
+        onNewedItem(): void;
+        /** Extension point */
+        onNewItemException(ex: angularportalazure.Exception): void;
+        loadItem(func: () => Promise<any | angularportalazure.Exception>): void;
+        /** Extension point */
         onLoadItem(): void;
-        onLoadItems(): void;
+        /** Extension point */
         onLoadedItem(): void;
+        /** Extension point */
+        onLoadItemException(ex: angularportalazure.Exception): void;
+        loadItems(func: () => Promise<any | angularportalazure.Exception>): void;
+        /** Extension point */
+        onLoadItems(): void;
+        /** Extension point */
         onLoadedItems(): void;
+        /** Extension point */
+        onLoadItemsException(ex: angularportalazure.Exception): void;
+        /**
+         * Default behavior for saving an entity.
+         * - call this.setStatusBarSaveData();
+         * - call this.onSaveItem()
+         * - validates this.formblade. if not valid, returns without saving
+         * - set this.isCommandSaveEnabled = false
+         * - call the provided function
+         * THEN
+         * - call this.clearStatusBar()
+         * - set this.isCommandSaveEnabled = true
+         * - set this.item to the saved data
+         * - call this.onSavedItem()
+         * - returns the saved data
+         * CATCH
+         * - set this.isCommandSaveEnabled = true
+         * - call this.setStatusBarException
+         */
+        saveItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
+        /** Extension point */
+        onSaveItem(): void;
+        /** Extension point */
+        onSavedItem(): void;
+        /** Extension point */
+        onSaveItemException(ex: angularportalazure.Exception): void;
+        /**
+         * Default behavior for saving any object.
+         * - call this.setStatusBarSaveData();
+         * - call this.onSaveItem()
+         * - validates this.formblade. if not valid, returns without saving
+         * - call the provided function
+         * THEN
+         * - call this.clearStatusBar()
+         * - call this.onSavedItem()
+         * - returns the saved data
+         * CATCH
+         * - call this.setStatusBarException
+         */
+        saveObject(func: () => Promise<any | angularportalazure.Exception> | angular.IPromise<any | angularportalazure.Exception>, ngForm?: any): (Promise<any | void> | angular.IPromise<any | void>);
+        /** Extension point */
+        onSaveObject(): void;
+        /** Extension point */
+        onSavedObject(): void;
+        /** Extension point */
+        onSaveObjectException(ex: angularportalazure.Exception): void;
+        deleteItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
+        /** Extension point */
+        onDeleteItem(): void;
+        /** Extension point */
+        onDeletedItem(): boolean;
+        /** Extension point */
+        onDeletedObjectException(ex: angularportalazure.Exception): void;
+        isFormValid(ngForm?: any): boolean;
+        /** Extension point */
+        onSaveItemFormValidation(): boolean;
+        /** Extension point */
+        onSaveObjectFormValidation(): boolean;
+        /** Extension point */
+        onDeleteItemFormValidation(): boolean;
     }
 }
 declare namespace angularportalazure {
-    class BladeNav extends angularportalazure.BladeData {
+    class BladeNav extends angularportalazure.BladeData<BladeNavItem> {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title?: string, subtitle?: string, width?: number);
-        items: Array<angularportalazure.BladeNavItem>;
         isNav: boolean;
         onNavigateTo(path: string): void;
     }
@@ -357,58 +433,15 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
 }
 declare namespace angularportalazure {
-    class BladeDetail<T> extends angularportalazure.BladeData {
+    class BladeDetail<T> extends angularportalazure.BladeData<T> {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
         item: T;
-        loadItem(func: () => Promise<any | angularportalazure.Exception>): void;
-        /**
-         * Default behavior for saving an entity.
-         * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
-         * - set this.isCommandSaveEnabled = false
-         * - call the provided function
-         * THEN
-         * - call this.clearStatusBar()
-         * - set this.isCommandSaveEnabled = true
-         * - set this.item to the saved data
-         * - call this.onSavedItem()
-         * - returns the saved data
-         * CATCH
-         * - set this.isCommandSaveEnabled = true
-         * - call this.setStatusBarException
-         */
-        saveItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
-        /**
-         * Default behavior for saving any object.
-         * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
-         * - call the provided function
-         * THEN
-         * - call this.clearStatusBar()
-         * - call this.onSavedItem()
-         * - returns the saved data
-         * CATCH
-         * - call this.setStatusBarException
-         */
-        saveObject(func: () => Promise<any | angularportalazure.Exception> | angular.IPromise<any | angularportalazure.Exception>, ngForm?: any): (Promise<any | void> | angular.IPromise<any | void>);
-        deleteItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
-        /** Extension point */
-        onSaveItem(): void;
-        /** Extension point */
-        onSavedItem(): void;
-        /** Extension point */
-        onDeleteItem(): void;
-        /** Extension point */
-        onDeletedItem(): void;
         onCommandCancel(): void;
     }
 }
 declare namespace angularportalazure {
-    class BladeGrid extends angularportalazure.BladeData {
+    class BladeGrid extends angularportalazure.BladeData<any> {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        items: any[];
         loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void;
         onFilter(actual: Object, expected: string): boolean;
     }

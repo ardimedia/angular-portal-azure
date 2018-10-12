@@ -21,28 +21,33 @@ namespace angularportalazure {
         // #region Static Methods
 
         static getOneLineMessage(exception: angularportalazure.Exception): string {
-            let message: string = '';
-
-            if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
-                || exception.Message.toLowerCase().indexOf('the duplicate key value is') >= 0) {
-                console.debug(exception.Message);
-                return 'Datensatz mit gleichem Key (Schlüssel) bereits vorhanden!';
-            }
-
-            // Add Messages, if available
-            if (exception.Messages !== undefined && exception.Messages.length > 0) {
-                exception.Messages.forEach((item, index) => {
-                    if (index > 0) {
-                        message = message + ' - ';
-                    }
-                    message = message + item;
-                });
-            } else {
-                message = 'FEHLER ';
-            }
+            let message: string = 'FEHLER ';
 
             if (exception.Message !== undefined) {
-                message = message + ': ' + exception.Message + ' ';
+                if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
+                    || exception.Message.toLowerCase().indexOf('the duplicate key value is') >= 0) {
+                    console.debug(exception.Message);
+                    return 'Datensatz mit gleichem Key (Schlüssel) bereits vorhanden!';
+                }
+
+                if (exception.Message.toLowerCase().indexOf('the delete statement conflicted with the reference constraint') >= 0) {
+                    console.debug(exception.Message);
+                    return 'Datensatz kann nicht gelöscht werden, da noch abhängige Daten vorhanden sind!';
+                }
+
+                message = message + exception.Message + ' ';
+            }
+
+            if (exception.Messages !== undefined) {
+                if (exception.Messages.length > 0) {
+                    message = '';
+                    exception.Messages.forEach((item, index) => {
+                        if (index > 0) {
+                            message = message + ' - ';
+                        }
+                        message = message + item;
+                    });
+                }
             }
 
             if (exception.ExceptionMessage !== undefined && (<string>exception.ExceptionMessage).toLowerCase().indexOf('see the inner exception for details') < 0) {
