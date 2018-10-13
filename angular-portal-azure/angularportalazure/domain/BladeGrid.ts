@@ -23,16 +23,16 @@ namespace angularportalazure {
 
         // #region Methods
 
-        loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void {
-            this.onLoadItems();
+        //loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void {
+        //    this.onLoadItems();
 
-            func().then((data: any) => {
-                this.items = data;
-                this.onLoadedItems();
-            }).catch((exception: angularportalazure.Exception) => {
-                this.setStatusBarException(exception);
-            });
-        }
+        //    func().then((data: any) => {
+        //        this.items = data;
+        //        this.onLoadedItems();
+        //    }).catch((exception: angularportalazure.Exception) => {
+        //        this.setStatusBarException(exception);
+        //    });
+        //}
 
         // #region Filter
 
@@ -48,7 +48,7 @@ namespace angularportalazure {
 
             // #region Helper functions
 
-            // Implemenation detail:
+            // Implementation detail:
             // > We implemented the following functions with in-line-functions, since onFilter is not called within the scope of a class (this. not working).
 
             // Function to convert 'number' to 'string'

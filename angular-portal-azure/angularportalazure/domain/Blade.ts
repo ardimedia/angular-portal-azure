@@ -170,14 +170,6 @@ namespace angularportalazure {
             this.onActivated();
         }
 
-        /** Override */
-        onActivate(): void {
-        }
-
-        /** Override */
-        onActivated(): void {
-        }
-
         navigateTo(path: any) {
             this.onNavigateTo(path);
         }

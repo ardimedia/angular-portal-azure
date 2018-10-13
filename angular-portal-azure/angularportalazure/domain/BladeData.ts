@@ -95,7 +95,7 @@ namespace angularportalazure {
             func().then((data: any) => {
                 this.visibility = 'visible';
                 this.clearStatusBar();
-                this.item = data;
+                this.items = data;
                 this.onLoadedItems();
             }).catch((ex: angularportalazure.Exception) => {
                 this.setStatusBarException(ex);

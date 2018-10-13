@@ -109,6 +109,12 @@ var angularportalazure;
         UserControlBase.prototype.ngOnDestroy = function () {
             this.removeWindowResizeListener();
         };
+        /** Override */
+        UserControlBase.prototype.onActivate = function () {
+        };
+        /** Override */
+        UserControlBase.prototype.onActivated = function () {
+        };
         UserControlBase.prototype.removeWindowResizeListener = function () {
             if (this.windowResizeHandler !== undefined) {
                 this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
@@ -345,12 +351,6 @@ var angularportalazure;
             this.onActivate();
             this.onActivated();
         };
-        /** Override */
-        Blade.prototype.onActivate = function () {
-        };
-        /** Override */
-        Blade.prototype.onActivated = function () {
-        };
         Blade.prototype.navigateTo = function (path) {
             this.onNavigateTo(path);
         };
@@ -497,7 +497,7 @@ var angularportalazure;
             var isBladeAlreadyShown = false;
             this.blades.forEach(function (blade) {
                 if (blade.path === args.path) {
-                    // Blade is already show, just activate it again
+                    // Blade is already shown, just activate it again
                     blade.onActivate();
                     isBladeAlreadyShown = true;
                     return;
@@ -752,7 +752,7 @@ var angularportalazure;
             func().then(function (data) {
                 _this.visibility = 'visible';
                 _this.clearStatusBar();
-                _this.item = data;
+                _this.items = data;
                 _this.onLoadedItems();
             }).catch(function (ex) {
                 _this.setStatusBarException(ex);
@@ -1452,16 +1452,15 @@ var angularportalazure;
         //items: T[] = [];
         // #endregion
         // #region Methods
-        BladeGrid.prototype.loadItems = function (func) {
-            var _this = this;
-            this.onLoadItems();
-            func().then(function (data) {
-                _this.items = data;
-                _this.onLoadedItems();
-            }).catch(function (exception) {
-                _this.setStatusBarException(exception);
-            });
-        };
+        //loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void {
+        //    this.onLoadItems();
+        //    func().then((data: any) => {
+        //        this.items = data;
+        //        this.onLoadedItems();
+        //    }).catch((exception: angularportalazure.Exception) => {
+        //        this.setStatusBarException(exception);
+        //    });
+        //}
         // #region Filter
         BladeGrid.prototype.onFilter = function (actual, expected) {
             // #region Documentation
@@ -1471,7 +1470,7 @@ var angularportalazure;
             // > If the item is an object, the filter will also be called with the object in the parameter 'actual'
             // #endregion
             // #region Helper functions
-            // Implemenation detail:
+            // Implementation detail:
             // > We implemented the following functions with in-line-functions, since onFilter is not called within the scope of a class (this. not working).
             // Function to convert 'number' to 'string'
             var convertToString = function (value) {

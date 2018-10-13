@@ -40,6 +40,14 @@ namespace angularportalazure {
             this.removeWindowResizeListener();
         }
 
+        /** Override */
+        onActivate(): void {
+        }
+
+        /** Override */
+        onActivated(): void {
+        }
+
         private removeWindowResizeListener() {
             if (this.windowResizeHandler !== undefined) {
                 this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);

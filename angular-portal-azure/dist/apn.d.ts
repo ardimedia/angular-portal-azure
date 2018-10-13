@@ -29,6 +29,10 @@ declare namespace angularportalazure {
         $onDestroy(): void;
         /** angular2: ngOnChanges(), ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy */
         ngOnDestroy(): void;
+        /** Override */
+        onActivate(): void;
+        /** Override */
+        onActivated(): void;
         private removeWindowResizeListener;
         setupWindowResizeListener(callback: () => void): void;
         isNumberUndefinedNullOr0(value: number): boolean;
@@ -135,10 +139,6 @@ declare namespace angularportalazure {
         commandExcel: () => void;
         commandExcelText: string;
         activate(): void;
-        /** Override */
-        onActivate(): void;
-        /** Override */
-        onActivated(): void;
         navigateTo(path: any): void;
         /** Must be overridden. */
         onNavigateTo(value: any): void;
@@ -442,7 +442,6 @@ declare namespace angularportalazure {
 declare namespace angularportalazure {
     class BladeGrid extends angularportalazure.BladeData<any> {
         constructor($scope: angular.IScope, portalService: angularportalazure.PortalService, path: string, title: string, subtitle?: string, width?: number);
-        loadItems(func: () => any | angular.IPromise<any> | Promise<any>): void;
         onFilter(actual: Object, expected: string): boolean;
     }
 }

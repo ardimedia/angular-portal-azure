@@ -43,7 +43,7 @@ namespace angularportalazure {
             let isBladeAlreadyShown: boolean = false;
             this.blades.forEach((blade) => {
                 if (blade.path === args.path) {
-                    // Blade is already show, just activate it again
+                    // Blade is already shown, just activate it again
                     blade.onActivate();
                     isBladeAlreadyShown = true;
                     return;
