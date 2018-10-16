@@ -36,6 +36,7 @@ declare namespace angularportalazure {
         private removeWindowResizeListener;
         setupWindowResizeListener(callback: () => void): void;
         isNumberUndefinedNullOr0(value: number): boolean;
+        isObjectNullUndefinedOrEmpty(value: object): boolean;
         isStringNullOrEmpty(value: string): boolean;
         getRandomString(length?: number): string;
         clearStatusBar(): void;
@@ -179,6 +180,7 @@ declare namespace angularportalazure {
         private areaNotificationShowListener;
         private areaNotificationHideListener;
         blades: Array<angularportalazure.Blade>;
+        raiseBladeOnActivateEvent(args: angularportalazure.IAddBladeEventArgs): void;
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs): void;
         setFirstBlade(path: string): angularportalazure.Blade | void;
         addBlade(path: string, senderPath?: string): angularportalazure.Blade | void;
@@ -266,10 +268,12 @@ declare namespace angularportalazure {
         onSavedObject(): void;
         /** Extension point */
         onSaveObjectException(ex: angularportalazure.Exception): void;
-        deleteItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
+        deleteItem(func: () => Promise<T | number | void | angularportalazure.Exception> | angular.IPromise<T | number | void | angularportalazure.Exception>, ngForm?: any): (Promise<T | number | void> | angular.IPromise<T | number | void>);
         /** Extension point */
         onDeleteItem(): void;
-        /** Extension point */
+        /** Extension point
+         * return value indicates if the current blade should be closed or not.
+         */
         onDeletedItem(): boolean;
         /** Extension point */
         onDeletedObjectException(ex: angularportalazure.Exception): void;

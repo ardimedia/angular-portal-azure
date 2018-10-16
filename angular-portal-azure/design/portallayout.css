@@ -48,7 +48,8 @@ a {
   -ms-scroll-chaining: none; }
 
 .fxs-panorama-homearea {
-  min-width: 600px; }
+  min-width: 600px;
+  width: 100%; }
 
 .fxs-panorama .fxs-panorama-homearea {
   position: relative;
@@ -750,4 +751,3 @@ a {
   padding: 0 .6em; }
 
 /*#endregion*/
-

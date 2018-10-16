@@ -33,7 +33,7 @@ namespace angularportalazure {
             // Set 'this.portalService.areaBlades.blades[index]' to 'this'
             //     'this.portalService.areaBlades.blades[index]' was generated during AddBlade
             this.portalService.areaBlades.blades.forEach((blade, index) => {
-                if (blade.path === this.path) {
+                if (blade.path != null && this.path != null && blade.path.toLowerCase() === this.path.toLowerCase()) {
                     this.portalService.areaBlades.blades[index] = this;
                 }
             });
@@ -74,7 +74,7 @@ namespace angularportalazure {
         get path(): string {
             return this._path;
         }
-        // For the moment we do not distinguish between lower and upper case path name
+        // For the moment we do distinguish between lower and upper case path name
         set path(newPath: string) {
             if (newPath == null) { return; }
             this._path = newPath.toLowerCase();

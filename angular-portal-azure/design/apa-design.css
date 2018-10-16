@@ -73,7 +73,8 @@ a {
   -ms-scroll-chaining: none; }
 
 .fxs-panorama-homearea {
-  min-width: 600px; }
+  min-width: 600px;
+  width: 100%; }
 
 .fxs-panorama .fxs-panorama-homearea {
   position: relative;
@@ -793,7 +794,7 @@ a {
 img, a img, :link img, :visited img {
   border: 0; }
 
-input.ng-invalid {
+input.ng-invalid, select.ng-invalid {
   border: 1px solid red; }
 
 .collapsed {
@@ -867,4 +868,3 @@ a:focus, a:hover {
 /*BOOTSTRAP OVERRIDE*/
 input[type=checkbox].form-control {
   width: initial; }
-

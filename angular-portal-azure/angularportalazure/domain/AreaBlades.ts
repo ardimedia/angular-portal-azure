@@ -1,4 +1,4 @@
-﻿// #region Declarations
+﻿// #region Imports
 
 /// <reference types="angular" />
 /// <reference path="blade.ts" />
@@ -39,10 +39,23 @@ namespace angularportalazure {
 
         // #region Methods
 
+        raiseBladeOnActivateEvent(args: angularportalazure.IAddBladeEventArgs) {
+            let isEventRaised: boolean = false;
+
+            this.blades.forEach((blade) => {
+                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
+                    // Raise event onActivate
+                    blade.onActivate();
+                    isEventRaised = true;
+                    return;
+                }
+            });
+        }
+
         raiseAddBladeEvent(args: angularportalazure.IAddBladeEventArgs) {
             let isBladeAlreadyShown: boolean = false;
             this.blades.forEach((blade) => {
-                if (blade.path === args.path) {
+                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
                     // Blade is already shown, just activate it again
                     blade.onActivate();
                     isBladeAlreadyShown = true;
@@ -66,7 +79,7 @@ namespace angularportalazure {
             if (path == null) { return; }
             if (senderPath == null) { return; }
             let portalcontent: HTMLElement = null;
-            this.portalService.$analytics.pageTrack(path);
+            this.portalService.$analytics.pageTrack(path.toLowerCase());
 
             path = path.toLowerCase();
             senderPath = senderPath.toLowerCase();

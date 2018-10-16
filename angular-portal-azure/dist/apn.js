@@ -136,6 +136,20 @@ var angularportalazure;
                 return true;
             }
         };
+        UserControlBase.prototype.isObjectNullUndefinedOrEmpty = function (value) {
+            if (value == null) {
+                return true;
+            }
+            if (value == undefined) {
+                return true;
+            }
+            if (value && Object.keys(value).length > 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        };
         UserControlBase.prototype.isStringNullOrEmpty = function (value) {
             if (value && value.replace(' ', '').length > 0) {
                 return false;
@@ -323,7 +337,7 @@ var angularportalazure;
             // Set 'this.portalService.areaBlades.blades[index]' to 'this'
             //     'this.portalService.areaBlades.blades[index]' was generated during AddBlade
             _this.portalService.areaBlades.blades.forEach(function (blade, index) {
-                if (blade.path === _this.path) {
+                if (blade.path != null && _this.path != null && blade.path.toLowerCase() === _this.path.toLowerCase()) {
                     _this.portalService.areaBlades.blades[index] = _this;
                 }
             });
@@ -335,7 +349,7 @@ var angularportalazure;
             get: function () {
                 return this._path;
             },
-            // For the moment we do not distinguish between lower and upper case path name
+            // For the moment we do distinguish between lower and upper case path name
             set: function (newPath) {
                 if (newPath == null) {
                     return;
@@ -471,7 +485,7 @@ var angularportalazure;
     }(angularportalazure.UserControlBase));
     angularportalazure.Blade = Blade;
 })(angularportalazure || (angularportalazure = {}));
-// #region Declarations
+// #region Imports
 /// <reference types="angular" />
 /// <reference path="blade.ts" />
 /// <reference path="usercontrolbase.ts" />
@@ -493,10 +507,21 @@ var angularportalazure;
         }
         // #endregion
         // #region Methods
+        AreaBlades.prototype.raiseBladeOnActivateEvent = function (args) {
+            var isEventRaised = false;
+            this.blades.forEach(function (blade) {
+                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
+                    // Raise event onActivate
+                    blade.onActivate();
+                    isEventRaised = true;
+                    return;
+                }
+            });
+        };
         AreaBlades.prototype.raiseAddBladeEvent = function (args) {
             var isBladeAlreadyShown = false;
             this.blades.forEach(function (blade) {
-                if (blade.path === args.path) {
+                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
                     // Blade is already shown, just activate it again
                     blade.onActivate();
                     isBladeAlreadyShown = true;
@@ -523,7 +548,7 @@ var angularportalazure;
                 return;
             }
             var portalcontent = null;
-            this.portalService.$analytics.pageTrack(path);
+            this.portalService.$analytics.pageTrack(path.toLowerCase());
             path = path.toLowerCase();
             senderPath = senderPath.toLowerCase();
             // #region Verify
@@ -892,7 +917,9 @@ var angularportalazure;
         /** Extension point */
         BladeData.prototype.onDeleteItem = function () {
         };
-        /** Extension point */
+        /** Extension point
+         * return value indicates if the current blade should be closed or not.
+         */
         BladeData.prototype.onDeletedItem = function () {
             return true; // close the current blade
         };

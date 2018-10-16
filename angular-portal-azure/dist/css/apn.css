@@ -73,7 +73,8 @@ a {
   -ms-scroll-chaining: none; }
 
 .fxs-panorama-homearea {
-  min-width: 600px; }
+  min-width: 600px;
+  width: 100%; }
 
 .fxs-panorama .fxs-panorama-homearea {
   position: relative;
@@ -874,4 +875,3 @@ input[type=checkbox].form-control {
 .apa-disable-click {
   pointer-events: none;
   opacity: 0.4; }
-

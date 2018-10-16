@@ -226,7 +226,7 @@ namespace angularportalazure {
 
         // #region deleteItem
 
-        deleteItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm: any = undefined): (Promise<T | void> | angular.IPromise<T | void>) {
+        deleteItem(func: () => Promise<T | number | void | angularportalazure.Exception> | angular.IPromise<T | number | void | angularportalazure.Exception>, ngForm: any = undefined): (Promise<T | number | void> | angular.IPromise<T | number | void>) {
             if (!this.isFormValid(ngForm) && this.onDeleteItemFormValidation()) {
                 return;
             }
@@ -254,8 +254,10 @@ namespace angularportalazure {
         onDeleteItem() {
         }
 
-        /** Extension point */
-        onDeletedItem() {
+        /** Extension point
+         * return value indicates if the current blade should be closed or not.
+         */
+        onDeletedItem(): boolean {
             return true; // close the current blade
         }
 
