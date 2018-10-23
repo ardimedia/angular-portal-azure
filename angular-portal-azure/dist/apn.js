@@ -1706,7 +1706,22 @@ var angularportalazure;
                     console.debug(exception.Message);
                     return 'Datensatz kann nicht gelöscht werden, da noch abhängige Daten vorhanden sind!';
                 }
+                if (exception.Message.toLowerCase().indexOf('see the inner exception for details') >= 0) {
+                    // Frist innerException
+                    var innerException = exception.InnerException;
+                    if (exception.InnerException.Message.toLowerCase().indexOf('see the inner exception for details') >= 0) {
+                        // Second innerException
+                        var innerException_1 = exception.InnerException.InnerException;
+                        if (exception.InnerException.InnerException.Message.toLowerCase().indexOf('see the inner exception for details') >= 0) {
+                            // Third innerException
+                            var innerException_2 = exception.InnerException.InnerException.InnerException;
+                        }
+                    }
+                    console.debug(exception.Message);
+                    return innerException.Message;
+                }
                 message = message + exception.Message + ' ';
+                return message;
             }
             if (exception.Messages !== undefined) {
                 if (exception.Messages.length > 0) {
@@ -1717,24 +1732,28 @@ var angularportalazure;
                         }
                         message = message + item;
                     });
+                    return message;
                 }
             }
             if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') < 0) {
                 message = message + ': ' + exception.ExceptionMessage + ' ';
+                return message;
             }
             if (exception.ExceptionMessage !== undefined && exception.ExceptionMessage.toLowerCase().indexOf('see the inner exception for details') >= 0) {
                 if (exception.InnerException !== undefined) {
                     if (exception.InnerException.InnerException !== undefined) {
                         message = message + ': ' + exception.InnerException.InnerException.ExceptionMessage + ' ';
+                        return message;
                     }
                     else {
                         message = message + ': ' + exception.InnerException.ExceptionMessage + ' ';
+                        return message;
                     }
                 }
             }
-            if (message === 'FEHLER ') {
-                message = message + ': JavaScript-Fehler oder Probleme mit der Internetverbindung. Weitere Informationen im Log. ' + exception;
-            }
+            // Default handler
+            console.debug(exception);
+            message = message + ': JavaScript-Fehler oder Probleme mit der Internetverbindung. Weitere Informationen im Log (change log to full = debug). ' + exception;
             return message;
         };
         // TODO:2018-10-10/hp: [angular.IHttpPromiseCallbackArg<angularportalazure.Exception>] should be Response
