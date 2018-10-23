@@ -1695,6 +1695,7 @@ var angularportalazure;
         // #endregion
         // #region Static Methods
         Exception.getOneLineMessage = function (exception) {
+            console.debug(exception);
             var message = 'FEHLER ';
             if (exception.Message !== undefined) {
                 if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
@@ -1717,7 +1718,7 @@ var angularportalazure;
                             var innerException_2 = exception.InnerException.InnerException.InnerException;
                         }
                     }
-                    console.debug(exception.Message);
+                    console.debug(exception);
                     return innerException.Message;
                 }
                 message = message + exception.Message + ' ';

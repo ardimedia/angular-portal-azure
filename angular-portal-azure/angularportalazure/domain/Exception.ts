@@ -46,7 +46,7 @@ namespace angularportalazure {
                             let innerException = exception.InnerException.InnerException.InnerException;
                         }
                     }
-                    console.debug(exception.Message);
+                    console.debug(exception);
                     return innerException.Message;
                 }
 
