@@ -1,0 +1,45 @@
+﻿a:focus, a:hover {
+    text-decoration: none;
+    color: #00bcf2;
+}
+
+.fxs-theme-blue {
+    background-color: #2e80ab;
+    background-image: linear-gradient(to bottom, #2e80ab 0%, #61b7da 100%);
+    background-repeat: no-repeat;
+    font-family: wf_segoe-ui_normal,"Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+    font-weight: 400;
+    font-size: small;
+}
+
+.fxs-theme-blue .fxs-topbar .fxs-has-hover:hover {
+    background-color: #3d4247;
+}
+
+.fxs-theme-blue a.fxs-topbar-home {
+    color: #00bcf2;
+}
+
+.fxs-theme-blue .fxs-topbar {
+    background-color: #202428;
+    background-image: none;
+    color: #fff;
+    border-color: #3d4247;
+}
+
+.fxs-theme-blue .fxs-topbar .fxs-has-hover:hover {
+    background-color: #3d4247;
+}
+
+.fxs-avatarmenu-tenant-container a {
+    color: #fff;
+}
+
+.apa-statusbar-info {
+    background-color: #16b6ff;
+}
+
+
+.apa-statusbar-error {
+    background-color: #d86f02;
+}

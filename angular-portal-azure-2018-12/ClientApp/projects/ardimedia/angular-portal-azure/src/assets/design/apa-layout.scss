@@ -1,0 +1,28 @@
+body, html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.fxs-topbar {
+    height: 40px;
+    font-size: 13px;
+}
+
+.fxs-topbar-home {
+    font-size: 20px;
+    line-height: 40px;
+    text-overflow: ellipsis;
+}
+
+.fxs-avatarmenu-tenant-container {
+    text-align: right;
+}
+
+.fxs-commandBar .fxs-commandBar-item {
+    width: auto;
+    max-width: 90px;
+}
