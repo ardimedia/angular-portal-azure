@@ -21,7 +21,7 @@ namespace angularportalazure {
         // #region Static Methods
 
         static getOneLineMessage(exception: angularportalazure.Exception): string {
-            let message: string = 'FEHLER ';
+            let message: string = '';
 
             if (exception.Message !== undefined) {
                 if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
@@ -111,9 +111,22 @@ namespace angularportalazure {
 
             // #endregion
 
+            // #region Process (Angular 2) response._body
+
+            else if (response._body !== undefined) {
+                var body = JSON.parse(response._body);
+                if (body.Message) {
+                    exception.Message = body.Message;
+                }
+            }
+
+            // #endregion
+
             // #region Process (Angular 2) response.InnerException.InnerException.Message
 
-            else if (response.json !== undefined && response.json().InnerException !== undefined && response.json().InnerException.InnerException !== undefined) {
+            else if (response.json !== undefined && response.json !== null
+                && response.json().InnerException !== undefined && response.json().InnerException !== null
+                && response.json().InnerException.InnerException !== undefined && response.json().InnerException.InnerException !== null) {
                 exception.Message = response.json().InnerException.InnerException.Message;
             }
 
