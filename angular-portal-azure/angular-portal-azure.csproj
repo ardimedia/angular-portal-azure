@@ -151,7 +151,7 @@
     <Content Include="npm-update.bat" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
-    <Content Include="TODO\translate.txt" />
+    <Content Include="TODO-translate.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="publish.bat" />
   </ItemGroup>
@@ -159,6 +159,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="angularportalazure\app.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\AreaNotification.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\BladeNavItem.ts" />
     <TypeScriptCompile Include="angularportalazure\domain\ExceptionDotNet.ts" />

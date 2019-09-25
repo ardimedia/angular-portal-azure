@@ -25,7 +25,6 @@ namespace angularportalazure {
     angularModule.run(() => {
     });
 
-
     /** Read cookie */
     function readCookie(cookieName: string) {
         let cookieNameEQ = cookieName + '=';

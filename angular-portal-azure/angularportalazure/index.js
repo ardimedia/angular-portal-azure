@@ -11,4 +11,4 @@ module.exports = angularportalazure;
     } else {
         root.returnExports = factory(root.libName);
     }
-}(this, function (b) { console.log(b); }))
+}(this, function (b) { console.log(b); }));
