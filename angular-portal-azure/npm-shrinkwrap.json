@@ -1,6 +1,6 @@
 {
   "name": "@ardimedia/angular-portal-azure",
-  "version": "0.2.333",
+  "version": "0.2.345",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {

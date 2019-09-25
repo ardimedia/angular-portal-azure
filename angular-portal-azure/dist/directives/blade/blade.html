@@ -31,7 +31,7 @@
                         <a title="Fewer" class="fxs-commandBar-item fxs-commandBar-item-expandList" href="" data-bind="click: func._ellipsisCommandHandler, attr: { title: data.ellipsisCommandText }"></a>
                     </li>
                     <!-- SERACH -->
-                    <li ng-show="$ctrl.vm.isCommandSearch">
+                    <li ng-show="$ctrl.vm.isCommandSearch"  ng-class="{'apa-disable-click': !$ctrl.vm.isCommandSearchEnabled}">
                         <a data-ng-click="$ctrl.vm.commandSearch()" class="fxs-commandBar-item" href="#"
                            data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandSearchText || 'suchen'}}</div>
@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <!-- ORDER -->
-                    <li ng-show="$ctrl.vm.isCommandOrder">
+                    <li ng-show="$ctrl.vm.isCommandOrder"  ng-class="{'apa-disable-click': !$ctrl.vm.isCommandOrderEnabled}">
                         <a data-ng-click="$ctrl.vm.commandOrder()" class="fxs-commandBar-item" href="#"
                            data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandOrderText  || 'bestellen'}}</div>
@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <!-- NEW -->
-                    <li ng-show="$ctrl.vm.isCommandNew">
+                    <li ng-show="$ctrl.vm.isCommandNew"  ng-class="{'apa-disable-click': !$ctrl.vm.isCommandNewEnabled}">
                         <a data-ng-click="$ctrl.vm.commandNew()" class="fxs-commandBar-item" href="#"
                            data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandNewText  || 'neu'}}</div>
@@ -101,25 +101,16 @@
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="msportal-fx-svg-placeholder" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
                                     <!--<path d="M 19.846 6.5 H 5.154 C 4.601 6.5 4.5 6.27 4.5 6 s 0.101 -1.5 0.654 -1.5 h 14.692 C 20.399 4.5 20.5 5.73 20.5 6 S 20.399 6.5 19.846 6.5 Z" />
-                                    <path d="M 14.33 3.5 h -0.011 h -3.723 c -0.402 0 -0.597 -0.13 -0.597 -0.5 c 0.011 -0.36 0.149 -0.5 0.597 -0.5 h 3.686 c 0.402 0 0.717 0.14 0.717 0.5 c 0 0.37 -0.256 0.5 -0.646 0.5 H 14.33 Z" />
-                                    <path d="M 5.5 7.5 v 14 c 0.04 0.82 3.537 1 4.337 1 h 5.862 c 0.8 0 3.761 -0.18 3.801 -1 v -14 H 5.5 Z M 9.542 19.167 c 0.01 0.36 -0.27 0.68 -0.62 0.69 h -0.73 c -0.35 0 -0.63 -0.28 -0.65 -0.65 v -9.37 c -0.01 -0.37 0.542 -0.726 1.023 -0.726 c 0.34 0 0.967 0.316 0.977 0.676 V 19.167 Z M 13.5 19.156 c -0.01 0.36 -0.3 0.64 -0.64 0.64 h -0.74 c -0.35 -0.01 -0.63 -0.33 -0.62 -0.7 v -9.37 c 0.02 -0.37 0.642 -0.655 1.002 -0.635 S 13.51 9.416 13.5 9.786 V 19.156 Z M 17.396 19.151 c -0.01 0.36 -0.3 0.64 -0.64 0.64 h -0.74 c -0.35 -0.01 -0.63 -0.33 -0.62 -0.7 v -9.37 c 0.02 -0.37 0.642 -0.654 1.002 -0.635 c 0.36 0.02 1.008 0.325 0.998 0.695 V 19.151 Z" />-->
+                    <path d="M 14.33 3.5 h -0.011 h -3.723 c -0.402 0 -0.597 -0.13 -0.597 -0.5 c 0.011 -0.36 0.149 -0.5 0.597 -0.5 h 3.686 c 0.402 0 0.717 0.14 0.717 0.5 c 0 0.37 -0.256 0.5 -0.646 0.5 H 14.33 Z" />
+                    <path d="M 5.5 7.5 v 14 c 0.04 0.82 3.537 1 4.337 1 h 5.862 c 0.8 0 3.761 -0.18 3.801 -1 v -14 H 5.5 Z M 9.542 19.167 c 0.01 0.36 -0.27 0.68 -0.62 0.69 h -0.73 c -0.35 0 -0.63 -0.28 -0.65 -0.65 v -9.37 c -0.01 -0.37 0.542 -0.726 1.023 -0.726 c 0.34 0 0.967 0.316 0.977 0.676 V 19.167 Z M 13.5 19.156 c -0.01 0.36 -0.3 0.64 -0.64 0.64 h -0.74 c -0.35 -0.01 -0.63 -0.33 -0.62 -0.7 v -9.37 c 0.02 -0.37 0.642 -0.655 1.002 -0.635 S 13.51 9.416 13.5 9.786 V 19.156 Z M 17.396 19.151 c -0.01 0.36 -0.3 0.64 -0.64 0.64 h -0.74 c -0.35 -0.01 -0.63 -0.33 -0.62 -0.7 v -9.37 c 0.02 -0.37 0.642 -0.654 1.002 -0.635 c 0.36 0.02 1.008 0.325 0.998 0.695 V 19.151 Z" />-->
                                     <path d="M96,512h320l32-352H64L96,512z M320,64V0H192v64H32v96l32-32h384l32,32V64H320z M288,64h-64V32h64V64z" />
                                 </svg>
 
                             </div>
                         </a>
                     </li>
-                    <!-- CANCEL -->
-                    <li ng-show="$ctrl.vm.isCommandCancel">
-                        <a data-ng-click="$ctrl.vm.commandCancel()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
-                            <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandCancelText  || 'abbrechen'}}</div>
-                            <div class="fxs-commandBar-item-icon" data-bind="image: icon">
-                                <svg class="msportal-fx-svg-placeholder" viewBox="0 0 20 20"><polygon points="16.894,5.414 15.48,4 10.436,9.044 5.414,4.023 4,5.437 9.022,10.458 4.022,15.458 5.436,16.872 10.436,11.872 15.458,16.894 16.872,15.48 11.85,10.458" /></svg>
-                            </div>
-                        </a>
-                    </li>
                     <!-- BROWSE -->
-                    <li ng-show="$ctrl.vm.isCommandBrowse">
+                    <li ng-show="$ctrl.vm.isCommandBrowse"  ng-class="{'apa-disable-click': !$ctrl.vm.isCommandBrowseEnabled}">
                         <a data-ng-click="$ctrl.vm.commandBrowse()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandBrowseText  || 'Browse'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -128,8 +119,8 @@
                         </a>
                     </li>
                     <!-- START -->
-                    <li ng-show="$ctrl.vm.isCommandStart">
-                        <a data-ng-click="$ctrl.vm.commandStart()" class="fxs-commandBar-item fxs-commandBar-itemDisabled" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
+                    <li ng-show="$ctrl.vm.isCommandStart" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandStartEnabled}">
+                        <a data-ng-click="$ctrl.vm.commandStart()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandStartText  || 'Start'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="msportal-fx-svg-placeholder" viewBox="0 0 24 24" focusable="false"> <g> <polygon points="20,11.95 6,22 6,2" /> </g> </svg>
@@ -137,7 +128,7 @@
                         </a>
                     </li>
                     <!-- STOP -->
-                    <li ng-show="$ctrl.vm.isCommandStop">
+                    <li ng-show="$ctrl.vm.isCommandStop" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandStopEnabled}">
                         <a data-ng-click="$ctrl.vm.commandStop()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandStopText  || 'Stop'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -146,7 +137,7 @@
                         </a>
                     </li>
                     <!-- RESTART -->
-                    <li ng-show="$ctrl.vm.isCommandRestart">
+                    <li ng-show="$ctrl.vm.isCommandRestart" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandRestartEnabled}">
                         <a data-ng-click="$ctrl.vm.commandRestart()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandRestartText  || 'Restart'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -155,7 +146,7 @@
                         </a>
                     </li>
                     <!-- SWAP -->
-                    <li ng-show="$ctrl.vm.isCommandSwap">
+                    <li ng-show="$ctrl.vm.isCommandSwap" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandSwapEnabled}">
                         <a data-ng-click="$ctrl.vm.commandSwap()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandSwapText  || 'Swap'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -163,17 +154,26 @@
                             </div>
                         </a>
                     </li>
+                    <!-- CANCEL -->
+                    <li ng-show="$ctrl.vm.isCommandCancel" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandCancelEnabled}">
+                        <a data-ng-click="$ctrl.vm.commandCancel()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
+                            <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandCancelText  || 'abbrechen'}}</div>
+                            <div class="fxs-commandBar-item-icon" data-bind="image: icon">
+                                <svg class="msportal-fx-svg-placeholder" viewBox="0 0 20 20"><polygon points="16.894,5.414 15.48,4 10.436,9.044 5.414,4.023 4,5.437 9.022,10.458 4.022,15.458 5.436,16.872 10.436,11.872 15.458,16.894 16.872,15.48 11.85,10.458" /></svg>
+                            </div>
+                        </a>
+                    </li>
                     <!-- EXCEL -->
-                    <li ng-show="$ctrl.vm.isCommandExcel">
+                    <li ng-show="$ctrl.vm.isCommandExcel" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandExcelEnabled}">
                         <a data-ng-click="$ctrl.vm.commandExcel()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandExcelText  || 'Export Excel'}}</div>
                             <div class="apa-commandbar-icon">
-                                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                <i class="fa fa-file-excel" aria-hidden="true"></i>
                             </div>
                         </a>
                     </li>
                     <!-- DOCUMENT -->
-                    <li ng-show="$ctrl.vm.isCommandDocument">
+                    <li ng-show="$ctrl.vm.isCommandDocument" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandDocumentEnabled}">
                         <a data-ng-click="$ctrl.vm.commandDocument()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandDocumentText  || 'Dokument'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -184,7 +184,7 @@
                         </a>
                     </li>
                     <!-- DOCUMENT2 -->
-                    <li ng-show="$ctrl.vm.isCommandDocument2">
+                    <li ng-show="$ctrl.vm.isCommandDocument2" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandDocument2Enabled}">
                         <a data-ng-click="$ctrl.vm.commandDocument2()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandDocument2Text  || 'Dokument'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -195,7 +195,7 @@
                         </a>
                     </li>
                     <!-- DOCUMENT3 -->
-                    <li ng-show="$ctrl.vm.isCommandDocument3">
+                    <li ng-show="$ctrl.vm.isCommandDocument3" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandDocument3Enabled}">
                         <a data-ng-click="$ctrl.vm.commandDocument3()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandDocument3Text  || 'Dokument'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -206,7 +206,7 @@
                         </a>
                     </li>
                     <!-- DOCUMENT4 -->
-                    <li ng-show="$ctrl.vm.isCommandDocument4">
+                    <li ng-show="$ctrl.vm.isCommandDocument4" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandDocument4Enabled}">
                         <a data-ng-click="$ctrl.vm.commandDocument4()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandDocument4Text  || 'Dokument'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">
@@ -217,7 +217,7 @@
                         </a>
                     </li>
                     <!-- Document5 -->
-                    <li ng-show="$ctrl.vm.isCommandDocument5">
+                    <li ng-show="$ctrl.vm.isCommandDocument5" ng-class="{'apa-disable-click': !$ctrl.vm.isCommandDocument5Enabled}">
                         <a data-ng-click="$ctrl.vm.commandDocument5()" class="fxs-commandBar-item" href="#" data-bind='css: { "fxs-commandBar-itemDisabled": !enabled(), "fxs-commandBar-itemPressed": pressed() }, attr: { href: enabled() ? "#" : null }'>
                             <div class="fxs-commandBar-item-text" data-bind="text: text()">{{$ctrl.vm.commandDocument5Text  || 'Dokument'}}</div>
                             <div class="fxs-commandBar-item-icon" data-bind="image: icon">

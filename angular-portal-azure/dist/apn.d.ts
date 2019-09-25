@@ -83,9 +83,11 @@ declare namespace angularportalazure {
         private _path;
         path: string;
         isCommandBrowse: boolean;
+        isCommandBrowseEnabled: boolean;
         commandBrowse: () => void;
         commandBrowseText: string;
         isCommandCancel: boolean;
+        isCommandCancelEnabled: boolean;
         commandCancel: () => void;
         commandCancelText: string;
         isCommandCopy: boolean;
@@ -97,27 +99,35 @@ declare namespace angularportalazure {
         commandDelete: () => void;
         commandDeleteText: string;
         isCommandDocument: boolean;
+        isCommandDocumentEnabled: boolean;
         commandDocument: () => void;
         commandDocumentText: string;
         isCommandDocument2: boolean;
+        isCommandDocument2Enabled: boolean;
         commandDocument2: () => void;
         commandDocument2Text: string;
         isCommandDocument3: boolean;
+        isCommandDocument3Enabled: boolean;
         commandDocument3: () => void;
         commandDocument3Text: string;
         isCommandDocument4: boolean;
+        isCommandDocument4Enabled: boolean;
         commandDocument4: () => void;
         commandDocument4Text: string;
         isCommandDocument5: boolean;
+        isCommandDocument5Enabled: boolean;
         commandDocument5: () => void;
         commandDocument5Text: string;
         isCommandNew: boolean;
+        isCommandNewEnabled: boolean;
         commandNew: () => void;
         commandNewText: string;
         isCommandOrder: boolean;
+        isCommandOrderEnabled: boolean;
         commandOrder: () => void;
         commandOrderText: string;
         isCommandRestart: boolean;
+        isCommandRestartEnabled: boolean;
         commandRestart: () => void;
         commandRestartText: string;
         isCommandSave: boolean;
@@ -125,18 +135,23 @@ declare namespace angularportalazure {
         commandSave: () => void;
         commandSaveText: string;
         isCommandSearch: boolean;
+        isCommandSearchEnabled: boolean;
         commandSearch: () => void;
         commandSearchText: string;
         isCommandStart: boolean;
+        isCommandStartEnabled: boolean;
         commandStart: () => void;
         commandStartText: string;
         isCommandStop: boolean;
+        isCommandStopEnabled: boolean;
         commandStop: () => void;
         commandStopText: string;
         isCommandSwap: boolean;
+        isCommandSwapEnabled: boolean;
         commandSwap: () => void;
         commandSwapText: string;
         isCommandExcel: boolean;
+        isCommandExcelEnabled: boolean;
         commandExcel: () => void;
         commandExcelText: string;
         activate(): void;
@@ -226,10 +241,10 @@ declare namespace angularportalazure {
         onLoadItemsException(ex: angularportalazure.Exception): void;
         /**
          * Default behavior for saving an entity.
+         * - validates this.ngForm. if not valid, returns without saving
          * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
          * - set this.isCommandSaveEnabled = false
+         * - call this.onSaveItem()
          * - call the provided function
          * THEN
          * - call this.clearStatusBar()
@@ -240,6 +255,7 @@ declare namespace angularportalazure {
          * CATCH
          * - set this.isCommandSaveEnabled = true
          * - call this.setStatusBarException
+         * - call this.onLoadItemsException
          */
         saveItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
         /** Extension point */
@@ -250,16 +266,20 @@ declare namespace angularportalazure {
         onSaveItemException(ex: angularportalazure.Exception): void;
         /**
          * Default behavior for saving any object.
+         * - validates this.ngForm. if not valid, returns without saving
          * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
+         * - set this.isCommandSaveEnabled = false
+         * - call this.onSaveObject()
          * - call the provided function
          * THEN
          * - call this.clearStatusBar()
-         * - call this.onSavedItem()
+         * - set this.isCommandSaveEnabled = true
+         * - call this.onSavedObject()
          * - returns the saved data
          * CATCH
+         * - set this.isCommandSaveEnabled = true
          * - call this.setStatusBarException
+         * - call this.onLoadItemsException
          */
         saveObject(func: () => Promise<any | angularportalazure.Exception> | angular.IPromise<any | angularportalazure.Exception>, ngForm?: any): (Promise<any | void> | angular.IPromise<any | void>);
         /** Extension point */
@@ -277,6 +297,30 @@ declare namespace angularportalazure {
         onDeletedItem(): boolean;
         /** Extension point */
         onDeletedObjectException(ex: angularportalazure.Exception): void;
+        /**
+         * Default behavior for executing
+         * - validates ngForm. if not valid, returns without executing
+         * - call this.setStatusBarInfo();
+         * - set this.isCommandStartEnabled = false
+         * - call this.onExecute()
+         * - call the provided function
+         * THEN
+         * - call this.clearStatusBar()
+         * - set this.isCommandStartEnabled = true
+         * - call this.onExecuted()
+         * - returns the data
+         * CATCH
+         * - set this.isCommandStartEnabled = true
+         * - call this.setStatusBarException
+         * - call this.onExecuteException
+         */
+        execute(message: string, func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm?: any): (Promise<T | void> | angular.IPromise<T | void>);
+        /** Extension point */
+        onExecute(): void;
+        /** Extension point */
+        onExecuted(): void;
+        /** Extension point */
+        onExecuteException(ex: angularportalazure.Exception): void;
         isFormValid(ngForm?: any): boolean;
         /** Extension point */
         onSaveItemFormValidation(): boolean;

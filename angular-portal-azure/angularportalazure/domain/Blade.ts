@@ -87,10 +87,12 @@ namespace angularportalazure {
         // #region Commands
 
         isCommandBrowse: boolean = false;
+        isCommandBrowseEnabled: boolean = true;
         commandBrowse: () => void = () => { this.onCommandBrowse(); };
         commandBrowseText: string = '';
 
         isCommandCancel: boolean = false;
+        isCommandCancelEnabled: boolean = true;
         commandCancel: () => void = () => { this.onCommandCancel(); };
         commandCancelText: string = '';
 
@@ -105,34 +107,42 @@ namespace angularportalazure {
         commandDeleteText: string = '';
 
         isCommandDocument: boolean = false;
+        isCommandDocumentEnabled: boolean = true;
         commandDocument: () => void = () => { this.onCommandDocument(); };
         commandDocumentText: string = '';
 
         isCommandDocument2: boolean = false;
+        isCommandDocument2Enabled: boolean = true;
         commandDocument2: () => void = () => { this.onCommandDocument2(); };
         commandDocument2Text: string = '';
 
         isCommandDocument3: boolean = false;
+        isCommandDocument3Enabled: boolean = true;
         commandDocument3: () => void = () => { this.onCommandDocument3(); };
         commandDocument3Text: string = '';
 
         isCommandDocument4: boolean = false;
+        isCommandDocument4Enabled: boolean = true;
         commandDocument4: () => void = () => { this.onCommandDocument4(); };
         commandDocument4Text: string = '';
 
         isCommandDocument5: boolean = false;
+        isCommandDocument5Enabled: boolean = true;
         commandDocument5: () => void = () => { this.onCommandDocument5(); };
         commandDocument5Text: string = '';
 
         isCommandNew: boolean = false;
+        isCommandNewEnabled: boolean = true;
         commandNew: () => void = () => { this.onCommandNew(); };
         commandNewText: string = '';
 
         isCommandOrder: boolean = false;
+        isCommandOrderEnabled: boolean = true;
         commandOrder: () => void = () => { this.onCommandOrder(); };
         commandOrderText: string = '';
 
         isCommandRestart: boolean = false;
+        isCommandRestartEnabled: boolean = true;
         commandRestart: () => void = () => { this.onCommandRestart(); };
         commandRestartText: string = '';
 
@@ -142,22 +152,27 @@ namespace angularportalazure {
         commandSaveText: string = '';
 
         isCommandSearch: boolean = false;
+        isCommandSearchEnabled: boolean = true;
         commandSearch: () => void = () => { this.onCommandSearch(); };
         commandSearchText: string = '';
 
         isCommandStart: boolean = false;
+        isCommandStartEnabled: boolean = true;
         commandStart: () => void = () => { this.onCommandStart(); };
         commandStartText: string = '';
 
         isCommandStop: boolean = false;
+        isCommandStopEnabled: boolean = true;
         commandStop: () => void = () => { this.onCommandStop(); };
         commandStopText: string = '';
 
         isCommandSwap: boolean = false;
+        isCommandSwapEnabled: boolean = true;
         commandSwap: () => void = () => { this.onCommandSwap(); };
         commandSwapText: string = '';
 
         isCommandExcel: boolean = false;
+        isCommandExcelEnabled: boolean = true;
         commandExcel: () => void = () => { this.onCommandExcel(); };
         commandExcelText: string = '';
 

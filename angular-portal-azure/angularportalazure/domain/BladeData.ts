@@ -121,10 +121,10 @@ namespace angularportalazure {
 
         /**
          * Default behavior for saving an entity.
+         * - validates this.ngForm. if not valid, returns without saving
          * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
          * - set this.isCommandSaveEnabled = false
+         * - call this.onSaveItem()
          * - call the provided function
          * THEN
          * - call this.clearStatusBar()
@@ -135,6 +135,7 @@ namespace angularportalazure {
          * CATCH
          * - set this.isCommandSaveEnabled = true
          * - call this.setStatusBarException
+         * - call this.onLoadItemsException
          */
         saveItem(func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm: any = undefined): (Promise<T | void> | angular.IPromise<T | void>) {
             if (!this.isFormValid(ngForm) && this.onSaveItemFormValidation()) {
@@ -148,7 +149,6 @@ namespace angularportalazure {
             return (<Promise<T> & angular.IPromise<T>>func()).then((data) => {
                 this.clearStatusBar();
                 this.isCommandSaveEnabled = true;
-                this.isCommandDeleteEnabled = true;
                 this.item = data;
                 this.onSavedItem();
                 return data;
@@ -177,16 +177,20 @@ namespace angularportalazure {
 
         /**
          * Default behavior for saving any object.
+         * - validates this.ngForm. if not valid, returns without saving
          * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
+         * - set this.isCommandSaveEnabled = false
+         * - call this.onSaveObject()
          * - call the provided function
          * THEN
          * - call this.clearStatusBar()
-         * - call this.onSavedItem()
+         * - set this.isCommandSaveEnabled = true
+         * - call this.onSavedObject()
          * - returns the saved data
          * CATCH
+         * - set this.isCommandSaveEnabled = true
          * - call this.setStatusBarException
+         * - call this.onLoadItemsException
          */
         saveObject(func: () => Promise<any | angularportalazure.Exception> | angular.IPromise<any | angularportalazure.Exception>, ngForm: any = undefined): (Promise<any | void> | angular.IPromise<any | void>) {
             if (!this.isFormValid(ngForm) && this.onSaveObjectFormValidation()) {
@@ -200,7 +204,6 @@ namespace angularportalazure {
             return (<Promise<any> & angular.IPromise<T>>func()).then((data) => {
                 this.clearStatusBar();
                 this.isCommandSaveEnabled = true;
-                this.isCommandDeleteEnabled = true;
                 this.onSavedObject();
                 return data;
             }).catch((ex: angularportalazure.Exception) => {
@@ -263,6 +266,59 @@ namespace angularportalazure {
 
         /** Extension point */
         onDeletedObjectException(ex: angularportalazure.Exception) {
+        }
+
+        // #endregion
+
+        // #region execute WebApi function
+
+        /**
+         * Default behavior for executing
+         * - validates ngForm. if not valid, returns without executing
+         * - call this.setStatusBarInfo();
+         * - set this.isCommandStartEnabled = false
+         * - call this.onExecute()
+         * - call the provided function
+         * THEN
+         * - call this.clearStatusBar()
+         * - set this.isCommandStartEnabled = true
+         * - call this.onExecuted()
+         * - returns the data
+         * CATCH
+         * - set this.isCommandStartEnabled = true
+         * - call this.setStatusBarException
+         * - call this.onExecuteException
+         */
+        execute(message: string, func: () => Promise<T | angularportalazure.Exception> | angular.IPromise<T | angularportalazure.Exception>, ngForm: any = undefined): (Promise<T | void> | angular.IPromise<T | void>) {
+            if (!this.isFormValid(ngForm) && this.onSaveItemFormValidation()) {
+                return;
+            }
+
+            this.setStatusBarInfo(message);
+            this.isCommandStartEnabled = false;
+            this.onExecute();
+
+            return (<Promise<T> & angular.IPromise<T>>func()).then((data) => {
+                this.clearStatusBar();
+                this.isCommandStartEnabled = true;
+                this.onExecuted();
+                return data;
+            }).catch((ex: angularportalazure.Exception) => {
+                this.isCommandStartEnabled = true;
+                this.setStatusBarException(ex);
+                this.onExecuteException(ex);
+            });
+        }
+
+        /** Extension point */
+        onExecute() {
+        }
+
+        /** Extension point */
+        onExecuted() {
+        }
+        /** Extension point */
+        onExecuteException(ex: angularportalazure.Exception) {
         }
 
         // #endregion

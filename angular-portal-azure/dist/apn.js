@@ -257,9 +257,11 @@ var angularportalazure;
             // #endregion
             // #region Commands
             _this.isCommandBrowse = false;
+            _this.isCommandBrowseEnabled = true;
             _this.commandBrowse = function () { _this.onCommandBrowse(); };
             _this.commandBrowseText = '';
             _this.isCommandCancel = false;
+            _this.isCommandCancelEnabled = true;
             _this.commandCancel = function () { _this.onCommandCancel(); };
             _this.commandCancelText = '';
             _this.isCommandCopy = false;
@@ -271,27 +273,35 @@ var angularportalazure;
             _this.commandDelete = function () { _this.onCommandDelete(); };
             _this.commandDeleteText = '';
             _this.isCommandDocument = false;
+            _this.isCommandDocumentEnabled = true;
             _this.commandDocument = function () { _this.onCommandDocument(); };
             _this.commandDocumentText = '';
             _this.isCommandDocument2 = false;
+            _this.isCommandDocument2Enabled = true;
             _this.commandDocument2 = function () { _this.onCommandDocument2(); };
             _this.commandDocument2Text = '';
             _this.isCommandDocument3 = false;
+            _this.isCommandDocument3Enabled = true;
             _this.commandDocument3 = function () { _this.onCommandDocument3(); };
             _this.commandDocument3Text = '';
             _this.isCommandDocument4 = false;
+            _this.isCommandDocument4Enabled = true;
             _this.commandDocument4 = function () { _this.onCommandDocument4(); };
             _this.commandDocument4Text = '';
             _this.isCommandDocument5 = false;
+            _this.isCommandDocument5Enabled = true;
             _this.commandDocument5 = function () { _this.onCommandDocument5(); };
             _this.commandDocument5Text = '';
             _this.isCommandNew = false;
+            _this.isCommandNewEnabled = true;
             _this.commandNew = function () { _this.onCommandNew(); };
             _this.commandNewText = '';
             _this.isCommandOrder = false;
+            _this.isCommandOrderEnabled = true;
             _this.commandOrder = function () { _this.onCommandOrder(); };
             _this.commandOrderText = '';
             _this.isCommandRestart = false;
+            _this.isCommandRestartEnabled = true;
             _this.commandRestart = function () { _this.onCommandRestart(); };
             _this.commandRestartText = '';
             _this.isCommandSave = false;
@@ -299,18 +309,23 @@ var angularportalazure;
             _this.commandSave = function () { _this.onCommandSave(); };
             _this.commandSaveText = '';
             _this.isCommandSearch = false;
+            _this.isCommandSearchEnabled = true;
             _this.commandSearch = function () { _this.onCommandSearch(); };
             _this.commandSearchText = '';
             _this.isCommandStart = false;
+            _this.isCommandStartEnabled = true;
             _this.commandStart = function () { _this.onCommandStart(); };
             _this.commandStartText = '';
             _this.isCommandStop = false;
+            _this.isCommandStopEnabled = true;
             _this.commandStop = function () { _this.onCommandStop(); };
             _this.commandStopText = '';
             _this.isCommandSwap = false;
+            _this.isCommandSwapEnabled = true;
             _this.commandSwap = function () { _this.onCommandSwap(); };
             _this.commandSwapText = '';
             _this.isCommandExcel = false;
+            _this.isCommandExcelEnabled = true;
             _this.commandExcel = function () { _this.onCommandExcel(); };
             _this.commandExcelText = '';
             _this.vm = _this;
@@ -800,10 +815,10 @@ var angularportalazure;
         // #region saveItem
         /**
          * Default behavior for saving an entity.
+         * - validates this.ngForm. if not valid, returns without saving
          * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
          * - set this.isCommandSaveEnabled = false
+         * - call this.onSaveItem()
          * - call the provided function
          * THEN
          * - call this.clearStatusBar()
@@ -814,6 +829,7 @@ var angularportalazure;
          * CATCH
          * - set this.isCommandSaveEnabled = true
          * - call this.setStatusBarException
+         * - call this.onLoadItemsException
          */
         BladeData.prototype.saveItem = function (func, ngForm) {
             var _this = this;
@@ -827,7 +843,6 @@ var angularportalazure;
             return func().then(function (data) {
                 _this.clearStatusBar();
                 _this.isCommandSaveEnabled = true;
-                _this.isCommandDeleteEnabled = true;
                 _this.item = data;
                 _this.onSavedItem();
                 return data;
@@ -850,16 +865,20 @@ var angularportalazure;
         // #region saveObject
         /**
          * Default behavior for saving any object.
+         * - validates this.ngForm. if not valid, returns without saving
          * - call this.setStatusBarSaveData();
-         * - call this.onSaveItem()
-         * - validates this.formblade. if not valid, returns without saving
+         * - set this.isCommandSaveEnabled = false
+         * - call this.onSaveObject()
          * - call the provided function
          * THEN
          * - call this.clearStatusBar()
-         * - call this.onSavedItem()
+         * - set this.isCommandSaveEnabled = true
+         * - call this.onSavedObject()
          * - returns the saved data
          * CATCH
+         * - set this.isCommandSaveEnabled = true
          * - call this.setStatusBarException
+         * - call this.onLoadItemsException
          */
         BladeData.prototype.saveObject = function (func, ngForm) {
             var _this = this;
@@ -873,7 +892,6 @@ var angularportalazure;
             return func().then(function (data) {
                 _this.clearStatusBar();
                 _this.isCommandSaveEnabled = true;
-                _this.isCommandDeleteEnabled = true;
                 _this.onSavedObject();
                 return data;
             }).catch(function (ex) {
@@ -928,6 +946,54 @@ var angularportalazure;
         };
         /** Extension point */
         BladeData.prototype.onDeletedObjectException = function (ex) {
+        };
+        // #endregion
+        // #region execute WebApi function
+        /**
+         * Default behavior for executing
+         * - validates ngForm. if not valid, returns without executing
+         * - call this.setStatusBarInfo();
+         * - set this.isCommandStartEnabled = false
+         * - call this.onExecute()
+         * - call the provided function
+         * THEN
+         * - call this.clearStatusBar()
+         * - set this.isCommandStartEnabled = true
+         * - call this.onExecuted()
+         * - returns the data
+         * CATCH
+         * - set this.isCommandStartEnabled = true
+         * - call this.setStatusBarException
+         * - call this.onExecuteException
+         */
+        BladeData.prototype.execute = function (message, func, ngForm) {
+            var _this = this;
+            if (ngForm === void 0) { ngForm = undefined; }
+            if (!this.isFormValid(ngForm) && this.onSaveItemFormValidation()) {
+                return;
+            }
+            this.setStatusBarInfo(message);
+            this.isCommandStartEnabled = false;
+            this.onExecute();
+            return func().then(function (data) {
+                _this.clearStatusBar();
+                _this.isCommandStartEnabled = true;
+                _this.onExecuted();
+                return data;
+            }).catch(function (ex) {
+                _this.isCommandStartEnabled = true;
+                _this.setStatusBarException(ex);
+                _this.onExecuteException(ex);
+            });
+        };
+        /** Extension point */
+        BladeData.prototype.onExecute = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onExecuted = function () {
+        };
+        /** Extension point */
+        BladeData.prototype.onExecuteException = function (ex) {
         };
         // #endregion
         // #region Form Validation
@@ -1698,7 +1764,7 @@ var angularportalazure;
         // #endregion
         // #region Static Methods
         Exception.getOneLineMessage = function (exception) {
-            var message = 'FEHLER ';
+            var message = '';
             if (exception.Message !== undefined) {
                 if (exception.Message.toLowerCase().indexOf('cannot insert duplicate key in object') >= 0
                     || exception.Message.toLowerCase().indexOf('the duplicate key value is') >= 0) {
@@ -1772,8 +1838,18 @@ var angularportalazure;
                 exception = angularportalazure.Exception.processResponseData(exception, response.json().Data);
             }
             // #endregion
+            // #region Process (Angular 2) response._body
+            else if (response._body !== undefined) {
+                var body = JSON.parse(response._body);
+                if (body.Message) {
+                    exception.Message = body.Message;
+                }
+            }
+            // #endregion
             // #region Process (Angular 2) response.InnerException.InnerException.Message
-            else if (response.json !== undefined && response.json().InnerException !== undefined && response.json().InnerException.InnerException !== undefined) {
+            else if (response.json !== undefined && response.json !== null
+                && response.json().InnerException !== undefined && response.json().InnerException !== null
+                && response.json().InnerException.InnerException !== undefined && response.json().InnerException.InnerException !== null) {
                 exception.Message = response.json().InnerException.InnerException.Message;
             }
             // #endregion
