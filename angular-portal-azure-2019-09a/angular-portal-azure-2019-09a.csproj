@@ -1,0 +1,224 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <RootNamespace>angular_portal_azure_2019_09a</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRoot)**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\design\apa-design.css" />
+    <None Remove="ClientApp\design\apa-design.min.css" />
+    <None Remove="ClientApp\design\apa-design.scss" />
+    <None Remove="ClientApp\design\apa-layout.scss" />
+    <None Remove="ClientApp\design\design.css" />
+    <None Remove="ClientApp\design\design.min.css" />
+    <None Remove="ClientApp\design\libmixin.css" />
+    <None Remove="ClientApp\design\libmixin.min.css" />
+    <None Remove="ClientApp\design\libmixin.scss" />
+    <None Remove="ClientApp\design\ms-azure-theme-blue.scss" />
+    <None Remove="ClientApp\design\portallayout - Copy - Copy.css" />
+    <None Remove="ClientApp\design\portallayout - Copy.css" />
+    <None Remove="ClientApp\design\portallayout - Copy.css - Copy.map" />
+    <None Remove="ClientApp\design\portallayout - Copy.css.map" />
+    <None Remove="ClientApp\design\portallayout - Copy.min - Copy.css" />
+    <None Remove="ClientApp\design\portallayout - Copy.min.css" />
+    <None Remove="ClientApp\design\portallayout.css" />
+    <None Remove="ClientApp\design\portallayout.css.map" />
+    <None Remove="ClientApp\design\portallayout.min.css" />
+    <None Remove="ClientApp\design\portallayout.scss" />
+    <None Remove="ClientApp\design\sample\fromMsPortal\style0.css" />
+    <None Remove="ClientApp\design\sample\fromMsPortal\style1.css" />
+    <None Remove="ClientApp\design\themems.css" />
+    <None Remove="ClientApp\design\themems.css.map" />
+    <None Remove="ClientApp\design\themems.min.css" />
+    <None Remove="ClientApp\design\themems.scss" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\assets\css\apn.scss" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\assets\images\apn.png" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\assets\images\avatar.jpg" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\area-blades.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\area-notification.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\avatar-menu.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-data.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-detail.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-grid.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-nav-item.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-nav.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-parameter.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\blade.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\debug.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\exception-dot-net.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\exception.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\iadd-blade-event-args.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\panorama.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\portal-service.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\portal-shell.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\startboard.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\tile-size.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\tile-sizes.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\tile.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\tiles.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\user-account.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\domain\user-control-base.ts" />
+    <None Remove="ClientApp\projects\angular-portal-azure\src\lib\app-routing.module.ts" />
+    <None Remove="ClientApp\src\app\app-routing.module.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\design\apa-design.css">
+      <DependentUpon>apa-design.scss</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\apa-design.min.css">
+      <DependentUpon>apa-design.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\apa-design.scss" />
+    <Content Include="ClientApp\design\apa-layout.scss" />
+    <Content Include="ClientApp\design\design.css">
+      <DependentUpon>apa-design.scss</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\design.min.css">
+      <DependentUpon>design.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\libmixin.css">
+      <DependentUpon>libmixin.scss</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\libmixin.min.css">
+      <DependentUpon>libmixin.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\libmixin.scss" />
+    <Content Include="ClientApp\design\ms-azure-theme-blue.scss" />
+    <Content Include="ClientApp\design\portallayout - Copy - Copy.css">
+      <DependentUpon>apa-layout.scss</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout - Copy.css">
+      <DependentUpon>ms-azure-theme-blue.scss</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout - Copy.css - Copy.map">
+      <DependentUpon>portallayout - Copy - Copy.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout - Copy.css.map">
+      <DependentUpon>portallayout - Copy.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout - Copy.min - Copy.css">
+      <DependentUpon>portallayout - Copy - Copy.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout - Copy.min.css">
+      <DependentUpon>portallayout - Copy.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout.css">
+      <DependentUpon>portallayout.scss</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout.css.map">
+      <DependentUpon>portallayout.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout.min.css">
+      <DependentUpon>portallayout.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\portallayout.scss" />
+    <Content Include="ClientApp\design\sample\fromMsPortal\style0.css" />
+    <Content Include="ClientApp\design\sample\fromMsPortal\style1.css" />
+    <Content Include="ClientApp\design\themems.css">
+      <DependentUpon>themems.scss</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\themems.css.map">
+      <DependentUpon>themems.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\themems.min.css">
+      <DependentUpon>themems.css</DependentUpon>
+    </Content>
+    <Content Include="ClientApp\design\themems.scss" />
+    <Content Include="ClientApp\projects\angular-portal-azure\src\assets\css\apn.scss" />
+    <Content Include="ClientApp\projects\angular-portal-azure\src\assets\images\apn.png" />
+    <Content Include="ClientApp\projects\angular-portal-azure\src\assets\images\avatar.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\area-blades.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\area-notification.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\avatar-menu.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-data.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-detail.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-grid.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-nav-item.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-nav.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\blade-parameter.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\blade.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\debug.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\exception-dot-net.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\exception.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\iadd-blade-event-args.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\panorama.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\portal-service.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\portal-shell.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\startboard.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\tile-size.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\tile-sizes.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\tile.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\tiles.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\user-account.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\domain\user-control-base.ts" />
+    <TypeScriptCompile Include="ClientApp\projects\angular-portal-azure\src\lib\app-routing.module.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\module-viewer\component\" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

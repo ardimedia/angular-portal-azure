@@ -1,0 +1,15 @@
+@import '../../../../../design/apa-design.scss';
+
+#apa-notification-area .fxs-blade {
+  border-left-width: 0;
+}
+
+.apa-disable-click {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}

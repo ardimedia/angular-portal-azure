@@ -1,0 +1,21 @@
+{
+  "name": "angular-portal-azure",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.0.3",
+    "@angular/core": "^8.0.3"
+  },
+  "main": "bundles/angular-portal-azure.umd.js",
+  "module": "fesm5/angular-portal-azure.js",
+  "es2015": "fesm2015/angular-portal-azure.js",
+  "esm5": "esm5/angular-portal-azure.js",
+  "esm2015": "esm2015/angular-portal-azure.js",
+  "fesm5": "fesm5/angular-portal-azure.js",
+  "fesm2015": "fesm2015/angular-portal-azure.js",
+  "typings": "angular-portal-azure.d.ts",
+  "metadata": "angular-portal-azure.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}
