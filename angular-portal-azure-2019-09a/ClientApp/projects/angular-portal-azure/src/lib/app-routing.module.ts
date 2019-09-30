@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './component/general/page-not-found/page-n
 
 const routes: Routes = [
     { path: '', redirectTo: 'appboard', pathMatch: 'full' },
-    { path: 'appboard', component: AppComponent }, // AppboardComponent 
+    { path: 'appboard', component: AppboardComponent }, // AppComponent || AppboardComponent 
     { path: '**', component: PageNotFoundComponent }
 ];
 

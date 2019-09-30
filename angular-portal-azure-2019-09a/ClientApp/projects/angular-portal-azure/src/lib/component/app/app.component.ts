@@ -23,7 +23,7 @@ interface DinoTheme {
 @Component({
     selector: 'angular-portal-azure',
     templateUrl: './app.component.html',
-    //styleUrls: ['./app.component.scss'] // build error: Unknown version 67 of android
+    styleUrls: ['./app.component.scss'] // build error: Unknown version 67 of android
 })
 export class AppComponent implements OnInit {
     readonly themeProps = [
@@ -55,7 +55,6 @@ export class AppComponent implements OnInit {
     selectedTheme: DinoTheme = this.themes['black'];
 
     constructor(public appService: AppService, private router: Router) {
-        console.log({ AppComponent: (<any>Object).id(this) });
         this.portalService = new PortalService();
         this.portalService.appService = this.appService;
         this.portalService.areaNotification = new AreaNotification(this.portalService);

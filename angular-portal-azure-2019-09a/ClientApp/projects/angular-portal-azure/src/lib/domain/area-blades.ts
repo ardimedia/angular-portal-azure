@@ -231,13 +231,6 @@ export class AreaBlades extends UserControlBase {
             console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
             this.portalService.panorama.isVisible = false;
             this.portalService.panorama.startboard.tiles.showTiles = false;
-
-            console.log((<any>Object).id(this));
-            console.log((<any>Object).id(this.portalService));
-            console.log((<any>Object).id(this.portalService.panorama));
-            console.log((<any>Object).id(this.portalService.panorama.startboard));
-            console.log((<any>Object).id(this.portalService.panorama.startboard.tiles));
-
             console.log({ a: this.portalService.panorama.isVisible });
             console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
         }

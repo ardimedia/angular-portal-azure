@@ -196,11 +196,6 @@ var AreaBlades = /** @class */ (function (_super) {
             console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
             this.portalService.panorama.isVisible = false;
             this.portalService.panorama.startboard.tiles.showTiles = false;
-            console.log(Object.id(this));
-            console.log(Object.id(this.portalService));
-            console.log(Object.id(this.portalService.panorama));
-            console.log(Object.id(this.portalService.panorama.startboard));
-            console.log(Object.id(this.portalService.panorama.startboard.tiles));
             console.log({ a: this.portalService.panorama.isVisible });
             console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
         }

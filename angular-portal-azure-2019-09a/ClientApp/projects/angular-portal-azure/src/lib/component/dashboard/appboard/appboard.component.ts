@@ -5,7 +5,7 @@ import { AppService } from '../../../service/app/app.service';
 @Component({
     selector: 'ospa-appboard',
     templateUrl: './appboard.component.html',
-    //styleUrls: ['./appboard.component.scss'] // build error: Unknown version 67 of android
+    styleUrls: ['./appboard.component.scss'] // build error: Unknown version 67 of android
 })
 export class AppboardComponent implements OnInit {
     // #region Constructors

@@ -7,10 +7,9 @@ var PortalService = /** @class */ (function () {
     // #region Constructor
     //static $inject = ['$injector'];
     function PortalService() {
+        //this.$injector = $injector;
         this.parameter = { action: 'none', itemId: 0 };
         this.panorama = new panorama_1.Panorama(this, 'angular-portal-azure-module');
-        console.log({ PortalService: Object.id(this) });
-        //this.$injector = $injector;
         //this.$http = $injector.get('$http');
         //this.$httpBackend = $injector.get('$httpBackend');
         //this.$q = $injector.get('$q');

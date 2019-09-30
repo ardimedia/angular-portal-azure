@@ -6,9 +6,9 @@ import { FetchDataComponent } from './component/blades/fetch-data/fetch-data.com
 import { HomeComponent } from './component/blades/home/home.component';
 
 const routes: Routes = [
-    { path: 'counter', component: CounterComponent },
-    { path: 'fetchdata', component: FetchDataComponent },
-    { path: 'home', component: HomeComponent },
+    //{ path: 'counter', component: CounterComponent },
+    //{ path: 'fetchdata', component: FetchDataComponent },
+    //{ path: 'home', component: HomeComponent },
 ];
 
 @NgModule({

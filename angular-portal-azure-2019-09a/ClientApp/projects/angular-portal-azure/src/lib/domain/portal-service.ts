@@ -14,7 +14,6 @@ export class PortalService {
 
     //static $inject = ['$injector'];
     constructor() { // $injector: any, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics
-        console.log({ PortalService: (<any>Object).id(this) });
         //this.$injector = $injector;
 
         //this.$http = $injector.get('$http');

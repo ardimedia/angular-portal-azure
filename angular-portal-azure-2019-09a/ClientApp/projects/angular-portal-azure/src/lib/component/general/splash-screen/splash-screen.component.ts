@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'ospa-splash-screen',
     templateUrl: './splash-screen.component.html',
-    // styleUrls: ['./splash-screen.component.scss'] // build error: Unknown version 67 of android
+    styleUrls: ['./splash-screen.component.scss'] // build error: Unknown version 67 of android
 })
 export class SplashScreenComponent implements OnInit {
     //constructor(public mainOscService: MainOscService) { }
