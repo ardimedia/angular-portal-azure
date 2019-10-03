@@ -47,7 +47,7 @@ export class UserControlBase {
     }
 
     private removeWindowResizeListener() {
-        if (this.windowResizeHandler !== undefined) {
+        if (this.windowResizeHandler !== undefined && this.portalService.$window) {
             this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
         }
     }

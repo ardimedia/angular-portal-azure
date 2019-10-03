@@ -9,6 +9,9 @@ import { AppConfig } from 'dist1/angular-portal-azure';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+
+import { Nav1Component } from './component/blades/nav1/nav1.component';
+import { Nav2Component } from './component/blades/nav1/nav2.component';
 import { CounterComponent } from './component/blades/counter/counter.component';
 import { FetchDataComponent } from './component/blades/fetch-data/fetch-data.component';
 import { HomeComponent } from './component/blades/home/home.component';
@@ -22,6 +25,8 @@ const appConfig: AppConfig = new AppConfig();
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
+        Nav1Component,
+        Nav2Component,
         NavMenuComponent
     ],
     imports: [

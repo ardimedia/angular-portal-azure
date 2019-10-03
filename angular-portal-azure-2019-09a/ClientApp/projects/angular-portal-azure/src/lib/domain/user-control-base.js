@@ -27,7 +27,7 @@ var UserControlBase = /** @class */ (function () {
     UserControlBase.prototype.onActivated = function () {
     };
     UserControlBase.prototype.removeWindowResizeListener = function () {
-        if (this.windowResizeHandler !== undefined) {
+        if (this.windowResizeHandler !== undefined && this.portalService.$window) {
             this.portalService.$window.removeEventListener('resize', this.windowResizeHandler);
         }
     };

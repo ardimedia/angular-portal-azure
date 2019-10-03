@@ -1,4 +1,4 @@
-﻿import { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { StatusBar } from './../status-bar';
 import { UserControlBase } from './../base/user-control-base';

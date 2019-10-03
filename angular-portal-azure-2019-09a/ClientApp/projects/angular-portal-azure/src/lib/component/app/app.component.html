@@ -2,7 +2,7 @@
   <!-- TOOLBAR -->
   <div class="fxs-topbar container-fluid row">
     <div class="col-6" style="padding-left: 25px;">
-      <a href="#" class="fxs-topbar-home fxs-has-hover">{{portalService.panorama.title}}</a>
+      <a [routerLink]="['/appboard']" class="fxs-topbar-home fxs-has-hover">{{portalService.panorama.title}}</a>
     </div>
     <div class="col-6 fxs-avatarmenu-tenant-container" style="padding-right:10px;">
       <a class="fxs-has-hover" href="/Account/Manage">
@@ -12,7 +12,22 @@
     </div>
   </div>
   <div id="apa-portal-scroll" class="fxs-portal-content fxs-panorama" style="height:calc(100% - 40px)">
+    <!-- PRIMARY ROUTER OUTLET -->
+    <!-- E.G.: APPBOARD -->
     <router-outlet></router-outlet>
-
-    <router-outlet-named [name]="blade.bladeId" *ngFor="let blade of portalService.areaBlades.blades"></router-outlet-named>
+    <!-- BLADES -->
+    <div id="apa-blade-area" class="fxs-journey-target fxs-journey">
+      <div class="fxs-journey-layout fxs-stacklayout fxs-stacklayout-horizontal">
+        <!-- track by $index -->
+        <!--<div *ngFor="let blade of portalService.areaBlades.blades" class="azureportalblade fxs-stacklayout-child" ng-include="blade.path"></div>-->
+        <!--<router-outlet [name]="blade.bladeId" *ngFor="let blade of appService.appConfigService.appConfig.blades"></router-outlet>-->
+        <router-outlet-named [name]="blade.bladeId" *ngFor="let blade of appService.appConfigService.appConfig.blades"></router-outlet-named>
+      </div>
+    </div>
+    <!-- NOTIFICATION AREA -->
+    <div id="apa-notification-area" style="display: none;">
+      <div style="height:40px;background-color:#202428"></div>
+      <button ng-if="!portalService.areaNotification.path" (click)="portalService.areaNotification.hide();">Schliessen</button>
+      <div ng-include="portalService.areaNotification.path"></div>
+    </div>
   </div>

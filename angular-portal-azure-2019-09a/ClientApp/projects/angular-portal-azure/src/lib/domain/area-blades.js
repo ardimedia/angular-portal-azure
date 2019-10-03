@@ -178,26 +178,16 @@ var AreaBlades = /** @class */ (function (_super) {
         if (this.blades.length === 0) {
             if (this.portalService.panorama !== undefined) {
                 {
-                    console.log('showPanoramaIfNoBlades');
-                    console.log({ a: this.portalService.panorama.isVisible });
-                    console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
                     this.portalService.panorama.isVisible = true;
                     this.portalService.panorama.startboard.tiles.showTiles = true;
-                    console.log({ a: this.portalService.panorama.isVisible });
-                    console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
                 }
             }
         }
     };
     AreaBlades.prototype.hidePanorama = function () {
         if (this.portalService.panorama !== undefined) {
-            console.log('hidePanorama');
-            console.log({ a: this.portalService.panorama.isVisible });
-            console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
             this.portalService.panorama.isVisible = false;
             this.portalService.panorama.startboard.tiles.showTiles = false;
-            console.log({ a: this.portalService.panorama.isVisible });
-            console.log({ a: this.portalService.panorama.startboard.tiles.showTiles });
         }
     };
     /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */

@@ -14,6 +14,7 @@ export * from './lib/domain/sidebar/sidebar';
 export * from './lib/domain/sidebar/sidebar-entry';
 
 export * from './lib/service/browser/viewport';
+export * from './lib/service/blade/blade.service';
 
 export * from './lib/component/app/app.component';
 export * from './lib/component/blade/blade.component';

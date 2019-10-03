@@ -1,15 +1,54 @@
-<div>
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
-  <br />?????
+  <!-- PANORAMA -->
+<div class="fxs-panorama-homearea" style="padding-top:45px;"
+     [ngClass]="{'collapsed': !portalService.panorama.startboard.tiles.showTiles}"
+     [hidden]="!portalService.panorama.isVisible">
+  <div class="fxs-startboard-target fxs-startboard fx-rightClick"
+       [ngClass]="{'collapsed': !portalService.panorama.startboard.tiles.showTiles}">
+    <!-- INFO AREA -->
+    <div hidden class="xfxs-part fxs-part-clickable" style="background-color:#293644; padding:25px; max-width: 800px;margin-bottom:15px;">
+      <header class="xfxs-part-title" style="color:white">
+        <h3 class="xmsportalfx-tooltip-overflow">Redesign</h3>
+        <p class="xmsportalfx-tooltip-overflow" style="margin:0;padding:0">
+          Zur Zeit stehen nicht alle Applikation in der PREVIEW-Umgebung zur VerfÃƒÆ’Ã‚Â¼gung. <b>
+            Falls Ihre Applikation unten nicht aufgelistet wird,
+            entfernen sie in der URL den Teil mit [.preview] und navigieren Sie somit zur STANDARD-Umgebung.
+            In der STANDARD-Umgebung kÃƒÆ’Ã‚Â¶nnen Sie wie gewohnt weiterarbeiten.
+          </b>
+          In den kommenden Monaten werden alle Applikationen auf das neue Layout angepasst.
+          <br /><br />Bei Fragen stehen wir gerne zur VerfÃƒÆ’Ã‚Â¼gung.
+          <br />Ihr Ardimedia Team
+        </p>
+      </header>
+      <section class="fxs-part-content css-scope-HubsExtension"></section>
+    </div>
+    <!-- NO TILES/APPS -->
+    <div *ngIf="portalService.panorama.startboard.tiles.tiles.length === 0" class="xfxs-part fxs-part-clickable" style="background-color:#293644; padding:25px; max-width: 800px;margin-bottom:15px;height:auto;">
+      <header class="xfxs-part-title" style="color:white">
+        <h3 class="xmsportalfx-tooltip-overflow">Keine Applikationen zugeordnet</h3>
+        <p class="xmsportalfx-tooltip-overflow" style="margin:0;padding:0">
+          Wenden Sie sich bitte an den Administrator damit entsprechende Applikationen zugeordnet werden können.
+          <br />Ihr Ardimedia Team
+        </p>
+      </header>
+    </div>
+    <!-- TILES/APPS -->
+    <div class="fxs-startboard-layout fxs-flowlayout">
+      <div class="fxs-flowlayout-childcontainer">
+        <!-- track by $index -->
+        <section *ngFor="let tile of portalService.panorama.startboard.tiles.tiles" class="fxs-tile fx-rightClick fxs-flowlayout-element"
+                 [ngClass]="{'fxs-tilesize-normal':tile.size=='normal', 'fxs-tilesize-mini':tile.size=='mini', 'fxs-tilesize-herowide':tile.size=='herowide'}"
+                 [ngStyle]="{'left': tile.left, 'top': tile.top}">
+          <div class="fxs-part fxs-part-clickable" style="cursor:pointer;"
+               (click)="tile.clicked();">
+            <header class="fxs-part-title">
+              <h2 class="msportalfx-tooltip-overflow">{{tile.title}}</h2>
+              <h3 class="msportalfx-tooltip-overflow">{{tile.subTitle}}</h3>
+            </header>
+            <section class="fxs-part-content css-scope-HubsExtension"></section>
+          </div>
+          <div class="fxs-title-overlay"></div>
+        </section>
+      </div>
+    </div>
+  </div>
 </div>
