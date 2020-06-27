@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Panorama = void 0;
 var user_control_base_1 = require("./user-control-base");
 var avatar_menu_1 = require("./avatar-menu");
 var startboard_1 = require("./startboard");

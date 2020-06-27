@@ -16,9 +16,12 @@ var Sample1;
     });
 })(Sample1 || (Sample1 = {}));
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -78,6 +81,38 @@ var Sample1;
         return Sample1Shell;
     }(angularportalazure.PortalShell));
     angular.module('sample1App').controller('sampleShell1', Sample1Shell);
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
+    var Customer = /** @class */ (function () {
+        function Customer(customerPkId, firstName, lastName) {
+            this.customerPkId = customerPkId;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+        return Customer;
+    }());
+    Sample1.Customer = Customer;
+})(Sample1 || (Sample1 = {}));
+var Sample1;
+(function (Sample1) {
+    var CustomerService = /** @class */ (function () {
+        function CustomerService() {
+        }
+        CustomerService.prototype.getAll = function () {
+            var list = [];
+            list.push(new Sample1.Customer(1, 'Evi', 'Pfleger'));
+            list.push(new Sample1.Customer(2, 'Harry', 'Pfleger'));
+            list.push(new Sample1.Customer(3, 'Niklas', 'Pfleger'));
+            list.push(new Sample1.Customer(4, 'Julia', 'Pfleger'));
+            return list;
+        };
+        CustomerService.prototype.getById = function (id) {
+            return this.getAll()[id];
+        };
+        return CustomerService;
+    }());
+    Sample1.CustomerService = CustomerService;
 })(Sample1 || (Sample1 = {}));
 /// <reference types="@ardimedia/angular-portal-azure" />
 /// <reference types="angular" />
@@ -317,36 +352,4 @@ var Sample1;
         return Nav1;
     }(angularportalazure.BladeNav));
     angular.module('sample1App').controller('nav1', Nav1);
-})(Sample1 || (Sample1 = {}));
-var Sample1;
-(function (Sample1) {
-    var Customer = /** @class */ (function () {
-        function Customer(customerPkId, firstName, lastName) {
-            this.customerPkId = customerPkId;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-        return Customer;
-    }());
-    Sample1.Customer = Customer;
-})(Sample1 || (Sample1 = {}));
-var Sample1;
-(function (Sample1) {
-    var CustomerService = /** @class */ (function () {
-        function CustomerService() {
-        }
-        CustomerService.prototype.getAll = function () {
-            var list = [];
-            list.push(new Sample1.Customer(1, 'Evi', 'Pfleger'));
-            list.push(new Sample1.Customer(2, 'Harry', 'Pfleger'));
-            list.push(new Sample1.Customer(3, 'Niklas', 'Pfleger'));
-            list.push(new Sample1.Customer(4, 'Julia', 'Pfleger'));
-            return list;
-        };
-        CustomerService.prototype.getById = function (id) {
-            return this.getAll()[id];
-        };
-        return CustomerService;
-    }());
-    Sample1.CustomerService = CustomerService;
 })(Sample1 || (Sample1 = {}));

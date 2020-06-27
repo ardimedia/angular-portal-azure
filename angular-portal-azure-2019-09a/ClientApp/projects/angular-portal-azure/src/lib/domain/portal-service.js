@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PortalService = void 0;
 var area_blades_1 = require("./area-blades");
 var area_notification_1 = require("./area-notification");
 var panorama_1 = require("./panorama");

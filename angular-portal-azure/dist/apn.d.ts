@@ -8,11 +8,14 @@ declare namespace angularportalazure {
     class UserAccount {
         constructor(username: string, firstName?: string, lastName?: string);
         private _firstName;
-        firstName: string;
+        get firstName(): string;
+        set firstName(value: string);
         private _lastName;
-        lastName: string;
+        get lastName(): string;
+        set lastName(value: string);
         private _name;
-        name: string;
+        get name(): string;
+        set name(value: string);
         userName: string;
         emailAddress: string;
     }
@@ -73,15 +76,16 @@ declare namespace angularportalazure {
         title: string;
         subTitle: string;
         width: {
-            'width': string;
+            width: string;
         };
         widthStackLayout: {
-            'width': string;
+            width: string;
         };
         isInnerHtml: boolean;
         formblade: any;
         private _path;
-        path: string;
+        get path(): string;
+        set path(newPath: string);
         isCommandBrowse: boolean;
         isCommandBrowseEnabled: boolean;
         commandBrowse: () => void;
@@ -358,9 +362,11 @@ declare namespace angularportalazure {
         widthAreaUsed: number;
         private areaNotification;
         private _width;
-        width: number;
+        get width(): number;
+        set width(value: number);
         private _backgroundColor;
-        backgroundColor: string;
+        get backgroundColor(): string;
+        set backgroundColor(value: string);
         hide(): void;
         show(width?: number): void;
         onHide(): boolean;
@@ -406,7 +412,8 @@ declare namespace angularportalazure {
         portalService: angularportalazure.PortalService;
         title: string;
         subTitle: string;
-        bladePath: string;
+        get bladePath(): string;
+        set bladePath(newBladePath: string);
         private _bladePath;
         tileSize: angularportalazure.TileSizes;
         size: string;

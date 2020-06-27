@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AvatarMenu = void 0;
 var user_control_base_1 = require("./user-control-base");
 var user_account_1 = require("./user-account");
 var AvatarMenu = /** @class */ (function (_super) {

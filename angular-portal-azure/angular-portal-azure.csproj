@@ -149,7 +149,6 @@
     <Content Include="design\portallayout - Copy.css - Copy.map">
       <DependentUpon>portallayout - Copy - Copy.css</DependentUpon>
     </Content>
-    <Content Include="npm-update.bat" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\TEMP.pubxml" />
     <Content Include="TODO-translate.txt" />

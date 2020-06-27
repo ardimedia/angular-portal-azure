@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Tiles = void 0;
 var tile_size_1 = require("./tile-size");
 var tile_sizes_1 = require("./tile-sizes");
 var Tiles = /** @class */ (function () {

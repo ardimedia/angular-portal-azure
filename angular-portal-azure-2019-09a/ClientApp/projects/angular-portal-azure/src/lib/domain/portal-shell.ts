@@ -1,8 +1,8 @@
+import { AreaBlades } from './area-blades';
+import { Panorama } from './panorama';
 import { PortalService } from './portal-service';
 import { Tiles } from './tiles';
 import { UserControlBase } from './user-control-base';
-import { AreaBlades } from './area-blades';
-import { Panorama } from './panorama';
 
 export class PortalShell {
     // #region Constructor

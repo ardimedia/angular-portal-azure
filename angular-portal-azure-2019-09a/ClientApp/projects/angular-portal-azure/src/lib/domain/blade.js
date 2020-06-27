@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Blade = void 0;
 var user_control_base_1 = require("./user-control-base");
 var Blade = /** @class */ (function (_super) {
     __extends(Blade, _super);
@@ -165,7 +166,7 @@ var Blade = /** @class */ (function (_super) {
             }
             this._path = newPath.toLowerCase();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     // #endregion

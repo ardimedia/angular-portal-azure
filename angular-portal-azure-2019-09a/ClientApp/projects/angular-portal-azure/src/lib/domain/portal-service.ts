@@ -1,6 +1,4 @@
 import { AppService } from '../service/app/app.service';
-
-
 import { AreaBlades } from './area-blades';
 import { AreaNotification } from './area-notification';
 import { BladeParameter } from './blade-parameter';

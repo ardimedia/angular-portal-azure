@@ -12,8 +12,7 @@ var angularportalazure;
         'angulartics.google.analytics'
     ]);
     /** Configure Angular: $translateProvider */
-    angularModule.config(['$translateProvider',
-        function ($translateProvider) {
+    angularModule.config(['$translateProvider', function ($translateProvider) {
             $translateProvider.useSanitizeValueStrategy('escape');
             $translateProvider.fallbackLanguage('de');
             $translateProvider.use(readCookie('SAMPLE_TRANSLATE_LANG_KEY'));
@@ -57,7 +56,7 @@ var angularportalazure;
                 this._firstName = value;
                 this._name = (this._firstName || '') + ' ' + (this._lastName || '');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(UserAccount.prototype, "lastName", {
@@ -68,7 +67,7 @@ var angularportalazure;
                 this._lastName = value;
                 this._name = (this._firstName || '') + ' ' + (this._lastName || '');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(UserAccount.prototype, "name", {
@@ -78,7 +77,7 @@ var angularportalazure;
             set: function (value) {
                 throw new Error('[angularportalazure.UserAccount] \'name\' is a calculated value from \'firsName\' and \'lastName\'. Assignment not allowed.');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return UserAccount;
@@ -374,7 +373,7 @@ var angularportalazure;
                 }
                 this._path = newPath.toLowerCase();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         // #endregion
@@ -1132,7 +1131,7 @@ var angularportalazure;
                 this._width = value;
                 this.calcualteCssStyles();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(AreaNotification.prototype, "backgroundColor", {
@@ -1143,7 +1142,7 @@ var angularportalazure;
                 this._backgroundColor = value;
                 this.calcualteCssStyles();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         // #endregion
@@ -1273,7 +1272,7 @@ var angularportalazure;
             set: function (newBladePath) {
                 this._bladePath = newBladePath.toLowerCase();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         // #endregion

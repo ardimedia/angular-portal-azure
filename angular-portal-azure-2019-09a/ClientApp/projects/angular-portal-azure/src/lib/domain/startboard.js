@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Startboard = void 0;
 var tiles_1 = require("./tiles");
 var user_control_base_1 = require("./user-control-base");
 var Startboard = /** @class */ (function (_super) {

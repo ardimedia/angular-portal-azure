@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PortalShell = void 0;
 var PortalShell = /** @class */ (function () {
     // #region Constructor
     function PortalShell(portalService, title) {

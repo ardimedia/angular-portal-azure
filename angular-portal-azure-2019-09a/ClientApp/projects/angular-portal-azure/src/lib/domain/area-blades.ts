@@ -1,10 +1,10 @@
 import { Input } from '@angular/core';
 
+import { Blade } from './blade';
+import { IAddBladeEventArgs } from './iadd-blade-event-args';
 import { PortalService } from './portal-service';
 import { Tiles } from './tiles';
 import { UserControlBase } from './user-control-base';
-import { Blade } from './blade';
-import { IAddBladeEventArgs } from './iadd-blade-event-args';
 
 export class AreaBlades extends UserControlBase {
     // #region Constructor

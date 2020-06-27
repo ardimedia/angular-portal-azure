@@ -1,6 +1,7 @@
 ﻿import { PortalService } from './PortalService';
 import { Exception } from './Exception';
 import { Blade } from './Blade';
+import { Observable } from 'rxjs';
 
 export class BladeData<T> extends Blade {
     // #region Constructor
@@ -130,6 +131,7 @@ export class BladeData<T> extends Blade {
      * - set this.isCommandSaveEnabled = true
      * - call this.setStatusBarException
      */
+    // CURRENT: using Promise
     saveItem(func: () => Promise<T | Exception> | any, ngForm: any = undefined): (Promise<T | void> | any) { // angular.IPromise<T | Exception> || angular.IPromise<T | void>
         if (!this.isFormValid(ngForm) && this.onSaveItemFormValidation()) {
             return;
@@ -140,6 +142,29 @@ export class BladeData<T> extends Blade {
         this.onSaveItem();
 
         return (<Promise<T> & any>func()).then((data) => { // angular.IPromise<T>
+            this.clearStatusBar();
+            this.isCommandSaveEnabled = true;
+            this.isCommandDeleteEnabled = true;
+            this.item = data;
+            this.onSavedItem();
+            return data;
+        }).catch((ex: Exception) => {
+            this.isCommandSaveEnabled = true;
+            this.setStatusBarException(ex);
+            this.onLoadItemsException(ex);
+        });
+    }
+    // NEW: using Observable
+    saveItem2(func: () => Observable<T> | Exception | any, ngForm: any = undefined): (Observable<T | void> | any) {
+        if (!this.isFormValid(ngForm) && this.onSaveItemFormValidation()) {
+            return;
+        }
+
+        this.setStatusBarSaveData();
+        this.isCommandSaveEnabled = false;
+        this.onSaveItem();
+
+        return (<Observable<T> & any>func()).then((data) => {
             this.clearStatusBar();
             this.isCommandSaveEnabled = true;
             this.isCommandDeleteEnabled = true;

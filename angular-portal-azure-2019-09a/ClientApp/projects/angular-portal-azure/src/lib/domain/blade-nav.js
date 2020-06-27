@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BladeNav = void 0;
 var blade_data_1 = require("./blade-data");
 var BladeNav = /** @class */ (function (_super) {
     __extends(BladeNav, _super);

@@ -13,8 +13,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var user_control_base_1 = require("./user-control-base");
+exports.AreaBlades = void 0;
 var blade_1 = require("./blade");
+var user_control_base_1 = require("./user-control-base");
 var AreaBlades = /** @class */ (function (_super) {
     __extends(AreaBlades, _super);
     // #region Constructor

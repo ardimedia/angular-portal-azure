@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Tile = void 0;
 var tile_sizes_1 = require("./tile-sizes");
 var Tile = /** @class */ (function () {
     // #region Constructor
@@ -18,7 +19,7 @@ var Tile = /** @class */ (function () {
         set: function (newBladePath) {
             this._bladePath = newBladePath.toLowerCase();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     // #endregion

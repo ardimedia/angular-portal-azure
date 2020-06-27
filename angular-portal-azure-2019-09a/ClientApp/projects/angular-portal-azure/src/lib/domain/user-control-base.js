@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserControlBase = void 0;
 var exception_1 = require("./exception");
 var UserControlBase = /** @class */ (function () {
     // #region Constructor
@@ -95,11 +96,11 @@ var UserControlBase = /** @class */ (function () {
         this.statusBarClass = 'apa-statusbar-info';
     };
     UserControlBase.prototype.setStatusBarDeleteData = function () {
-        this.statusBar = 'Daten lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶schen...';
+        this.statusBar = 'Daten löschen...';
         this.statusBarClass = 'apa-statusbar-info';
     };
     UserControlBase.prototype.setStatusBarDeleteDataCanceled = function () {
-        this.statusBar = 'LÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶schen abgebrochen.';
+        this.statusBar = 'Löschen abgebrochen.';
         this.statusBarClass = 'apa-statusbar-info';
     };
     UserControlBase.prototype.setStatusBarInfo = function (text) {

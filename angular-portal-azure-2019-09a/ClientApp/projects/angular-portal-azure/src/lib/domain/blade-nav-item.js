@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BladeNavItem = void 0;
 var BladeNavItem = /** @class */ (function () {
     // #region Constructor
     function BladeNavItem(title, cssClass, bladePath, hrefPath, roles, isVisible, callback, bladeNav) {

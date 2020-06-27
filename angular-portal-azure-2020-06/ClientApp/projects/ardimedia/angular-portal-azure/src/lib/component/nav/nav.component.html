@@ -1,0 +1,22 @@
+<div>
+  <table class="azc-grid-full azc-grid-multiselectable" ng-if="!$ctrl.vm.isInnerHtml">
+    <caption data-bind="text: data.summary"></caption>
+    <colgroup>
+      <col class="col0" style="width: 25px;">
+      <col class="col1">
+    </colgroup>
+    <tbody class="azc-grid-groupdata" role="rowgroup">
+      <tr repeat="item in $ctrl.vm.items track by $index" click="$ctrl.vm.navigateTo(item.bladePath);item.onNavItemClick();" role="row" aria-selected="false" data-grid-row-activated="false" data-grid-selectable="true" data-grid-focusable="true" data-grid-activateable="true" show="<!--item.isVisible-->" style="cursor:pointer" style="<!--item.style-->">
+        <td class="msportalfx-gridcolumn-asseticon" role="gridcell" data-grid-cell-activated="false">
+          <i ng-class="<!--item.cssClass-->"></i>
+        </td>
+        <td tabindex="0" role="gridcell" data-activatable="true" data-grid-cell-activated="false">
+          <a href="<!--item.hrefPath-->" target="_blank" style="color:black"><!--{{item.title}}--></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div ng-if="$ctrl.vm.isInnerHtml">
+    <div ng-transclude></div>
+  </div>
+</div>

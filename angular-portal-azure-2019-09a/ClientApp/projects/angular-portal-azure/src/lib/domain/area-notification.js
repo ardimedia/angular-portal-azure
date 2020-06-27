@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AreaNotification = void 0;
 var user_control_base_1 = require("./user-control-base");
 var AreaNotification = /** @class */ (function (_super) {
     __extends(AreaNotification, _super);
@@ -39,7 +40,7 @@ var AreaNotification = /** @class */ (function (_super) {
             this._width = value;
             this.calcualteCssStyles();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(AreaNotification.prototype, "backgroundColor", {
@@ -50,7 +51,7 @@ var AreaNotification = /** @class */ (function (_super) {
             this._backgroundColor = value;
             this.calcualteCssStyles();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     // #endregion
