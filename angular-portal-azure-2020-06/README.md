@@ -1,6 +1,6 @@
 # DEVELOPMENT
 
-# SAMPLE
+# PROJECT: SAMPLE
 
     ng build
     ng test

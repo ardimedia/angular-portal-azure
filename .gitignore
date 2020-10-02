@@ -251,3 +251,4 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/angular-portal-azure-2020-06a
