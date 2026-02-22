@@ -1,0 +1,137 @@
+<apa-portal-layout>
+  <!-- Panorama (startboard with tiles) -->
+  <apa-panorama />
+
+  <!-- Blade Host: renders the blade stack -->
+  <!-- We manually match blade paths to blade content -->
+  @for (blade of portal.blades(); track blade.path) {
+    <div class="azureportalblade fxs-stacklayout-child" style="display:inline-block; vertical-align:top; height:100%;">
+
+      @switch (blade.path) {
+        <!-- Customers Nav Blade -->
+        @case ('customers') {
+          <apa-blade [blade]="customerNavBlade">
+            <apa-blade-nav [items]="customerNavItems" [senderPath]="'customers'" />
+          </apa-blade>
+        }
+
+        <!-- Customer List Blade -->
+        @case ('customers/list') {
+          <apa-blade [blade]="customerListBlade">
+            <apa-blade-grid
+              [items]="customers"
+              [senderPath]="'customers/list'"
+              [displayField]="'name'"
+              [bladePathField]="'bladePath'"
+              (itemClick)="onCustomerClick($event)" />
+          </apa-blade>
+        }
+
+        <!-- Customer Detail Blades -->
+        @case ('customers/1') {
+          <apa-blade [blade]="customerDetailBlade">
+            <apa-blade-detail [blade]="customerDetailBlade">
+              <div style="padding:10px 0;">
+                <label>Name</label>
+                <input type="text" class="form-control" [value]="customerDetailBlade.item.name" />
+              </div>
+              <div style="padding:10px 0;">
+                <label>E-Mail</label>
+                <input type="text" class="form-control" [value]="customerDetailBlade.item.email" />
+              </div>
+              <div style="padding:10px 0;">
+                <label>Stadt</label>
+                <input type="text" class="form-control" [value]="customerDetailBlade.item.city" />
+              </div>
+            </apa-blade-detail>
+          </apa-blade>
+        }
+        @case ('customers/2') {
+          <apa-blade [blade]="customerDetailBlade">
+            <apa-blade-detail [blade]="customerDetailBlade">
+              <div style="padding:10px 0;">
+                <label>Name</label>
+                <input type="text" class="form-control" [value]="customerDetailBlade.item.name" />
+              </div>
+              <div style="padding:10px 0;">
+                <label>E-Mail</label>
+                <input type="text" class="form-control" [value]="customerDetailBlade.item.email" />
+              </div>
+            </apa-blade-detail>
+          </apa-blade>
+        }
+        @case ('customers/3') {
+          <apa-blade [blade]="customerDetailBlade">
+            <apa-blade-detail [blade]="customerDetailBlade">
+              <p>Kunde: {{ customerDetailBlade.item.name }}</p>
+            </apa-blade-detail>
+          </apa-blade>
+        }
+        @case ('customers/4') {
+          <apa-blade [blade]="customerDetailBlade">
+            <p style="padding:10px;">Kunde: {{ customerDetailBlade.item.name }}</p>
+          </apa-blade>
+        }
+        @case ('customers/5') {
+          <apa-blade [blade]="customerDetailBlade">
+            <p style="padding:10px;">Kunde: {{ customerDetailBlade.item.name }}</p>
+          </apa-blade>
+        }
+
+        <!-- Settings Blade -->
+        @case ('settings') {
+          <apa-blade [blade]="settingsBlade">
+            <div style="padding:10px;">
+              <h3>Einstellungen</h3>
+              <p>Hier koennen die Einstellungen konfiguriert werden.</p>
+            </div>
+          </apa-blade>
+        }
+
+        <!-- Orders Blade -->
+        @case ('orders') {
+          <apa-blade [blade]="ordersBlade">
+            <div style="padding:10px;">
+              <h3>Bestellungen</h3>
+              <p>Bestelluebersicht wird hier angezeigt.</p>
+            </div>
+          </apa-blade>
+        }
+
+        <!-- Reports Blade -->
+        @case ('reports') {
+          <apa-blade [blade]="reportsBlade">
+            <div style="padding:10px;">
+              <h3>Berichte</h3>
+              <p>Berichtsuebersicht wird hier angezeigt.</p>
+            </div>
+          </apa-blade>
+        }
+
+        <!-- Dashboard Blade -->
+        @case ('dashboard') {
+          <apa-blade [blade]="dashboardBlade">
+            <div style="padding:10px;">
+              <h3>Dashboard</h3>
+              <p>Dashboard-Inhalte werden hier angezeigt.</p>
+            </div>
+          </apa-blade>
+        }
+
+        <!-- Fallback for unknown blade paths -->
+        @default {
+          <apa-blade [blade]="{ path: blade.path, title: blade.path, subtitle: '', width: 315, isInnerHtml: false, commands: [], statusBar: { text: '', style: 'none' } }">
+            <p style="padding:10px;">Blade: {{ blade.path }}</p>
+          </apa-blade>
+        }
+      }
+    </div>
+  }
+
+  <!-- Notification Panel -->
+  <apa-notification-panel>
+    <div style="padding:15px; color:white;">
+      <p>Benachrichtigungen werden hier angezeigt.</p>
+    </div>
+  </apa-notification-panel>
+</apa-portal-layout>

@@ -12,7 +12,8 @@ var angularportalazure;
         'angulartics.google.analytics'
     ]);
     /** Configure Angular: $translateProvider */
-    angularModule.config(['$translateProvider', function ($translateProvider) {
+    angularModule.config(['$translateProvider',
+        function ($translateProvider) {
             $translateProvider.useSanitizeValueStrategy('escape');
             $translateProvider.fallbackLanguage('de');
             $translateProvider.use(readCookie('SAMPLE_TRANSLATE_LANG_KEY'));
@@ -56,7 +57,7 @@ var angularportalazure;
                 this._firstName = value;
                 this._name = (this._firstName || '') + ' ' + (this._lastName || '');
             },
-            enumerable: false,
+            enumerable: true,
             configurable: true
         });
         Object.defineProperty(UserAccount.prototype, "lastName", {
@@ -67,7 +68,7 @@ var angularportalazure;
                 this._lastName = value;
                 this._name = (this._firstName || '') + ' ' + (this._lastName || '');
             },
-            enumerable: false,
+            enumerable: true,
             configurable: true
         });
         Object.defineProperty(UserAccount.prototype, "name", {
@@ -77,7 +78,7 @@ var angularportalazure;
             set: function (value) {
                 throw new Error('[angularportalazure.UserAccount] \'name\' is a calculated value from \'firsName\' and \'lastName\'. Assignment not allowed.');
             },
-            enumerable: false,
+            enumerable: true,
             configurable: true
         });
         return UserAccount;
@@ -217,504 +218,13 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/// <reference types="angular" />
-/// <reference path="portalservice.ts" />
-/// <reference path="useraccount.ts" />
-/// <reference path="usercontrolbase.ts" />
-/// <reference path="iaddbladeeventargs.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var Blade = /** @class */ (function (_super) {
-        __extends(Blade, _super);
-        // #region Constructor
-        function Blade($scope, portalService, path, title, subtitle, width) {
-            if (subtitle === void 0) { subtitle = ''; }
-            if (width === void 0) { width = 200; }
-            var _this = _super.call(this, $scope, portalService) || this;
-            // #endregion
-            // #region Properties
-            /** HACK: 2016-11-06/hp
-            [angular-portal-blade] needs [this] as the controller.
-            We don't know how to provide [this] to the directive.
-            So we came up with this [vm] property.*/
-            _this.vm = {};
-            _this.visibility = 'collapse';
-            _this.title = '';
-            _this.subTitle = '';
-            _this.width = { 'width': '0' };
-            _this.widthStackLayout = { 'width': '50px' };
-            _this.isInnerHtml = true;
-            // #endregion
-            // #endregion
-            // #region Commands
-            _this.isCommandBrowse = false;
-            _this.isCommandBrowseEnabled = true;
-            _this.commandBrowse = function () { _this.onCommandBrowse(); };
-            _this.commandBrowseText = '';
-            _this.isCommandCancel = false;
-            _this.isCommandCancelEnabled = true;
-            _this.commandCancel = function () { _this.onCommandCancel(); };
-            _this.commandCancelText = '';
-            _this.isCommandCopy = false;
-            _this.isCommandCopyEnabled = true;
-            _this.commandCopy = function () { _this.onCommandCopy(); };
-            _this.commandCopyText = '';
-            _this.isCommandDelete = false;
-            _this.isCommandDeleteEnabled = true;
-            _this.commandDelete = function () { _this.onCommandDelete(); };
-            _this.commandDeleteText = '';
-            _this.isCommandDocument = false;
-            _this.isCommandDocumentEnabled = true;
-            _this.commandDocument = function () { _this.onCommandDocument(); };
-            _this.commandDocumentText = '';
-            _this.isCommandDocument2 = false;
-            _this.isCommandDocument2Enabled = true;
-            _this.commandDocument2 = function () { _this.onCommandDocument2(); };
-            _this.commandDocument2Text = '';
-            _this.isCommandDocument3 = false;
-            _this.isCommandDocument3Enabled = true;
-            _this.commandDocument3 = function () { _this.onCommandDocument3(); };
-            _this.commandDocument3Text = '';
-            _this.isCommandDocument4 = false;
-            _this.isCommandDocument4Enabled = true;
-            _this.commandDocument4 = function () { _this.onCommandDocument4(); };
-            _this.commandDocument4Text = '';
-            _this.isCommandDocument5 = false;
-            _this.isCommandDocument5Enabled = true;
-            _this.commandDocument5 = function () { _this.onCommandDocument5(); };
-            _this.commandDocument5Text = '';
-            _this.isCommandNew = false;
-            _this.isCommandNewEnabled = true;
-            _this.commandNew = function () { _this.onCommandNew(); };
-            _this.commandNewText = '';
-            _this.isCommandOrder = false;
-            _this.isCommandOrderEnabled = true;
-            _this.commandOrder = function () { _this.onCommandOrder(); };
-            _this.commandOrderText = '';
-            _this.isCommandRestart = false;
-            _this.isCommandRestartEnabled = true;
-            _this.commandRestart = function () { _this.onCommandRestart(); };
-            _this.commandRestartText = '';
-            _this.isCommandSave = false;
-            _this.isCommandSaveEnabled = true;
-            _this.commandSave = function () { _this.onCommandSave(); };
-            _this.commandSaveText = '';
-            _this.isCommandSearch = false;
-            _this.isCommandSearchEnabled = true;
-            _this.commandSearch = function () { _this.onCommandSearch(); };
-            _this.commandSearchText = '';
-            _this.isCommandStart = false;
-            _this.isCommandStartEnabled = true;
-            _this.commandStart = function () { _this.onCommandStart(); };
-            _this.commandStartText = '';
-            _this.isCommandStop = false;
-            _this.isCommandStopEnabled = true;
-            _this.commandStop = function () { _this.onCommandStop(); };
-            _this.commandStopText = '';
-            _this.isCommandSwap = false;
-            _this.isCommandSwapEnabled = true;
-            _this.commandSwap = function () { _this.onCommandSwap(); };
-            _this.commandSwapText = '';
-            _this.isCommandExcel = false;
-            _this.isCommandExcelEnabled = true;
-            _this.commandExcel = function () { _this.onCommandExcel(); };
-            _this.commandExcelText = '';
-            _this.vm = _this;
-            _this.path = path;
-            _this.title = title;
-            _this.subTitle = subtitle;
-            _this.width.width = width + 'px';
-            _this.widthStackLayout.width = width - 50 + 'px'; // 50 = padding (left and right)
-            if (!portalService) {
-                throw new Error('[angularportalazure.Blade] constructor parameter \'portalService\' must be provided.');
-            }
-            if (!path) {
-                throw new Error('[angularportalazure.Blade] constructor parameter \'path\' must be a string.');
-            }
-            if (!title && title !== '') {
-                throw new Error('[angularportalazure.Blade] constructor parameter \'title\' must be a string when provided.');
-            }
-            if (!subtitle && subtitle !== '') {
-                throw new Error('[angularportalazure.Blade] constructor parameter \'subtitle\' must be a string when provided.');
-            }
-            if (!width && width !== 0) {
-                throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be a number when provided.');
-            }
-            if (width < 50) {
-                throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be at least 50.');
-            }
-            // Set 'this.portalService.areaBlades.blades[index]' to 'this'
-            //     'this.portalService.areaBlades.blades[index]' was generated during AddBlade
-            _this.portalService.areaBlades.blades.forEach(function (blade, index) {
-                if (blade.path != null && _this.path != null && blade.path.toLowerCase() === _this.path.toLowerCase()) {
-                    _this.portalService.areaBlades.blades[index] = _this;
-                }
-            });
-            _this.setupWindowResizeListener(function () { _this.setBladeHeights(); });
-            _this.setBladeHeights();
-            return _this;
-        }
-        Object.defineProperty(Blade.prototype, "path", {
-            get: function () {
-                return this._path;
-            },
-            // For the moment we do distinguish between lower and upper case path name
-            set: function (newPath) {
-                if (newPath == null) {
-                    return;
-                }
-                this._path = newPath.toLowerCase();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        // #endregion
-        // #region Methods
-        Blade.prototype.activate = function () {
-            this.onActivate();
-            this.onActivated();
-        };
-        Blade.prototype.navigateTo = function (path) {
-            this.onNavigateTo(path);
-        };
-        /** Must be overridden. */
-        Blade.prototype.onNavigateTo = function (value) {
-            throw new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.');
-        };
-        // At the moment we do not distinguish between lower and upper case path name
-        Blade.prototype.comparePaths = function (path1, path2) {
-            if (path1 == null) {
-                return false;
-            }
-            if (path2 == null) {
-                return false;
-            }
-            if (path1.toLowerCase() === path2.toLowerCase()) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        };
-        /** close blade. */
-        Blade.prototype.close = function () {
-            if (!this.onClose) {
-                return; // do not close blade
-            }
-            if (this.portalService.areaBlades !== undefined) {
-                this.portalService.areaBlades.clearPath(this.path);
-            }
-            else {
-                throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.areaBlades\' available.');
-            }
-        };
-        /** Override */
-        Blade.prototype.onClose = function () {
-            return true;
-        };
-        // #region Commands
-        Blade.prototype.onCommandBrowse = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandBrowse\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandCancel = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandCancel\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandCopy = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandCopy\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandDelete = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandDelete\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandDocument = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandDocument\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandDocument2 = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandDocument2\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandDocument3 = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandDocument3\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandDocument4 = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandDocument4\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandDocument5 = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandDocument5\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandNew = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandNew\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandOrder = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandOrder\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandRestart = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandRestart\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandSave = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandSave\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandSearch = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandSearch\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandStart = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandStart\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandStop = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandStop\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandSwap = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandSwap\' is an abstract function. Define one in the derived class.');
-        };
-        Blade.prototype.onCommandExcel = function () {
-            throw new Error('[angularportalazure.Blade] \'onCommandExcel\' is an abstract function. Define one in the derived class.');
-        };
-        // #endregion
-        // #endregion
-        /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
-        Blade.prototype.setTitle = function (watchExpression, func) {
-            var _this = this;
-            if (this.watcherTitle === undefined) {
-                if (this.$scope !== null) {
-                    // angular1
-                    this.watcherTitle = this.$scope.$watch(watchExpression, function () { func(); });
-                    this.$scope.$on('$destroy', function () { _this.watcherTitle(); });
-                }
-                else {
-                    // angular2
-                    console.log('[Blade.setTitle()] not supported for angular2. use [ngOnChanges] instead.');
-                }
-            }
-        };
-        Blade.prototype.setBladeHeights = function () {
-            this.bladeContentHeight = this.portalService.$window.innerHeight - 40 - 125; // 40 = topbar, 125 = blade header
-            this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
-            // this.portalService.$timeout(() => {
-            // }, 50);
-        };
-        return Blade;
-    }(angularportalazure.UserControlBase));
-    angularportalazure.Blade = Blade;
-})(angularportalazure || (angularportalazure = {}));
-// #region Imports
-/// <reference types="angular" />
-/// <reference path="blade.ts" />
-/// <reference path="usercontrolbase.ts" />
-/// <reference path="portalservice.ts" />
-/// <reference path="iaddbladeeventargs.ts" />
-// #endregion
-var angularportalazure;
-(function (angularportalazure) {
-    var AreaBlades = /** @class */ (function (_super) {
-        __extends(AreaBlades, _super);
-        function AreaBlades($scope, portalService) {
-            var _this = _super.call(this, $scope, portalService) || this;
-            _this.blades = new Array();
-            _this.portalScroll = _this.portalService.$window.document.getElementById('apa-portal-scroll');
-            _this.setupAddBladeListener();
-            _this.setupShowHideNotificationAreaListener();
-            _this.setupWindowResizeListener(function () { _this.setPortalScrollCss(); });
-            return _this;
-        }
-        // #endregion
-        // #region Methods
-        AreaBlades.prototype.raiseBladeOnActivateEvent = function (args) {
-            var isEventRaised = false;
-            this.blades.forEach(function (blade) {
-                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
-                    // Raise event onActivate
-                    blade.onActivate();
-                    isEventRaised = true;
-                    return;
-                }
-            });
-        };
-        AreaBlades.prototype.raiseAddBladeEvent = function (args) {
-            var isBladeAlreadyShown = false;
-            this.blades.forEach(function (blade) {
-                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
-                    // Blade is already shown, just activate it again
-                    blade.onActivate();
-                    isBladeAlreadyShown = true;
-                    return;
-                }
-            });
-            if (!isBladeAlreadyShown) {
-                // Add the blade, since it is not yet shown
-                this.portalService.$rootScope.$broadcast('AreaBlades.AddBlade', args);
-            }
-        };
-        AreaBlades.prototype.setFirstBlade = function (path) {
-            this.clearAll();
-            this.hidePanorama();
-            return this.addBlade(path);
-        };
-        AreaBlades.prototype.addBlade = function (path, senderPath) {
-            var _this = this;
-            if (senderPath === void 0) { senderPath = ''; }
-            if (path == null) {
-                return;
-            }
-            if (senderPath == null) {
-                return;
-            }
-            var portalcontent = null;
-            this.portalService.$analytics.pageTrack(path.toLowerCase());
-            path = path.toLowerCase();
-            senderPath = senderPath.toLowerCase();
-            // #region Verify
-            if (path === undefined || path === '') {
-                return;
-            }
-            if (this.portalService.$window !== undefined) {
-                if (this.portalService.$window.document === undefined) {
-                    throw new Error('[angularportalazure.AreaBlades] \'this.$window.document\' undefined.');
-                }
-                portalcontent = this.portalService.$window.document.getElementById('apa-portal-scroll');
-                if (portalcontent === null) {
-                    throw new Error('[angularportalazure.AreaBlades] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
-                }
-            }
-            // #endregion
-            // #region Clear all children of the parent path
-            this.clearChild(senderPath);
-            // #endregion
-            // #region Make sure the blade is not yet show
-            this.blades.forEach(function (blade) {
-                // we do not distinguish between lower and upper case path name
-                if (blade.comparePaths(blade.path, path)) {
-                    throw new Error('[angularportalazure.AreaBlades] path: \'' + path + '\' will not be added. It is already added.');
-                }
-            });
-            // #endregion
-            // #region Show the blade
-            var blade = new angularportalazure.Blade(this.$scope, this.portalService, path, '');
-            this.blades.push(blade);
-            // #endregion
-            // #region Position the blade
-            if (this.portalService.$window !== undefined) {
-                this.portalService.$window.setTimeout(function () {
-                    var azureportalblades = _this.portalService.$window.document.getElementsByClassName('azureportalblade');
-                    var i = _this.blades.length - 1;
-                    // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
-                    //       So now if it is, the user has to scroll on its own.
-                    if (azureportalblades[i] !== undefined && azureportalblades[i].offsetLeft !== undefined) {
-                        var sl = azureportalblades[i].offsetLeft - 30;
-                        portalcontent.scrollLeft = sl;
-                    }
-                }, 250);
-            }
-            // #endregion
-            return blade;
-        };
-        AreaBlades.prototype.clearAll = function () {
-            this.blades.length = 0;
-            this.showPanoramaIfNoBlades();
-        };
-        AreaBlades.prototype.clearPath = function (path) {
-            var _this = this;
-            // we do not distinguish between lower and upper case path name
-            path = path.toLowerCase();
-            var isremoved = this.blades.some(function (blade, index) {
-                if (blade.comparePaths(blade.path, path)) {
-                    _this.blades.length = index;
-                    return true;
-                }
-            });
-            if (!isremoved && this.portalService.areaNotification.path === path) {
-                this.portalService.areaNotification.hide();
-                isremoved = true;
-            }
-            if (!isremoved) {
-                throw new Error('[angularportalazure.AreaBlades.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
-            }
-            this.showPanoramaIfNoBlades();
-        };
-        AreaBlades.prototype.clearLevel = function (level) {
-            if (this.blades.length < level) {
-                throw new Error('[angularportalazure.AreaBlades] level: \'' + level + '\' could not be cleard, since only \'' + this.blades.length + '\' available.');
-            }
-            if (level === 0) {
-                level = 1;
-            }
-            this.blades.length = level - 1;
-            this.showPanoramaIfNoBlades();
-        };
-        AreaBlades.prototype.clearLastLevel = function () {
-            this.clearLevel(this.blades.length);
-            this.showPanoramaIfNoBlades();
-        };
-        AreaBlades.prototype.clearChild = function (path) {
-            var _this = this;
-            path = path.toLowerCase();
-            if (path === '') {
-                return;
-            }
-            var isremoved = this.blades.some(function (blade, index) {
-                // we do not distinguish between lower and upper case path name
-                if (blade.comparePaths(blade.path, path)) {
-                    _this.blades.length = index + 1;
-                    return true;
-                }
-            });
-            if (!isremoved) {
-                throw new Error('[angularportalazure.AreaBlades.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
-            }
-        };
-        AreaBlades.prototype.showPanoramaIfNoBlades = function () {
-            if (this.blades.length === 0) {
-                if (this.portalService.panorama !== undefined) {
-                    {
-                        this.portalService.panorama.isVisible = true;
-                    }
-                }
-            }
-        };
-        AreaBlades.prototype.hidePanorama = function () {
-            if (this.portalService.panorama !== undefined) {
-                this.portalService.panorama.isVisible = false;
-            }
-        };
-        /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
-        AreaBlades.prototype.close = function () {
-            // Unregister Listeners
-            this.addBladeListener();
-            this.areaNotificationShowListener();
-            this.areaNotificationHideListener();
-        };
-        // #endregion
-        AreaBlades.prototype.setPortalScrollCss = function () {
-            this.portalScroll.style.marginRight = this.portalService.areaNotification.widthAreaUsed + 'px';
-        };
-        AreaBlades.prototype.setupShowHideNotificationAreaListener = function () {
-            var _this = this;
-            this.areaNotificationShowListener = this.portalService.$rootScope.$on('AreaNotification.Show', function (event, args) {
-                _this.setPortalScrollCss();
-            });
-            this.areaNotificationHideListener = this.portalService.$rootScope.$on('AreaNotification.Hide', function (event, args) {
-                _this.setPortalScrollCss();
-            });
-        };
-        AreaBlades.prototype.setupAddBladeListener = function () {
-            var _this = this;
-            this.addBladeListener = this.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event, args) {
-                _this.addBlade(args.path, args.pathSender);
-            });
-        };
-        // #region Constructor
-        AreaBlades.$inject = ['$scope', 'angularportalazure.portalService'];
-        return AreaBlades;
-    }(angularportalazure.UserControlBase));
-    angularportalazure.AreaBlades = AreaBlades;
-    angular.module('angularportalazure').service('angularportalazure.areaBlades', AreaBlades);
-})(angularportalazure || (angularportalazure = {}));
-// #region Declarations
 /// <reference path="blade.ts" />
 /// <reference path="areablades.ts" />
 /// <reference path="portalservice.ts" />
@@ -1131,7 +641,7 @@ var angularportalazure;
                 this._width = value;
                 this.calcualteCssStyles();
             },
-            enumerable: false,
+            enumerable: true,
             configurable: true
         });
         Object.defineProperty(AreaNotification.prototype, "backgroundColor", {
@@ -1142,7 +652,7 @@ var angularportalazure;
                 this._backgroundColor = value;
                 this.calcualteCssStyles();
             },
-            enumerable: false,
+            enumerable: true,
             configurable: true
         });
         // #endregion
@@ -1272,7 +782,7 @@ var angularportalazure;
             set: function (newBladePath) {
                 this._bladePath = newBladePath.toLowerCase();
             },
-            enumerable: false,
+            enumerable: true,
             configurable: true
         });
         // #endregion
@@ -1434,68 +944,496 @@ var angularportalazure;
     angularportalazure.PortalService = PortalService;
     angular.module('angularportalazure').service('angularportalazure.portalService', PortalService);
 })(angularportalazure || (angularportalazure = {}));
+// #region Declarations
 /// <reference types="angular" />
-/// <reference path="../../domain/portalservice.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="useraccount.ts" />
+/// <reference path="usercontrolbase.ts" />
+/// <reference path="iaddbladeeventargs.ts" />
+// #endregion
 var angularportalazure;
 (function (angularportalazure) {
-    AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
-    function AngularPortalBladeController(portalService) {
-        var _this = this;
-        this.$onInit = function () {
-            _this.close = function () { };
+    var Blade = /** @class */ (function (_super) {
+        __extends(Blade, _super);
+        // #region Constructor
+        function Blade($scope, portalService, path, title, subtitle, width) {
+            if (subtitle === void 0) { subtitle = ''; }
+            if (width === void 0) { width = 200; }
+            var _this = _super.call(this, $scope, portalService) || this;
+            // #endregion
+            // #region Properties
+            /** HACK: 2016-11-06/hp
+            [angular-portal-blade] needs [this] as the controller.
+            We don't know how to provide [this] to the directive.
+            So we came up with this [vm] property.*/
+            _this.vm = {};
+            _this.visibility = 'collapse';
+            _this.title = '';
+            _this.subTitle = '';
+            _this.width = { 'width': '0' };
+            _this.widthStackLayout = { 'width': '50px' };
+            _this.isInnerHtml = true;
+            // #endregion
+            // #endregion
+            // #region Commands
+            _this.isCommandBrowse = false;
+            _this.isCommandBrowseEnabled = true;
+            _this.commandBrowse = function () { _this.onCommandBrowse(); };
+            _this.commandBrowseText = '';
+            _this.isCommandCancel = false;
+            _this.isCommandCancelEnabled = true;
+            _this.commandCancel = function () { _this.onCommandCancel(); };
+            _this.commandCancelText = '';
+            _this.isCommandCopy = false;
+            _this.isCommandCopyEnabled = true;
+            _this.commandCopy = function () { _this.onCommandCopy(); };
+            _this.commandCopyText = '';
+            _this.isCommandDelete = false;
+            _this.isCommandDeleteEnabled = true;
+            _this.commandDelete = function () { _this.onCommandDelete(); };
+            _this.commandDeleteText = '';
+            _this.isCommandDocument = false;
+            _this.isCommandDocumentEnabled = true;
+            _this.commandDocument = function () { _this.onCommandDocument(); };
+            _this.commandDocumentText = '';
+            _this.isCommandDocument2 = false;
+            _this.isCommandDocument2Enabled = true;
+            _this.commandDocument2 = function () { _this.onCommandDocument2(); };
+            _this.commandDocument2Text = '';
+            _this.isCommandDocument3 = false;
+            _this.isCommandDocument3Enabled = true;
+            _this.commandDocument3 = function () { _this.onCommandDocument3(); };
+            _this.commandDocument3Text = '';
+            _this.isCommandDocument4 = false;
+            _this.isCommandDocument4Enabled = true;
+            _this.commandDocument4 = function () { _this.onCommandDocument4(); };
+            _this.commandDocument4Text = '';
+            _this.isCommandDocument5 = false;
+            _this.isCommandDocument5Enabled = true;
+            _this.commandDocument5 = function () { _this.onCommandDocument5(); };
+            _this.commandDocument5Text = '';
+            _this.isCommandNew = false;
+            _this.isCommandNewEnabled = true;
+            _this.commandNew = function () { _this.onCommandNew(); };
+            _this.commandNewText = '';
+            _this.isCommandOrder = false;
+            _this.isCommandOrderEnabled = true;
+            _this.commandOrder = function () { _this.onCommandOrder(); };
+            _this.commandOrderText = '';
+            _this.isCommandRestart = false;
+            _this.isCommandRestartEnabled = true;
+            _this.commandRestart = function () { _this.onCommandRestart(); };
+            _this.commandRestartText = '';
+            _this.isCommandSave = false;
+            _this.isCommandSaveEnabled = true;
+            _this.commandSave = function () { _this.onCommandSave(); };
+            _this.commandSaveText = '';
+            _this.isCommandSearch = false;
+            _this.isCommandSearchEnabled = true;
+            _this.commandSearch = function () { _this.onCommandSearch(); };
+            _this.commandSearchText = '';
+            _this.isCommandStart = false;
+            _this.isCommandStartEnabled = true;
+            _this.commandStart = function () { _this.onCommandStart(); };
+            _this.commandStartText = '';
+            _this.isCommandStop = false;
+            _this.isCommandStopEnabled = true;
+            _this.commandStop = function () { _this.onCommandStop(); };
+            _this.commandStopText = '';
+            _this.isCommandSwap = false;
+            _this.isCommandSwapEnabled = true;
+            _this.commandSwap = function () { _this.onCommandSwap(); };
+            _this.commandSwapText = '';
+            _this.isCommandExcel = false;
+            _this.isCommandExcelEnabled = true;
+            _this.commandExcel = function () { _this.onCommandExcel(); };
+            _this.commandExcelText = '';
+            _this.vm = _this;
+            _this.path = path;
+            _this.title = title;
+            _this.subTitle = subtitle;
+            _this.width.width = width + 'px';
+            _this.widthStackLayout.width = width - 50 + 'px'; // 50 = padding (left and right)
+            if (!portalService) {
+                throw new Error('[angularportalazure.Blade] constructor parameter \'portalService\' must be provided.');
+            }
+            if (!path) {
+                throw new Error('[angularportalazure.Blade] constructor parameter \'path\' must be a string.');
+            }
+            if (!title && title !== '') {
+                throw new Error('[angularportalazure.Blade] constructor parameter \'title\' must be a string when provided.');
+            }
+            if (!subtitle && subtitle !== '') {
+                throw new Error('[angularportalazure.Blade] constructor parameter \'subtitle\' must be a string when provided.');
+            }
+            if (!width && width !== 0) {
+                throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be a number when provided.');
+            }
+            if (width < 50) {
+                throw new Error('[angularportalazure.Blade] constructor parameter \'width\' must be at least 50.');
+            }
+            // Set 'this.portalService.areaBlades.blades[index]' to 'this'
+            //     'this.portalService.areaBlades.blades[index]' was generated during AddBlade
+            _this.portalService.areaBlades.blades.forEach(function (blade, index) {
+                if (blade.path != null && _this.path != null && blade.path.toLowerCase() === _this.path.toLowerCase()) {
+                    _this.portalService.areaBlades.blades[index] = _this;
+                }
+            });
+            _this.setupWindowResizeListener(function () { _this.setBladeHeights(); });
+            _this.setBladeHeights();
+            return _this;
+        }
+        Object.defineProperty(Blade.prototype, "path", {
+            get: function () {
+                return this._path;
+            },
+            // For the moment we do distinguish between lower and upper case path name
+            set: function (newPath) {
+                if (newPath == null) {
+                    return;
+                }
+                this._path = newPath.toLowerCase();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        // #endregion
+        // #region Methods
+        Blade.prototype.activate = function () {
+            this.onActivate();
+            this.onActivated();
         };
-    }
-    var angularPortalBlade = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
-        controller: AngularPortalBladeController,
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
-})(angularportalazure || (angularportalazure = {}));
-var angularportalazure;
-(function (angularportalazure) {
-    var angularPortalGrid = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/bladegrid/bladegrid.html',
-        controller: function () { },
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalGrid', angularPortalGrid);
-})(angularportalazure || (angularportalazure = {}));
-var angularportalazure;
-(function (angularportalazure) {
-    AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
-    function AngularPortalHomeController($scope, portalService) {
-        this.$onInit = function () {
-            portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
-            portalService.areaBlades = new angularportalazure.AreaBlades($scope, portalService);
+        Blade.prototype.navigateTo = function (path) {
+            this.onNavigateTo(path);
         };
-    }
-    var angularPortalHome = {
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
-        controller: AngularPortalHomeController,
-        bindings: {
-            vm: '='
-        }
-    };
-    angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
+        /** Must be overridden. */
+        Blade.prototype.onNavigateTo = function (value) {
+            throw new Error('[angularportalazure.Blade] \'onNavigateTo\' is an abstract function. Define one in the derived class.');
+        };
+        // At the moment we do not distinguish between lower and upper case path name
+        Blade.prototype.comparePaths = function (path1, path2) {
+            if (path1 == null) {
+                return false;
+            }
+            if (path2 == null) {
+                return false;
+            }
+            if (path1.toLowerCase() === path2.toLowerCase()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        /** close blade. */
+        Blade.prototype.close = function () {
+            if (!this.onClose) {
+                return; // do not close blade
+            }
+            if (this.portalService.areaBlades !== undefined) {
+                this.portalService.areaBlades.clearPath(this.path);
+            }
+            else {
+                throw new Error('[angularportalazure.Blade] path: \'' + this.path + '\' could not be removed, since no \'this.portalService.areaBlades\' available.');
+            }
+        };
+        /** Override */
+        Blade.prototype.onClose = function () {
+            return true;
+        };
+        // #region Commands
+        Blade.prototype.onCommandBrowse = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandBrowse\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandCancel = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandCancel\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandCopy = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandCopy\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandDelete = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandDelete\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandDocument = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandDocument\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandDocument2 = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandDocument2\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandDocument3 = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandDocument3\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandDocument4 = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandDocument4\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandDocument5 = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandDocument5\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandNew = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandNew\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandOrder = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandOrder\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandRestart = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandRestart\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandSave = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandSave\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandSearch = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandSearch\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandStart = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandStart\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandStop = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandStop\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandSwap = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandSwap\' is an abstract function. Define one in the derived class.');
+        };
+        Blade.prototype.onCommandExcel = function () {
+            throw new Error('[angularportalazure.Blade] \'onCommandExcel\' is an abstract function. Define one in the derived class.');
+        };
+        // #endregion
+        // #endregion
+        /** Change title, as soon as watchExpression changes. watchExpression is either a variable ore an expression, e.g. [name1 + name2] */
+        Blade.prototype.setTitle = function (watchExpression, func) {
+            var _this = this;
+            if (this.watcherTitle === undefined) {
+                if (this.$scope !== null) {
+                    // angular1
+                    this.watcherTitle = this.$scope.$watch(watchExpression, function () { func(); });
+                    this.$scope.$on('$destroy', function () { _this.watcherTitle(); });
+                }
+                else {
+                    // angular2
+                    console.log('[Blade.setTitle()] not supported for angular2. use [ngOnChanges] instead.');
+                }
+            }
+        };
+        Blade.prototype.setBladeHeights = function () {
+            this.bladeContentHeight = this.portalService.$window.innerHeight - 40 - 125; // 40 = topbar, 125 = blade header
+            this.bladeContentHeightInner = this.bladeContentHeight - 50 - 3; // 50 = padding (top and bottom), somehow we miss 3px
+            // this.portalService.$timeout(() => {
+            // }, 50);
+        };
+        return Blade;
+    }(angularportalazure.UserControlBase));
+    angularportalazure.Blade = Blade;
 })(angularportalazure || (angularportalazure = {}));
+// #region Imports
+/// <reference types="angular" />
+/// <reference path="blade.ts" />
+/// <reference path="usercontrolbase.ts" />
+/// <reference path="portalservice.ts" />
+/// <reference path="iaddbladeeventargs.ts" />
+// #endregion
 var angularportalazure;
 (function (angularportalazure) {
-    var angularPortalNav = {
-        transclude: true,
-        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
-        controller: function () { },
-        bindings: {
-            vm: '='
+    var AreaBlades = /** @class */ (function (_super) {
+        __extends(AreaBlades, _super);
+        function AreaBlades($scope, portalService) {
+            var _this = _super.call(this, $scope, portalService) || this;
+            _this.blades = new Array();
+            _this.portalScroll = _this.portalService.$window.document.getElementById('apa-portal-scroll');
+            _this.setupAddBladeListener();
+            _this.setupShowHideNotificationAreaListener();
+            _this.setupWindowResizeListener(function () { _this.setPortalScrollCss(); });
+            return _this;
         }
-    };
-    angular.module('angularportalazure').component('angularPortalNav', angularPortalNav);
+        // #endregion
+        // #region Methods
+        AreaBlades.prototype.raiseBladeOnActivateEvent = function (args) {
+            var isEventRaised = false;
+            this.blades.forEach(function (blade) {
+                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
+                    // Raise event onActivate
+                    blade.onActivate();
+                    isEventRaised = true;
+                    return;
+                }
+            });
+        };
+        AreaBlades.prototype.raiseAddBladeEvent = function (args) {
+            var isBladeAlreadyShown = false;
+            this.blades.forEach(function (blade) {
+                if (blade.path.toLowerCase() === args.path.toLowerCase()) {
+                    // Blade is already shown, just activate it again
+                    blade.onActivate();
+                    isBladeAlreadyShown = true;
+                    return;
+                }
+            });
+            if (!isBladeAlreadyShown) {
+                // Add the blade, since it is not yet shown
+                this.portalService.$rootScope.$broadcast('AreaBlades.AddBlade', args);
+            }
+        };
+        AreaBlades.prototype.setFirstBlade = function (path) {
+            this.clearAll();
+            this.hidePanorama();
+            return this.addBlade(path);
+        };
+        AreaBlades.prototype.addBlade = function (path, senderPath) {
+            var _this = this;
+            if (senderPath === void 0) { senderPath = ''; }
+            if (path == null) {
+                return;
+            }
+            if (senderPath == null) {
+                return;
+            }
+            var portalcontent = null;
+            this.portalService.$analytics.pageTrack(path.toLowerCase());
+            path = path.toLowerCase();
+            senderPath = senderPath.toLowerCase();
+            // #region Verify
+            if (path === undefined || path === '') {
+                return;
+            }
+            if (this.portalService.$window !== undefined) {
+                if (this.portalService.$window.document === undefined) {
+                    throw new Error('[angularportalazure.AreaBlades] \'this.$window.document\' undefined.');
+                }
+                portalcontent = this.portalService.$window.document.getElementById('apa-portal-scroll');
+                if (portalcontent === null) {
+                    throw new Error('[angularportalazure.AreaBlades] HTML element with ID [apa-portal-scroll] not found. Maybe it is to early to call function \'BladeArea.addBlade\'.');
+                }
+            }
+            // #endregion
+            // #region Clear all children of the parent path
+            this.clearChild(senderPath);
+            // #endregion
+            // #region Make sure the blade is not yet show
+            this.blades.forEach(function (blade) {
+                // we do not distinguish between lower and upper case path name
+                if (blade.comparePaths(blade.path, path)) {
+                    throw new Error('[angularportalazure.AreaBlades] path: \'' + path + '\' will not be added. It is already added.');
+                }
+            });
+            // #endregion
+            // #region Show the blade
+            var blade = new angularportalazure.Blade(this.$scope, this.portalService, path, '');
+            this.blades.push(blade);
+            // #endregion
+            // #region Position the blade
+            if (this.portalService.$window !== undefined) {
+                this.portalService.$window.setTimeout(function () {
+                    var azureportalblades = _this.portalService.$window.document.getElementsByClassName('azureportalblade');
+                    var i = _this.blades.length - 1;
+                    // HACK: Sometime azureportalblades[i].offsetLeft is undefined.
+                    //       So now if it is, the user has to scroll on its own.
+                    if (azureportalblades[i] !== undefined && azureportalblades[i].offsetLeft !== undefined) {
+                        var sl = azureportalblades[i].offsetLeft - 30;
+                        portalcontent.scrollLeft = sl;
+                    }
+                }, 250);
+            }
+            // #endregion
+            return blade;
+        };
+        AreaBlades.prototype.clearAll = function () {
+            this.blades.length = 0;
+            this.showPanoramaIfNoBlades();
+        };
+        AreaBlades.prototype.clearPath = function (path) {
+            var _this = this;
+            // we do not distinguish between lower and upper case path name
+            path = path.toLowerCase();
+            var isremoved = this.blades.some(function (blade, index) {
+                if (blade.comparePaths(blade.path, path)) {
+                    _this.blades.length = index;
+                    return true;
+                }
+            });
+            if (!isremoved && this.portalService.areaNotification.path === path) {
+                this.portalService.areaNotification.hide();
+                isremoved = true;
+            }
+            if (!isremoved) {
+                throw new Error('[angularportalazure.AreaBlades.clearPath] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
+            }
+            this.showPanoramaIfNoBlades();
+        };
+        AreaBlades.prototype.clearLevel = function (level) {
+            if (this.blades.length < level) {
+                throw new Error('[angularportalazure.AreaBlades] level: \'' + level + '\' could not be cleard, since only \'' + this.blades.length + '\' available.');
+            }
+            if (level === 0) {
+                level = 1;
+            }
+            this.blades.length = level - 1;
+            this.showPanoramaIfNoBlades();
+        };
+        AreaBlades.prototype.clearLastLevel = function () {
+            this.clearLevel(this.blades.length);
+            this.showPanoramaIfNoBlades();
+        };
+        AreaBlades.prototype.clearChild = function (path) {
+            var _this = this;
+            path = path.toLowerCase();
+            if (path === '') {
+                return;
+            }
+            var isremoved = this.blades.some(function (blade, index) {
+                // we do not distinguish between lower and upper case path name
+                if (blade.comparePaths(blade.path, path)) {
+                    _this.blades.length = index + 1;
+                    return true;
+                }
+            });
+            if (!isremoved) {
+                throw new Error('[angularportalazure.AreaBlades.clearChild] path: \'' + path + '\' could not be removed, since path not found in bladeUrls.');
+            }
+        };
+        AreaBlades.prototype.showPanoramaIfNoBlades = function () {
+            if (this.blades.length === 0) {
+                if (this.portalService.panorama !== undefined) {
+                    {
+                        this.portalService.panorama.isVisible = true;
+                    }
+                }
+            }
+        };
+        AreaBlades.prototype.hidePanorama = function () {
+            if (this.portalService.panorama !== undefined) {
+                this.portalService.panorama.isVisible = false;
+            }
+        };
+        /** We need to call this when AreaBlades is no longer used, otherwise the listener does not get removed. */
+        AreaBlades.prototype.close = function () {
+            // Unregister Listeners
+            this.addBladeListener();
+            this.areaNotificationShowListener();
+            this.areaNotificationHideListener();
+        };
+        // #endregion
+        AreaBlades.prototype.setPortalScrollCss = function () {
+            this.portalScroll.style.marginRight = this.portalService.areaNotification.widthAreaUsed + 'px';
+        };
+        AreaBlades.prototype.setupShowHideNotificationAreaListener = function () {
+            var _this = this;
+            this.areaNotificationShowListener = this.portalService.$rootScope.$on('AreaNotification.Show', function (event, args) {
+                _this.setPortalScrollCss();
+            });
+            this.areaNotificationHideListener = this.portalService.$rootScope.$on('AreaNotification.Hide', function (event, args) {
+                _this.setPortalScrollCss();
+            });
+        };
+        AreaBlades.prototype.setupAddBladeListener = function () {
+            var _this = this;
+            this.addBladeListener = this.portalService.$rootScope.$on('AreaBlades.AddBlade', function (event, args) {
+                _this.addBlade(args.path, args.pathSender);
+            });
+        };
+        // #region Constructor
+        AreaBlades.$inject = ['$scope', 'angularportalazure.portalService'];
+        return AreaBlades;
+    }(angularportalazure.UserControlBase));
+    angularportalazure.AreaBlades = AreaBlades;
+    angular.module('angularportalazure').service('angularportalazure.areaBlades', AreaBlades);
 })(angularportalazure || (angularportalazure = {}));
 // #region Declarations
 /// <reference path="bladedata.ts" />
@@ -1906,3 +1844,66 @@ var angularportalazure;
 //        // #endregion
 //    }
 //}
+/// <reference types="angular" />
+/// <reference path="../../domain/portalservice.ts" />
+var angularportalazure;
+(function (angularportalazure) {
+    AngularPortalBladeController.$inject = ['angularportalazure.portalService'];
+    function AngularPortalBladeController(portalService) {
+        var _this = this;
+        this.$onInit = function () {
+            _this.close = function () { };
+        };
+    }
+    var angularPortalBlade = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/blade/blade.html',
+        controller: AngularPortalBladeController,
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalBlade', angularPortalBlade);
+})(angularportalazure || (angularportalazure = {}));
+var angularportalazure;
+(function (angularportalazure) {
+    var angularPortalGrid = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/bladegrid/bladegrid.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalGrid', angularPortalGrid);
+})(angularportalazure || (angularportalazure = {}));
+var angularportalazure;
+(function (angularportalazure) {
+    AngularPortalHomeController.$inject = ['$scope', 'angularportalazure.portalService'];
+    function AngularPortalHomeController($scope, portalService) {
+        this.$onInit = function () {
+            portalService.areaNotification = new angularportalazure.AreaNotification($scope, portalService);
+            portalService.areaBlades = new angularportalazure.AreaBlades($scope, portalService);
+        };
+    }
+    var angularPortalHome = {
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/home/home.html',
+        controller: AngularPortalHomeController,
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalHome', angularPortalHome);
+})(angularportalazure || (angularportalazure = {}));
+var angularportalazure;
+(function (angularportalazure) {
+    var angularPortalNav = {
+        transclude: true,
+        templateUrl: '/node_modules/@ardimedia/angular-portal-azure/directives/nav/nav.html',
+        controller: function () { },
+        bindings: {
+            vm: '='
+        }
+    };
+    angular.module('angularportalazure').component('angularPortalNav', angularPortalNav);
+})(angularportalazure || (angularportalazure = {}));
