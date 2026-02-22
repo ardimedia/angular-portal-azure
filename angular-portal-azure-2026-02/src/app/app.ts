@@ -52,9 +52,9 @@ export class App {
   // ---- Nav blade: Customers ----
   customerNavBlade = createBlade('customers', 'Kunden', 315);
   customerNavItems: BladeNavItem[] = [
-    createNavItem('Alle Kunden', 'customers/list', 'fa fa-users'),
-    createNavItem('Neuer Kunde', 'customers/new', 'fa fa-plus'),
-    { title: 'Benachrichtigungen', bladePath: '', cssClass: 'fa fa-bell', isVisible: true, callback: () => this.toggleNotifications('customers') },
+    createNavItem('Alle Kunden', 'customers/list', 'ti ti-users'),
+    createNavItem('Neuer Kunde', 'customers/new', 'ti ti-plus'),
+    { title: 'Benachrichtigungen', bladePath: '', cssClass: 'ti ti-bell', isVisible: true, callback: () => this.toggleNotifications('customers') },
   ];
 
   // ---- Grid blade: Customer list ----

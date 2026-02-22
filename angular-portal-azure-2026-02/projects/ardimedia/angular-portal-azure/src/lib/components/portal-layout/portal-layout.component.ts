@@ -36,7 +36,7 @@ import { getUserDisplayName } from '../../models/user-account.model';
                   (click)="toggleDarkMode()"
                   [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
                   [attr.title]="isDark() ? 'Light mode' : 'Dark mode'">
-            {{ isDark() ? '\u2600' : '\u263E' }}
+            <i [class]="isDark() ? 'ti ti-sun' : 'ti ti-moon'"></i>
           </button>
           <div class="fxs-avatarmenu-tenant-container">
             <a class="fxs-has-hover" (click)="portal.toggleAvatarMenu()">

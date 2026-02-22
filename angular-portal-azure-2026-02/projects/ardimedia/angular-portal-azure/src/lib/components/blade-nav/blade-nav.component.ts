@@ -23,7 +23,7 @@ import { BladeService } from '../../services/blade.service';
   template: `
     <table class="azc-grid-full azc-grid-multiselectable">
       <colgroup>
-        <col class="col0" style="width:25px;">
+        <col class="col0" style="width:28px;">
         <col class="col1">
       </colgroup>
       <tbody class="azc-grid-groupdata" role="rowgroup">

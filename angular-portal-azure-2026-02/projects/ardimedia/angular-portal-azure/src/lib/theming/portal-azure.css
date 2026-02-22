@@ -140,6 +140,28 @@
 
   --apa-scrollbar-thumb: var(--apa-slate-600);
   --apa-scrollbar-thumb-hover: var(--apa-slate-500);
+
+  /* Kendo theme v13 overrides for dark mode */
+  --kendo-color-app-surface: var(--apa-slate-950);
+  --kendo-color-on-app-surface: var(--apa-slate-50);
+  --kendo-color-subtle: var(--apa-slate-400);
+  --kendo-color-surface: var(--apa-slate-900);
+  --kendo-color-surface-alt: var(--apa-slate-900);
+  --kendo-color-border: var(--apa-slate-700);
+  --kendo-color-border-alt: var(--apa-slate-600);
+  --kendo-color-base-subtle: var(--apa-slate-800);
+  --kendo-color-base-subtle-hover: var(--apa-slate-700);
+  --kendo-color-base-subtle-active: var(--apa-slate-600);
+  --kendo-color-base: var(--apa-slate-800);
+  --kendo-color-base-hover: var(--apa-slate-700);
+  --kendo-color-base-active: var(--apa-slate-600);
+  --kendo-color-base-emphasis: var(--apa-slate-600);
+  --kendo-color-base-on-subtle: var(--apa-slate-50);
+  --kendo-color-on-base: var(--apa-slate-50);
+  --kendo-color-base-on-surface: var(--apa-slate-50);
+  --kendo-color-primary-subtle: var(--apa-blue-900);
+  --kendo-color-primary-subtle-hover: var(--apa-blue-800);
+  --kendo-color-on-primary: #ffffff;
 }
 
 /* ===== Component Tokens (reference semantic tokens) ===== */
@@ -304,9 +326,9 @@ a:focus, a:hover {
   background: none;
   border: 1px solid var(--apa-chrome-hover);
   color: var(--apa-chrome-text);
-  font-size: 16px;
-  width: 32px;
-  height: 32px;
+  font-size: 18px;
+  width: 34px;
+  height: 34px;
   border-radius: 6px;
   cursor: pointer;
   display: flex;
@@ -853,6 +875,10 @@ a:focus, a:hover {
 }
 .azc-grid-activateableRow table tbody tr[aria-selected='true'] {
   background-color: var(--apa-grid-row-selected-bg) !important;
+}
+.msportalfx-gridcolumn-asseticon i {
+  font-size: 18px;
+  vertical-align: middle;
 }
 .msportalfx-gridcolumn-asseticon img,
 .msportalfx-gridcolumn-asseticon svg {
