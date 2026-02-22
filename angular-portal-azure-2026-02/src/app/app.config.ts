@@ -16,6 +16,7 @@ export const appConfig: ApplicationConfig = {
         createTile('Einstellungen', 'settings', TileSize.Mini),
         createTile('Berichte', 'reports', TileSize.Mini),
         createTile('Dashboard', 'dashboard', TileSize.HeroWide),
+        createTile('Benachrichtigungen', 'notifications', TileSize.Normal),
       ],
       userAccount: {
         userName: 'demo@ardimedia.com',

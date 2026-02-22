@@ -118,6 +118,20 @@
           </apa-blade>
         }
 
+        <!-- Notifications Blade -->
+        @case ('notifications') {
+          <apa-blade [blade]="notificationsBlade">
+            <div style="padding:10px;">
+              <h3>Benachrichtigungen</h3>
+              <p>Das Benachrichtigungspanel kann geoeffnet werden ueber:</p>
+              <ul>
+                <li>Den Befehl "panel oeffnen" in der Befehlsleiste oben</li>
+                <li>Den Navigationseintrag "Benachrichtigungen" im Kunden-Blade</li>
+              </ul>
+            </div>
+          </apa-blade>
+        }
+
         <!-- Fallback for unknown blade paths -->
         @default {
           <apa-blade [blade]="{ path: blade.path, title: blade.path, subtitle: '', width: 315, isInnerHtml: false, commands: [], statusBar: { text: '', style: 'none' } }">
@@ -130,8 +144,18 @@
 
   <!-- Notification Panel -->
   <apa-notification-panel>
-    <div style="padding:15px; color:white;">
-      <p>Benachrichtigungen werden hier angezeigt.</p>
+    <div style="padding:15px; color:var(--apa-chrome-text);">
+      @switch (portal.notification().path) {
+        @case ('customers') {
+          <h3>Kunden-Benachrichtigungen</h3>
+          <p>3 neue Kundenanfragen</p>
+          <p>1 offene Aufgabe</p>
+        }
+        @default {
+          <h3>Benachrichtigungen</h3>
+          <p>Keine neuen Benachrichtigungen.</p>
+        }
+      }
     </div>
   </apa-notification-panel>
 </apa-portal-layout>

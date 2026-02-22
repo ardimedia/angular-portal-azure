@@ -7,7 +7,7 @@
 label {
   display: block;
   font-size: 12px;
-  color: #8f9ca8;
+  color: var(--apa-text-secondary);
   text-transform: uppercase;
   margin-bottom: 4px;
 }
@@ -16,7 +16,7 @@ label {
   width: 100%;
   padding: 6px 10px;
   font-size: 14px;
-  border: 1px solid #dcdfe2;
+  border: 1px solid var(--apa-border);
   border-radius: 2px;
   box-sizing: border-box;
 }

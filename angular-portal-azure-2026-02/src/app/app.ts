@@ -14,6 +14,7 @@ import {
   createDataBlade,
   createNavItem,
   createDetailCommands,
+  createCommand,
   BladeNavItem,
   BladeCommand,
   executeSaveItem,
@@ -53,6 +54,7 @@ export class App {
   customerNavItems: BladeNavItem[] = [
     createNavItem('Alle Kunden', 'customers/list', 'fa fa-users'),
     createNavItem('Neuer Kunde', 'customers/new', 'fa fa-plus'),
+    { title: 'Benachrichtigungen', bladePath: '', cssClass: 'fa fa-bell', isVisible: true, callback: () => this.toggleNotifications('customers') },
   ];
 
   // ---- Grid blade: Customer list ----
@@ -81,6 +83,9 @@ export class App {
   // ---- Dashboard blade ----
   dashboardBlade = createBlade('dashboard', 'Dashboard', 585);
 
+  // ---- Notifications blade ----
+  notificationsBlade = createBlade('notifications', 'Benachrichtigungen', 315);
+
   constructor() {
     // Set up customer detail commands
     this.customerDetailCommands = createDetailCommands({
@@ -88,6 +93,11 @@ export class App {
       onCancel: () => this.bladeService.closeBlade(this.customerDetailBlade),
     });
     this.customerDetailBlade.commands = this.customerDetailCommands;
+
+    // Set up notification blade commands
+    this.notificationsBlade.commands = [
+      createCommand('toggle', 'panel oeffnen', () => this.toggleNotifications()),
+    ];
 
     // Load the customer list
     this.customerListBlade.items = this.customers;
@@ -107,6 +117,16 @@ export class App {
     this.customerDetailBlade.item = { ...customer };
     this.customerDetailBlade.title = customer.name;
     this.customerDetailBlade.statusBar = clearStatusBar();
+  }
+
+  /** Toggle notification panel */
+  toggleNotifications(path: string = 'notifications'): void {
+    const notif = this.portal.notification();
+    if (notif.isVisible && notif.path === path) {
+      this.portal.hideNotification();
+    } else {
+      this.portal.showNotification(path);
+    }
   }
 
   /** Save customer demo */

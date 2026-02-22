@@ -37,7 +37,7 @@ import { BladeService } from '../../services/blade.service';
     .apa-sidebar {
       display: flex;
       flex-direction: column;
-      background-color: #1f2327;
+      background-color: var(--apa-chrome);
       width: 200px;
       height: 100%;
       padding-top: 10px;
@@ -50,13 +50,13 @@ import { BladeService } from '../../services/blade.service';
       display: flex;
       align-items: center;
       padding: 10px 15px;
-      color: #fff;
+      color: var(--apa-chrome-text);
       text-decoration: none;
       font-size: 13px;
       transition: background-color 0.15s ease;
     }
     .apa-sidebar-item:hover {
-      background-color: #3d4247;
+      background-color: var(--apa-chrome-hover);
     }
     .apa-sidebar-icon {
       margin-right: 10px;

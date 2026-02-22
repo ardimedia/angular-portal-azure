@@ -26,7 +26,8 @@ import { BladeCommand, createCommand } from '../../models/blade-command.model';
 @Component({
   selector: 'apa-blade-detail',
   standalone: true,
-  styles: [`:host { display: block; }`],
+  styles: [`:host { display: flex; flex-direction: column; flex: 1; }
+    .apa-blade-detail { flex: 1; }`],
   template: `
     <div class="apa-blade-detail">
       <ng-content />

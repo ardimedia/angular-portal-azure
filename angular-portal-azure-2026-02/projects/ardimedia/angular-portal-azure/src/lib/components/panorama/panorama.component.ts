@@ -26,8 +26,8 @@ import { PositionedTile } from '../../models/panorama.model';
       <div class="fxs-panorama-homearea" [class.collapsed]="!panorama().showTiles">
         <div class="fxs-startboard-target fxs-startboard fx-rightClick" [class.collapsed]="!panorama().showTiles">
           @if (panorama().tiles.length === 0 && panorama().isTilesLoaded) {
-            <div class="fxs-part fxs-part-clickable" style="background-color:#293644; padding:25px; max-width:800px; margin-bottom:15px; height:auto;">
-              <header class="fxs-part-title" style="color:white">
+            <div class="fxs-part fxs-part-clickable" style="background-color:var(--apa-surface-raised); padding:25px; max-width:800px; margin-bottom:15px; height:auto;">
+              <header class="fxs-part-title" style="color:var(--apa-text)">
                 <h3 class="msportalfx-tooltip-overflow">Keine Applikationen zugeordnet</h3>
                 <p class="msportalfx-tooltip-overflow" style="margin:0;padding:0">
                   Wenden Sie sich bitte an den Administrator damit die entsprechenden Applikationen zugeordnet werden koennen.

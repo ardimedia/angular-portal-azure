@@ -24,7 +24,7 @@ import { filterItems } from '../../models/filter.util';
 @Component({
   selector: 'apa-blade-grid',
   standalone: true,
-  styles: [`:host { display: block; }`],
+  styles: [`:host { display: flex; flex-direction: column; flex: 1; }`],
   template: `
     @if (searchable()) {
       <div style="padding:0 0 10px 0;">

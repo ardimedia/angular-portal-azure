@@ -29,7 +29,7 @@ import { BladeComponent } from '../blade/blade.component';
           <div class="azureportalblade fxs-stacklayout-child">
             <apa-blade [blade]="blade">
               <!-- Default content: blade path (consumers override via content projection or custom templates) -->
-              <p style="padding:25px; color:#464f59;">{{ blade.path }}</p>
+              <p style="padding:25px; color:var(--apa-text-secondary);">{{ blade.path }}</p>
             </apa-blade>
           </div>
         }

@@ -19,7 +19,7 @@ import { BladeService } from '../../services/blade.service';
 @Component({
   selector: 'apa-blade-nav',
   standalone: true,
-  styles: [`:host { display: block; }`],
+  styles: [`:host { display: flex; flex-direction: column; flex: 1; }`],
   template: `
     <table class="azc-grid-full azc-grid-multiselectable">
       <colgroup>
