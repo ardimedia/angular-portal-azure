@@ -3,7 +3,7 @@ import { BladeDefinition } from '../models/blade.model';
 import { BladeParameter } from '../models/blade-parameter.model';
 import { PanoramaDefinition, createPanorama, PositionedTile, layoutTiles } from '../models/panorama.model';
 import { NotificationDefinition, createNotificationPanel } from '../models/notification.model';
-import { AvatarMenuDefinition, createAvatarMenu } from '../models/avatar-menu.model';
+import { AvatarMenuDefinition, AvatarMenuItem, createAvatarMenu } from '../models/avatar-menu.model';
 import { TileDefinition } from '../models/tile-definition.model';
 import { UserAccount } from '../models/user-account.model';
 import { PortalConfig } from '../models/portal-config.model';
@@ -131,5 +131,10 @@ export class PortalService {
   /** Close avatar menu */
   closeAvatarMenu(): void {
     this.avatarMenu.update((m) => ({ ...m, isOpen: false }));
+  }
+
+  /** Set avatar menu items */
+  setAvatarMenuItems(items: AvatarMenuItem[]): void {
+    this.avatarMenu.update((m) => ({ ...m, items }));
   }
 }

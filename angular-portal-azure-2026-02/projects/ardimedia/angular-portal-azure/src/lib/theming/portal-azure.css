@@ -197,7 +197,7 @@
   /* Command bar */
   --apa-commandbar-color: var(--apa-chrome-text);
   --apa-commandbar-hover-bg: var(--apa-chrome-hover);
-  --apa-commandbar-border-color: var(--apa-border-strong);
+  --apa-commandbar-border-color: var(--apa-slate-700);
 
   /* Tile */
   --apa-tile-bg: var(--apa-surface);
@@ -361,6 +361,53 @@ a:focus, a:hover {
   color: var(--apa-chrome-text);
 }
 
+/* Avatar trigger */
+.apa-avatar-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.apa-avatar-initials {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--apa-slate-600);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.apa-avatar-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  text-align: left;
+}
+.apa-avatar-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--apa-chrome-text);
+}
+.apa-avatar-email {
+  font-size: 11px;
+  opacity: 0.7;
+  color: var(--apa-chrome-text);
+}
+.apa-avatar-trigger > i {
+  font-size: 14px;
+  opacity: 0.6;
+  color: var(--apa-chrome-text);
+  transition: transform 0.2s ease;
+}
+
 /* ===== Panorama / Startboard ===== */
 .fxs-panorama {
   -ms-scroll-chaining: none;
@@ -404,6 +451,7 @@ a:focus, a:hover {
 .fxs-flowlayout > .fxs-flowlayout-childcontainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--apa-tile-min-width), 1fr));
+  grid-auto-flow: dense;
   gap: 12px;
 }
 .fxs-tile {
@@ -434,8 +482,9 @@ a:focus, a:hover {
   min-width: 90px;
 }
 .fxs-tilesize-herowide.fxs-tile {
+  grid-column: span 3;
   height: var(--apa-tile-size-herowide-h);
-  min-width: var(--apa-tile-size-herowide-w);
+  min-width: 0;
 }
 
 /* Tile content */
@@ -671,10 +720,8 @@ a:focus, a:hover {
   transition: height 0.175s ease-in;
 }
 .fxs-commandBar > ul.fxs-commandBar-itemList > li {
-  border-right-color: var(--apa-commandbar-border-color);
   float: left;
   margin-bottom: 5px;
-  border-right: 1px solid transparent;
 }
 .fxs-commandBar .fxs-commandBar-item {
   font-family: var(--apa-font-family-semibold);
@@ -687,14 +734,16 @@ a:focus, a:hover {
   position: relative;
   padding: 3px 10px 0;
   width: auto;
-  max-width: 90px;
+  min-width: 60px;
   height: 48px;
   box-sizing: border-box;
   transition: background-color 0.07s ease-in;
   cursor: pointer;
+  text-align: center;
+  border: 1px solid var(--apa-commandbar-border-color);
 }
 .fxs-commandBar .fxs-commandBar-item:hover {
-  background-color: var(--apa-commandbar-hover-bg);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .fxs-commandBar .fxs-commandBar-item .fxs-commandBar-item-text {
   height: 22px;
@@ -703,6 +752,9 @@ a:focus, a:hover {
 .fxs-commandBar .fxs-commandBar-item .fxs-commandBar-item-icon {
   position: absolute;
   bottom: 2px;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 .fxs-commandBar .fxs-commandBar-item .fxs-commandBar-item-icon > svg,
 .fxs-commandBar .fxs-commandBar-item .fxs-commandBar-item-icon > img {
@@ -806,6 +858,39 @@ a:focus, a:hover {
   text-overflow: ellipsis;
 }
 
+/* ===== Avatar Dropdown (portal-layout) ===== */
+.apa-avatar-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 200px;
+  background-color: var(--apa-chrome);
+  border: 1px solid var(--apa-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 200;
+}
+.apa-avatar-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--apa-chrome-text);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+.apa-avatar-dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--apa-chrome-text);
+  text-decoration: none;
+}
+.apa-avatar-dropdown-item i {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
 /* ===== Notification Panel ===== */
 .apa-notification-panel {
   position: fixed;
@@ -863,15 +948,24 @@ a:focus, a:hover {
   color: inherit;
   position: relative;
 }
-.azc-grid table tbody tr td {
+.azc-grid table tbody tr,
+.azc-grid-full tbody tr {
+  transition: background-color 0.07s ease-in;
+}
+.azc-grid table tbody tr:hover,
+.azc-grid-full tbody tr:hover {
+  background-color: var(--apa-surface-hover);
+}
+.azc-grid table tbody tr td,
+.azc-grid-full tbody tr td {
   color: var(--apa-text);
-  height: 33px;
+  height: 40px;
   border-top: 1px solid var(--apa-grid-border-color);
   border-bottom: 1px solid var(--apa-grid-border-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 1px 0 1px 10px;
+  padding: 6px 10px;
 }
 .azc-grid-activateableRow table tbody tr[aria-selected='true'] {
   background-color: var(--apa-grid-row-selected-bg) !important;

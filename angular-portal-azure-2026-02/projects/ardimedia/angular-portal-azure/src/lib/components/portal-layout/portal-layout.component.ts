@@ -38,11 +38,28 @@ import { getUserDisplayName } from '../../models/user-account.model';
                   [attr.title]="isDark() ? 'Light mode' : 'Dark mode'">
             <i [class]="isDark() ? 'ti ti-sun' : 'ti ti-moon'"></i>
           </button>
-          <div class="fxs-avatarmenu-tenant-container">
-            <a class="fxs-has-hover" (click)="portal.toggleAvatarMenu()">
-              <span>{{ displayName() }}</span><br />
-              <span>{{ portal.avatarMenu().userAccount.userName }}</span>
+          <div class="fxs-avatarmenu-tenant-container" style="position:relative;">
+            <a class="apa-avatar-trigger fxs-has-hover" (click)="portal.toggleAvatarMenu()">
+              <span class="apa-avatar-initials">{{ initials() }}</span>
+              <span class="apa-avatar-info">
+                <span class="apa-avatar-name">{{ displayName() }}</span>
+                <span class="apa-avatar-email">{{ portal.avatarMenu().userAccount.userName }}</span>
+              </span>
+              <i class="ti" [class.ti-chevron-down]="!portal.avatarMenu().isOpen"
+                            [class.ti-chevron-up]="portal.avatarMenu().isOpen"></i>
             </a>
+            @if (portal.avatarMenu().isOpen && portal.avatarMenu().items.length > 0) {
+              <div class="apa-avatar-dropdown">
+                @for (item of portal.avatarMenu().items; track item.href) {
+                  <a class="apa-avatar-dropdown-item" [href]="item.href">
+                    @if (item.icon) {
+                      <i [class]="item.icon"></i>
+                    }
+                    <span>{{ item.label }}</span>
+                  </a>
+                }
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -95,6 +112,13 @@ export class PortalLayoutComponent {
   protected displayName(): string {
     const account = this.portal.avatarMenu().userAccount;
     return getUserDisplayName(account);
+  }
+
+  protected initials(): string {
+    const a = this.portal.avatarMenu().userAccount;
+    const f = (a.firstName || '')[0] || '';
+    const l = (a.lastName || '')[0] || '';
+    return (f + l).toUpperCase() || '?';
   }
 
   protected notificationMargin(): number {

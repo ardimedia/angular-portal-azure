@@ -30,7 +30,7 @@ import { PositionedTile } from '../../models/panorama.model';
               <header class="fxs-part-title" style="color:var(--apa-text)">
                 <h3 class="msportalfx-tooltip-overflow">Keine Applikationen zugeordnet</h3>
                 <p class="msportalfx-tooltip-overflow" style="margin:0;padding:0">
-                  Wenden Sie sich bitte an den Administrator damit die entsprechenden Applikationen zugeordnet werden koennen.
+                  Wende dich bitte an den Administrator, damit die Applikationen zugeordnet werden können.
                 </p>
               </header>
             </div>

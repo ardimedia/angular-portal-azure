@@ -157,14 +157,14 @@ export async function executeDeleteItem<T>(
   deleteFn: () => Promise<void>,
 ): Promise<boolean> {
   blade.lifecycle.onDeleteItem?.();
-  blade.statusBar = statusBarInfo('Loeschen...');
+  blade.statusBar = statusBarInfo('Löschen...');
   try {
     await deleteFn();
-    blade.statusBar = statusBarSuccess('Geloescht');
+    blade.statusBar = statusBarSuccess('Gelöscht');
     const shouldClose = blade.lifecycle.onDeletedItem?.() ?? true;
     return shouldClose;
   } catch (ex) {
-    blade.statusBar = statusBarError((ex as ApiException).message || 'Fehler beim Loeschen');
+    blade.statusBar = statusBarError((ex as ApiException).message || 'Fehler beim Löschen');
     blade.lifecycle.onDeleteItemError?.(ex as ApiException);
     return false;
   }

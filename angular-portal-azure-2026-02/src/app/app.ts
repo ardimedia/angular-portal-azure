@@ -61,7 +61,7 @@ export class App {
   customerListBlade = createDataBlade<Customer>('customers/list', 'Alle Kunden', 585);
   customers: Customer[] = [
     { id: 1, name: 'Ardimedia AG', email: 'info@ardimedia.com', city: 'Vaduz', bladePath: 'customers/1' },
-    { id: 2, name: 'Muster GmbH', email: 'info@muster.ch', city: 'Zuerich', bladePath: 'customers/2' },
+    { id: 2, name: 'Muster GmbH', email: 'info@muster.ch', city: 'Zürich', bladePath: 'customers/2' },
     { id: 3, name: 'Test AG', email: 'test@test.li', city: 'Schaan', bladePath: 'customers/3' },
     { id: 4, name: 'Demo Corp', email: 'demo@demo.com', city: 'Triesen', bladePath: 'customers/4' },
     { id: 5, name: 'Alpha GmbH', email: 'alpha@alpha.at', city: 'Wien', bladePath: 'customers/5' },
@@ -96,7 +96,7 @@ export class App {
 
     // Set up notification blade commands
     this.notificationsBlade.commands = [
-      createCommand('toggle', 'panel oeffnen', () => this.toggleNotifications()),
+      createCommand('toggle', 'panel öffnen', () => this.toggleNotifications()),
     ];
 
     // Load the customer list
