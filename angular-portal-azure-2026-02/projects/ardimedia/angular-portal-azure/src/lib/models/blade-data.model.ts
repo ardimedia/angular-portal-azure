@@ -64,6 +64,8 @@ export interface BladeDataDefinition<T> extends BladeDefinition {
   item: T;
   /** List of items (for grid/list blades) */
   items: T[];
+  /** Whether data is currently being loaded */
+  loading: boolean;
   /** Lifecycle hooks for CRUD operations */
   lifecycle: BladeDataLifecycle<T>;
 }
@@ -79,6 +81,7 @@ export function createDataBlade<T>(
   const _statusBar = signal<StatusBarState>(clearStatusBar());
   const _item = signal<T>({} as T);
   const _items = signal<T[]>([]);
+  const _loading = signal(false);
   return {
     path: path.toLowerCase(),
     title,
@@ -92,6 +95,8 @@ export function createDataBlade<T>(
     set item(value: T) { _item.set(value); },
     get items(): T[] { return _items(); },
     set items(value: T[]) { _items.set(value); },
+    get loading(): boolean { return _loading(); },
+    set loading(value: boolean) { _loading.set(value); },
     lifecycle: {},
   };
 }
@@ -126,6 +131,7 @@ export async function executeLoadItems<T>(
   loadFn: () => Promise<T[]>,
 ): Promise<T[] | void> {
   blade.lifecycle.onLoadItems?.();
+  blade.loading = true;
   blade.statusBar = statusBarInfo('Laden...');
   try {
     const result = await loadFn();
@@ -136,6 +142,8 @@ export async function executeLoadItems<T>(
   } catch (ex) {
     blade.statusBar = statusBarError((ex as ApiException).message || 'Fehler beim Laden');
     blade.lifecycle.onLoadItemsError?.(ex as ApiException);
+  } finally {
+    blade.loading = false;
   }
 }
 

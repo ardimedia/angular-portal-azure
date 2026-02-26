@@ -107,6 +107,7 @@
 
     --apa-scrollbar-thumb: var(--apa-slate-600);
     --apa-scrollbar-thumb-hover: var(--apa-slate-500);
+
   }
 }
 
@@ -235,6 +236,18 @@
   --apa-scrollbar-thumb: var(--apa-slate-400);
   --apa-scrollbar-thumb-hover: var(--apa-slate-500);
   --apa-scrollbar-track: transparent;
+}
+
+/* Tile dark mode — must come after Component Tokens :root to override --apa-tile-bg */
+@media (prefers-color-scheme: dark) {
+  :root:not(.apa-light) {
+    --apa-tile-bg: var(--apa-slate-600);
+    --apa-tile-hover-bg: var(--apa-slate-500);
+  }
+}
+.apa-dark {
+  --apa-tile-bg: var(--apa-slate-600);
+  --apa-tile-hover-bg: var(--apa-slate-500);
 }
 
 /* ===== Base Reset ===== */
@@ -984,9 +997,29 @@ a:focus, a:hover {
 /* ===== Kendo Grid — full-width inside blades ===== */
 .fxs-blade kendo-grid {
   width: 100%;
+  flex: 1;
+  min-height: 0;
 }
 .fxs-blade kendo-grid table {
   min-width: 100%;
+}
+
+/* Full-height content within blades (grids, role lists, etc.) */
+.fxs-blade-content:has(kendo-grid),
+.fxs-blade-content:has(.roles-container) {
+  overflow-y: hidden;
+}
+.fxs-blade-content:has(kendo-grid) .fxs-blade-stacklayout,
+.fxs-blade-content:has(kendo-grid) .fxs-stacklayout-child,
+.fxs-blade-content:has(.roles-container) .fxs-blade-stacklayout,
+.fxs-blade-content:has(.roles-container) .fxs-stacklayout-child {
+  min-height: 0;
+}
+.apa-blade-detail:has(kendo-grid),
+.apa-blade-detail:has(.roles-container) {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /* ===== Utilities ===== */

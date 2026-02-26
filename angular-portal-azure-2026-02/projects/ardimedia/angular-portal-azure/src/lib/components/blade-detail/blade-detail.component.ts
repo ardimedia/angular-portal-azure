@@ -27,6 +27,7 @@ import { BladeCommand, createCommand } from '../../models/blade-command.model';
   selector: 'apa-blade-detail',
   standalone: true,
   styles: [`:host { display: flex; flex-direction: column; flex: 1; }
+    :host:has(kendo-grid) { min-height: 0; }
     .apa-blade-detail { flex: 1; }`],
   template: `
     <div class="apa-blade-detail">
@@ -52,16 +53,16 @@ export function createDetailCommands(handlers: {
   const commands: BladeCommand[] = [];
 
   if (handlers.onNew) {
-    commands.push(createCommand('new', 'neu', handlers.onNew));
+    commands.push(createCommand('new', 'neu', handlers.onNew, 'ti ti-plus'));
   }
   if (handlers.onSave) {
-    commands.push(createCommand('save', 'speichern', handlers.onSave));
+    commands.push(createCommand('save', 'speichern', handlers.onSave, 'ti ti-device-floppy'));
   }
   if (handlers.onDelete) {
-    commands.push(createCommand('delete', 'löschen', handlers.onDelete));
+    commands.push(createCommand('delete', 'löschen', handlers.onDelete, 'ti ti-trash'));
   }
   if (handlers.onCancel) {
-    commands.push(createCommand('cancel', 'abbrechen', handlers.onCancel));
+    commands.push(createCommand('cancel', 'abbrechen', handlers.onCancel, 'ti ti-x'));
   }
 
   return commands;
