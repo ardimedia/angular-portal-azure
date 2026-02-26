@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { BladeDefinition, createBlade } from './blade.model';
 import { StatusBarState, statusBarInfo, statusBarError, statusBarSuccess, clearStatusBar } from './status-bar.model';
 
@@ -67,16 +68,30 @@ export interface BladeDataDefinition<T> extends BladeDefinition {
   lifecycle: BladeDataLifecycle<T>;
 }
 
-/** Creates a data blade definition with sensible defaults */
+/** Creates a data blade definition with sensible defaults.
+ *  statusBar, item, items use getter/setter pairs backed by signals for zoneless change detection.
+ *  Note: cannot use ...createBlade() spread here — spread copies getter values, not getter/setter pairs. */
 export function createDataBlade<T>(
   path: string,
   title: string,
   width: number = 315,
 ): BladeDataDefinition<T> {
+  const _statusBar = signal<StatusBarState>(clearStatusBar());
+  const _item = signal<T>({} as T);
+  const _items = signal<T[]>([]);
   return {
-    ...createBlade(path, title, width),
-    item: {} as T,
-    items: [],
+    path: path.toLowerCase(),
+    title,
+    subtitle: '',
+    width,
+    isInnerHtml: true,
+    commands: [],
+    get statusBar(): StatusBarState { return _statusBar(); },
+    set statusBar(value: StatusBarState) { _statusBar.set(value); },
+    get item(): T { return _item(); },
+    set item(value: T) { _item.set(value); },
+    get items(): T[] { return _items(); },
+    set items(value: T[]) { _items.set(value); },
     lifecycle: {},
   };
 }

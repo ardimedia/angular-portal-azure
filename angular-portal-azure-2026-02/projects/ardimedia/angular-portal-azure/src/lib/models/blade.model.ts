@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { BladeCommand } from './blade-command.model';
 import { StatusBarState, clearStatusBar } from './status-bar.model';
 
@@ -25,8 +26,10 @@ export interface BladeDefinition {
   statusBar: StatusBarState;
 }
 
-/** Creates a blade definition with sensible defaults */
+/** Creates a blade definition with sensible defaults.
+ *  statusBar uses a getter/setter backed by a signal for zoneless change detection. */
 export function createBlade(path: string, title: string, width: number = 315): BladeDefinition {
+  const _statusBar = signal<StatusBarState>(clearStatusBar());
   return {
     path: path.toLowerCase(),
     title,
@@ -34,7 +37,8 @@ export function createBlade(path: string, title: string, width: number = 315): B
     width,
     isInnerHtml: true,
     commands: [],
-    statusBar: clearStatusBar(),
+    get statusBar(): StatusBarState { return _statusBar(); },
+    set statusBar(value: StatusBarState) { _statusBar.set(value); },
   };
 }
 

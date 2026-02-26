@@ -981,6 +981,14 @@ a:focus, a:hover {
   width: 21px;
 }
 
+/* ===== Kendo Grid — full-width inside blades ===== */
+.fxs-blade kendo-grid {
+  width: 100%;
+}
+.fxs-blade kendo-grid table {
+  min-width: 100%;
+}
+
 /* ===== Utilities ===== */
 .collapsed {
   visibility: collapse;

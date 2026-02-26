@@ -58,7 +58,7 @@ export function createDetailCommands(handlers: {
     commands.push(createCommand('save', 'speichern', handlers.onSave));
   }
   if (handlers.onDelete) {
-    commands.push(createCommand('delete', 'loeschen', handlers.onDelete));
+    commands.push(createCommand('delete', 'löschen', handlers.onDelete));
   }
   if (handlers.onCancel) {
     commands.push(createCommand('cancel', 'abbrechen', handlers.onCancel));
