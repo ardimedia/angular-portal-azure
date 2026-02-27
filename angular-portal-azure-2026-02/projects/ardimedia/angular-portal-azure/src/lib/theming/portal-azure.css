@@ -1006,17 +1006,21 @@ a:focus, a:hover {
 
 /* Full-height content within blades (grids, role lists, etc.) */
 .fxs-blade-content:has(kendo-grid),
-.fxs-blade-content:has(.roles-container) {
+.fxs-blade-content:has(.roles-container),
+.fxs-blade-content:has(.locations-container) {
   overflow-y: hidden;
 }
 .fxs-blade-content:has(kendo-grid) .fxs-blade-stacklayout,
 .fxs-blade-content:has(kendo-grid) .fxs-stacklayout-child,
 .fxs-blade-content:has(.roles-container) .fxs-blade-stacklayout,
-.fxs-blade-content:has(.roles-container) .fxs-stacklayout-child {
+.fxs-blade-content:has(.roles-container) .fxs-stacklayout-child,
+.fxs-blade-content:has(.locations-container) .fxs-blade-stacklayout,
+.fxs-blade-content:has(.locations-container) .fxs-stacklayout-child {
   min-height: 0;
 }
 .apa-blade-detail:has(kendo-grid),
-.apa-blade-detail:has(.roles-container) {
+.apa-blade-detail:has(.roles-container),
+.apa-blade-detail:has(.locations-container) {
   display: flex;
   flex-direction: column;
   min-height: 0;

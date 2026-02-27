@@ -26,9 +26,8 @@ import { BladeCommand, createCommand } from '../../models/blade-command.model';
 @Component({
   selector: 'apa-blade-detail',
   standalone: true,
-  styles: [`:host { display: flex; flex-direction: column; flex: 1; }
-    :host:has(kendo-grid) { min-height: 0; }
-    .apa-blade-detail { flex: 1; }`],
+  styles: [`:host { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+    .apa-blade-detail { flex: 1; display: flex; flex-direction: column; min-height: 0; }`],
   template: `
     <div class="apa-blade-detail">
       <ng-content />
