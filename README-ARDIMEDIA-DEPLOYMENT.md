@@ -4,16 +4,17 @@ Publishing `@ardimedia/angular-portal-azure` to [npmjs.com](https://www.npmjs.co
 
 ## One-time setup
 
-### Trusted Publishing (for GitHub Actions)
+### NPM Token (for GitHub Actions)
 
-npm uses OIDC to authenticate GitHub Actions — no secret token required.
+The publish workflow authenticates via an npm access token stored as a GitHub secret.
 
-1. On [npmjs.com](https://www.npmjs.com/), go to your package `@ardimedia/angular-portal-azure` → **Settings** → **Trusted Publishing**
-2. Click **Add trusted publisher** and fill in:
-   - Repository owner: `ardimedia`
-   - Repository name: `angular-portal-azure`
-   - Workflow filename: `publish.yml`
-   - Environment: *(leave empty)*
+1. On [npmjs.com](https://www.npmjs.com/) → Avatar → **Access Tokens** → **Generate New Token** (Granular Access Token)
+2. Settings:
+   - **Packages and scopes**: Read and write → select `@ardimedia/angular-portal-azure`
+   - **Organizations**: Read and write → select `ardimedia`
+   - **Bypass two-factor authentication (2FA)**: checked
+   - **Expiration**: No expiration (or set a reminder to rotate)
+3. On GitHub → repo **Settings** → **Secrets and variables** → **Actions** → add secret `NPM_TOKEN` with the token value
 
 ### Local publishing (optional)
 
@@ -49,7 +50,7 @@ git push --tags
 npm view @ardimedia/angular-portal-azure version
 ```
 
-The pipeline runs on any tag matching `v*` and authenticates via OIDC Trusted Publishing (no secret needed). The `--provenance` flag adds supply-chain transparency metadata to the published package.
+The pipeline runs on any tag matching `v*` and authenticates via the `NPM_TOKEN` GitHub secret.
 
 ## Publish a new version (manual)
 
