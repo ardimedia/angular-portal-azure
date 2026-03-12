@@ -285,7 +285,11 @@ export class App {
     if (notif.isVisible && notif.path === path) {
       this.portal.hideNotification();
     } else {
-      this.portal.showNotification(path);
+      this.portal.showNotification(path, 250, {
+        onShow: () => console.log('[Demo] Notification panel showing'),
+        onShowed: () => console.log('[Demo] Notification panel visible'),
+        onHide: () => { console.log('[Demo] Notification panel hiding'); return true; },
+      });
     }
   }
 

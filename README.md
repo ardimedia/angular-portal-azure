@@ -125,6 +125,10 @@ npm test
 
 See [README-ARDIMEDIA-DEPLOYMENT.md](README-ARDIMEDIA-DEPLOYMENT.md) for publishing to npmjs.com.
 
+## History
+
+This library originated as an AngularJS 1.x project in 2016 (npm v0.2.346). Between 2017 and 2020, six Angular migration attempts were made (Angular 4 through Angular 10), none reaching production. In February 2026, a clean-room rewrite was started on Angular 21 with standalone components and signals — the current version.
+
 ## License
 
 MIT

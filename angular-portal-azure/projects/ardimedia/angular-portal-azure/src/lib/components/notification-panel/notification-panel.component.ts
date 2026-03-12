@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { PortalService } from '../../services/portal.service';
 
 /**
@@ -36,6 +36,19 @@ import { PortalService } from '../../services/portal.service';
 })
 export class NotificationPanelComponent {
   protected readonly portal = inject(PortalService);
+
+  private wasVisible = false;
+
+  constructor() {
+    effect(() => {
+      const visible = this.portal.notification().isVisible;
+      if (visible && !this.wasVisible) {
+        const lifecycle = this.portal.notification().lifecycle;
+        queueMicrotask(() => lifecycle?.onShowed?.());
+      }
+      this.wasVisible = visible;
+    });
+  }
 
   onClose(): void {
     this.portal.hideNotification();

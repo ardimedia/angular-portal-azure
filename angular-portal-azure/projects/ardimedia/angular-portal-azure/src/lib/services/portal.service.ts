@@ -2,7 +2,7 @@ import { Injectable, signal, computed, WritableSignal } from '@angular/core';
 import { BladeDefinition } from '../models/blade.model';
 import { BladeParameter } from '../models/blade-parameter.model';
 import { PanoramaDefinition, createPanorama, PositionedTile, layoutTiles } from '../models/panorama.model';
-import { NotificationDefinition, createNotificationPanel } from '../models/notification.model';
+import { NotificationDefinition, NotificationLifecycle, createNotificationPanel } from '../models/notification.model';
 import { AvatarMenuDefinition, AvatarMenuItem, createAvatarMenu } from '../models/avatar-menu.model';
 import { TileDefinition } from '../models/tile-definition.model';
 import { UserAccount } from '../models/user-account.model';
@@ -183,21 +183,26 @@ export class PortalService {
   // --- Notification panel ---
 
   /** Show the notification panel */
-  showNotification(path: string, width: number = 250): void {
+  showNotification(path: string, width: number = 250, lifecycle?: NotificationLifecycle): void {
+    lifecycle?.onShow?.();
     this.notification.update((n) => ({
       ...n,
       path,
       width,
       isVisible: true,
+      lifecycle,
     }));
   }
 
-  /** Hide the notification panel */
+  /** Hide the notification panel. Aborted if onHide() returns false. */
   hideNotification(): void {
+    const current = this.notification();
+    if (current.lifecycle?.onHide?.() === false) return;
     this.notification.update((n) => ({
       ...n,
       path: '',
       isVisible: false,
+      lifecycle: undefined,
     }));
   }
 
