@@ -1,5 +1,5 @@
 import { signal } from '@angular/core';
-import { BladeDefinition, createBlade } from './blade.model';
+import { BladeDefinition, nextBladeUid } from './blade.model';
 import { StatusBarState, statusBarInfo, statusBarError, statusBarSuccess, clearStatusBar } from './status-bar.model';
 import { PortalLabels, DEFAULT_LABELS } from './portal-labels.model';
 
@@ -78,6 +78,8 @@ export function createDataBlade<T>(
   path: string,
   title: string,
   width: number = 315,
+  params: Record<string, string> = {},
+  uid?: number,
 ): BladeDataDefinition<T> {
   const _statusBar = signal<StatusBarState>(clearStatusBar());
   const _title = signal(title);
@@ -85,6 +87,7 @@ export function createDataBlade<T>(
   const _items = signal<T[]>([]);
   const _loading = signal(false);
   return {
+    uid: uid ?? nextBladeUid(),
     path: path.toLowerCase(),
     get title(): string { return _title(); },
     set title(value: string) { _title.set(value); },
@@ -101,6 +104,7 @@ export function createDataBlade<T>(
     get loading(): boolean { return _loading(); },
     set loading(value: boolean) { _loading.set(value); },
     lifecycle: {},
+    params,
   };
 }
 

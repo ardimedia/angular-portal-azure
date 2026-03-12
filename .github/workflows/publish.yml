@@ -1,0 +1,40 @@
+name: Build & Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: angular-portal-azure
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npx ng build @ardimedia/angular-portal-azure
+
+      - name: Build demo app
+        run: npx ng build angular-portal-azure
+
+      - name: Publish to npm
+        run: npm publish --access public --provenance
+        working-directory: angular-portal-azure/dist/ardimedia/angular-portal-azure

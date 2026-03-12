@@ -28,7 +28,7 @@ import { BladeComponent } from '../blade/blade.component';
   template: `
     <div id="apa-blade-area" class="fxs-journey-target fxs-journey">
       <div class="fxs-journey-layout fxs-stacklayout fxs-stacklayout-horizontal">
-        @for (blade of portal.blades(); track blade.path) {
+        @for (blade of portal.blades(); track blade.uid) {
           <div class="azureportalblade fxs-stacklayout-child">
             <apa-blade [blade]="blade">
               @if (getComponent(blade.path); as component) {

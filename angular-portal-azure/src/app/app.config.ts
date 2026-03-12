@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
           registerLanguagePreset({ code: 'pt', displayName: 'Português', labels: LABELS_PT });
           registry.register('customers', CustomerNavBladeComponent, { title: 'Customers', width: 315 });
           registry.register('customers/list', CustomerListBladeComponent, { title: 'All Customers', width: 585 });
-          registry.register('customers/detail', CustomerDetailBladeComponent, { title: 'Customer', width: 400 });
+          registry.register('customers/detail', CustomerDetailBladeComponent, { title: 'Customer', width: 400, params: ['id'] });
           registry.register('settings', SettingsBladeComponent, { title: 'Settings', width: 480 });
           registry.register('orders', OrdersBladeComponent, { title: 'Orders', width: 650 });
           registry.register('reports', ReportsBladeComponent, { title: 'Reports', width: 550 });

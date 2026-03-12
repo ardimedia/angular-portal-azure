@@ -42,7 +42,7 @@ export class App {
   readonly sidebarItems = computed<BladeNavItem[]>(() => {
     const t = this.t();
     return [
-      createNavItem(t.allCustomers, 'customers/list', 'ti ti-users'),
+      createNavItem(t.customers, 'customers', 'ti ti-users'),
       createNavItem(t.orders, 'orders', 'ti ti-package'),
       createNavItem(t.reports, 'reports', 'ti ti-chart-bar'),
       createNavItem(t.dashboard, 'dashboard', 'ti ti-dashboard'),
@@ -71,10 +71,11 @@ export class App {
       ]);
     });
 
-    // Sync activeApp with route path (restore on initial load + browser navigation)
+    // Sync activeApp with route prefix (e.g., /crm/customers/list → 'crm')
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe((e) => {
       const path = (e as NavigationEnd).urlAfterRedirects.split('?')[0].replace(/^\//, '');
-      this.activeApp.set(path || null);
+      const prefix = path.split('/')[0] || null;
+      this.activeApp.set(prefix);
     });
 
     // Return to panorama when all blades are closed (home click or last blade closed)
@@ -83,7 +84,7 @@ export class App {
       const count = this.portal.bladeCount();
       if (prevBladeCount > 0 && count === 0 && this.activeApp()) {
         this.activeApp.set(null);
-        this.router.navigate(['/'], { queryParamsHandling: 'replace' });
+        this.router.navigate(['/']);
       }
       prevBladeCount = count;
     });

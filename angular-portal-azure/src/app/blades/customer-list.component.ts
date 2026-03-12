@@ -19,13 +19,17 @@ import { getDemoLabels } from '../data/demo-labels';
       [senderPath]="'customers/list'"
       [displayField]="'name'"
       [bladePathField]="'bladePath'"
+      [iconClass]="'ti ti-building'"
       (itemClick)="onCustomerClick($event)" />
   `,
 })
 export class CustomerListBladeComponent {
   private readonly portal = inject(PortalService);
   private readonly dataService = inject(DemoDataService);
-  readonly dataBlade = createDataBlade<Customer>('customers/list', 'All Customers', 585);
+  readonly dataBlade = createDataBlade<Customer>(
+    'customers/list', 'All Customers', 585, {},
+    this.portal.blades().find((b) => b.path === 'customers/list')?.uid,
+  );
 
   constructor() {
     this.portal.blades.update((blades) =>
@@ -44,7 +48,7 @@ export class CustomerListBladeComponent {
     });
   }
 
-  onCustomerClick(customer: Customer): void {
-    this.portal.setParameter({ action: 'edit', itemId: customer.id });
+  onCustomerClick(_customer: Customer): void {
+    // Item ID is now passed via blade params by BladeGridComponent
   }
 }

@@ -42,21 +42,21 @@ export class BladeService {
    *
    * Ported from AreaBlades.addBlade() in v0.2.346.
    */
-  addBlade(path: string, senderPath: string = '', title: string = '', width?: number): BladeDefinition | undefined {
+  addBlade(path: string, senderPath: string = '', title: string = '', width?: number, params?: Record<string, string>): BladeDefinition | undefined {
     if (!path) return undefined;
 
     const normalizedPath = path.toLowerCase();
-    const blades = this.portal.blades();
 
-    // Check if blade already exists
-    const existing = blades.find((b) => b.path === normalizedPath);
-    if (existing) {
-      return existing;
-    }
-
-    // Cascade close: remove blades after the sender
+    // Cascade close first: remove blades after the sender
+    // This ensures a blade at the same path gets recreated with new params
     if (senderPath) {
       this.clearChild(senderPath);
+    }
+
+    // Check if blade already exists (after cascade close)
+    const existing = this.portal.blades().find((b) => b.path === normalizedPath);
+    if (existing) {
+      return existing;
     }
 
     const entry = this.registry.getEntry(normalizedPath);
@@ -64,6 +64,7 @@ export class BladeService {
       normalizedPath,
       title || entry?.title || normalizedPath,
       width ?? entry?.width ?? 315,
+      params,
     );
     this.portal.blades.update((b) => [...b, blade]);
     return blade;
@@ -168,5 +169,13 @@ export class BladeService {
    */
   isBladeOpen(path: string): boolean {
     return this.portal.blades().some((b) => b.path === path.toLowerCase());
+  }
+
+  /**
+   * Get URL-persisted parameters for a blade by path.
+   * Returns empty object if blade not found or has no params.
+   */
+  getBladeParams(path: string): Record<string, string> {
+    return this.getBlade(path)?.params ?? {};
   }
 }

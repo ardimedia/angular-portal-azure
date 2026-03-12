@@ -1,6 +1,6 @@
 ---
 status: Stable
-updated: 2026-03-12 17:30h
+updated: 2026-03-12 16:45h
 references:
   - ../README.md — Public README with quick start guide
   - ../README-ARDIMEDIA-DEPLOYMENT.md — npm publishing workflow
@@ -129,28 +129,51 @@ import {
 | n/a | `<apa-avatar-menu>` | New: user avatar dropdown |
 | n/a | `<apa-tile>` | New: individual tile component |
 
-### Minimal template
+### Minimal template (recommended: BladeRegistry + BladeHost)
+
+The recommended approach uses `BladeRegistry` and `<apa-blade-host>` for automatic blade rendering:
+
+```html
+<apa-portal-layout>
+  <apa-panorama />
+  <apa-sidebar [items]="sidebarItems" />
+  <apa-blade-host />
+  <apa-notification-panel>
+    <!-- Notification content -->
+  </apa-notification-panel>
+</apa-portal-layout>
+```
+
+Blade components are registered in `app.config.ts` (see Step 5) and rendered automatically by `<apa-blade-host>`.
+
+### BladeGridComponent inputs
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `items` | `any[]` | `[]` | Data items to display |
+| `senderPath` | `string` | `''` | Blade path of the sender (for cascade close) |
+| `displayField` | `string` | `'title'` | Property name to show as row text |
+| `bladePathField` | `string` | `'bladePath'` | Property name containing the target blade path |
+| `idField` | `string` | `'id'` | Property name for item ID (passed as blade param) |
+| `iconClass` | `string` | `'ti ti-point-filled'` | CSS class for row icon (e.g., `'ti ti-building'`) |
+| `searchable` | `boolean` | `true` | Show search/filter input |
+
+### Alternative: manual blade rendering
+
+If you prefer explicit control over blade rendering:
 
 ```html
 <apa-portal-layout>
   <apa-panorama />
 
-  @for (blade of portal.blades(); track blade.path) {
-    @switch (blade.path) {
-      @case ('customers') {
-        <apa-blade-nav [blade]="customerNavBlade" [items]="navItems" />
+  @for (blade of portal.blades(); track blade.uid) {
+    <apa-blade [blade]="blade">
+      @switch (blade.path) {
+        @case ('customers') { <app-customer-nav /> }
+        @case ('customers/list') { <app-customer-list /> }
+        @case ('customers/detail') { <app-customer-detail /> }
       }
-      @case ('customers/list') {
-        <apa-blade-grid [blade]="customerListBlade" [items]="customers"
-                        [columns]="['name', 'email', 'city']"
-                        (itemClick)="onCustomerClick($event)" />
-      }
-      @case ('customers/detail') {
-        <apa-blade-detail [blade]="customerDetailBlade">
-          <!-- Form content -->
-        </apa-blade-detail>
-      }
-    }
+    </apa-blade>
   }
 
   <apa-notification-panel>
@@ -158,6 +181,8 @@ import {
   </apa-notification-panel>
 </apa-portal-layout>
 ```
+
+**Important:** Always use `track blade.uid` (not `track blade.path`). The `uid` ensures Angular correctly destroys and recreates blade components when a blade at the same path is replaced (e.g., opening a different customer detail).
 
 ## Step 5: Migrate services
 
@@ -215,6 +240,7 @@ readonly bladeService = inject(BladeService);
 
 bladeService.setFirstBlade('customers', 'Customers', 315)   // Opens first blade, clears others
 bladeService.addBlade('customers/list', 'customers', 'All Customers', 585)  // Adds after sender
+bladeService.addBlade('customers/detail', 'customers/list', '', undefined, { id: '1' })  // With URL params
 bladeService.closeBlade(blade)       // Removes blade + all to its right
 bladeService.clearPath('customers')  // Same as closeBlade by path
 bladeService.clearChild('customers') // Removes all blades after 'customers'
@@ -223,6 +249,7 @@ bladeService.clearLevel(2)           // Removes blades at level 2+
 bladeService.clearLastLevel()        // Removes rightmost blade
 bladeService.getBlade('customers')   // Returns blade or undefined
 bladeService.isBladeOpen('customers') // boolean
+bladeService.getBladeParams('customers/detail')  // { id: '1' } or {}
 ```
 
 ### BladeRegistry (optional)
@@ -234,9 +261,15 @@ import { BladeRegistry } from '@ardimedia/angular-portal-azure';
 
 const registry = inject(BladeRegistry);
 
-// Register components for blade paths
+// Register components for blade paths with metadata
 registry.register('customers', CustomerNavComponent, { title: 'Customers', width: 315 });
 registry.register('customers/list', CustomerListComponent, { title: 'All Customers', width: 585 });
+registry.register('customers/detail', CustomerDetailComponent, { title: 'Customer', width: 400, params: ['id'] });
+
+// Metadata options:
+// - title: default blade title (used when no title is passed to addBlade)
+// - width: blade width in pixels (default: 315)
+// - params: URL parameter names this blade expects (for BladeRouter)
 
 // Or bulk register (without metadata)
 registry.registerAll({
@@ -253,8 +286,8 @@ registry.registerAll({
 
 | Old (v0.2.346) | New (v0.3.x) | Factory function |
 |----------------|--------------|------------------|
-| `angularportalazure.Blade` | `BladeDefinition` | `createBlade(path, title, width?)` |
-| `angularportalazure.BladeData<T>` | `BladeDataDefinition<T>` | `createDataBlade<T>(path, title, width?)` |
+| `angularportalazure.Blade` | `BladeDefinition` | `createBlade(path, title, width?, params?, uid?)` |
+| `angularportalazure.BladeData<T>` | `BladeDataDefinition<T>` | `createDataBlade<T>(path, title, width?, params?, uid?)` |
 | `angularportalazure.BladeNavItem` | `BladeNavItem` | `createNavItem(title, bladePath, cssClass?)` |
 | `angularportalazure.Tile` | `TileDefinition` | `createTile(title, bladePath, size?)` |
 | `angularportalazure.UserAccount` | `UserAccount` | Plain object |
@@ -262,6 +295,22 @@ registry.registerAll({
 | `angularportalazure.Exception` | `ApiException` | Plain object |
 | 18 command booleans | `BladeCommand[]` | `createCommand(key, label, action, icon?)` |
 | n/a | `StatusBarState` | `clearStatusBar()`, `statusBarInfo(text)`, `statusBarError(text)`, `statusBarSuccess(text)` |
+
+### BladeDefinition properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `uid` | `number` (readonly) | Auto-incrementing unique ID for `@for` track identity |
+| `path` | `string` | Unique path identifying this blade (lowercased) |
+| `title` | `string` | Blade header title (signal-backed for reactive updates) |
+| `subtitle` | `string` | Blade header subtitle |
+| `width` | `number` | Blade width in pixels |
+| `commands` | `BladeCommand[]` | Command bar buttons |
+| `statusBar` | `StatusBarState` | Status bar state (signal-backed) |
+| `params` | `Record<string, string>` | URL-persisted parameters (e.g., `{ id: '1' }`) |
+| `isInnerHtml` | `boolean` | Whether content uses ng-content |
+
+`BladeDataDefinition<T>` extends `BladeDefinition` with signal-backed `item`, `items`, `loading`, and `lifecycle`.
 
 ### Creating blades
 
@@ -271,16 +320,23 @@ import { createBlade, createDataBlade, createNavItem, createCommand, createTile 
 // Simple blade
 const navBlade = createBlade('customers', 'Customers', 315);
 
+// Blade with URL-persisted params
+const detailBlade = createBlade('customers/detail', 'Customer', 400, { id: '1' });
+
 // Data blade with typed item
-const detailBlade = createDataBlade<Customer>('customers/detail', 'Customer', 315);
-detailBlade.item = { id: 1, name: 'Acme' };
-detailBlade.items = [...];
-detailBlade.loading = true;
+const dataBlade = createDataBlade<Customer>('customers/detail', 'Customer', 400);
+dataBlade.item = { id: 1, name: 'Acme' };
+dataBlade.items = [...];
+dataBlade.loading = true;
+
+// Data blade preserving uid (when replacing existing blade in stack)
+const existing = portal.blades().find(b => b.path === 'customers/detail');
+const dataBlade = createDataBlade<Customer>('customers/detail', 'Customer', 400, existing?.params ?? {}, existing?.uid);
 
 // Nav items
 const navItems: BladeNavItem[] = [
-  createNavItem('All Customers', 'customers/list', 'ti ti-users'),
-  createNavItem('New Customer', 'customers/new', 'ti ti-plus'),
+  createNavItem('All Customers', 'customers/list', 'ti ti-buildings'),
+  createNavItem('New Customer', 'customers/detail', 'ti ti-plus'),
 ];
 
 // Commands
@@ -433,7 +489,7 @@ this.portal.showNotification('alerts', 300, {
 
 ## Step 10: URL-synced blade routing (optional)
 
-Add `provideBladeRouter()` to sync the blade stack with the browser URL:
+Add `provideBladeRouter()` to sync the blade stack with the browser URL using path segments:
 
 ```typescript
 import { provideBladeRouter } from '@ardimedia/angular-portal-azure';
@@ -442,16 +498,61 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     providePortalAzure({ ... }),
-    provideBladeRouter(),   // Opt-in: blade paths sync to ?blades=... query param
+    provideBladeRouter(),   // Opt-in: blade paths sync to URL path segments
   ],
 };
 ```
 
-When enabled:
-- Blade changes update the URL: `?blades=customers,customers/list,customers/1`
+### Routes setup
+
+Add a wildcard route for the app prefix so Angular doesn't reject blade path segments:
+
+```typescript
+export const routes: Routes = [
+  { path: 'crm', children: [{ path: '**', children: [] }] },
+  { path: '', pathMatch: 'full', children: [] },
+];
+```
+
+### URL format
+
+Blade paths are encoded as URL path segments with matrix params for per-blade parameters:
+
+```
+/crm                              → panorama (no blades)
+/crm/customers                    → [customers]
+/crm/customers/list               → [customers, customers/list]
+/crm/customers/list/detail;id=1   → [customers, customers/list, customers/detail] with params {id:'1'}
+/crm/customers/detail             → [customers, customers/detail] (new customer, no id)
+```
+
+Each segment is the blade's **short name** (suffix after the parent prefix). The `BladeRouterService` resolves segments to full blade paths using the `BladeRegistry`.
+
+### Blade params
+
+Per-blade parameters use Angular matrix params (`;key=value`). Declare expected params in the registry:
+
+```typescript
+registry.register('customers/detail', CustomerDetailComponent, {
+  title: 'Customer', width: 400, params: ['id']
+});
+```
+
+Read params in the blade component:
+
+```typescript
+const existing = this.portal.blades().find(b => b.path === 'customers/detail');
+const itemId = Number(existing?.params['id']) || 0;
+```
+
+### Features
+
+- Blade changes update the URL automatically
 - Browser back/forward buttons restore blade state
 - URLs are bookmarkable and shareable
-- Register blade metadata for proper restoration: `registry.register('customers', Component, { title: 'Customers', width: 315 })`
+- Per-blade parameters survive browser refresh
+- Legacy `?blades=` query param URLs are auto-redirected to path format
+- Register blade metadata for proper restoration: `registry.register('path', Component, { title, width, params })`
 
 Without `provideBladeRouter()`, blade navigation remains purely in-memory (default).
 
@@ -493,6 +594,10 @@ Dark mode is built-in with toggle and OS auto-detect. No additional setup needed
 - [ ] Remove AngularJS dependencies (`angular`, `angular-resource`, `angular-translate`)
 - [ ] Remove hybrid bootstrap (`@angular/upgrade`, `UpgradeModule`)
 - [ ] Update component templates from AngularJS syntax to Angular 21 (`@if`, `@for`, `@switch`)
+- [ ] Use `track blade.uid` in any `@for` over `portal.blades()` (not `track blade.path`)
+- [ ] When replacing blades in the stack with `createDataBlade`, preserve the original `uid`
+- [ ] Optional: add `provideBladeRouter()` for URL-synced blade routing with path segments
+- [ ] Optional: declare `params: ['id']` in registry for blades that receive URL parameters
 - [ ] Verify dark mode / light mode toggle works
 - [ ] Verify keyboard navigation (tiles, blades, dropdowns respond to Enter/Space/Escape)
 

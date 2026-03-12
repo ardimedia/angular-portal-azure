@@ -49,11 +49,7 @@ import { filterItems } from '../../models/filter.util';
               (click)="onRowClick(item)"
               (keydown.enter)="onRowClick(item)">
             <td class="msportalfx-gridcolumn-asseticon" role="gridcell" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" class="msportal-fx-svg-placeholder" viewBox="0 0 50 50" focusable="false" style="height:21px;width:21px;">
-                <rect class="msportalfx-svg-c04" x="19.8" y="39.4" width="10.6" height="3.4"/>
-                <polygon class="msportalfx-svg-c04" points="23.1,50 27,50 30.3,46.5 19.8,46.5"/>
-                <path class="msportalfx-svg-c20" d="M41.2 14.7v-.3c0-7.7-6.6-14.1-14.7-14.2-.2-.3-4.8.1-4.8.1-7.3.9-13 7-13 14.1 0 .2-.8 5.8 4.9 10.5 2.6 2.3 5.3 8.5 5.7 10.3l.3.6h10.6l.3-.6c.4-1.8 3.2-8 5.7-10.2C41.9 20.2 41.2 14.9 41.2 14.7z"/>
-              </svg>
+              <i [class]="iconClass()" style="font-size:20px; color:var(--apa-accent);"></i>
             </td>
             <td tabindex="0" role="gridcell">
               <span>{{ getDisplayValue(item) }}</span>
@@ -69,6 +65,8 @@ export class BladeGridComponent {
   readonly senderPath = input<string>('');
   readonly displayField = input<string>('title');
   readonly bladePathField = input<string>('bladePath');
+  readonly idField = input<string>('id');
+  readonly iconClass = input<string>('ti ti-point-filled');
   readonly searchable = input<boolean>(true);
   readonly itemClick = output<any>();
 
@@ -93,7 +91,9 @@ export class BladeGridComponent {
     this.itemClick.emit(item);
     const bladePath = item[this.bladePathField()];
     if (bladePath) {
-      this.bladeService.addBlade(bladePath, this.senderPath());
+      const itemId = item[this.idField()];
+      const params = itemId != null ? { id: String(itemId) } : undefined;
+      this.bladeService.addBlade(bladePath, this.senderPath(), '', undefined, params);
     }
   }
 }

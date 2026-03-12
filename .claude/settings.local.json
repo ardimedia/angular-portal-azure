@@ -3,7 +3,8 @@
     "allow": [
       "Bash(wc -l /d/CODE/github/ardimedia/angular-portal-azure/angular-portal-azure/projects/ardimedia/angular-portal-azure/src/lib/**/*.ts)",
       "Bash(netstat -ano)",
-      "Bash(taskkill //PID 58184 //F)"
+      "Bash(taskkill //PID 58184 //F)",
+      "Bash(grep -B2 '\"\"library\"\"' angular.json)"
     ]
   }
 }

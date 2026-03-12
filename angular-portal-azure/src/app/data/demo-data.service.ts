@@ -37,6 +37,17 @@ export class DemoDataService {
     );
   }
 
+  createCustomer(customer: Omit<Customer, 'id'>): Promise<Customer> {
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        const newId = Math.max(...this.customers.map((c) => c.id), 0) + 1;
+        const created: Customer = { ...customer, id: newId };
+        this.customers.push(created);
+        resolve({ ...created });
+      }, 500),
+    );
+  }
+
   deleteCustomer(id: number): Promise<void> {
     return new Promise((resolve) =>
       setTimeout(() => {

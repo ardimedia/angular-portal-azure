@@ -21,8 +21,8 @@ export class CustomerNavBladeComponent {
   readonly navItems = computed(() => {
     const t = getDemoLabels(this.portal.currentLanguage());
     return [
-      createNavItem(t.allCustomers, 'customers/list', 'ti ti-users'),
-      createNavItem(t.newCustomer, 'customers/new', 'ti ti-plus'),
+      createNavItem(t.allCustomers, 'customers/list', 'ti ti-buildings'),
+      createNavItem(t.newCustomer, 'customers/detail', 'ti ti-plus'),
       { title: t.notifications, bladePath: '', cssClass: 'ti ti-bell', isVisible: true, callback: () => this.toggleNotifications() },
     ];
   });

@@ -5,6 +5,8 @@ export interface BladeRegistryEntry {
   component: Type<unknown>;
   title?: string;
   width?: number;
+  /** Parameter names this blade expects from the URL (e.g., ['id']) */
+  params?: string[];
 }
 
 /**
@@ -33,8 +35,8 @@ export interface BladeRegistryEntry {
 export class BladeRegistry {
   private readonly registry = new Map<string, BladeRegistryEntry>();
 
-  /** Register a component for a blade path with optional metadata (title, width) */
-  register(path: string, component: Type<unknown>, metadata?: { title?: string; width?: number }): void {
+  /** Register a component for a blade path with optional metadata (title, width, params) */
+  register(path: string, component: Type<unknown>, metadata?: { title?: string; width?: number; params?: string[] }): void {
     this.registry.set(path.toLowerCase(), { component, ...metadata });
   }
 
