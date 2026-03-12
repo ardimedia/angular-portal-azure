@@ -1,6 +1,6 @@
 {
   "name": "@ardimedia/angular-portal-azure",
-  "version": "0.3.20",
+  "version": "0.3.21",
   "peerDependencies": {
     "@angular/common": "^21.1.0",
     "@angular/core": "^21.1.0"
