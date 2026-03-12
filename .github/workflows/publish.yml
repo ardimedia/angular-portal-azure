@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   build-and-publish:
@@ -36,7 +35,7 @@ jobs:
         run: npx ng build angular-portal-azure
 
       - name: Publish to npm
-        run: npm publish --access public --provenance
+        run: npm publish --access public
         working-directory: angular-portal-azure/dist/ardimedia/angular-portal-azure
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
