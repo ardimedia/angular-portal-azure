@@ -40,7 +40,8 @@ git commit -m "chore: bump version to $(node -p "require('./angular-portal-azure
 
 # 3. Tag and push
 git tag v$(node -p "require('./angular-portal-azure/projects/ardimedia/angular-portal-azure/package.json').version")
-git push && git push --tags
+git push
+git push --tags
 
 # 4. Verify
 # Watch the pipeline: https://github.com/ardimedia/angular-portal-azure/actions
