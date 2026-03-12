@@ -22,7 +22,9 @@ export * from './lib/models/filter.util';
 export * from './lib/services/portal.service';
 export * from './lib/services/blade.service';
 export * from './lib/services/blade-registry.service';
+export * from './lib/services/blade-router.service';
 export * from './lib/services/provide-portal-azure';
+export * from './lib/services/provide-blade-router';
 
 // Components
 export * from './lib/components/tile/tile.component';

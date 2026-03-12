@@ -32,6 +32,8 @@ export interface TileDefinition {
   size: TileSize;
   /** Optional CSS class for tile icon/content */
   cssClass?: string;
+  /** Whether the tile is disabled (grayed out, not clickable) */
+  disabled?: boolean;
 }
 
 export function createTile(title: string, bladePath: string, size: TileSize = TileSize.Normal): TileDefinition {

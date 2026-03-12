@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { PortalService } from './portal.service';
 import { BladeDefinition, createBlade, AddBladeEventArgs } from '../models/blade.model';
+import { BladeRegistry } from './blade-registry.service';
 
 /**
  * Blade stack management service.
@@ -8,10 +9,14 @@ import { BladeDefinition, createBlade, AddBladeEventArgs } from '../models/blade
  *
  * Manages the blade stack: adding, removing, cascade-closing,
  * and panorama visibility toggling.
+ *
+ * When a BladeRegistry is available, metadata (title, width) from the
+ * registry is used as defaults — explicit arguments take precedence.
  */
 @Injectable({ providedIn: 'root' })
 export class BladeService {
   private readonly portal = inject(PortalService);
+  private readonly registry = inject(BladeRegistry);
 
   /**
    * Set the first blade (e.g., when opening a top-level item from a tile).
@@ -19,9 +24,14 @@ export class BladeService {
    *
    * Ported from AreaBlades.setFirstBlade() in v0.2.346.
    */
-  setFirstBlade(path: string, title: string = '', width: number = 315): BladeDefinition {
+  setFirstBlade(path: string, title: string = '', width?: number): BladeDefinition {
     this.portal.blades.set([]);
-    const blade = createBlade(path.toLowerCase(), title, width);
+    const entry = this.registry.getEntry(path);
+    const blade = createBlade(
+      path.toLowerCase(),
+      title || entry?.title || path,
+      width ?? entry?.width ?? 315,
+    );
     this.portal.blades.set([blade]);
     return blade;
   }
@@ -32,7 +42,7 @@ export class BladeService {
    *
    * Ported from AreaBlades.addBlade() in v0.2.346.
    */
-  addBlade(path: string, senderPath: string = '', title: string = '', width: number = 315): BladeDefinition | undefined {
+  addBlade(path: string, senderPath: string = '', title: string = '', width?: number): BladeDefinition | undefined {
     if (!path) return undefined;
 
     const normalizedPath = path.toLowerCase();
@@ -49,7 +59,12 @@ export class BladeService {
       this.clearChild(senderPath);
     }
 
-    const blade = createBlade(normalizedPath, title, width);
+    const entry = this.registry.getEntry(normalizedPath);
+    const blade = createBlade(
+      normalizedPath,
+      title || entry?.title || normalizedPath,
+      width ?? entry?.width ?? 315,
+    );
     this.portal.blades.update((b) => [...b, blade]);
     return blade;
   }
@@ -58,7 +73,7 @@ export class BladeService {
    * Open a blade from a navigation event (e.g., tile click, nav item click).
    * Wraps addBlade with AddBladeEventArgs for compatibility.
    */
-  openBlade(args: AddBladeEventArgs, title: string = '', width: number = 315): BladeDefinition | undefined {
+  openBlade(args: AddBladeEventArgs, title: string = '', width?: number): BladeDefinition | undefined {
     return this.addBlade(args.path, args.pathSender, title, width);
   }
 

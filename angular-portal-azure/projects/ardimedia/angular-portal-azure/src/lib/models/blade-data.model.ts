@@ -72,7 +72,7 @@ export interface BladeDataDefinition<T> extends BladeDefinition {
 }
 
 /** Creates a data blade definition with sensible defaults.
- *  statusBar, item, items use getter/setter pairs backed by signals for zoneless change detection.
+ *  statusBar, title, item, items use getter/setter pairs backed by signals for zoneless change detection.
  *  Note: cannot use ...createBlade() spread here — spread copies getter values, not getter/setter pairs. */
 export function createDataBlade<T>(
   path: string,
@@ -80,12 +80,14 @@ export function createDataBlade<T>(
   width: number = 315,
 ): BladeDataDefinition<T> {
   const _statusBar = signal<StatusBarState>(clearStatusBar());
+  const _title = signal(title);
   const _item = signal<T>({} as T);
   const _items = signal<T[]>([]);
   const _loading = signal(false);
   return {
     path: path.toLowerCase(),
-    title,
+    get title(): string { return _title(); },
+    set title(value: string) { _title.set(value); },
     subtitle: '',
     width,
     isInnerHtml: true,

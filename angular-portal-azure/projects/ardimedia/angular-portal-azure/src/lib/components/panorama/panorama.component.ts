@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { PortalService } from '../../services/portal.service';
 import { BladeService } from '../../services/blade.service';
 import { TileComponent } from '../tile/tile.component';
@@ -11,9 +11,14 @@ import { PositionedTile } from '../../models/panorama.model';
  * Displays tiles on the startboard. When a tile is clicked, it opens
  * the first blade via BladeService.setFirstBlade().
  *
+ * When `autoNavigate` is true (default), clicking a tile automatically
+ * opens the first blade. Set it to false to handle tile clicks manually
+ * via the `(tileClick)` output.
+ *
  * Usage:
  * ```html
  * <apa-panorama />
+ * <apa-panorama [autoNavigate]="false" (tileClick)="onTileClick($event)" />
  * ```
  */
 @Component({
@@ -51,9 +56,18 @@ export class PanoramaComponent {
   protected readonly portal = inject(PortalService);
   private readonly bladeService = inject(BladeService);
 
+  /** When false, tile clicks only emit tileClick without opening a blade. */
+  readonly autoNavigate = input(true);
+
+  /** Emitted when a tile is clicked (always, regardless of autoNavigate). */
+  readonly tileClick = output<PositionedTile>();
+
   protected panorama = this.portal.panorama;
 
   onTileClick(tile: PositionedTile): void {
-    this.bladeService.setFirstBlade(tile.bladePath, tile.title);
+    this.tileClick.emit(tile);
+    if (this.autoNavigate()) {
+      this.bladeService.setFirstBlade(tile.bladePath, tile.title);
+    }
   }
 }

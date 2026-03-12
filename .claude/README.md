@@ -1,6 +1,6 @@
 ---
 status: Stable
-updated: 2026-03-12 16:45h
+updated: 2026-03-12 17:10h
 ---
 
 # angular-portal-azure — Internal Notes
@@ -8,7 +8,6 @@ updated: 2026-03-12 16:45h
 ## Known Limitations
 
 - **No unit tests** — The library has no `.spec.ts` files yet. The predecessor repo (`azureportalng`) has 9 Jasmine tests that can serve as templates.
-- **No router integration** — The blade stack does not sync with the browser URL. Blade states are not bookmarkable or deep-linkable.
 - **No responsive / mobile layout** — CSS has no media queries. The blade stack and panorama break on small screens.
 
 ## Related Projects

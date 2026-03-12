@@ -21,14 +21,17 @@ import { PositionedTile } from '../../models/panorama.model';
       [class.fxs-tilesize-mini]="tile().size === 'mini'"
       [class.fxs-tilesize-herowide]="tile().size === 'herowide'"
       [class.fxs-tilesize-small]="tile().size === 'small'">
-      <div class="fxs-part fxs-part-clickable"
+      <div class="fxs-part"
+           [class.fxs-part-clickable]="!tile().disabled"
            role="button"
-           tabindex="0"
+           [attr.tabindex]="tile().disabled ? -1 : 0"
            [attr.aria-label]="tile().title"
+           [attr.aria-disabled]="tile().disabled || null"
            (click)="onClick()"
            (keydown.enter)="onClick()"
            (keydown.space)="onClick(); $event.preventDefault()"
-           style="cursor:pointer;">
+           [style.cursor]="tile().disabled ? 'default' : 'pointer'"
+           [style.opacity]="tile().disabled ? 0.45 : 1">
         <header class="fxs-part-title">
           <h2 class="msportalfx-tooltip-overflow">{{ tile().title }}</h2>
           @if (tile().subtitle) {
@@ -46,6 +49,8 @@ export class TileComponent {
   readonly tileClick = output<PositionedTile>();
 
   onClick(): void {
-    this.tileClick.emit(this.tile());
+    if (!this.tile().disabled) {
+      this.tileClick.emit(this.tile());
+    }
   }
 }

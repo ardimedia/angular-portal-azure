@@ -3,7 +3,7 @@
   "servers": {
     "angular-cli": {
       "command": "npx",
-      "args": ["-y", "@angular/cli", "mcp"]
+      "args": ["-y", "@angular/cli", "mcp", "--cwd", "angular-portal-azure"]
     }
   }
 }

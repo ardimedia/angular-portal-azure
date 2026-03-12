@@ -4,6 +4,13 @@
   height: 100%;
 }
 
+/* Sidebar and blade host sit side by side within the scroll area */
+apa-sidebar, apa-blade-host {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+}
+
 label {
   display: block;
   font-size: 12px;

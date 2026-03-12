@@ -27,12 +27,14 @@ export interface BladeDefinition {
 }
 
 /** Creates a blade definition with sensible defaults.
- *  statusBar uses a getter/setter backed by a signal for zoneless change detection. */
+ *  statusBar and title use getter/setter pairs backed by signals for zoneless change detection. */
 export function createBlade(path: string, title: string, width: number = 315): BladeDefinition {
   const _statusBar = signal<StatusBarState>(clearStatusBar());
+  const _title = signal(title);
   return {
     path: path.toLowerCase(),
-    title,
+    get title(): string { return _title(); },
+    set title(value: string) { _title.set(value); },
     subtitle: '',
     width,
     isInnerHtml: true,
