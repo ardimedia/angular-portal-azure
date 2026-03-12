@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="angular-portal-azure/angular-portal-azure.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>

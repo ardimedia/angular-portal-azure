@@ -1,24 +1,44 @@
-﻿{
-  "compileOnSave": true,
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "module": "none",
-    "moduleResolution": "node",
-    "outFile": "dist/apn.js",
-    "declaration": true,
-    "sourceMap": false,
-    "emitDecoratorMetadata": true,
+    "paths": {
+      "@ardimedia/angular-portal-azure": [
+        "./dist/ardimedia/angular-portal-azure"
+      ]
+    },
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false, //should be true
-    "alwaysStrict": true,
-    "strictNullChecks": false, //should be true,
-    "lib": [ "dom", "es6", "scripthost", "es2015.promise" ]
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "scripts",
-    "tests"
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ardimedia/angular-portal-azure/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ardimedia/angular-portal-azure/tsconfig.spec.json"
+    }
   ]
 }
