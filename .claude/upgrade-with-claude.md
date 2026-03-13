@@ -1,6 +1,6 @@
 ---
 status: Stable
-updated: 2026-03-13 12:00h
+updated: 2026-03-13 13:00h
 references:
   - ../README.md — Public README with quick start guide
   - ../README-ARDIMEDIA-DEPLOYMENT.md — npm publishing workflow
@@ -517,14 +517,41 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
+### Prefix configuration
+
+By default, the router reads the route prefix dynamically from the first URL segment (e.g. `crm` from `/crm/customers`). You can override this with a fixed prefix:
+
+```typescript
+// Fixed prefix — URLs look like /app/customers/list
+provideBladeRouter({ prefix: 'app' })
+
+// No prefix — blade paths sit at the URL root: /customers/list
+provideBladeRouter({ prefix: '' })
+
+// Default (no config) — prefix is read from the first URL segment at runtime
+provideBladeRouter()
+```
+
+| `prefix` value | Example URL | Notes |
+|----------------|-------------|-------|
+| *(omitted)* | `/crm/customers/list` | Dynamic: first URL segment is the prefix |
+| `'app'` | `/app/customers/list` | Fixed prefix `app` |
+| `''` | `/customers/list` | No prefix, blade paths at root |
+
 ### Routes setup
 
 Add a wildcard route for the app prefix so Angular doesn't reject blade path segments:
 
 ```typescript
+// With a prefix (default or fixed)
 export const routes: Routes = [
   { path: 'crm', children: [{ path: '**', children: [] }] },
   { path: '', pathMatch: 'full', children: [] },
+];
+
+// With prefix: '' (no prefix) — use a top-level wildcard
+export const routes: Routes = [
+  { path: '**', children: [] },
 ];
 ```
 
@@ -538,6 +565,15 @@ Blade paths are encoded as URL path segments with matrix params for per-blade pa
 /crm/customers/list               → [customers, customers/list]
 /crm/customers/list/detail;id=1   → [customers, customers/list, customers/detail] with params {id:'1'}
 /crm/customers/detail             → [customers, customers/detail] (new customer, no id)
+```
+
+With `prefix: ''`, the same blades produce:
+
+```
+/                                 → panorama (no blades)
+/customers                        → [customers]
+/customers/list                   → [customers, customers/list]
+/customers/list/detail;id=1       → [customers, customers/list, customers/detail] with params {id:'1'}
 ```
 
 Each segment is the blade's **short name** (suffix after the parent prefix). The `BladeRouterService` resolves segments to full blade paths using the `BladeRegistry`.
@@ -567,6 +603,7 @@ const itemId = Number(existing?.params['id']) || 0;
 - Per-blade parameters survive browser refresh
 - Legacy `?blades=` query param URLs are auto-redirected to path format
 - Register blade metadata for proper restoration: `registry.register('path', Component, { title, width, params })`
+- Optional fixed prefix via `provideBladeRouter({ prefix })` for predictable URL structure
 
 Without `provideBladeRouter()`, blade navigation remains purely in-memory (default).
 
@@ -629,7 +666,7 @@ Dark mode is built-in with toggle and OS auto-detect. No additional setup needed
 `providePortalAzure(config)`, `provideBladeRouter()`
 
 **Model interfaces:**
-`BladeDefinition`, `BladeDataDefinition<T>`, `BladeDataLifecycle<T>`, `BladeCommand`, `BladeNavItem`, `BladeParameter`, `TileDefinition`, `UserAccount`, `PortalConfig`, `PortalLabels`, `LanguagePreset`, `NotificationDefinition`, `NotificationLifecycle`, `PanoramaDefinition`, `AvatarMenuDefinition`, `AvatarMenuItem`, `StatusBarState`, `ApiException`, `BladeRegistryEntry`, `AddBladeEventArgs`
+`BladeDefinition`, `BladeDataDefinition<T>`, `BladeDataLifecycle<T>`, `BladeCommand`, `BladeNavItem`, `BladeParameter`, `TileDefinition`, `UserAccount`, `PortalConfig`, `PortalLabels`, `LanguagePreset`, `NotificationDefinition`, `NotificationLifecycle`, `PanoramaDefinition`, `AvatarMenuDefinition`, `AvatarMenuItem`, `StatusBarState`, `ApiException`, `BladeRegistryEntry`, `BladeRouterConfig`, `AddBladeEventArgs`
 
 **Factory functions:**
 `createBlade()`, `createDataBlade<T>()`, `createNavItem()`, `createCommand()`, `createDetailCommands()`, `createTile()`, `createNotificationPanel()`, `createPanorama()`, `createAvatarMenu()`

@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { PortalService } from './portal.service';
 import { BladeRegistry } from './blade-registry.service';
 import { BladeDefinition, createBlade } from '../models/blade.model';
+import { BLADE_ROUTER_CONFIG, BladeRouterConfig } from './provide-blade-router';
 
 /**
  * Optional service that syncs the blade stack with the browser URL.
@@ -22,6 +23,7 @@ export class BladeRouterService {
   private readonly portal = inject(PortalService);
   private readonly registry = inject(BladeRegistry);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly config: BladeRouterConfig = inject(BLADE_ROUTER_CONFIG, { optional: true }) ?? {};
 
   private _syncingFromUrl = false;
   private _initialRestoreDone = false;
@@ -33,9 +35,11 @@ export class BladeRouterService {
       if (this._syncingFromUrl) return;
       if (blades.length === 0 && !this._initialRestoreDone) return;
 
-      const routePrefix = this.getRoutePrefix();
+      const prefix = this.getEffectivePrefix();
       const bladePath = this.encodeBladesToPath(blades);
-      const targetUrl = bladePath ? `/${routePrefix}/${bladePath}` : `/${routePrefix}`;
+      const targetUrl = prefix
+        ? (bladePath ? `/${prefix}/${bladePath}` : `/${prefix}`)
+        : (bladePath ? `/${bladePath}` : `/`);
 
       const currentPath = this.router.url.split('?')[0].split(';')[0];
       // Only navigate if the path actually changed (avoid loops)
@@ -186,13 +190,18 @@ export class BladeRouterService {
 
   /** Restore blade stack from a path-based URL */
   private restoreFromPath(url: string): void {
-    const routePrefix = this.getRoutePrefix();
+    const prefix = this.getEffectivePrefix();
     const path = url.split('?')[0]; // strip query params
-    const prefixPattern = '/' + routePrefix;
 
-    if (!path.startsWith(prefixPattern)) return;
-
-    const pathAfterPrefix = path.substring(prefixPattern.length + 1); // +1 for trailing /
+    let pathAfterPrefix: string;
+    if (prefix) {
+      const prefixPattern = '/' + prefix;
+      if (!path.startsWith(prefixPattern)) return;
+      pathAfterPrefix = path.substring(prefixPattern.length + 1); // +1 for trailing /
+    } else {
+      // No prefix: everything after the leading / is blade path
+      pathAfterPrefix = path.substring(1);
+    }
     const newBlades = this.decodeBladesFromPath(pathAfterPrefix);
     const currentPaths = this.portal.blades().map((b) => b.path);
     const newPaths = newBlades.map((b) => b.path);
@@ -265,11 +274,25 @@ export class BladeRouterService {
       return createBlade(path, entry?.title ?? path, entry?.width ?? 315);
     });
 
-    const routePrefix = this.getRoutePrefix();
+    const prefix = this.getEffectivePrefix();
     const bladePath = this.encodeBladesToPath(blades);
-    const newUrl = bladePath ? `/${routePrefix}/${bladePath}` : `/${routePrefix}`;
+    const newUrl = prefix
+      ? (bladePath ? `/${prefix}/${bladePath}` : `/${prefix}`)
+      : (bladePath ? `/${bladePath}` : `/`);
 
     // Redirect to new format
     this.router.navigateByUrl(newUrl, { replaceUrl: true });
+  }
+
+  /**
+   * Return the effective route prefix. If a prefix was configured via
+   * `provideBladeRouter({ prefix })`, use it (including empty string).
+   * Otherwise fall back to dynamically reading the first URL segment.
+   */
+  private getEffectivePrefix(): string {
+    if (this.config.prefix !== undefined) {
+      return this.config.prefix;
+    }
+    return this.getRoutePrefix();
   }
 }
