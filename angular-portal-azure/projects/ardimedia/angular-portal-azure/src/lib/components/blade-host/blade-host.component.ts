@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { PortalService } from '../../services/portal.service';
 import { BladeRegistry } from '../../services/blade-registry.service';
@@ -17,7 +17,11 @@ import { BladeComponent } from '../blade/blade.component';
  *
  * Usage:
  * ```html
+ * <!-- Default: each component is wrapped in <apa-blade> -->
  * <apa-blade-host />
+ *
+ * <!-- No wrapper: components render directly (they manage their own blade chrome) -->
+ * <apa-blade-host [wrapBlade]="false" />
  * ```
  */
 @Component({
@@ -30,13 +34,21 @@ import { BladeComponent } from '../blade/blade.component';
       <div class="fxs-journey-layout fxs-stacklayout fxs-stacklayout-horizontal">
         @for (blade of portal.blades(); track blade.uid) {
           <div class="azureportalblade fxs-stacklayout-child">
-            <apa-blade [blade]="blade">
+            @if (wrapBlade()) {
+              <apa-blade [blade]="blade">
+                @if (getComponent(blade.path); as component) {
+                  <ng-container *ngComponentOutlet="component" />
+                } @else {
+                  <p style="padding:25px; color:var(--apa-text-secondary);">{{ blade.path }}</p>
+                }
+              </apa-blade>
+            } @else {
               @if (getComponent(blade.path); as component) {
                 <ng-container *ngComponentOutlet="component" />
               } @else {
                 <p style="padding:25px; color:var(--apa-text-secondary);">{{ blade.path }}</p>
               }
-            </apa-blade>
+            }
           </div>
         }
       </div>
@@ -44,6 +56,9 @@ import { BladeComponent } from '../blade/blade.component';
   `,
 })
 export class BladeHostComponent {
+  /** Whether to wrap each component in an `<apa-blade>` element. Default: true. */
+  readonly wrapBlade = input(true);
+
   protected readonly portal = inject(PortalService);
   private readonly registry = inject(BladeRegistry);
 

@@ -1,6 +1,6 @@
 ---
 status: Stable
-updated: 2026-03-12 16:45h
+updated: 2026-03-13 12:00h
 references:
   - ../README.md — Public README with quick start guide
   - ../README-ARDIMEDIA-DEPLOYMENT.md — npm publishing workflow
@@ -145,6 +145,20 @@ The recommended approach uses `BladeRegistry` and `<apa-blade-host>` for automat
 ```
 
 Blade components are registered in `app.config.ts` (see Step 5) and rendered automatically by `<apa-blade-host>`.
+
+### BladeHostComponent inputs
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `wrapBlade` | `boolean` | `true` | Wraps each component in `<apa-blade>` (header, command bar, status bar). Set to `false` when components manage their own blade chrome. |
+
+**Wrapped mode** (default): each registered component is rendered inside `<apa-blade>`, which provides the standard blade header, close button, command bar, and status bar.
+
+**Unwrapped mode** (`[wrapBlade]="false"`): components are rendered directly via `ngComponentOutlet` without an outer `<apa-blade>` wrapper. Use this when your blade components already include their own `<apa-blade>` or a custom chrome:
+
+```html
+<apa-blade-host [wrapBlade]="false" />
+```
 
 ### BladeGridComponent inputs
 
