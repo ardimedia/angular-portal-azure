@@ -68,7 +68,10 @@
               "buildTarget": "angular-portal-azure:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4200
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test"

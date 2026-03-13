@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shell Layout Konzept</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0f13;
+    --surface: #16181f;
+    --surface2: #1e2029;
+    --border: #2a2d3a;
+    --rail-bg: #12141a;
+    --accent: #4f8ef7;
+    --accent2: #7c5cfa;
+    --accent3: #2dd4a0;
+    --text: #e8eaf0;
+    --text-muted: #6b7080;
+    --text-dim: #3d4155;
+    --active-pin: #4f8ef7;
+    --blade-1: #1a1d27;
+    --blade-2: #181b24;
+    --blade-3: #161921;
+    --tab-active: #4f8ef7;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+
+  :root.light {
+    --bg: #f0f2f7;
+    --surface: #ffffff;
+    --surface2: #e8ecf4;
+    --border: #d0d5e8;
+    --rail-bg: #f7f8fc;
+    --accent: #2563eb;
+    --accent2: #6d28d9;
+    --accent3: #059669;
+    --text: #0f1320;
+    --text-muted: #6b7280;
+    --text-dim: #c4c9d8;
+    --active-pin: #2563eb;
+    --blade-1: #ffffff;
+    --blade-2: #fafbfd;
+    --blade-3: #f5f7fb;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  /* Header */
+  .page-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .page-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+
+  /* Tab switcher */
+  .tab-bar {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--surface);
+    padding: 0.25rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    width: fit-content;
+  }
+  .tab {
+    padding: 0.45rem 1.1rem;
+    border-radius: 7px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    border: none;
+    background: none;
+    font-family: var(--sans);
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(79,142,247,0.35);
+  }
+  .tab.active-2 { background: var(--accent2); box-shadow: 0 2px 12px rgba(124,92,250,0.35); }
+  .tab.active-3 { background: var(--accent3); color: #0e1a15; box-shadow: 0 2px 12px rgba(45,212,160,0.35); }
+
+  /* Layout panels */
+  .layout-panel {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeIn 0.25s ease;
+  }
+  .layout-panel.visible { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .panel-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ───────────────────────────────
+     MOCKUP SHELL
+  ─────────────────────────────── */
+  .shell {
+    display: flex;
+    height: 480px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    position: relative;
+  }
+  .light .shell {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  /* AppRail */
+  .app-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--rail-bg);
+    border-right: 1px solid var(--border);
+    padding: 0.75rem 0;
+    gap: 0.25rem;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+  .app-rail.narrow { width: 52px; }
+  .app-rail.wide { width: 160px; align-items: flex-start; padding: 0.75rem 0.5rem; }
+
+  .rail-logo {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; color: #fff;
+    margin-bottom: 0.75rem;
+    flex-shrink: 0;
+  }
+  .rail-logo.wide { width: 100%; border-radius: 8px; padding: 0.3rem 0.6rem; font-size: 0.75rem; }
+
+  .pin {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+  .pin:hover { background: var(--surface2); }
+  .pin.active { background: rgba(79,142,247,0.15); }
+  .pin.active .pin-icon { color: var(--accent); }
+  .pin::before {
+    content: '';
+    position: absolute;
+    left: -6px; top: 50%; transform: translateY(-50%);
+    width: 3px; height: 20px;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .pin.active::before { opacity: 1; }
+
+  .pin-wide {
+    width: 100%; height: 34px;
+    border-radius: 7px;
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0 0.6rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .pin-wide:hover { background: var(--surface2); }
+  .pin-wide.active { background: rgba(79,142,247,0.15); }
+  .pin-wide.active .pin-icon { color: var(--accent); }
+  .pin-wide.active .pin-label { color: var(--text); }
+
+  .pin-icon { font-size: 1rem; color: var(--text-muted); transition: color 0.15s; }
+  .pin-label { font-size: 0.73rem; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
+  .pin-spacer { flex: 1; }
+  .pin-divider { width: 24px; height: 1px; background: var(--border); margin: 0.25rem 0; }
+  .pin-divider.wide { width: 100%; }
+
+  /* NavPane */
+  .nav-pane {
+    width: 200px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .nav-pane-header {
+    padding: 0.75rem 1rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.12s;
+    position: relative;
+  }
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+  .nav-item.active {
+    background: rgba(79,142,247,0.1);
+    color: var(--accent);
+  }
+  .nav-item.active::before {
+    content: '';
+    position: absolute; left: 0; top: 20%; bottom: 20%;
+    width: 2px; background: var(--accent); border-radius: 1px;
+  }
+  .nav-icon { font-size: 0.85rem; }
+  .nav-badge {
+    margin-left: auto;
+    background: var(--accent2);
+    color: #fff;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 99px;
+    font-family: var(--mono);
+  }
+  .nav-group-label {
+    padding: 0.8rem 1rem 0.3rem;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--mono);
+  }
+
+  /* TrailBar */
+  .trail-bar {
+    height: 42px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+  .trail-crumb {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    transition: all 0.12s;
+  }
+  .trail-crumb:hover { background: var(--surface2); color: var(--text); }
+  .trail-crumb.current { color: var(--text); font-weight: 600; }
+  .trail-sep { color: var(--text-dim); font-size: 0.7rem; }
+
+  /* Workspace */
+  .workspace {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  /* Blades (Azure style) */
+  .blade-stack {
+    display: flex;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .blade-stack::-webkit-scrollbar { height: 4px; }
+  .blade-stack::-webkit-scrollbar-track { background: transparent; }
+  .blade-stack::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .blade {
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  .blade.sm { width: 220px; }
+  .blade.md { width: 320px; }
+  .blade.lg { width: 420px; }
+
+  .blade-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .blade-title { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+  .blade-subtitle { font-size: 0.65rem; color: var(--text-muted); margin-top: 0.1rem; font-family: var(--mono); }
+  .blade-close {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: all 0.12s;
+  }
+  .blade-close:hover { background: var(--surface2); color: var(--text); }
+
+  .blade-body { flex: 1; padding: 0.75rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; }
+  .blade-body::-webkit-scrollbar { width: 3px; }
+  .blade-body::-webkit-scrollbar-thumb { background: var(--border); }
+
+  /* Content placeholders */
+  .content-block {
+    background: var(--surface2);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    padding: 0.65rem 0.75rem;
+  }
+  .content-block-title { font-size: 0.7rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+  .content-block-body { font-size: 0.65rem; color: var(--text-muted); line-height: 1.5; }
+
+  .placeholder-line {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border);
+    margin-bottom: 0.35rem;
+  }
+  .placeholder-line.short { width: 40%; }
+  .placeholder-line.med { width: 70%; }
+  .placeholder-line.full { width: 100%; }
+  .placeholder-line.shimmer {
+    background: linear-gradient(90deg, var(--border) 0%, var(--surface2) 50%, var(--border) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .stat-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .stat-box {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.5rem;
+  }
+  .stat-val { font-size: 1rem; font-weight: 700; color: var(--text); font-family: var(--mono); }
+  .stat-key { font-size: 0.6rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.25rem; }
+  .chip {
+    font-size: 0.62rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+  .chip.accent { border-color: var(--accent); color: var(--accent); background: rgba(79,142,247,0.08); }
+  .chip.green { border-color: var(--accent3); color: var(--accent3); background: rgba(45,212,160,0.08); }
+
+  /* Main content area (non-blade) */
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-y: auto;
+  }
+
+  .content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+  }
+  .content-title { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+  .content-actions { display: flex; gap: 0.4rem; }
+  .btn-sm {
+    font-size: 0.68rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  .btn-sm.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+
+  .table-mock { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+  .table-mock th { text-align: left; padding: 0.35rem 0.5rem; color: var(--text-muted); font-weight: 500; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .table-mock td { padding: 0.35rem 0.5rem; color: var(--text); border-bottom: 1px solid rgba(42,45,58,0.5); }
+  .table-mock tr:hover td { background: var(--surface2); }
+
+  .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 0.35rem; }
+  .status-dot.green { background: var(--accent3); }
+  .status-dot.yellow { background: #f59e0b; }
+  .status-dot.red { background: #f87171; }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; color: var(--text-muted); }
+  .legend-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+  /* Description */
+  .desc-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .desc-col { flex: 1; min-width: 140px; }
+  .desc-col-title { font-size: 0.68rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; font-family: var(--mono); }
+  .desc-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+  .desc-col li { font-size: 0.75rem; color: var(--text); display: flex; gap: 0.4rem; align-items: flex-start; }
+  .desc-col li::before { content: '–'; color: var(--text-dim); flex-shrink: 0; margin-top: 0.05rem; }
+
+  /* Theme toggle */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 0.73rem;
+    color: var(--text-muted);
+    transition: all 0.18s ease;
+  }
+  .theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+  .theme-toggle .toggle-icon { font-size: 0.9rem; transition: transform 0.3s ease; }
+  .light .theme-toggle .toggle-icon { transform: rotate(180deg); }
+  .toggle-track {
+    width: 32px; height: 18px;
+    border-radius: 99px;
+    background: var(--border);
+    position: relative;
+    transition: background 0.2s;
+  }
+  .light .toggle-track { background: var(--accent); }
+  .toggle-thumb {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 3px; left: 3px;
+    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .light .toggle-thumb { transform: translateX(14px); }
+
+  /* Light mode legend swatches override */
+  .light .legend-swatch-rail { background: #f7f8fc !important; }
+  .light .legend-swatch-surface { background: #ffffff !important; }
+  .light .legend-swatch-bg { background: #f0f2f7 !important; }
+  .light .legend-swatch-blade1 { background: #ffffff !important; }
+  .light .legend-swatch-blade2 { background: #fafbfd !important; }
+  .light .legend-swatch-blade3 { background: #f5f7fb !important; }
+    width: 12px;
+    background: repeating-linear-gradient(0deg, transparent, transparent 4px, var(--border) 4px, var(--border) 5px);
+    flex-shrink: 0;
+  }
+
+  .active-indicator {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    position: absolute;
+    top: 0; left: 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <span class="page-title">Shell Layout Konzept</span>
+  <span class="page-subtitle">AppShell · BladeShell · Layout Varianten</span>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+    <span class="toggle-icon">🌙</span>
+    <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    <span id="themeLabel">Light</span>
+  </button>
+</header>
+
+<!-- Tab Bar -->
+<div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+  <div class="tab-bar">
+    <button class="tab active" id="tab1" onclick="showPanel(1)">① AppRail + NavPane</button>
+    <button class="tab" id="tab2" onclick="showPanel(2)">② AppRail + TrailBar</button>
+    <button class="tab" id="tab3" onclick="showPanel(3)">③ BladeShell</button>
+  </div>
+  <span style="font-size:0.72rem; color:var(--text-muted); font-family:var(--mono);">← klicken zum wechseln</span>
+</div>
+
+<!-- ═══════════════════════════════
+     PANEL 1: AppRail + NavPane
+═══════════════════════════════ -->
+<div class="layout-panel visible" id="panel1">
+  <span class="panel-label">AppShell — Variante A: AppRail (narrow) + NavPane als Seitenleiste</span>
+
+  <div class="shell">
+    <!-- AppRail (narrow) -->
+    <div class="app-rail narrow">
+      <div class="rail-logo">A</div>
+      <div class="pin active" title="Dashboard"><span class="pin-icon">⊞</span></div>
+      <div class="pin" title="Aufträge"><span class="pin-icon">📋</span></div>
+      <div class="pin" title="Kunden"><span class="pin-icon">👤</span></div>
+      <div class="pin" title="Produkte"><span class="pin-icon">📦</span></div>
+      <div class="pin-divider"></div>
+      <div class="pin" title="Berichte"><span class="pin-icon">📊</span></div>
+      <div class="pin" title="Einstellungen"><span class="pin-icon">⚙</span></div>
+      <div class="pin-spacer"></div>
+      <div class="pin" title="Profil"><span class="pin-icon">◉</span></div>
+    </div>
+
+    <!-- NavPane -->
+    <div class="nav-pane">
+      <div class="nav-pane-header">Dashboard</div>
+      <div class="nav-group-label">Übersicht</div>
+      <div class="nav-item active"><span class="nav-icon">⊡</span> Kennzahlen</div>
+      <div class="nav-item"><span class="nav-icon">◈</span> Aktivität</div>
+      <div class="nav-item"><span class="nav-icon">⟳</span> Live-Status <span class="nav-badge">3</span></div>
+      <div class="nav-group-label">Analyse</div>
+      <div class="nav-item"><span class="nav-icon">∿</span> Trends</div>
+      <div class="nav-item"><span class="nav-icon">◫</span> Vergleiche</div>
+      <div class="nav-item"><span class="nav-icon">⊹</span> Export</div>
+    </div>
+
+    <!-- Workspace / Content -->
+    <div class="workspace">
+      <div class="main-content">
+        <div class="content-header">
+          <div class="content-title">Kennzahlen</div>
+          <div class="content-actions">
+            <button class="btn-sm">↓ Export</button>
+            <button class="btn-sm primary">+ Neu</button>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="stat-box"><div class="stat-val">1'284</div><div class="stat-key">Aufträge (MTD)</div></div>
+          <div class="stat-box"><div class="stat-val">94.2%</div><div class="stat-key">Lieferquote</div></div>
+          <div class="stat-box"><div class="stat-val">12</div><div class="stat-key">Offen</div></div>
+        </div>
+        <div class="content-block">
+          <div class="content-block-title">Letzte Aktivitäten</div>
+          <table class="table-mock">
+            <thead><tr><th>Ref</th><th>Kunde</th><th>Status</th><th>Betrag</th></tr></thead>
+            <tbody>
+              <tr><td style="font-family:var(--mono)">A-4421</td><td>Müller AG</td><td><span class="status-dot green"></span>Bereit</td><td style="font-family:var(--mono)">2'400</td></tr>
+              <tr><td style="font-family:var(--mono)">A-4420</td><td>Becker & Co</td><td><span class="status-dot yellow"></span>In Arbeit</td><td style="font-family:var(--mono)">870</td></tr>
+              <tr><td style="font-family:var(--mono)">A-4419</td><td>TechDruck GmbH</td><td><span class="status-dot red"></span>Verzug</td><td style="font-family:var(--mono)">5'100</td></tr>
+              <tr><td style="font-family:var(--mono)">A-4418</td><td>Keller Medien</td><td><span class="status-dot green"></span>Bereit</td><td style="font-family:var(--mono)">1'220</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="content-block">
+          <div class="content-block-title">Tags</div>
+          <div class="chip-row">
+            <span class="chip accent">Druckauftrag</span>
+            <span class="chip green">Termingerecht</span>
+            <span class="chip">PDF</span>
+            <span class="chip">Offset</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch legend-swatch-rail" style="border:1px solid var(--border)"></div> AppRail (narrow, 52px)</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch-surface" style="border:1px solid var(--border)"></div> NavPane (200px, kontextuell)</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch-bg" style="border:1px solid var(--border)"></div> Workspace / Hauptinhalt</div>
+  </div>
+
+  <div class="desc-box">
+    <div class="desc-col">
+      <div class="desc-col-title">Wann verwenden</div>
+      <ul>
+        <li>Viele Unterpunkte pro App</li>
+        <li>Nutzer wechselt oft zwischen Sektionen</li>
+        <li>Desktop-First Anwendung</li>
+      </ul>
+    </div>
+    <div class="desc-col">
+      <div class="desc-col-title">Komponenten</div>
+      <ul>
+        <li><strong>AppRail</strong> — linke App-Leiste</li>
+        <li><strong>AppPin</strong> — einzelner Eintrag</li>
+        <li><strong>NavPane</strong> — Unternavigation</li>
+        <li><strong>Workspace</strong> — Inhalt</li>
+      </ul>
+    </div>
+    <div class="desc-col">
+      <div class="desc-col-title">Verhalten</div>
+      <ul>
+        <li>NavPane klappt ein/aus</li>
+        <li>Rail bleibt immer sichtbar</li>
+        <li>Aktiver Pin zeigt NavPane</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     PANEL 2: AppRail + TrailBar
+═══════════════════════════════ -->
+<div class="layout-panel" id="panel2">
+  <span class="panel-label">AppShell — Variante B: AppRail (wide) + TrailBar als Breadcrumb oben</span>
+
+  <div class="shell" style="flex-direction:column;">
+    <!-- TrailBar oben (full width) -->
+    <div class="trail-bar">
+      <span class="trail-crumb">⊞ Dashboard</span>
+      <span class="trail-sep">›</span>
+      <span class="trail-crumb">Aufträge</span>
+      <span class="trail-sep">›</span>
+      <span class="trail-crumb current">A-4421 · Müller AG</span>
+      <div style="flex:1"></div>
+      <span style="font-size:0.68rem; color:var(--text-muted); font-family:var(--mono);">TrailBar</span>
+    </div>
+
+    <div style="display:flex; flex:1; overflow:hidden;">
+      <!-- AppRail (wide) -->
+      <div class="app-rail wide">
+        <div class="rail-logo wide">⊞ AppShell</div>
+        <div class="pin-wide active"><span class="pin-icon">⊞</span><span class="pin-label">Dashboard</span></div>
+        <div class="pin-wide"><span class="pin-icon">📋</span><span class="pin-label">Aufträge</span></div>
+        <div class="pin-wide"><span class="pin-icon">👤</span><span class="pin-label">Kunden</span></div>
+        <div class="pin-wide"><span class="pin-icon">📦</span><span class="pin-label">Produkte</span></div>
+        <div class="pin-divider wide"></div>
+        <div class="pin-wide"><span class="pin-icon">📊</span><span class="pin-label">Berichte</span></div>
+        <div class="pin-spacer"></div>
+        <div class="pin-divider wide"></div>
+        <div class="pin-wide"><span class="pin-icon">⚙</span><span class="pin-label">Einstellungen</span></div>
+        <div class="pin-wide"><span class="pin-icon">◉</span><span class="pin-label">Max Muster</span></div>
+      </div>
+
+      <!-- Workspace (kein NavPane, Navigation via TrailBar) -->
+      <div class="workspace">
+        <div class="main-content">
+          <div class="content-header">
+            <div>
+              <div class="content-title">Auftrag A-4421</div>
+              <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.15rem;">Müller AG · Erstellt 10.03.2026</div>
+            </div>
+            <div class="content-actions">
+              <button class="btn-sm">← Zurück</button>
+              <button class="btn-sm primary">✓ Freigeben</button>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="content-block">
+              <div class="content-block-title">Auftragsdaten</div>
+              <div class="content-block-body">
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;"><span>Format</span><span style="color:var(--text);">A4 Hochformat</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;"><span>Auflage</span><span style="color:var(--text);">2'000 Stk.</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;"><span>Papier</span><span style="color:var(--text);">135g matt</span></div>
+                <div style="display:flex; justify-content:space-between;"><span>Termin</span><span style="color:var(--accent3);">18.03.2026</span></div>
+              </div>
+            </div>
+            <div class="content-block">
+              <div class="content-block-title">Status & Verlauf</div>
+              <div class="content-block-body" style="display:flex; flex-direction:column; gap:0.4rem;">
+                <div style="display:flex; align-items:center; gap:0.5rem;"><span class="status-dot green"></span><span style="color:var(--text)">PDF geprüft</span></div>
+                <div style="display:flex; align-items:center; gap:0.5rem;"><span class="status-dot green"></span><span style="color:var(--text)">Freigabe Kunde</span></div>
+                <div style="display:flex; align-items:center; gap:0.5rem;"><span class="status-dot yellow"></span><span style="color:var(--text)">Druckfreigabe intern</span></div>
+                <div style="display:flex; align-items:center; gap:0.5rem;"><span class="status-dot" style="background:var(--border)"></span><span>Produktion</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-block">
+            <div class="content-block-title">Notizen</div>
+            <div class="placeholder-line full shimmer"></div>
+            <div class="placeholder-line med shimmer"></div>
+            <div class="placeholder-line short shimmer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch legend-swatch-rail" style="border:1px solid var(--border)"></div> AppRail (wide, 160px, mit Text)</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch-surface" style="border:1px solid var(--border)"></div> TrailBar (oben, Breadcrumb)</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch-bg" style="border:1px solid var(--border)"></div> Workspace (volle Breite)</div>
+  </div>
+
+  <div class="desc-box">
+    <div class="desc-col">
+      <div class="desc-col-title">Wann verwenden</div>
+      <ul>
+        <li>Tiefe Navigationshierarchie</li>
+        <li>Viel Platz für Inhalte nötig</li>
+        <li>Nutzer navigiert linear (Wizard)</li>
+      </ul>
+    </div>
+    <div class="desc-col">
+      <div class="desc-col-title">Komponenten</div>
+      <ul>
+        <li><strong>AppRail</strong> — wide Modus</li>
+        <li><strong>AppPin</strong> — mit Label</li>
+        <li><strong>TrailBar</strong> — Breadcrumb oben</li>
+        <li><strong>Workspace</strong> — volle Breite</li>
+      </ul>
+    </div>
+    <div class="desc-col">
+      <div class="desc-col-title">Verhalten</div>
+      <ul>
+        <li>TrailBar zeigt Navigationspfad</li>
+        <li>Klick auf Crumb navigiert zurück</li>
+        <li>Rail kann togglebar sein (narrow/wide)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     PANEL 3: BladeShell (Azure)
+═══════════════════════════════ -->
+<div class="layout-panel" id="panel3">
+  <span class="panel-label">BladeShell — Bestehend: Azure-artiges horizontales Blade-System</span>
+
+  <div class="shell">
+    <div class="blade-stack">
+
+      <!-- Blade 1: Nav/Index -->
+      <div class="blade sm" style="background:var(--blade-1);">
+        <div class="active-indicator"></div>
+        <div class="blade-header">
+          <div><div class="blade-title">Aufträge</div><div class="blade-subtitle">INDEX BLADE</div></div>
+          <div class="blade-close">✕</div>
+        </div>
+        <div class="blade-body">
+          <div class="nav-item active" style="border-radius:6px;"><span class="nav-icon">📋</span> A-4421 · Müller AG</div>
+          <div class="nav-item" style="border-radius:6px;"><span class="nav-icon">📋</span> A-4420 · Becker</div>
+          <div class="nav-item" style="border-radius:6px;"><span class="nav-icon">📋</span> A-4419 · TechDruck</div>
+          <div class="nav-item" style="border-radius:6px;"><span class="nav-icon">📋</span> A-4418 · Keller</div>
+          <div class="nav-item" style="border-radius:6px;"><span class="nav-icon">📋</span> A-4417 · Graf AG</div>
+          <div class="nav-item" style="border-radius:6px;"><span class="nav-icon">📋</span> A-4416 · Vogt</div>
+        </div>
+      </div>
+
+      <!-- Blade 2: Detail -->
+      <div class="blade md" style="background:var(--blade-2);">
+        <div class="active-indicator" style="background: linear-gradient(90deg, var(--accent2), var(--accent));"></div>
+        <div class="blade-header">
+          <div><div class="blade-title">A-4421 · Müller AG</div><div class="blade-subtitle">DETAIL BLADE</div></div>
+          <div class="blade-close">✕</div>
+        </div>
+        <div class="blade-body">
+          <div class="stat-row">
+            <div class="stat-box"><div class="stat-val">2k</div><div class="stat-key">Auflage</div></div>
+            <div class="stat-box"><div class="stat-val" style="color:var(--accent3)">18.3</div><div class="stat-key">Termin</div></div>
+          </div>
+          <div class="content-block">
+            <div class="content-block-title">Spezifikation</div>
+            <div class="content-block-body">A4, 135g matt, 4/4 Farben, Klebebindung</div>
+          </div>
+          <div class="content-block">
+            <div class="content-block-title">Aktionen</div>
+            <div style="display:flex; flex-direction:column; gap:0.35rem; margin-top:0.25rem;">
+              <div class="nav-item active" style="border-radius:6px; font-size:0.73rem; cursor:pointer;">→ PDF Details öffnen</div>
+              <div class="nav-item" style="border-radius:6px; font-size:0.73rem; cursor:pointer;">→ Produktion ansehen</div>
+              <div class="nav-item" style="border-radius:6px; font-size:0.73rem; cursor:pointer;">→ Rechnung erstellen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blade 3: Sub-detail -->
+      <div class="blade lg" style="background:var(--blade-3);">
+        <div class="active-indicator" style="background: linear-gradient(90deg, var(--accent3), var(--accent2));"></div>
+        <div class="blade-header">
+          <div><div class="blade-title">PDF Details</div><div class="blade-subtitle">SUB BLADE</div></div>
+          <div class="blade-close">✕</div>
+        </div>
+        <div class="blade-body">
+          <div class="grid-2">
+            <div class="content-block">
+              <div class="content-block-title">Preflight</div>
+              <div class="content-block-body" style="display:flex;flex-direction:column;gap:0.3rem;">
+                <div><span class="status-dot green"></span><span style="color:var(--text)">Farbprofil OK</span></div>
+                <div><span class="status-dot green"></span><span style="color:var(--text)">Anschnitt OK</span></div>
+                <div><span class="status-dot yellow"></span><span style="color:var(--text)">Schriften teilw.</span></div>
+              </div>
+            </div>
+            <div class="content-block">
+              <div class="content-block-title">Datei-Info</div>
+              <div class="content-block-body">
+                <div>Seiten: <span style="color:var(--text)">8</span></div>
+                <div>Grösse: <span style="color:var(--text)">24.7 MB</span></div>
+                <div>ICC: <span style="color:var(--text)">ISO Coated</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-block">
+            <div class="content-block-title">Vorschau (Seite 1)</div>
+            <div style="height:80px; background: var(--surface); border-radius:4px; display:flex;align-items:center;justify-content:center;color:var(--text-dim); font-size:0.7rem; font-family:var(--mono);">[ PDF PREVIEW ]</div>
+          </div>
+          <div class="chip-row">
+            <span class="chip">CMYK</span>
+            <span class="chip accent">Freigabe ausstehend</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch legend-swatch-blade1" style="border:1px solid var(--border)"></div> Index Blade (Navigationsliste)</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch-blade2" style="border:1px solid var(--border)"></div> Detail Blade</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch-blade3" style="border:1px solid var(--border)"></div> Sub-Blade (weiterer Kontext)</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg, var(--accent), var(--accent2)); border:none"></div> Aktiver Blade-Indikator</div>
+  </div>
+
+  <div class="desc-box">
+    <div class="desc-col">
+      <div class="desc-col-title">Wann verwenden</div>
+      <ul>
+        <li>Kontextuelle Drill-Down Navigation</li>
+        <li>Parallele Vergleiche</li>
+        <li>Azure Portal-ähnliche UX</li>
+      </ul>
+    </div>
+    <div class="desc-col">
+      <div class="desc-col-title">Komponenten</div>
+      <ul>
+        <li><strong>BladeStack</strong> — Container</li>
+        <li><strong>Blade</strong> — einzelnes Panel</li>
+        <li><strong>IndexBlade</strong> — Navigationsliste</li>
+        <li><strong>DetailBlade</strong> — Inhalt</li>
+      </ul>
+    </div>
+    <div class="desc-col">
+      <div class="desc-col-title">Verhalten</div>
+      <ul>
+        <li>Blades öffnen rechts daneben</li>
+        <li>Schliessen entfernt rechte Blades</li>
+        <li>Horizontal scrollbar</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPanel(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById('panel'+i).classList.toggle('visible', i===n);
+    const t = document.getElementById('tab'+i);
+    t.classList.remove('active','active-2','active-3');
+  });
+  const t = document.getElementById('tab'+n);
+  if(n===1) t.classList.add('active');
+  if(n===2) t.classList.add('active-2');
+  if(n===3) t.classList.add('active-3');
+}
+
+let isLight = false;
+function toggleTheme() {
+  isLight = !isLight;
+  document.documentElement.classList.toggle('light', isLight);
+  document.getElementById('themeLabel').textContent = isLight ? 'Dark' : 'Light';
+  document.querySelector('.theme-toggle .toggle-icon').textContent = isLight ? '☀️' : '🌙';
+}
+</script>
+</body>
+</html>
