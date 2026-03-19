@@ -501,7 +501,7 @@ this.portal.showNotification('alerts', 300, {
 });
 ```
 
-## Step 10: URL-synced blade routing (optional)
+## Step 10: URL-synced blade routing
 
 Add `provideBladeRouter()` to sync the blade stack with the browser URL using path segments:
 
